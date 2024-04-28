@@ -1,0 +1,560 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E4DF5A39-0D74-403C-84EB-C2C5C961672E}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WebAuditorias</RootNamespace>
+    <AssemblyName>WebAuditorias</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44393</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AspNetDependencyInjection, Version=4.0.7233.38877, Culture=neutral, PublicKeyToken=f30c056d3cb8b991, processorArchitecture=MSIL">
+      <HintPath>..\packages\Jehoel.AspNetDependencyInjection.4.0.0\lib\net472\AspNetDependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.7.0.0\lib\net462\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.7.0.0\lib\net462\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Unity.Abstractions, Version=5.11.7.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.11.10\lib\net48\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Container, Version=5.11.11.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.11.10\lib\net48\Unity.Container.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.WebForms, Version=1.4.5797.27456, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.WebForms.1.4.0.0\lib\net40\Unity.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Consola.aspx" />
+    <Content Include="Fonts\fontawesome-webfont.svg" />
+    <Content Include="Images\AgregaGasto.png" />
+    <Content Include="Images\AgregaPlantilla.png" />
+    <Content Include="Images\AgregaProceso.png" />
+    <Content Include="Images\AgregaTarea.png" />
+    <Content Include="Images\Buscar.png" />
+    <Content Include="Images\CargaArchivo.png" />
+    <Content Include="Images\Eliminar.png" />
+    <Content Include="Images\FondoWebAuditoria.jpg" />
+    <Content Include="Images\Guardar.png" />
+    <Content Include="Images\GuardarComo.png" />
+    <Content Include="Images\LogoRomeroyAsociados.png" />
+    <Content Include="Images\Nuevo.png" />
+    <Content Include="Images\PowerButton.png" />
+    <Content Include="Inicio.aspx" />
+    <Content Include="Scripts\Auditorias.js" />
+    <Content Include="Scripts\CatalogoGastos.js" />
+    <Content Include="Scripts\CatalogoPlantillas.js" />
+    <Content Include="Scripts\CatalogoProcesos.js" />
+    <Content Include="Scripts\CatalogoTareas.js" />
+    <Content Include="Scripts\Consola.js" />
+    <Content Include="Scripts\Cotizaciones.js" />
+    <Content Include="Scripts\ej2.min.js" />
+    <Content Include="Scripts\Monedas.js" />
+    <Content Include="Scripts\PlantillaCheques.js" />
+    <Content Include="Scripts\Responsables.js" />
+    <Content Include="Styles\Custom-Grid-Font.css" />
+    <Content Include="Styles\Custom-Grid.css" />
+    <Content Include="Styles\Custom-Inicio.css" />
+    <Content Include="Styles\Custom-Menu.css" />
+    <Content Include="Styles\Custom-Opciones.css" />
+    <Content Include="Styles\Custom-Toolbar.css" />
+    <Content Include="Styles\font-awesome.min.css" />
+    <Content Include="Styles\material.css" />
+    <Content Include="Views\Auditorias.aspx" />
+    <Content Include="Views\CatalogoGastos.aspx" />
+    <Content Include="Views\CatalogoPlantillas.aspx" />
+    <Content Include="Views\CatalogoProcesos.aspx" />
+    <Content Include="Views\CatalogoTareas.aspx" />
+    <Content Include="Views\Cotizaciones.aspx" />
+    <Content Include="Views\Monedas.aspx" />
+    <Content Include="Views\Plantilla.aspx" />
+    <Content Include="Views\PlantillaCheques.aspx" />
+    <Content Include="Views\PlantillaComisiones.aspx" />
+    <Content Include="Views\PlantillaIngresos.aspx" />
+    <Content Include="Views\PlantillaMutuos.aspx" />
+    <Content Include="Views\PlantillaPagos.aspx" />
+    <Content Include="Views\PlantillaPlanillas.aspx" />
+    <Content Include="Views\PlantillaReembolsos.aspx" />
+    <Content Include="Views\PlantillaRegalias.aspx" />
+    <Content Include="Views\PlantillaRegularizaciones.aspx" />
+    <Content Include="Views\PlantillaTransferencias.aspx" />
+    <Content Include="Views\PlantillaTributos.aspx" />
+    <Content Include="Views\Responsables.aspx" />
+    <Content Include="Views\Responsables1.aspx" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\UnityWebFormsStart.cs" />
+    <Compile Include="Consola.aspx.cs">
+      <DependentUpon>Consola.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Consola.aspx.designer.cs">
+      <DependentUpon>Consola.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\AuditoriaAsignacion\AuditoriaAsignacionController.cs" />
+    <Compile Include="Controllers\AuditoriaDocumentoProcesos\AuditoriaDocumentoProcesosController.cs" />
+    <Compile Include="Controllers\AuditoriaDocumentos\AuditoriaDocumentosController.cs" />
+    <Compile Include="Controllers\AuditoriaDocumentos\CargaPlantillaChequesController.cs" />
+    <Compile Include="Controllers\AuditoriaGastos\AuditoriaGastosController.cs" />
+    <Compile Include="Controllers\Auditorias\AuditoriasController.cs" />
+    <Compile Include="Controllers\AuditoriaTareaProcesos\AuditoriaTareaProcesosController.cs" />
+    <Compile Include="Controllers\AuditoriaTareas\AuditoriaTareasController.cs" />
+    <Compile Include="Controllers\CatalogoGastos\CatalogoGastosController.cs" />
+    <Compile Include="Controllers\CatalogoPlantillas\CatalogoPlantillasController.cs" />
+    <Compile Include="Controllers\CatalogoProcesos\CatalogoProcesosController.cs" />
+    <Compile Include="Controllers\CatalogoTareas\CatalogoTareasController.cs" />
+    <Compile Include="Controllers\Cookies\UserInfoCookieController.cs" />
+    <Compile Include="Controllers\Cotizaciones\CotizacionesController.cs" />
+    <Compile Include="Controllers\Empresas\EmpresasController.cs" />
+    <Compile Include="Controllers\Login\LoginController.cs" />
+    <Compile Include="Controllers\Monedas\MonedasController.cs" />
+    <Compile Include="Controllers\Oficinas\OficinasController.cs" />
+    <Compile Include="Controllers\Responsables\ResponsablesController.cs" />
+    <Compile Include="Controllers\Transacciones\TransaccionesUsuarioController.cs" />
+    <Compile Include="Controllers\UsuarioOficina\UsuarioOficinaController.cs" />
+    <Compile Include="Controllers\Usuarios\UsuariosController.cs" />
+    <Compile Include="Inicio.aspx.cs">
+      <DependentUpon>Inicio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inicio.aspx.designer.cs">
+      <DependentUpon>Inicio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Interfaces\AuditoriaAsignacion\IAuditoriaAsignacionController.cs" />
+    <Compile Include="Interfaces\AuditoriaAsignacion\IAuditoriaAsignacionService.cs" />
+    <Compile Include="Interfaces\AuditoriaDocumentoProcesos\IAuditoriaDocumentoProcesosController.cs" />
+    <Compile Include="Interfaces\AuditoriaDocumentoProcesos\IAuditoriaDocumentoProcesosService.cs" />
+    <Compile Include="Interfaces\AuditoriaDocumentos\IAuditoriaDocumentosController.cs" />
+    <Compile Include="Interfaces\AuditoriaDocumentos\IAuditoriaDocumentosService.cs" />
+    <Compile Include="Interfaces\AuditoriaGastos\IAuditoriaGastosController.cs" />
+    <Compile Include="Interfaces\AuditoriaGastos\IAuditoriaGastosService.cs" />
+    <Compile Include="Interfaces\Auditorias\IAuditoriasController.cs" />
+    <Compile Include="Interfaces\Auditorias\IAuditoriasService.cs" />
+    <Compile Include="Interfaces\AuditoriaTareaProcesos\IAuditoriaTareaProcesosController.cs" />
+    <Compile Include="Interfaces\AuditoriaTareaProcesos\IAuditoriaTareaProcesosService.cs" />
+    <Compile Include="Interfaces\AuditoriaTareas\IAuditoriaTareasController.cs" />
+    <Compile Include="Interfaces\AuditoriaTareas\IAuditoriaTareasService.cs" />
+    <Compile Include="Interfaces\CatalogoGastos\ICatalogoGastosController.cs" />
+    <Compile Include="Interfaces\CatalogoGastos\ICatalogoGastosService.cs" />
+    <Compile Include="Interfaces\CatalogoPlantillas\ICatalogoPlantillasController.cs" />
+    <Compile Include="Interfaces\CatalogoPlantillas\ICatalogoPlantillasService.cs" />
+    <Compile Include="Interfaces\CatalogoProcesos\ICatalogoProcesosController.cs" />
+    <Compile Include="Interfaces\CatalogoProcesos\ICatalogoProcesosService.cs" />
+    <Compile Include="Interfaces\CatalogoTareas\ICatalogoTareasController.cs" />
+    <Compile Include="Interfaces\CatalogoTareas\ICatalogoTareasService.cs" />
+    <Compile Include="Interfaces\Cookies\IUserInfoCookieController.cs" />
+    <Compile Include="Interfaces\Cotizaciones\ICotizacionesService.cs" />
+    <Compile Include="Interfaces\Cotizaciones\ICotizacionesController.cs" />
+    <Compile Include="Interfaces\Empresas\IEmpresasController.cs" />
+    <Compile Include="Interfaces\Empresas\IEmpresasService.cs" />
+    <Compile Include="Interfaces\Login\ILoginController.cs" />
+    <Compile Include="Interfaces\Login\ILoginService.cs" />
+    <Compile Include="Interfaces\Monedas\IMonedasController.cs" />
+    <Compile Include="Interfaces\Monedas\IMonedasService.cs" />
+    <Compile Include="Interfaces\Oficinas\IOficinasController.cs" />
+    <Compile Include="Interfaces\Oficinas\IOficinasService.cs" />
+    <Compile Include="Interfaces\Operador\IOperadorService.cs" />
+    <Compile Include="Interfaces\Responsables\IResponsablesController.cs" />
+    <Compile Include="Interfaces\Responsables\IResponsablesService.cs" />
+    <Compile Include="Interfaces\Transacciones\ITransaccionesUsuarioController.cs" />
+    <Compile Include="Interfaces\UsuarioOficina\IUsuarioOficinaController.cs" />
+    <Compile Include="Interfaces\UsuarioOficina\IUsuarioOficinaService.cs" />
+    <Compile Include="Interfaces\Usuarios\IUsuariosController.cs" />
+    <Compile Include="Interfaces\Usuarios\IUsuariosService.cs" />
+    <Compile Include="Models\AuditoriaAsignacion.cs" />
+    <Compile Include="Models\AuditoriaDocumentoProcesos.cs" />
+    <Compile Include="Models\AuditoriaDocumentos.cs" />
+    <Compile Include="Models\AuditoriaGastos.cs" />
+    <Compile Include="Models\Auditorias.cs" />
+    <Compile Include="Models\AuditoriaTareaProcesos.cs" />
+    <Compile Include="Models\AuditoriaTareas.cs" />
+    <Compile Include="Models\Bases\Plantilla_Cheques_Base.cs" />
+    <Compile Include="Models\Bases\Plantilla_Comisiones_Base.cs" />
+    <Compile Include="Models\Bases\Plantilla_Ingresos_Base.cs" />
+    <Compile Include="Models\Bases\Plantilla_Mutuos_Base.cs" />
+    <Compile Include="Models\Bases\Plantilla_Pagos_Base.cs" />
+    <Compile Include="Models\Bases\Plantilla_Planillas_Base.cs" />
+    <Compile Include="Models\Bases\Plantilla_Reembolsos_Base.cs" />
+    <Compile Include="Models\Bases\Plantilla_Regalias_Base.cs" />
+    <Compile Include="Models\Bases\Plantilla_Regularizaciones_Base.cs" />
+    <Compile Include="Models\Bases\Plantilla_Transferencias_Base.cs" />
+    <Compile Include="Models\Bases\Plantilla_Tributos_Base.cs" />
+    <Compile Include="Models\CatalogoGastos.cs" />
+    <Compile Include="Models\CatalogoPlantillas.cs" />
+    <Compile Include="Models\CatalogoProcesos.cs" />
+    <Compile Include="Models\CatalogoTareas.cs" />
+    <Compile Include="Models\Cotizaciones.cs" />
+    <Compile Include="Models\Empresas.cs" />
+    <Compile Include="Models\Facultades.cs" />
+    <Compile Include="Models\GruposOpciones.cs" />
+    <Compile Include="Models\LoginUsuario.cs" />
+    <Compile Include="Models\Monedas.cs" />
+    <Compile Include="Models\Oficinas.cs" />
+    <Compile Include="Models\Perfiles.cs" />
+    <Compile Include="Models\Plantillas\Plantilla_Cheques.cs" />
+    <Compile Include="Models\Plantillas\Plantilla_Comisiones.cs" />
+    <Compile Include="Models\Plantillas\Plantilla_Ingresos.cs" />
+    <Compile Include="Models\Plantillas\Plantilla_Mutuos.cs" />
+    <Compile Include="Models\Plantillas\Plantilla_Pagos.cs" />
+    <Compile Include="Models\Plantillas\Plantilla_Planillas.cs" />
+    <Compile Include="Models\Plantillas\Plantilla_Reembolsos.cs" />
+    <Compile Include="Models\Plantillas\Plantilla_Regalias.cs" />
+    <Compile Include="Models\Plantillas\Plantilla_Regularizaciones.cs" />
+    <Compile Include="Models\Plantillas\Plantilla_Transferencias.cs" />
+    <Compile Include="Models\Plantillas\Plantilla_Tributos.cs" />
+    <Compile Include="Models\Responsables.cs" />
+    <Compile Include="Models\SPRetorno.cs" />
+    <Compile Include="Models\Transacciones.cs" />
+    <Compile Include="Models\TransaccionesUsuario.cs" />
+    <Compile Include="Models\TransaccionFacultad.cs" />
+    <Compile Include="Models\TransaccionPerfil.cs" />
+    <Compile Include="Models\UserInfoCookie.cs" />
+    <Compile Include="Models\UsuarioFacultad.cs" />
+    <Compile Include="Models\UsuarioGrupoOpciones.cs" />
+    <Compile Include="Models\UsuarioOficina.cs" />
+    <Compile Include="Models\UsuarioPerfil.cs" />
+    <Compile Include="Models\Usuarios.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AuditoriaAsignacion\AuditoriaAsignacionService.cs" />
+    <Compile Include="Services\AuditoriaDocumentoProcesos\AuditoriaDocumentoProcesosService.cs" />
+    <Compile Include="Services\AuditoriaDocumentos\AuditoriaDocumentosService.cs" />
+    <Compile Include="Services\AuditoriaGastos\AuditoriaGastosService.cs" />
+    <Compile Include="Services\Auditorias\AuditoriasService.cs" />
+    <Compile Include="Services\AuditoriaTareaProcesos\AuditoriaTareaProcesosService.cs" />
+    <Compile Include="Services\AuditoriaTareas\AuditoriaTareasService.cs" />
+    <Compile Include="Services\CatalogoGastos\CatalogoGastosService.cs" />
+    <Compile Include="Services\CatalogoPlantillas\CatalogoPlantillasService.cs" />
+    <Compile Include="Services\CatalogoProcesos\CatalogoProcesosService.cs" />
+    <Compile Include="Services\CatalogoTareas\CatalogoTareasService.cs" />
+    <Compile Include="Services\Cotizaciones\CotizacionesService.cs" />
+    <Compile Include="Services\Empresas\EmpresasService.cs" />
+    <Compile Include="Services\Login\LoginService.cs" />
+    <Compile Include="Services\Monedas\MonedasService.cs" />
+    <Compile Include="Services\Oficinas\OficinasService.cs" />
+    <Compile Include="Services\Operador\OperadorService.cs" />
+    <Compile Include="Services\Responsables\ResponsablesService.cs" />
+    <Compile Include="Services\UsuarioOficina\UsuarioOficinaService.cs" />
+    <Compile Include="Services\Usuarios\UsuariosService.cs" />
+    <Compile Include="Views\Auditorias.aspx.cs">
+      <DependentUpon>Auditorias.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Auditorias.aspx.designer.cs">
+      <DependentUpon>Auditorias.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CatalogoGastos.aspx.cs">
+      <DependentUpon>CatalogoGastos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\CatalogoGastos.aspx.designer.cs">
+      <DependentUpon>CatalogoGastos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CatalogoPlantillas.aspx.cs">
+      <DependentUpon>CatalogoPlantillas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\CatalogoPlantillas.aspx.designer.cs">
+      <DependentUpon>CatalogoPlantillas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CatalogoProcesos.aspx.cs">
+      <DependentUpon>CatalogoProcesos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\CatalogoProcesos.aspx.designer.cs">
+      <DependentUpon>CatalogoProcesos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CatalogoTareas.aspx.cs">
+      <DependentUpon>CatalogoTareas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\CatalogoTareas.aspx.designer.cs">
+      <DependentUpon>CatalogoTareas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Cotizaciones.aspx.cs">
+      <DependentUpon>Cotizaciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Cotizaciones.aspx.designer.cs">
+      <DependentUpon>Cotizaciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Monedas.aspx.cs">
+      <DependentUpon>Monedas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Monedas.aspx.designer.cs">
+      <DependentUpon>Monedas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Plantilla.aspx.cs">
+      <DependentUpon>Plantilla.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Plantilla.aspx.designer.cs">
+      <DependentUpon>Plantilla.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PlantillaCheques.aspx.cs">
+      <DependentUpon>PlantillaCheques.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\PlantillaCheques.aspx.designer.cs">
+      <DependentUpon>PlantillaCheques.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PlantillaComisiones.aspx.cs">
+      <DependentUpon>PlantillaComisiones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\PlantillaComisiones.aspx.designer.cs">
+      <DependentUpon>PlantillaComisiones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PlantillaIngresos.aspx.cs">
+      <DependentUpon>PlantillaIngresos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\PlantillaIngresos.aspx.designer.cs">
+      <DependentUpon>PlantillaIngresos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PlantillaMutuos.aspx.cs">
+      <DependentUpon>PlantillaMutuos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\PlantillaMutuos.aspx.designer.cs">
+      <DependentUpon>PlantillaMutuos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PlantillaPagos.aspx.cs">
+      <DependentUpon>PlantillaPagos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\PlantillaPagos.aspx.designer.cs">
+      <DependentUpon>PlantillaPagos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PlantillaPlanillas.aspx.cs">
+      <DependentUpon>PlantillaPlanillas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\PlantillaPlanillas.aspx.designer.cs">
+      <DependentUpon>PlantillaPlanillas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PlantillaReembolsos.aspx.cs">
+      <DependentUpon>PlantillaReembolsos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\PlantillaReembolsos.aspx.designer.cs">
+      <DependentUpon>PlantillaReembolsos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PlantillaRegalias.aspx.cs">
+      <DependentUpon>PlantillaRegalias.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\PlantillaRegalias.aspx.designer.cs">
+      <DependentUpon>PlantillaRegalias.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PlantillaRegularizaciones.aspx.cs">
+      <DependentUpon>PlantillaRegularizaciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\PlantillaRegularizaciones.aspx.designer.cs">
+      <DependentUpon>PlantillaRegularizaciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PlantillaTransferencias.aspx.cs">
+      <DependentUpon>PlantillaTransferencias.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\PlantillaTransferencias.aspx.designer.cs">
+      <DependentUpon>PlantillaTransferencias.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PlantillaTributos.aspx.cs">
+      <DependentUpon>PlantillaTributos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\PlantillaTributos.aspx.designer.cs">
+      <DependentUpon>PlantillaTributos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Responsables.aspx.cs">
+      <DependentUpon>Responsables.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Responsables.aspx.designer.cs">
+      <DependentUpon>Responsables.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Responsables1.aspx.cs">
+      <DependentUpon>Responsables1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Responsables1.aspx.designer.cs">
+      <DependentUpon>Responsables1.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fonts\fontawesome-webfont.eot" />
+    <Content Include="Fonts\fontawesome-webfont.ttf" />
+    <Content Include="Fonts\fontawesome-webfont.woff" />
+    <Content Include="Fonts\fontawesome-webfont.woff2" />
+    <Content Include="Fonts\FontAwesome.otf" />
+    <None Include="packages.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="FilesDocs\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>52232</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44393/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

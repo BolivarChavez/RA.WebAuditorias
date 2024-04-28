@@ -1,0 +1,142 @@
+﻿body {
+    padding: 0;
+    margin: 0;
+    background-color: steelblue;
+    font-family: 'IBM Plex Sans', sans-serif;
+}
+
+.company-image {
+    background: url(../Images/FondoWebAuditoria.jpg) no-repeat center;
+    background-size: cover;
+    background-position: center;
+    display: block;
+}
+
+.company-backcolor {
+    background-color: steelblue;
+}
+
+.letter-format-simple {
+    color: white;
+    font-weight: normal;
+}
+
+.letter-format-bold {
+    color: white;
+    font-weight: bold;
+}
+
+.img-logo-1 {
+    display: block;
+    max-width: 80%;
+    height: auto;
+}
+
+.img-logo-2 {
+    display: block;
+    max-width: 65%;
+    height: auto;
+}
+
+.input-container {
+    display: flex;
+    border-radius: 4px;
+    box-sizing: border-box;
+    justify-content: space-between;
+    flex-basis: 100%;
+    width: 100%;
+    background: white;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+}
+
+    .input-container span {
+        color: #e84601;
+        flex-basis: 4%;
+        margin-right: 8px;
+    }
+
+    .input-container input[type="text"],
+    .input-container input[type="email"],
+    .input-container input[type="password"] {
+        outline: none;
+        font-size: 14px;
+        border: none;
+        background: transparent;
+        color: #000;
+        letter-spacing: 1px;
+        flex-basis: 95%;
+    }
+
+.pnl-header-1 {
+    background-color: white;
+    width: 500px;
+    height: 152px;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+.pnl-header-2 {
+    background-color: white;
+    width: 500px;
+    height: 330px;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+.pnl-message {
+    background-color: white;
+    width: 500px;
+    height: 40px;
+    color: steelblue;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+.pnl-parragraph {
+    text-align: left;
+    font-weight: bold;
+    margin-left: 8px;
+    margin-right: 8px;
+    font-size: 20px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    text-align: center;
+    padding: 0
+}
+
+.img-header-1 {
+    width: 440px;
+    height: 132px
+}
+
+.img-header-2 {
+    width: 256px;
+    height: 256px
+}
+
+.img-mensaje {
+    width: 440px;
+    height: 132px
+}
+
+.fuente-mensaje-texto {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: steelblue;
+}
+
+.fuente-mensaje-boton {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 18px;
+    color: white;
+}
+
+@media only screen and (max-width: 768px) {
+    .company-image {
+        display: none;
+    }
+}

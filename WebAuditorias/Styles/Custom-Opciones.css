@@ -1,0 +1,150 @@
+﻿body {
+    padding: 0;
+    margin: 0;
+    background-color: steelblue;
+    font-family: 'Roboto', sans-serif;
+}
+
+.header-bar-height {
+    height: 100px;
+}
+
+.console-menu-height {
+    height: calc(100vh - 100px);
+}
+
+.opcion-backcolor-1 {
+    background-color: #055081;
+}
+
+.opcion-backcolor-2 {
+    background-color: pink;
+}
+
+.image-logo-empresa {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    height: 100px;
+    object-fit: scale-down;
+    float: left;
+}
+
+.barra-titulo {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.barra-boton {
+    width: 100%;
+    height: 100%;
+    text-align: right;
+    position: relative;
+}
+
+.boton-superior {
+    float: right;
+    align-content: center;
+    text-align: center;
+    padding: 0 0;
+    height: 100%;
+    position: relative;
+}
+
+.botones {
+    border: 2px solid black;
+    border-radius: 100%;
+    border-color: white;
+    border-width: 2px;
+    background-color: steelblue;
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+}
+
+.imagen-boton {
+    height: 70%;
+    width: 70%;
+    object-fit: scale-down;
+}
+
+.badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+}
+
+.avatar {
+    background: #055081;
+    padding: 2em 0.5em;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+}
+
+.employee-image {
+    width: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid #f3ebcc;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.2);
+}
+
+@media only screen and (max-width: 1140px) {
+    .header-bar-height {
+        height: 120px;
+    }
+
+    .console-menu-height {
+        height: calc(100vh - 120px);
+    }
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #E8BD19;
+    border-radius: 10px;
+}
+
+@media only screen and (max-width: 768px) {
+    .header-bar-height {
+        height: 300px;
+    }
+
+    .console-menu-height {
+        height: 800px;
+    }
+
+    .image-logo-empresa {
+        width: 100%;
+        height: 100px;
+        float: none;
+    }
+
+    .barra-titulo {
+        font-size: 20px;
+    }
+
+    .boton-superior {
+        float: none;
+    }
+
+    .barra-boton {
+        display: flex;
+        justify-content: space-between;
+    }
+}

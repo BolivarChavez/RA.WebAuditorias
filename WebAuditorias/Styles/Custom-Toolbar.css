@@ -1,0 +1,173 @@
+﻿.boton-nuevo:before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: text-top;
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url('../Images/Nuevo.png');
+}
+
+.boton-nuevo:hover {
+    border-color: steelblue;
+    background-color: #E5E8E8;
+}
+
+.boton-buscar:before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: text-top;
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url('../Images/Buscar.png');
+}
+
+.boton-buscar:hover {
+    border-color: steelblue;
+    background-color: #E5E8E8;
+}
+
+.boton-grabar:before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: text-top;
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url('../Images/Guardar.png');
+}
+
+.boton-grabar:hover {
+    border-color: steelblue;
+    background-color: #E5E8E8;
+}
+
+.boton-eliminar:before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: text-top;
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url('../Images/Eliminar.png');
+}
+
+.boton-eliminar:hover {
+    border-color: steelblue;
+    background-color: #E5E8E8;
+}
+
+.boton-addtarea:before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: text-top;
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url('../Images/AgregaTarea.png');
+}
+
+.boton-addtarea:hover {
+    border-color: steelblue;
+    background-color: #E5E8E8;
+}
+
+.boton-addgasto:before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: text-top;
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url('../Images/AgregaGasto.png');
+}
+
+.boton-addgasto:hover {
+    border-color: steelblue;
+    background-color: #E5E8E8;
+}
+
+.boton-addproceso:before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: text-top;
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url('../Images/AgregaProceso.png');
+}
+
+.boton-addproceso:hover {
+    border-color: steelblue;
+    background-color: #E5E8E8;
+}
+
+.boton-addplantilla:before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: text-top;
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url('../Images/AgregaPlantilla.png');
+}
+
+.boton-addplantilla:hover {
+    border-color: steelblue;
+    background-color: #E5E8E8;
+}
+
+.boton-cargaplantilla:before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: text-top;
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url('../Images/CargaArchivo.png');
+}
+
+.boton-cargaplantilla:hover {
+    border-color: steelblue;
+    background-color: #E5E8E8;
+}
+
+.boton-agregaplantilla:before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: text-top;
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url('../Images/AgregaPlantilla.png');
+}
+
+.boton-agregaplantilla:hover {
+    border-color: steelblue;
+    background-color: #E5E8E8;
+}
+
+.boton-margen {
+    margin-left: 4px;
+}

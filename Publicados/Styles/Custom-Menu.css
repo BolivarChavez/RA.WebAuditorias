@@ -1,0 +1,136 @@
+﻿.user-menu {
+    height: 240px;
+    background-color: #59ABE3;
+    overflow: auto;
+}
+
+.opciones-menu {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+}
+
+.parrafo-modulo {
+    background-color: #055081;
+    padding-left: 10px;
+    padding-right: 0px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    margin: 0;
+    color: white;
+    font-weight: bold;
+    border: 1px solid white;
+}
+
+.contenerdor-menu {
+    height: 85vh;
+    overflow: auto;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#lblmenu {
+    display: block;
+    cursor: pointer;
+    padding: 10px;
+    border-bottom: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+    #lblmenu:hover {
+        background: #055081;
+        background-color: steelblue;
+    }
+
+    #lblmenu.last {
+        border-bottom: none;
+    }
+
+ul ul li {
+    display: table;
+    padding: 4px;
+    background: #59ABE3;
+    color: white;
+    font-size: 14px;
+    height: 8px;
+    width: 100%;
+    list-style-position: inside;
+    text-indent: 1em;
+    padding-left: 1em;
+}
+
+    ul ul li:hover {
+        cursor: pointer;
+        background-color: steelblue;
+    }
+
+input[type="checkbox"] {
+    position: absolute;
+    left: -9999px;
+}
+
+    input[type="checkbox"] ~ ul {
+        height: 0;
+        transform: scaleY(0);
+    }
+
+    input[type="checkbox"]:checked ~ ul {
+        height: 100%;
+        transform-origin: top;
+        transition: transform .2s ease-out;
+        transform: scaleY(1);
+    }
+
+    input[type="checkbox"]:checked + label {
+        background: #055081;
+        border-bottom: 1px solid #fff;
+    }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+th {
+    background: #055081;
+    color: white;
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+}
+
+td, th {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+    font-size: 14px;
+}
+
+.labels tr td {
+    background-color: steelblue;
+    font-weight: bold;
+    color: #fff;
+}
+
+.label tr td label {
+    display: block;
+    border-top: none !important;
+    border-bottom: none !important;
+    border-left: none !important;
+    border-right: none !important;
+}
+
+[data-toggle="toggle"] {
+    display: none;
+}
