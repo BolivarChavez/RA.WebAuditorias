@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using WebAuditorias.Interfaces.Oficinas;
 using WebAuditorias.Services.Oficinas;
 
@@ -10,7 +11,7 @@ namespace WebAuditorias.Controllers.Oficinas
         {
             OficinasService _oficinasService = new OficinasService();
 
-            return _oficinasService.Consulta(empresa, codigo);
+            return _oficinasService.Consulta(empresa, codigo).Where(of => of.of_estado == "A");
         }
     }
 }

@@ -54,14 +54,14 @@ namespace WebAuditorias.Controllers.Transacciones
                         foreach (var transaccion in listaTransacciones)
                         {
                             contenido += @"<tbody class=""hide"">";
-                            contenido += @"<tr onmouseover=""setBackground(this, '#D6EAF8');"" onmouseout=""restoreBackground(this);"">";
-                            linea = @"<td id=""codigo"" style=""width:10%; cursor:pointer; font-family:IBM Plex Sans; font-weight:bold;"" onClick=""EjecutaOpcion(this.id)"">" + transaccion.tr_codigo.ToString() + "</td>";
+                            contenido += @"<tr onmouseover=""setBackground(this, '#E5E8E8');"" onmouseout=""restoreBackground(this);"">";
+                            linea = @"<td id=""codigo"" style=""width:10%; cursor:pointer; font-family:Roboto; font-weight:normal;"" onClick=""EjecutaOpcion(this.id)"">" + transaccion.tr_codigo.ToString() + "</td>";
                             linea_rep1 = linea.Replace("codigo", transaccion.tr_codigo.ToString());
                             contenido += linea_rep1;
-                            linea = @"<td id=""codigo"" style=""width:80%; font-family:IBM Plex Sans; font-weight:bold;"">" + transaccion.tr_descripcion.Trim() + "</td>";
+                            linea = @"<td id=""codigo"" style=""width:80%; cursor:pointer; font-family:Roboto; font-weight:normal;"" onClick=""EjecutaOpcion(this.id)"">" + transaccion.tr_descripcion.Trim() + "</td>";
                             linea_rep1 = linea.Replace("codigo", "opt-" + transaccion.tr_codigo.ToString());
                             contenido += linea_rep1;
-                            linea = @"<td id=""codigo"" style=""width:10%; display:none; font-family:IBM Plex Sans; font-weight:bold;"">" + transaccion.tr_programa.Trim() + "</td>";
+                            linea = @"<td id=""codigo"" style=""width:10%; display:none; font-family:Roboto; font-weight:normal;"">" + transaccion.tr_programa.Trim() + "</td>";
                             linea_rep1 = linea.Replace("codigo", "pag-" + transaccion.tr_codigo.ToString());
                             contenido += linea_rep1;
                             contenido += @"</tr>";

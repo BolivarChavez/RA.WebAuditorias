@@ -8,6 +8,7 @@ namespace PrototipoData.Models
         public string Talonario { get; set; }
         public string Req { get; set; }
         public string Beneficiario { get; set; }
+        public string Concepto { get; set; }
         public string Comprobante { get; set; }
         public double Monto { get; set; }
         public DateTime Fecha_Pago { get; set; }
@@ -18,7 +19,9 @@ namespace PrototipoData.Models
         public string Observacion_Preliminar { get; set; }
         public string Observacion_Final { get; set; }
         public string Estado { get; set; }
-        public string Tipo_Plantilla { get; set; }
-        public string Cuentas { get; set; }
+        public string Empresa { get; set; }
+        public string Sede { get; set; }
+        public string Cuenta { get; set; }
+        public string Sub_Cuenta { get; set; }
     }
 }

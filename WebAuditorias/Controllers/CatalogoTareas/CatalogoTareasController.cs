@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using WebAuditorias.Interfaces.CatalogoTareas;
 using WebAuditorias.Services.CatalogoTareas;
 

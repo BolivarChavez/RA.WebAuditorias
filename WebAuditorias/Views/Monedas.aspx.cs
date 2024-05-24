@@ -2,11 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using WebAuditorias.Controllers.CatalogoProcesos;
-using WebAuditorias.Controllers.CatalogoTareas;
 using WebAuditorias.Controllers.Monedas;
 
 namespace WebAuditorias.Views

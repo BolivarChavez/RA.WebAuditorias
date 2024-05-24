@@ -2,18 +2,18 @@
     padding: 0;
     margin: 0;
     background-color: steelblue;
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 .company-image {
-    background: url(../Images/FondoWebAuditoria.jpg) no-repeat center;
-    background-size: cover;
+    background: url(../Images/FondoWebAuditoria.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
     background-position: center;
-    display: block;
 }
 
 .company-backcolor {
-    background-color: steelblue;
+    background-color: #E5E8E8;
 }
 
 .letter-format-simple {

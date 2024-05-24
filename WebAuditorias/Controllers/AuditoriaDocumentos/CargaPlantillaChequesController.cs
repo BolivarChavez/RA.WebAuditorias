@@ -9,7 +9,7 @@ namespace WebAuditorias.Controllers.AuditoriaDocumentos
 {
     public class CargaPlantillaChequesController
     {
-        public string CargaPlantillaChqeues(string filename, string sheetName, Int16 empresaCodigo, int auditoriaCodigo, Int16 tareaCodigo, Int16 plantillaCodigo, string referencia)
+        public string CargaPlantillaCheques(string filename, string sheetName, Int16 empresaCodigo, int auditoriaCodigo, Int16 tareaCodigo, Int16 plantillaCodigo, string referencia)
         {
             string constr;
             string jsonString;
@@ -44,18 +44,21 @@ namespace WebAuditorias.Controllers.AuditoriaDocumentos
                             Talonario = row[1].ToString(),
                             Req = row[2].ToString(),
                             Beneficiario = row[3].ToString(),
-                            Comprobante = row[4].ToString(),
-                            Monto = row[5].ToString() == "" ? 0 : double.Parse(row[5].ToString()),
-                            Fecha_Pago = DateTime.Parse(row[6].ToString()),
-                            Comprobante_Egreso = row[7].ToString(),
-                            Banco = row[8].ToString(),
-                            Numero_Cheque = row[9].ToString(),
-                            Tipo_Cambio = row[10].ToString() == "" ? 0 : double.Parse(row[10].ToString()),
-                            Observacion_Preliminar = row[11].ToString(),
-                            Observacion_Final = row[12].ToString(),
-                            Estado = row[13].ToString(),
-                            Tipo_Plantilla = row[14].ToString(),
-                            Cuentas = row[15].ToString()
+                            Concepto = row[4].ToString(),
+                            Comprobante = row[5].ToString(),
+                            Monto = row[6].ToString() == "" ? 0 : double.Parse(row[6].ToString()),
+                            Fecha_Pago = DateTime.Parse(row[7].ToString()),
+                            Comprobante_Egreso = row[8].ToString(),
+                            Banco = row[9].ToString(),
+                            Numero_Cheque = row[10].ToString(),
+                            Tipo_Cambio = row[11].ToString() == "" ? 0 : double.Parse(row[11].ToString()),
+                            Observacion_Preliminar = row[12].ToString(),
+                            Observacion_Final = row[13].ToString(),
+                            Estado = row[14].ToString(),
+                            Empresa = row[15].ToString(),
+                            Sede = row[16].ToString(),
+                            Cuenta = row[17].ToString(),
+                            Sub_Cuenta = row[18].ToString()
                         };
 
                         jsonString = JsonConvert.SerializeObject(cheque);

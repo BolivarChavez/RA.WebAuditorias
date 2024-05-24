@@ -10,7 +10,6 @@ using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebAuditorias.Controllers.AuditoriaDocumentos;
-using WebAuditorias.Controllers.Auditorias;
 using WebAuditorias.Models.Bases;
 
 namespace WebAuditorias.Views
@@ -71,6 +70,7 @@ namespace WebAuditorias.Views
                         Talonario = cheque.Talonario,
                         Req = cheque.Req,
                         Beneficiario = cheque.Beneficiario,
+                        Concepto = cheque.Concepto,
                         Comprobante = cheque.Comprobante,
                         Monto = cheque.Monto,
                         Fecha_Pago = cheque.Fecha_Pago,
@@ -81,8 +81,10 @@ namespace WebAuditorias.Views
                         Observacion_Preliminar = cheque.Observacion_Preliminar,
                         Observacion_Final = cheque.Observacion_Final,
                         Estado = cheque.Estado,
-                        Tipo_Plantilla = cheque.Tipo_Plantilla,
-                        Cuentas = cheque.Cuentas
+                        Empresa = cheque.Empresa,
+                        Sede = cheque.Sede,
+                        Cuenta = cheque.Cuenta,
+                        Sub_Cuenta = cheque.Sub_Cuenta
                     }
                     );
             }
@@ -136,6 +138,7 @@ namespace WebAuditorias.Views
             cheque.Talonario = Talonario.Value.ToUpper();
             cheque.Req = Req.Value.ToUpper();
             cheque.Beneficiario = Beneficiario.Value.ToUpper();
+            cheque.Concepto = Concepto.Value.ToUpper();
             cheque.Comprobante = Comprobante.Value.ToUpper();
             cheque.Monto = double.Parse(Monto.Value, CultureInfo.InvariantCulture);
             cheque.Fecha_Pago = DateTime.Parse(FechaPago.Value);
@@ -146,8 +149,10 @@ namespace WebAuditorias.Views
             cheque.Observacion_Preliminar = ObservacionPreliminar.Value.ToUpper();
             cheque.Observacion_Final = Observacion_Final.Value.ToUpper();
             cheque.Estado = Estado.Value.ToUpper();
-            cheque.Tipo_Plantilla = Tipo_Plantilla.Value.ToUpper();
-            cheque.Cuentas = Cuentas.Value.ToUpper();
+            cheque.Empresa = Empresa.Value.ToUpper();
+            cheque.Sede = Sede.Value.ToUpper();
+            cheque.Cuenta = Cuenta.Value.ToUpper();
+            cheque.Sub_Cuenta = SubCuenta.Value.ToUpper();
 
             jsonString = JsonConvert.SerializeObject(cheque);
 
@@ -213,7 +218,7 @@ namespace WebAuditorias.Views
             arrayParametros = Plantilla.Value.Split('-');
             Int16 plantillaId = Int16.Parse(arrayParametros[0]);
 
-            response = plantilla.CargaPlantillaChqeues(archivoCarga, hojaArchivo, 1, auditoriaId, tareaId, plantillaId, referencia);
+            response = plantilla.CargaPlantillaCheques(archivoCarga, hojaArchivo, 1, auditoriaId, tareaId, plantillaId, referencia);
 
             if (response == "")
             {
@@ -223,6 +228,20 @@ namespace WebAuditorias.Views
             {
                 ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "alert('Error : " + response  +"');", true);
             }
+        }
+
+        protected void BtnAddTarea_ServerClick(object sender, EventArgs e)
+        {
+            string parametros = "";
+
+            parametros += "1|";
+            parametros += Auditoria.Value.ToString().Split('-')[0] + "|";
+            parametros += Auditoria.Value.ToString().Substring(Auditoria.Value.ToString().IndexOf('-') + 1) + "|";
+            parametros += Tarea.Value.ToString().Split('-')[0] + "|";
+            parametros += Tarea.Value.ToString().Substring(Tarea.Value.ToString().IndexOf('-') + 1) + "|";
+            parametros += Plantilla.Value.ToString().Split('-')[0] + "|" + Plantilla.Value.ToString().Split('-')[1] + "|" + Codigo.Value.ToString();
+
+            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "window.open('AuditoriaDocumentoProceso.aspx?plantilla=" + parametros + "', '_blank');", true);
         }
     }
 }

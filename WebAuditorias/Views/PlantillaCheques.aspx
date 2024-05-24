@@ -7,8 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Plantilla de cheques</title>
-<%--    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet" />--%>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Poppins:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
     <link rel="stylesheet" href="../Styles/Custom-Opciones.css" />
     <link rel="stylesheet" href="../Styles/Custom-Toolbar.css" />
@@ -19,37 +18,20 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"></script>
 </head>
-<body style="font-family: 'Poppins', sans-serif; margin: 0; height: 100%; overflow: hidden; background-color: #E5E8E8;">
+<body style="margin: 0; height: 100%; overflow: hidden; background-color: #E5E8E8;">
         <div class="container-fluid">
             <div class="row header-bar-height" style="background-color: #E5E8E8;">
-                <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2 my-auto" style="border: 3px solid #DAA520;">
+                <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2 my-auto">
                     <img class="image-logo-empresa" src="../Images/LogoRomeroyAsociados.png" />
                 </div>    
-                <div class="col-sm-12 col-md-10 col-lg-10 col-xl-10 center-block text-left my-auto">
+                <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8 center-block text-left my-auto">
                     <p class="barra-titulo" style="color:#2C3E50;">Plantilla de cheques</p>
                 </div>  
+                <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2 center-block text-left my-auto">
+                </div> 
             </div>
             <div class="row console-menu-height" style="background-color: #B2BABB;">
-                <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2 py-4 h-100 opcion-backcolor-1" style="background-color: #E5E8E8; border: 3px solid #DAA520;">
-                    <header class="avatar" style="background-color: #E5E8E8;">
-                        <asp:Label ID="label1" runat="server" style="color:#2C3E50;" >Estudio Jurídico Romero y Asociados</asp:Label>
-                        <asp:Label ID="label2" runat="server" style="color:#2C3E50;">Sistema de Control de Auditorías</asp:Label>
-                        <br />
-                        <br />
-                        <br />
-                        <asp:Label ID="labelUser" runat="server" style="color:#2C3E50;">USUARIO</asp:Label>
-                        <br />
-                        <asp:Label ID="lblNombre" runat="server" style="color:#A1998E;">Nombre del colaborador</asp:Label>
-                        <br />
-                        <asp:Label ID="labelEmpresa" runat="server" style="color:#2C3E50;">EMPRESA</asp:Label>
-                        <br />
-                        <asp:Label ID="LabeNomEmpresa" runat="server" style="color:#A1998E;">Nombre de la empresa</asp:Label>
-                    </header>
-                    <br />
-                    <div id="DivMenu" runat="server" class="overflow-auto">
-                    </div>
-                </div>
-                <div id="Contenedor" class="col-sm-12 col-md-10 col-lg-10 col-xl-10 px-0 py-0 bg-white h-100 opcion-backcolor-2">
+                <div id="Contenedor" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 px-4 py-0 bg-white h-100 opcion-backcolor-2">
                     <div id="Formulario">
                         <div class="container-fluid">
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -74,15 +56,16 @@
                                                 <button class="btn btn-outline-dark navbar-btn boton-eliminar boton-margen" id="BtnEliminar" runat="server" onserverclick="BtnEliminar_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Elimina registro de plantilla"></button>
                                                 <button class="btn btn-outline-dark navbar-btn boton-cargaplantilla boton-margen" id="BtnCargar" runat="server" onserverclick="BtnCargar_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Subir archivo de plantilla"></button>
                                                 <button class="btn btn-outline-dark navbar-btn boton-agregaplantilla boton-margen" id="BtnCargaPlantilla" runat="server" onserverclick="BtnCargaPlantilla_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Grablar plantilla desde archivo"></button>
+                                                <button class="btn btn-outline-dark navbar-btn boton-addproceso boton-margen" id="BtnAddTarea" runat="server" onserverclick="BtnAddTarea_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Asociar actividades al registro seleccionado"></button>
                                             </nav>
                                             <div id="DivOpciones" class="px-2" style="overflow-x: hidden; overflow-y: auto" runat="server">
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
-                                                        <label for="Auditoria" class="col-form-label col-form-label-sm" style="font-weight:bold;">Auditoria</label>
+                                                        <label for="Auditoria" class="col-form-label col-form-label-sm" style="font-weight:bold;">Auditoría</label>
                                                         <input type="text" class="form-control form-control-sm" id="Auditoria" placeholder="0" readonly="true" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Codigo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Codigo</label>
+                                                        <label for="Codigo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Código</label>
                                                         <input type="text" class="form-control form-control-sm" id="Codigo" placeholder="0" readonly="true" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
@@ -118,6 +101,10 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
+                                                        <label for="Concepto" class="col-form-label col-form-label-sm" style="font-weight:bold;">Concepto</label>
+                                                        <input type="text" class="form-control form-control-sm" id="Concepto" placeholder="" runat="server" onclick="muestraContenidoTexto('Concepto', 'Concepto')"/>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
                                                         <label for="Comprobante" class="col-form-label col-form-label-sm" style="font-weight:bold;">Comprobante</label>
                                                         <input type="text" class="form-control form-control-sm" id="Comprobante" placeholder="" runat="server" onclick="muestraContenidoTexto('Comprobante', 'Comprobante')"/>
                                                     </div>
@@ -129,32 +116,32 @@
                                                         <label for="FechaPago" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha de pago</label>
                                                         <input type="date" class="form-control form-control-sm" id="FechaPago" placeholder="" runat="server"/>
                                                     </div>
+                                                </div>
+                                                <div class="row">
                                                     <div class="form-group col-md-3">
                                                         <label for="ComprobanteEgreso" class="col-form-label col-form-label-sm" style="font-weight:bold;">Comprobante de egreso</label>
                                                         <input type="text" class="form-control form-control-sm" id="ComprobanteEgreso" placeholder="" runat="server" onclick="muestraContenidoTexto('ComprobanteEgreso', 'ComprobanteEgreso')"/>
                                                     </div>
-                                                </div>
-                                                <div class="row">
                                                     <div class="form-group col-md-3">
                                                         <label for="Banco" class="col-form-label col-form-label-sm" style="font-weight:bold;">Banco</label>
                                                         <input type="text" class="form-control form-control-sm" id="Banco" placeholder="" runat="server" onclick="muestraContenidoTexto('Banco', 'Banco')"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="NumeroCheque" class="col-form-label col-form-label-sm" style="font-weight:bold;">Numero de cheque</label>
+                                                        <label for="NumeroCheque" class="col-form-label col-form-label-sm" style="font-weight:bold;">Número de cheque</label>
                                                         <input type="text" class="form-control form-control-sm" id="NumeroCheque" placeholder="" runat="server" />
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="TipoCambio" class="col-form-label col-form-label-sm" style="font-weight:bold;">Tipo de cambio</label>
                                                         <input type="text" class="form-control form-control-sm" id="TipoCambio" placeholder="" runat="server" />
                                                     </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label for="ObservacionPreliminar" class="col-form-label col-form-label-sm" style="font-weight:bold;">Observacion preliminar</label>
-                                                        <input type="text" class="form-control form-control-sm" id="ObservacionPreliminar" placeholder="" runat="server" onclick="muestraContenidoTexto('Observacion Preliminar', 'ObservacionPreliminar')"/>
-                                                    </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
-                                                        <label for="Observacion_Final" class="col-form-label col-form-label-sm" style="font-weight:bold;">Observacion final</label>
+                                                        <label for="ObservacionPreliminar" class="col-form-label col-form-label-sm" style="font-weight:bold;">Observación preliminar</label>
+                                                        <input type="text" class="form-control form-control-sm" id="ObservacionPreliminar" placeholder="" runat="server" onclick="muestraContenidoTexto('Observacion Preliminar', 'ObservacionPreliminar')"/>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="Observacion_Final" class="col-form-label col-form-label-sm" style="font-weight:bold;">Observación final</label>
                                                         <input type="text" class="form-control form-control-sm" id="Observacion_Final" placeholder="" runat="server" onclick="muestraContenidoTexto('Observacion Final', 'Observacion_Final')"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
@@ -162,12 +149,22 @@
                                                         <input type="text" class="form-control form-control-sm" id="Estado" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Tipo_Plantilla" class="col-form-label col-form-label-sm" style="font-weight:bold;">Tipo de plantilla</label>
-                                                        <input type="text" class="form-control form-control-sm" id="Tipo_Plantilla" placeholder="" runat="server"/>
+                                                        <label for="Empresa" class="col-form-label col-form-label-sm" style="font-weight:bold;">Empresa</label>
+                                                        <input type="text" class="form-control form-control-sm" id="Empresa" placeholder="" runat="server"/>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-md-3">
+                                                        <label for="Sede" class="col-form-label col-form-label-sm" style="font-weight:bold;">Sede</label>
+                                                        <input type="text" class="form-control form-control-sm" id="Sede" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Cuentas" class="col-form-label col-form-label-sm" style="font-weight:bold;">Cuentas</label>
-                                                        <input type="text" class="form-control form-control-sm" id="Cuentas" placeholder="" runat="server" onclick="muestraContenidoTexto('Cuentas', 'Cuentas')"/>
+                                                        <label for="Cuenta" class="col-form-label col-form-label-sm" style="font-weight:bold;">Sede</label>
+                                                        <input type="text" class="form-control form-control-sm" id="Cuenta" placeholder="" runat="server" onclick="muestraContenidoTexto('Cuenta', 'Cuenta')"/>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="SubCuenta" class="col-form-label col-form-label-sm" style="font-weight:bold;">Sub Cuenta</label>
+                                                        <input type="text" class="form-control form-control-sm" id="SubCuenta" placeholder="" runat="server" onclick="muestraContenidoTexto('Sub Cuenta', 'SubCuenta')"/>
                                                     </div>
                                                 </div>
                                                 <div class="form-check">

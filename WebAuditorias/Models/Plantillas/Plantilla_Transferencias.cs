@@ -14,8 +14,11 @@
         public string Observacion_Preliminar { get; set; }
         public string Observacion_Final { get; set; }
         public string Estado { get; set; }
-        public string Tipo_Plantilla { get; set; }
+        public string Banco { get; set; }
+        public string Empresa { get; set; }
+        public string Sede { get; set; }
         public string Cuenta { get; set; }
+        public string Sub_Cuenta { get; set; }
         public string Soporte { get; set; }
     }
 }

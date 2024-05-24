@@ -1,19 +1,12 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebAuditorias.Controllers.Auditorias;
-using WebAuditorias.Controllers.CatalogoPlantillas;
 using WebAuditorias.Controllers.CatalogoProcesos;
-using WebAuditorias.Controllers.CatalogoTareas;
 using WebAuditorias.Controllers.Oficinas;
-using WebAuditorias.Controllers.Responsables;
-using WebAuditorias.Models;
 
 namespace WebAuditorias.Views
 {
@@ -26,8 +19,6 @@ namespace WebAuditorias.Views
                 InitializedView();
                 CargaOficinas();
                 CargaProcesos();
-                CargaTareas(Int16.Parse(TipoProceso.SelectedValue));
-                CargaPlantillas();
             }
         }
 
@@ -38,6 +29,7 @@ namespace WebAuditorias.Views
             FechaInicio.Value = DateTime.Today.ToString("yyyy-MM-dd");
             FechaCierre.Value = DateTime.Today.ToString("yyyy-MM-dd");
             Observaciones.Value = "";
+            Estado.SelectedIndex = 0;
         }
 
         private void CargaOficinas()
@@ -71,36 +63,6 @@ namespace WebAuditorias.Views
             TipoProceso.DataBind();
         }
 
-        private void CargaTareas(Int16 codigoProceso)
-        {
-            CatalogoTareasController _controller = new CatalogoTareasController();
-            List<Models.CatalogoTareas> _tareas = new List<Models.CatalogoTareas>();
-
-            _tareas = _controller.Consulta(1).ToList();
-
-            var listaTareas = from tarea in _tareas
-                              where tarea.ct_proceso == codigoProceso
-                              select new { tarea.ct_codigo, tarea.ct_descripcion };
-
-            cboTareas.DataSource = listaTareas;
-            cboTareas.DataValueField = "ct_codigo";
-            cboTareas.DataTextField = "ct_descripcion";
-            cboTareas.DataBind();
-        }
-
-        private void CargaPlantillas()
-        {
-            CatalogoPlantillasController _controller = new CatalogoPlantillasController();
-            List<Models.CatalogoPlantillas> _plantillas = new List<Models.CatalogoPlantillas>();
-
-            _plantillas = _controller.Consulta(1).ToList();
-
-            cboPlantillas.DataSource = _plantillas;
-            cboPlantillas.DataValueField = "cp_codigo";
-            cboPlantillas.DataTextField = "cp_descripcion";
-            cboPlantillas.DataBind();
-        }
-
         protected void BtnNuevo_ServerClick(object sender, EventArgs e)
         {
             InitializedView();
@@ -119,12 +81,12 @@ namespace WebAuditorias.Views
 
         protected void BtnAddTarea_ServerClick(object sender, EventArgs e)
         {
-            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "CargaPlantilla();", true);
+            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "CargaTareas();", true);
         }
 
         protected void BtnAddGasto_ServerClick(object sender, EventArgs e)
         {
-
+            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "CargaGastos();", true);
         }
 
         [System.Web.Services.WebMethod]
@@ -133,7 +95,7 @@ namespace WebAuditorias.Views
             AuditoriasController _controller = new AuditoriasController();
             List<Models.Auditorias> _auditorias = new List<Models.Auditorias>();
 
-            _auditorias = _controller.Consulta(1, 0).ToList();
+            _auditorias = _controller.Consulta(1, 0).OrderByDescending(au => au.au_codigo).ToList();
 
             return JsonConvert.SerializeObject(_auditorias);
         }
@@ -174,9 +136,19 @@ namespace WebAuditorias.Views
             return response;
         }
 
-        protected void TipoProceso_SelectedIndexChanged(object sender, EventArgs e)
+        protected void BtnEliminar_ServerClick(object sender, EventArgs e)
         {
-            CargaTareas(Int16.Parse(TipoProceso.SelectedValue));
+            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "EliminarProceso();", true);
+        }
+
+        protected void BtnIniciar_ServerClick(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "IniciarProceso();", true);
+        }
+
+        protected void BtnCerrar_ServerClick(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "CerrarProceso();", true);
         }
     }
 }

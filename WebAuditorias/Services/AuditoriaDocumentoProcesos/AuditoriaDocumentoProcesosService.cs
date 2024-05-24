@@ -40,7 +40,7 @@ namespace WebAuditorias.Services.AuditoriaDocumentoProcesos
             url = ConfigurationManager.AppSettings["UrlOpciones"].ToString();
             _key = ConfigurationManager.AppSettings["Llave_cifrado"].ToString();
 
-            var uri = new Uri(string.Format(url + "AuditoriaAsignacion/Consulta/{0}/{1}/{2}/{3}", empresa.ToString().Trim(), auditoria.ToString().Trim(), tarea.ToString().Trim(), codigo.ToString().Trim()));
+            var uri = new Uri(string.Format(url + "AuditoriaDocumentoProcesos/Consulta/{0}/{1}/{2}/{3}", empresa.ToString().Trim(), auditoria.ToString().Trim(), tarea.ToString().Trim(), codigo.ToString().Trim()));
 
             //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", stoken);
             var response = client.GetAsync(uri).Result;

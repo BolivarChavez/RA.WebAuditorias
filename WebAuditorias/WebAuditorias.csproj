@@ -145,21 +145,36 @@
   <ItemGroup>
     <Content Include="Consola.aspx" />
     <Content Include="Fonts\fontawesome-webfont.svg" />
+    <Content Include="Images\Activar.png" />
     <Content Include="Images\AgregaGasto.png" />
     <Content Include="Images\AgregaPlantilla.png" />
     <Content Include="Images\AgregaProceso.png" />
     <Content Include="Images\AgregaTarea.png" />
+    <Content Include="Images\AsignarPersona.png" />
+    <Content Include="Images\AsignarTarea.png" />
     <Content Include="Images\Buscar.png" />
+    <Content Include="Images\Cancelar.png" />
     <Content Include="Images\CargaArchivo.png" />
+    <Content Include="Images\Cerrar.png" />
+    <Content Include="Images\Detener.png" />
     <Content Include="Images\Eliminar.png" />
     <Content Include="Images\FondoWebAuditoria.jpg" />
     <Content Include="Images\Guardar.png" />
     <Content Include="Images\GuardarComo.png" />
+    <Content Include="Images\Inactivar.png" />
+    <Content Include="Images\Iniciar.png" />
     <Content Include="Images\LogoRomeroyAsociados.png" />
     <Content Include="Images\Nuevo.png" />
     <Content Include="Images\PowerButton.png" />
+    <Content Include="Images\VerArchivo.png" />
+    <Content Include="Images\VerLinea.png" />
     <Content Include="Inicio.aspx" />
+    <Content Include="Scripts\AuditoriaDocumentoProceso.js" />
+    <Content Include="Scripts\AuditoriaGasto.js" />
     <Content Include="Scripts\Auditorias.js" />
+    <Content Include="Scripts\AuditoriaTarea.js" />
+    <Content Include="Scripts\AuditoriaTareaAsignacion.js" />
+    <Content Include="Scripts\AuditoriaTareaProceso.js" />
     <Content Include="Scripts\CatalogoGastos.js" />
     <Content Include="Scripts\CatalogoPlantillas.js" />
     <Content Include="Scripts\CatalogoProcesos.js" />
@@ -169,6 +184,16 @@
     <Content Include="Scripts\ej2.min.js" />
     <Content Include="Scripts\Monedas.js" />
     <Content Include="Scripts\PlantillaCheques.js" />
+    <Content Include="Scripts\PlantillaComisiones.js" />
+    <Content Include="Scripts\PlantillaIngresos.js" />
+    <Content Include="Scripts\PlantillaMutuos.js" />
+    <Content Include="Scripts\PlantillaPagos.js" />
+    <Content Include="Scripts\PlantillaPlanillas.js" />
+    <Content Include="Scripts\PlantillaReembolsos.js" />
+    <Content Include="Scripts\PlantillaRegalias.js" />
+    <Content Include="Scripts\PlantillaRegularizaciones.js" />
+    <Content Include="Scripts\PlantillaTransferencias.js" />
+    <Content Include="Scripts\PlantillaTributos.js" />
     <Content Include="Scripts\Responsables.js" />
     <Content Include="Styles\Custom-Grid-Font.css" />
     <Content Include="Styles\Custom-Grid.css" />
@@ -178,12 +203,18 @@
     <Content Include="Styles\Custom-Toolbar.css" />
     <Content Include="Styles\font-awesome.min.css" />
     <Content Include="Styles\material.css" />
+    <Content Include="Views\AuditoriaDocumentoProceso.aspx" />
+    <Content Include="Views\AuditoriaGasto.aspx" />
     <Content Include="Views\Auditorias.aspx" />
+    <Content Include="Views\AuditoriaTarea.aspx" />
+    <Content Include="Views\AuditoriaTareaAsignacion.aspx" />
+    <Content Include="Views\AuditoriaTareaProceso.aspx" />
     <Content Include="Views\CatalogoGastos.aspx" />
     <Content Include="Views\CatalogoPlantillas.aspx" />
     <Content Include="Views\CatalogoProcesos.aspx" />
     <Content Include="Views\CatalogoTareas.aspx" />
     <Content Include="Views\Cotizaciones.aspx" />
+    <Content Include="Views\DetalleLineaDocumento.aspx" />
     <Content Include="Views\Monedas.aspx" />
     <Content Include="Views\Plantilla.aspx" />
     <Content Include="Views\PlantillaCheques.aspx" />
@@ -199,6 +230,7 @@
     <Content Include="Views\PlantillaTributos.aspx" />
     <Content Include="Views\Responsables.aspx" />
     <Content Include="Views\Responsables1.aspx" />
+    <Content Include="Views\VistaArchivo.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -214,6 +246,17 @@
     <Compile Include="Controllers\AuditoriaDocumentoProcesos\AuditoriaDocumentoProcesosController.cs" />
     <Compile Include="Controllers\AuditoriaDocumentos\AuditoriaDocumentosController.cs" />
     <Compile Include="Controllers\AuditoriaDocumentos\CargaPlantillaChequesController.cs" />
+    <Compile Include="Controllers\AuditoriaDocumentos\CargaPlantillaComisionesController.cs" />
+    <Compile Include="Controllers\AuditoriaDocumentos\CargaPlantillaIngresosController.cs" />
+    <Compile Include="Controllers\AuditoriaDocumentos\CargaPlantillaMutuosController.cs" />
+    <Compile Include="Controllers\AuditoriaDocumentos\CargaPlantillaPagosController.cs" />
+    <Compile Include="Controllers\AuditoriaDocumentos\CargaPlantillaPlanillasController.cs" />
+    <Compile Include="Controllers\AuditoriaDocumentos\CargaPlantillaReembolsosController.cs" />
+    <Compile Include="Controllers\AuditoriaDocumentos\CargaPlantillaRegaliasController.cs" />
+    <Compile Include="Controllers\AuditoriaDocumentos\CargaPlantillaRegularizacionesController.cs" />
+    <Compile Include="Controllers\AuditoriaDocumentos\CargaPlantillaTransferenciasController.cs" />
+    <Compile Include="Controllers\AuditoriaDocumentos\CargaPlantillaTributosController.cs" />
+    <Compile Include="Controllers\AuditoriaDocumentos\DetalleLineaDocumentoController.cs" />
     <Compile Include="Controllers\AuditoriaGastos\AuditoriaGastosController.cs" />
     <Compile Include="Controllers\Auditorias\AuditoriasController.cs" />
     <Compile Include="Controllers\AuditoriaTareaProcesos\AuditoriaTareaProcesosController.cs" />
@@ -323,6 +366,7 @@
     <Compile Include="Models\Plantillas\Plantilla_Tributos.cs" />
     <Compile Include="Models\Responsables.cs" />
     <Compile Include="Models\SPRetorno.cs" />
+    <Compile Include="Models\TipoPlantilla.cs" />
     <Compile Include="Models\Transacciones.cs" />
     <Compile Include="Models\TransaccionesUsuario.cs" />
     <Compile Include="Models\TransaccionFacultad.cs" />
@@ -354,12 +398,47 @@
     <Compile Include="Services\Responsables\ResponsablesService.cs" />
     <Compile Include="Services\UsuarioOficina\UsuarioOficinaService.cs" />
     <Compile Include="Services\Usuarios\UsuariosService.cs" />
+    <Compile Include="Views\AuditoriaDocumentoProceso.aspx.cs">
+      <DependentUpon>AuditoriaDocumentoProceso.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\AuditoriaDocumentoProceso.aspx.designer.cs">
+      <DependentUpon>AuditoriaDocumentoProceso.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AuditoriaGasto.aspx.cs">
+      <DependentUpon>AuditoriaGasto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\AuditoriaGasto.aspx.designer.cs">
+      <DependentUpon>AuditoriaGasto.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Auditorias.aspx.cs">
       <DependentUpon>Auditorias.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Views\Auditorias.aspx.designer.cs">
       <DependentUpon>Auditorias.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AuditoriaTarea.aspx.cs">
+      <DependentUpon>AuditoriaTarea.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\AuditoriaTarea.aspx.designer.cs">
+      <DependentUpon>AuditoriaTarea.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AuditoriaTareaAsignacion.aspx.cs">
+      <DependentUpon>AuditoriaTareaAsignacion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\AuditoriaTareaAsignacion.aspx.designer.cs">
+      <DependentUpon>AuditoriaTareaAsignacion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AuditoriaTareaProceso.aspx.cs">
+      <DependentUpon>AuditoriaTareaProceso.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\AuditoriaTareaProceso.aspx.designer.cs">
+      <DependentUpon>AuditoriaTareaProceso.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\CatalogoGastos.aspx.cs">
       <DependentUpon>CatalogoGastos.aspx</DependentUpon>
@@ -395,6 +474,13 @@
     </Compile>
     <Compile Include="Views\Cotizaciones.aspx.designer.cs">
       <DependentUpon>Cotizaciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DetalleLineaDocumento.aspx.cs">
+      <DependentUpon>DetalleLineaDocumento.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\DetalleLineaDocumento.aspx.designer.cs">
+      <DependentUpon>DetalleLineaDocumento.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\Monedas.aspx.cs">
       <DependentUpon>Monedas.aspx</DependentUpon>
@@ -500,6 +586,13 @@
     </Compile>
     <Compile Include="Views\Responsables1.aspx.designer.cs">
       <DependentUpon>Responsables1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\VistaArchivo.aspx.cs">
+      <DependentUpon>VistaArchivo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\VistaArchivo.aspx.designer.cs">
+      <DependentUpon>VistaArchivo.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

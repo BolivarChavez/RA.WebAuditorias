@@ -43,7 +43,7 @@ async function LlenaGrid() {
         allowTextWrap: true,
         textWrapSettings: { wrapMode: 'Content' },
         columns: [
-            { field: 'ct_codigo', headerText: 'Codigo', width: 50, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'ct_codigo', headerText: 'Codigo', visible: false, width: 50, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'ct_proceso', headerText: 'Codigo Proceso', width: 50, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' }, visible: false },
             { field: 'cp_descripcion', headerText: 'Proceso', width: 100, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'ct_descripcion', headerText: 'Descripcion', width: 150, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
@@ -74,7 +74,7 @@ function ValidaDatos() {
     descripcion = document.getElementById('Descripcion').value;
 
     if (descripcion.trim() === "") {
-        document.getElementById('messageContent').innerHTML = "No se ha ingresado una descripción para la tarea";
+        document.getElementById('messageContent').innerHTML = "ERROR : No se ha ingresado una descripción para la tarea";
         $('#popupMessage').modal('show');
         return false;
     }
@@ -90,7 +90,7 @@ function GrabarProceso() {
         return strData;
     }
 
-    if (confirm("Confirma la grabacion del registro de proceso?")) {
+    if (confirm("Confirma la grabación del registro de proceso?")) {
         strParametro = "1|";
         strParametro += document.getElementById('Proceso').value + "|";
         strParametro += document.getElementById('Codigo').value + "|";
@@ -128,8 +128,17 @@ function GrabarProceso() {
         strData = "";
     }
 
-    document.getElementById('messageContent').innerHTML = "La grabación del registro ha finalizado";
-    $('#popupMessage').modal('show');
+    var retornoProceso = JSON.parse(strData)
+
+    if (retornoProceso[0]['retorno'] === 0) {
+        InicializaVista();
+        document.getElementById('messageContent').innerHTML = "La grabación del registro ha finalizado";
+        $('#popupMessage').modal('show');
+    }
+    else {
+        document.getElementById('messageContent').innerHTML = "ERROR : " + retornoProceso[0]['mensaje'];
+        $('#popupMessage').modal('show');
+    }
 
     LlenaGrid();
     return strData;
@@ -139,7 +148,7 @@ function EliminarProceso() {
     var strData;
     var strParametro;
 
-    if (confirm("Confirma la eliminacion del registro de proceso?")) {
+    if (confirm("Confirma la eliminación del registro de proceso?")) {
         strParametro = "1|";
         strParametro += document.getElementById('Proceso').value + "|";
         strParametro += document.getElementById('Codigo').value + "|";
@@ -171,8 +180,17 @@ function EliminarProceso() {
         strData = "";
     }
 
-    document.getElementById('messageContent').innerHTML = "La eliminación del registro ha finalizado";
-    $('#popupMessage').modal('show'); 
+    var retornoProceso = JSON.parse(strData)
+
+    if (retornoProceso[0]['retorno'] === 0) {
+        InicializaVista();
+        document.getElementById('messageContent').innerHTML = "La eliminación del registro ha finalizado";
+        $('#popupMessage').modal('show');
+    }
+    else {
+        document.getElementById('messageContent').innerHTML = "ERROR : " + retornoProceso[0]['mensaje'];
+        $('#popupMessage').modal('show');
+    }
 
     LlenaGrid();
     return strData;
@@ -180,4 +198,10 @@ function EliminarProceso() {
 
 function cierraMessagePopUp() {
     $('#popupMessage').modal('hide');
+}
+
+function InicializaVista() {
+    document.getElementById('Codigo').value = "0";
+    document.getElementById('Descripcion').value = "";
+    document.getElementById("chkEstado").checked = false;
 }
