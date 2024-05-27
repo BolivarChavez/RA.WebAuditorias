@@ -82,7 +82,7 @@ function ValidaDatos() {
     cotizacion = document.getElementById('Cotizacion').value;
 
     if (cotizacion.trim() === "" || cotizacion.trim() === "0") {
-        document.getElementById('messageContent').innerHTML = "La cotizacion no puede estar sin valor o con valor cero";
+        document.getElementById('messageContent').innerHTML = "ERROR : La cotización no puede estar sin valor o con valor cero";
         $('#popupMessage').modal('show');
         return false;
     }
@@ -98,7 +98,7 @@ function GrabarCotizacion() {
         return strData;
     }
 
-    if (confirm("Confirma la grabacion del registro de cotizacion?")) {
+    if (confirm("Confirma la grabación del registro de cotizacion?")) {
         var date = new Date(document.getElementById('Fecha').value + 'T00:00:00.000Z');
         var day = date.getUTCDate();
         var month = date.getUTCMonth() + 1;
@@ -145,8 +145,17 @@ function GrabarCotizacion() {
         strData = "";
     }
 
-    document.getElementById('messageContent').innerHTML = "La grabación del registro ha finalizado";
-    $('#popupMessage').modal('show');
+    var retornoProceso = JSON.parse(strData)
+
+    if (retornoProceso[0]['retorno'] === 0) {
+        InicializaVista();
+        document.getElementById('messageContent').innerHTML = "La grabación del registro ha finalizado";
+        $('#popupMessage').modal('show');
+    }
+    else {
+        document.getElementById('messageContent').innerHTML = "ERROR : " + retornoProceso[0]['mensaje'];
+        $('#popupMessage').modal('show');
+    }
 
     LlenaGrid();
     return strData;
@@ -154,4 +163,10 @@ function GrabarCotizacion() {
 
 function cierraMessagePopUp() {
     $('#popupMessage').modal('hide');
+}
+
+function InicializaVista() {
+    document.getElementById('Cotizacion').value = "0";
+    document.getElementById("chkEstado").checked = false;
+    document.getElementById('HiddenField1').value = "I";
 }

@@ -41,7 +41,7 @@ async function LlenaGrid() {
         allowScrolling: true,
         height: '100%',
         columns: [
-            { field: 'cp_codigo', headerText: 'Codigo', width: 20, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'cp_codigo', headerText: 'Codigo', visible: false, width: 20, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'cp_descripcion', headerText: 'Descripcion', width: 150, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'cp_estado', headerText: 'Estado', width: 150, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } }
         ],
@@ -63,7 +63,7 @@ function ValidaDatos() {
     descripcion = document.getElementById('Descripcion').value;
 
     if (descripcion.trim() === "") {
-        document.getElementById('messageContent').innerHTML = "No se ha ingresado una descripción para la plantilla";
+        document.getElementById('messageContent').innerHTML = "ERROR : No se ha ingresado una descripción para la plantilla";
         $('#popupMessage').modal('show');
         return false;
     }
@@ -79,7 +79,7 @@ function GrabarPlantilla() {
         return strData;
     }
 
-    if (confirm("Confirma la grabacion del registro de plantilla?")) {
+    if (confirm("Confirma la grabación del registro de plantilla?")) {
         strParametro = "1|";
         strParametro += document.getElementById('Codigo').value + "|";
         strParametro += document.getElementById('Descripcion').value + "|";
@@ -116,8 +116,17 @@ function GrabarPlantilla() {
         strData = "";
     }
 
-    document.getElementById('messageContent').innerHTML = "La grabación del registro ha finalizado";
-    $('#popupMessage').modal('show'); 
+    var retornoProceso = JSON.parse(strData)
+
+    if (retornoProceso[0]['retorno'] === 0) {
+        InicializaVista();
+        document.getElementById('messageContent').innerHTML = "La grabación del registro ha finalizado";
+        $('#popupMessage').modal('show');
+    }
+    else {
+        document.getElementById('messageContent').innerHTML = "ERROR : " + retornoProceso[0]['mensaje'];
+        $('#popupMessage').modal('show');
+    }
 
     LlenaGrid();
     return strData;
@@ -127,7 +136,7 @@ function EliminarPlantilla() {
     var strData;
     var strParametro;
 
-    if (confirm("Confirma la eliminacion del registro de plantilla??")) {
+    if (confirm("Confirma la eliminación del registro de plantilla??")) {
         strParametro = "1|";
         strParametro += document.getElementById('Codigo').value + "|";
         strParametro += document.getElementById('Descripcion').value + "|";
@@ -158,8 +167,17 @@ function EliminarPlantilla() {
         strData = "";
     }
 
-    document.getElementById('messageContent').innerHTML = "La eliminación del registro ha finalizado";
-    $('#popupMessage').modal('show'); 
+    var retornoProceso = JSON.parse(strData)
+
+    if (retornoProceso[0]['retorno'] === 0) {
+        InicializaVista();
+        document.getElementById('messageContent').innerHTML = "La eliminación del registro ha finalizado";
+        $('#popupMessage').modal('show');
+    }
+    else {
+        document.getElementById('messageContent').innerHTML = "ERROR : " + retornoProceso[0]['mensaje'];
+        $('#popupMessage').modal('show');
+    }
 
     LlenaGrid();
     return strData;
@@ -167,4 +185,10 @@ function EliminarPlantilla() {
 
 function cierraMessagePopUp() {
     $('#popupMessage').modal('hide');
+}
+
+function InicializaVista() {
+    document.getElementById('Codigo').value = "0";
+    document.getElementById('Descripcion').value = "";
+    document.getElementById("chkEstado").checked = false;
 }

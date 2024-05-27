@@ -23,31 +23,14 @@
                 <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2 my-auto">
                     <img class="image-logo-empresa" src="../Images/LogoRomeroyAsociados.png" />
                 </div>    
-                <div class="col-sm-12 col-md-10 col-lg-10 col-xl-10 center-block text-left my-auto">
+                <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8 center-block text-left my-auto">
                     <p class="barra-titulo" style="color:#2C3E50;">Plantilla de transferencias</p>
-                </div>  
+                </div> 
+                <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2 center-block text-left my-auto">
+                </div>                 
             </div>
             <div class="row console-menu-height" style="background-color: #B2BABB;">
-                <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2 py-4 h-100 opcion-backcolor-1" style="background-color: #B2BABB;">
-                    <header class="avatar" style="background-color: #B2BABB;">
-                        <asp:Label ID="label1" runat="server" style="color:#2C3E50;" >Estudio Jurídico Romero y Asociados</asp:Label>
-                        <asp:Label ID="label2" runat="server" style="color:#2C3E50;">Sistema de Control de Auditorías</asp:Label>
-                        <br />
-                        <br />
-                        <br />
-                        <asp:Label ID="labelUser" runat="server" style="color:#2C3E50;">USUARIO</asp:Label>
-                        <br />
-                        <asp:Label ID="lblNombre" runat="server" style="color:#2C3E50;">Nombre del colaborador</asp:Label>
-                        <br />
-                        <asp:Label ID="labelEmpresa" runat="server" style="color:#2C3E50;">EMPRESA</asp:Label>
-                        <br />
-                        <asp:Label ID="LabeNomEmpresa" runat="server" style="color:#2C3E50;">Nombre de la empresa</asp:Label>
-                    </header>
-                    <br />
-                    <div id="DivMenu" runat="server" class="overflow-auto">
-                    </div>
-                </div>
-                <div id="Contenedor" class="col-sm-12 col-md-10 col-lg-10 col-xl-10 px-0 py-0 bg-white h-100 opcion-backcolor-2">
+                <div id="Contenedor" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 px-4 py-0 bg-white h-100 opcion-backcolor-2">
                     <div id="Formulario">
                         <div class="container-fluid">
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -66,21 +49,22 @@
                                         <asp:UpdatePanel runat="server">
                                         <ContentTemplate>
                                             <nav class="navbar navbar-expand-lg">
-                                                <button class="btn btn-outline-dark navbar-btn boton-nuevo boton-margen" id="BtnNuevo" runat="server" data-toggle="tooltip" data-placement="bottom" title="Limpia campos de ingreso"></button>
-                                                <button class="btn btn-outline-dark navbar-btn boton-buscar boton-margen" id="BtnBuscar" runat="server" data-toggle="tooltip" data-placement="bottom" title="Busca registros de plantilla"></button>
-                                                <button class="btn btn-outline-dark navbar-btn boton-grabar boton-margen" id="BtnGrabar" runat="server" data-toggle="tooltip" data-placement="bottom" title="Graba registro de plantilla"></button>
-                                                <button class="btn btn-outline-dark navbar-btn boton-eliminar boton-margen" id="BtnEliminar" runat="server" data-toggle="tooltip" data-placement="bottom" title="Elimina registro de plantilla"></button>
-                                                <button class="btn btn-outline-dark navbar-btn boton-cargaplantilla boton-margen" id="BtnCargar" runat="server" data-toggle="tooltip" data-placement="bottom" title="Subir archivo de plantilla"></button>
-                                                <button class="btn btn-outline-dark navbar-btn boton-agregaplantilla boton-margen" id="BtnCargaPlantilla" runat="server" data-toggle="tooltip" data-placement="bottom" title="Grablar plantilla desde archivo"></button>
+                                                <button class="btn btn-outline-dark navbar-btn boton-nuevo boton-margen" id="BtnNuevo" runat="server" onserverclick="BtnNuevo_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Limpia campos de ingreso"></button>
+                                                <button class="btn btn-outline-dark navbar-btn boton-buscar boton-margen" id="BtnBuscar" runat="server" onserverclick="BtnBuscar_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Busca registros de plantilla"></button>
+                                                <button class="btn btn-outline-dark navbar-btn boton-grabar boton-margen" id="BtnGrabar" runat="server" onserverclick="BtnGrabar_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Graba registro de plantilla"></button>
+                                                <button class="btn btn-outline-dark navbar-btn boton-eliminar boton-margen" id="BtnEliminar" runat="server" onserverclick="BtnEliminar_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Elimina registro de plantilla"></button>
+                                                <button class="btn btn-outline-dark navbar-btn boton-cargaplantilla boton-margen" id="BtnCargar" runat="server" onserverclick="BtnCargar_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Subir archivo de plantilla"></button>
+                                                <button class="btn btn-outline-dark navbar-btn boton-agregaplantilla boton-margen" id="BtnCargaPlantilla" runat="server" onserverclick="BtnCargaPlantilla_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Grablar plantilla desde archivo"></button>
+                                                <button class="btn btn-outline-dark navbar-btn boton-addproceso boton-margen" id="BtnAddTarea" runat="server" onserverclick="BtnAddTarea_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Asociar actividades al registro seleccionado"></button>
                                             </nav>
                                             <div id="DivOpciones" class="px-2" style="overflow-x: hidden; overflow-y: auto" runat="server">
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
-                                                        <label for="Auditoria" class="col-form-label col-form-label-sm" style="font-weight:bold;">Auditoria</label>
+                                                        <label for="Auditoria" class="col-form-label col-form-label-sm" style="font-weight:bold;">Auditoría</label>
                                                         <input type="text" class="form-control form-control-sm" id="Auditoria" placeholder="0" readonly="true" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Codigo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Codigo</label>
+                                                        <label for="Codigo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Código</label>
                                                         <input type="text" class="form-control form-control-sm" id="Codigo" placeholder="0" readonly="true" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
@@ -107,11 +91,11 @@
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Concepto" class="col-form-label col-form-label-sm" style="font-weight:bold;">Concepto</label>
-                                                        <input type="text" class="form-control form-control-sm" id="Concepto" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm" id="Concepto" placeholder="" runat="server" onclick="muestraContenidoTexto('Concepto', 'Concepto')"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="ReferenciaTransferencia" class="col-form-label col-form-label-sm" style="font-weight:bold;">Referencia transferencia</label>
-                                                        <input type="text" class="form-control form-control-sm" id="ReferenciaTransferencia" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm" id="ReferenciaTransferencia" placeholder="" runat="server" onclick="muestraContenidoTexto('Referencia Transferencia', 'ReferenciaTransferencia')"/>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -138,12 +122,12 @@
                                                         <input type="text" class="form-control form-control-sm" id="Comprobante_Pago" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Observacion_Preliminar" class="col-form-label col-form-label-sm" style="font-weight:bold;">Observacion preliminar</label>
-                                                        <input type="text" class="form-control form-control-sm" id="Observacion_Preliminar" placeholder="" runat="server"/>
+                                                        <label for="Observacion_Preliminar" class="col-form-label col-form-label-sm" style="font-weight:bold;">Observación preliminar</label>
+                                                        <input type="text" class="form-control form-control-sm" id="Observacion_Preliminar" placeholder="" runat="server" onclick="muestraContenidoTexto('Observacion Preliminar', 'Observacion_Preliminar')"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Observacion_Final" class="col-form-label col-form-label-sm" style="font-weight:bold;">Observacion final</label>
-                                                        <input type="text" class="form-control form-control-sm" id="Observacion_Final" placeholder="" runat="server"/>
+                                                        <label for="Observacion_Final" class="col-form-label col-form-label-sm" style="font-weight:bold;">Observación final</label>
+                                                        <input type="text" class="form-control form-control-sm" id="Observacion_Final" placeholder="" runat="server" onclick="muestraContenidoTexto('Observacion Final', 'Observacion_Final')"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Estado" class="col-form-label col-form-label-sm" style="font-weight:bold;">Estado</label>
@@ -152,16 +136,30 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
-                                                        <label for="Tipo_Plantilla" class="col-form-label col-form-label-sm" style="font-weight:bold;">Tipo plantilla</label>
-                                                        <input type="text" class="form-control form-control-sm" id="Tipo_Plantilla" placeholder="" runat="server"/>
+                                                        <label for="Banco" class="col-form-label col-form-label-sm" style="font-weight:bold;">Banco</label>
+                                                        <input type="text" class="form-control form-control-sm" id="Banco" placeholder="" runat="server"/>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="Empresa" class="col-form-label col-form-label-sm" style="font-weight:bold;">Empresa</label>
+                                                        <input type="text" class="form-control form-control-sm" id="Empresa" placeholder="" runat="server"/>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="Sede" class="col-form-label col-form-label-sm" style="font-weight:bold;">Sede</label>
+                                                        <input type="text" class="form-control form-control-sm" id="Sede" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Cuenta" class="col-form-label col-form-label-sm" style="font-weight:bold;">Cuenta</label>
                                                         <input type="text" class="form-control form-control-sm" id="Cuenta" placeholder="" runat="server"/>
                                                     </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-md-3">
+                                                        <label for="Sub_Cuenta" class="col-form-label col-form-label-sm" style="font-weight:bold;">Sub Cuenta</label>
+                                                        <input type="text" class="form-control form-control-sm" id="Sub_Cuenta" placeholder="" runat="server"/>
+                                                    </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Soporte" class="col-form-label col-form-label-sm" style="font-weight:bold;">Soporte</label>
-                                                        <input type="text" class="form-control form-control-sm" id="Soporte" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm" id="Soporte" placeholder="" runat="server" onclick="muestraContenidoTexto('Soporte', 'Soporte')"/>
                                                     </div>
                                                 </div>
                                                 <div class="form-check">
@@ -169,10 +167,16 @@
                                                     <label class="form-check-label form-control-sm" for="chkEstado">El registro de la plantilla se encuentra activo</label>
                                                 </div>
                                                <div class="form-group">
-                                                   <label for="CargaArchivo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Carga plantilla desde archivo</label>
-                                                   <input type="file" class="form-control form-control-sm" id="CargaArchivo" placeholder="" runat="server"/>
-                                               </div>
-                                            </div>
+                                                    <label for="CargaArchivo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Carga plantilla desde archivo</label>
+                                                    <br />
+                                                    <asp:FileUpload ID="CargaArchivo" runat="server" Width="600px"/>
+                                                    <br />
+                                                    <label class="form-check-label form-control-sm" for="Hoja" style="font-weight:bold";>Hoja</label>
+                                                    <asp:DropDownList ID="Hoja" CssClass="form-select form-select-sm" style="width: 300px" runat="server">
+                                                    </asp:DropDownList>                                                 </div>
+                                                </div>
+                                                <asp:HiddenField ID="HiddenField1" runat="server" />
+                                                <asp:HiddenField ID="HiddenField2" runat="server" />
                                         </ContentTemplate>
                                         </asp:UpdatePanel>
                                     </form> 
@@ -185,6 +189,23 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Editor de campos de texto -->
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="tituloCampo"></h4>
+                        <button type="button" class="close" data-dismiss="modal" onclick="cierraContenidoTexto()">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <textarea rows="5" class="form-control" style="overflow-y:scroll;" id="message-text"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cierraContenidoTexto()">Cerrar</button>
                     </div>
                 </div>
             </div>

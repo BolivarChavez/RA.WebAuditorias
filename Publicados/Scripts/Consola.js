@@ -31,8 +31,18 @@ function CallServerMethod(clicked_id, clicked_desc) {
 }
 
 function EjecutaOpcion(codigo) {
-    var descripcion = document.getElementById('opt-' + codigo).innerText;
-    var pagina = document.getElementById('pag-' + codigo).innerText;
+    var descripcion = "";
+    var pagina = "";
+
+    if (codigo.includes("-")) {
+        descripcion = document.getElementById('opt-' + codigo.split("-")[1]).innerText;
+        pagina = document.getElementById('pag-' + codigo.split("-")[1]).innerText;
+    }
+    else {
+        descripcion = document.getElementById('opt-' + codigo).innerText;
+        pagina = document.getElementById('pag-' + codigo).innerText;
+    }
+
     document.cookie = 'opcionsiep=' + descripcion + ';path =/';
     windows.push(window.open('../Views/' + pagina, '_blank'));
 }

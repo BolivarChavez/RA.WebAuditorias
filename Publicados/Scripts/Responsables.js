@@ -43,7 +43,7 @@ async function LlenaGrid() {
         allowTextWrap: true,
         textWrapSettings: { wrapMode: 'Content' },
         columns: [
-            { field: 're_codigo', headerText: 'Codigo', width: 50, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 're_codigo', headerText: 'Codigo', visible: false, width: 50, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 're_nombre', headerText: 'Descripcion', width: 150, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 're_cargo', headerText: 'Cargo', width: 50, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' }, visible: false },
             { field: 're_oficina', headerText: 'Oficina', width: 100, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' }, visible: false },
@@ -91,13 +91,13 @@ function ValidaDatos() {
     cargo = document.getElementById('Cargo').value;
 
     if (nombre.trim() === "") {
-        document.getElementById('messageContent').innerHTML = "No se ha ingresado nombre para el responsable";
+        document.getElementById('messageContent').innerHTML = "ERROR : No se ha ingresado nombre para el responsable";
         $('#popupMessage').modal('show');
         return false;
     }
 
     if (cargo.trim() === "") {
-        document.getElementById('messageContent').innerHTML = "No se ha ingresado el cargo del responsable";
+        document.getElementById('messageContent').innerHTML = "ERROR : No se ha ingresado el cargo del responsable";
         $('#popupMessage').modal('show');
         return false;
     }
@@ -113,7 +113,7 @@ function GrabarResponsables() {
         return strData;
     }
 
-    if (confirm("Confirma la grabacion del registro del responsable?")) {
+    if (confirm("Confirma la grabación del registro del responsable?")) {
         strParametro = "1|";
         strParametro += document.getElementById('Codigo').value + "|";
         strParametro += document.getElementById('Nombre').value + "|";
@@ -163,8 +163,17 @@ function GrabarResponsables() {
         strData = "";
     }
 
-    document.getElementById('messageContent').innerHTML = "La grabación del registro ha finalizado";
-    $('#popupMessage').modal('show');
+    var retornoProceso = JSON.parse(strData)
+
+    if (retornoProceso[0]['retorno'] === 0) {
+        InicializaVista();
+        document.getElementById('messageContent').innerHTML = "La grabación del registro ha finalizado";
+        $('#popupMessage').modal('show');
+    }
+    else {
+        document.getElementById('messageContent').innerHTML = "ERROR : " + retornoProceso[0]['mensaje'];
+        $('#popupMessage').modal('show');
+    }
 
     LlenaGrid();
     return strData;
@@ -172,4 +181,14 @@ function GrabarResponsables() {
 
 function cierraMessagePopUp() {
     $('#popupMessage').modal('hide');
+}
+
+function InicializaVista() {
+    document.getElementById('Codigo').value = "0";
+    document.getElementById('Nombre').value = "";
+    document.getElementById('Cargo').value = "";
+    document.getElementById('Correo').value = "";
+    document.getElementById('Usuario').value = "";
+    document.getElementById('HiddenField1').value = "I";
+    document.getElementById("chkEstado").checked = false;
 }

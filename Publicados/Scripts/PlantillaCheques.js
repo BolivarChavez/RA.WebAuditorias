@@ -62,12 +62,13 @@ async function LlenaGrid() {
         textWrapSettings: { wrapMode: 'Content' },
         gridLines: 'Both',
         columns: [
-            { field: 'IdRegistro', headerText: 'Id', width: 75, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'IdRegistro', headerText: 'Id', visible: false, width: 75, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'ReferenciaLinea', headerText: 'Referencia', width: 125, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Item', headerText: 'Item', width: 75, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Talonario', headerText: 'Talonario', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Req', headerText: 'Req', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Beneficiario', headerText: 'Beneficiario', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Concepto', headerText: 'Concepto', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Comprobante', headerText: 'Comprobante', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Monto', headerText: 'Monto', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Fecha_Pago', headerText: 'Fecha de Pago', type: 'date', width: 175, format: { type: 'date', format: 'dd/MM/yyyy' }, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
@@ -78,8 +79,10 @@ async function LlenaGrid() {
             { field: 'Observacion_Preliminar', headerText: 'Observacion Preliminar', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Observacion_Final', headerText: 'Observacion Final', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Estado', headerText: 'Estado', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'Tipo_Plantilla', headerText: 'Tipo de Plantilla', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'Cuentas', headerText: 'Cuentas', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } }
+            { field: 'Empresa', headerText: 'Empresa', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Sede', headerText: 'Sede', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Cuenta', headerText: 'Cuenta', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Sub_Cuenta', headerText: 'Sub Cuenta', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } }
         ],
         pageSettings: { pageCount: 5, pageSize: 10 },
         rowSelected: rowSelected
@@ -117,8 +120,10 @@ function rowSelected(args) {
 
     document.getElementById('Observacion_Final').value = args.data.Observacion_Final;
     document.getElementById('Estado').value = args.data.Estado;
-    document.getElementById('Tipo_Plantilla').value = args.data.Tipo_Plantilla;
-    document.getElementById('Cuentas').value = args.data.Cuentas;
+    document.getElementById('Empresa').value = args.data.Empresa;
+    document.getElementById('Sede').value = args.data.Sede;
+    document.getElementById('Cuenta').value = args.data.Cuenta;
+    document.getElementById('SubCuenta').value = args.data.Sub_Cuenta;
 }
 
 function muestraContenidoTexto(titulo, campo) {

@@ -43,7 +43,7 @@ async function LlenaGrid() {
         allowTextWrap: true,
         textWrapSettings: { wrapMode: 'Content' },
         columns: [
-            { field: 'mo_codigo', headerText: 'Codigo', width: 50, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'mo_codigo', headerText: 'Codigo', visible: false, width: 50, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'mo_descripcion', headerText: 'Descripcion', width: 150, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'mo_estado', headerText: 'Estado', width: 100, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } }
         ],
@@ -65,7 +65,7 @@ function ValidaDatos() {
     descripcion = document.getElementById('Descripcion').value;
 
     if (descripcion.trim() === "") {
-        document.getElementById('messageContent').innerHTML = "No se ha ingresado una descripción para la moneda";
+        document.getElementById('messageContent').innerHTML = "ERROR : No se ha ingresado una descripción para la moneda";
         $('#popupMessage').modal('show');
         return false;
     }
@@ -81,7 +81,7 @@ function GrabarMoneda() {
         return strData;
     }
 
-    if (confirm("Confirma la grabacion del registro de moneda?")) {
+    if (confirm("Confirma la grabación del registro de moneda?")) {
         strParametro = "1|";
         strParametro += document.getElementById('Codigo').value + "|";
         strParametro += document.getElementById('Descripcion').value + "|";
@@ -118,8 +118,17 @@ function GrabarMoneda() {
         strData = "";
     }
 
-    document.getElementById('messageContent').innerHTML = "La grabación del registro ha finalizado";
-    $('#popupMessage').modal('show'); 
+    var retornoProceso = JSON.parse(strData)
+
+    if (retornoProceso[0]['retorno'] === 0) {
+        InicializaVista();
+        document.getElementById('messageContent').innerHTML = "La grabación del registro ha finalizado";
+        $('#popupMessage').modal('show');
+    }
+    else {
+        document.getElementById('messageContent').innerHTML = "ERROR : " + retornoProceso[0]['mensaje'];
+        $('#popupMessage').modal('show');
+    }
 
     LlenaGrid();
     return strData;
@@ -129,7 +138,7 @@ function EliminarMoneda() {
     var strData;
     var strParametro;
 
-    if (confirm("Confirma la eliminacion del registro de moneda?")) {
+    if (confirm("Confirma la eliminación del registro de moneda?")) {
         strParametro = "1|";
         strParametro += document.getElementById('Codigo').value + "|";
         strParametro += document.getElementById('Descripcion').value + "|";
@@ -160,8 +169,17 @@ function EliminarMoneda() {
         strData = "";
     }
 
-    document.getElementById('messageContent').innerHTML = "La eliminación del registro ha finalizado";
-    $('#popupMessage').modal('show'); 
+    var retornoProceso = JSON.parse(strData)
+
+    if (retornoProceso[0]['retorno'] === 0) {
+        InicializaVista();
+        document.getElementById('messageContent').innerHTML = "La eliminación del registro ha finalizado";
+        $('#popupMessage').modal('show');
+    }
+    else {
+        document.getElementById('messageContent').innerHTML = "ERROR : " + retornoProceso[0]['mensaje'];
+        $('#popupMessage').modal('show');
+    }
 
     LlenaGrid();
     return strData;
@@ -169,4 +187,10 @@ function EliminarMoneda() {
 
 function cierraMessagePopUp() {
     $('#popupMessage').modal('hide');
+}
+
+function InicializaVista() {
+    document.getElementById('Codigo').value = "0";
+    document.getElementById('Descripcion').value = "";
+    document.getElementById("chkEstado").checked = false;
 }

@@ -168,6 +168,176 @@
     background-color: #E5E8E8;
 }
 
+.boton-activar:before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: text-top;
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url('../Images/Activar.png');
+}
+
+.boton-activar:hover {
+    border-color: steelblue;
+    background-color: #E5E8E8;
+}
+
+.boton-asignarpersona:before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: text-top;
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url('../Images/AsignarPersona.png');
+}
+
+.boton-asignarpersona:hover {
+    border-color: steelblue;
+    background-color: #E5E8E8;
+}
+
+.boton-asignartarea:before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: text-top;
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url('../Images/AsignarTarea.png');
+}
+
+.boton-asignartarea:hover {
+    border-color: steelblue;
+    background-color: #E5E8E8;
+}
+
+.boton-cancelar:before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: text-top;
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url('../Images/Cancelar.png');
+}
+
+.boton-cancelar:hover {
+    border-color: steelblue;
+    background-color: #E5E8E8;
+}
+
+.boton-cerrar:before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: text-top;
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url('../Images/Cerrar.png');
+}
+
+.boton-cerrar:hover {
+    border-color: steelblue;
+    background-color: #E5E8E8;
+}
+
+.boton-detener:before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: text-top;
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url('../Images/Detener.png');
+}
+
+.boton-detener:hover {
+    border-color: steelblue;
+    background-color: #E5E8E8;
+}
+
+.boton-inactivar:before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: text-top;
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url('../Images/Inactivar.png');
+}
+
+.boton-inactivar:hover {
+    border-color: steelblue;
+    background-color: #E5E8E8;
+}
+
+.boton-iniciar:before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: text-top;
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url('../Images/Iniciar.png');
+}
+
+.boton-verlinea:hover {
+    border-color: steelblue;
+    background-color: #E5E8E8;
+}
+
+.boton-verlinea:before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: text-top;
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url('../Images/VerLinea.png');
+}
+
+.boton-verarchivo:hover {
+    border-color: steelblue;
+    background-color: #E5E8E8;
+}
+
+.boton-verarchivo:before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: text-top;
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url('../Images/VerArchivo.png');
+}
+
+.boton-iniciar:hover {
+    border-color: steelblue;
+    background-color: #E5E8E8;
+}
+
 .boton-margen {
     margin-left: 4px;
 }

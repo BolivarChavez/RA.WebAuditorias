@@ -103,7 +103,7 @@ table {
 }
 
 th {
-    background: #055081;
+    background: #757777;
     color: white;
     font-weight: bold;
     position: sticky;
@@ -118,9 +118,9 @@ td, th {
 }
 
 .labels tr td {
-    background-color: steelblue;
+    background-color: #B7BABA;
     font-weight: bold;
-    color: #fff;
+    color: #2C3E50;
 }
 
 .label tr td label {
