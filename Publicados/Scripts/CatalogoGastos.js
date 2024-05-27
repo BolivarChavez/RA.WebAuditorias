@@ -118,7 +118,7 @@ function GrabarGasto() {
 
     var retornoProceso = JSON.parse(strData)
 
-    if (retornoProceso[0]['retorno'] === 0) 
+    if (retornoProceso[0]['retorno'] === 0) {
         InicializaVista();
         document.getElementById('messageContent').innerHTML = "La grabación del registro ha finalizado";
         $('#popupMessage').modal('show'); 

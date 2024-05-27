@@ -159,7 +159,7 @@
                                                         <input type="text" class="form-control form-control-sm" id="Sede" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Cuenta" class="col-form-label col-form-label-sm" style="font-weight:bold;">Sede</label>
+                                                        <label for="Cuenta" class="col-form-label col-form-label-sm" style="font-weight:bold;">Cuenta</label>
                                                         <input type="text" class="form-control form-control-sm" id="Cuenta" placeholder="" runat="server" onclick="muestraContenidoTexto('Cuenta', 'Cuenta')"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
