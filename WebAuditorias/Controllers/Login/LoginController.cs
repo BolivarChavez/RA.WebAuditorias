@@ -4,6 +4,7 @@ using WebAuditorias.Interfaces.Login;
 using WebAuditorias.Models;
 using WebAuditorias.Services.Login;
 using WebAuditorias.Services.Operador;
+using WebAuditorias.Services.Utils;
 
 namespace WebAuditorias.Controllers.Login
 {
@@ -13,12 +14,17 @@ namespace WebAuditorias.Controllers.Login
         {
             LoginService _LoginService = new LoginService();
             OperadorService _OperadorService = new OperadorService();
+            CifradoService _cifrado = new CifradoService();
             string respvalida;
+            string passwordCifrado;
 
             respvalida = _LoginService.ValidaLogin(login);
 
             if (respvalida == "")
             {
+                passwordCifrado = _cifrado.Encriptar(login.password.ToLower());
+                login.password = passwordCifrado;
+
                 var retorno = _LoginService.LoginUsuario(login);
 
                 if (retorno.retorno == 0)

@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="../Styles/Custom-Grid.css" />
     <script src="../Scripts/ej2.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"></script>
 </head>
 <body style="margin: 0; height: 100%; overflow: hidden; background-color: #E5E8E8;">
@@ -28,6 +29,24 @@
                 <p class="barra-titulo" style="color:#2C3E50;">Actvidades relacionadas a tareas de auditoría</p>
             </div>  
             <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2 center-block text-left my-auto">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <asp:Label ID="labelUser" runat="server" ForeColor="#2C3E50" Font-Size="11px">USUARIO :</asp:Label>
+                        </div>
+                        <div class="col">
+                            <asp:Label ID="lblNombre" runat="server" ForeColor="#2C3E50" Font-Size="11px" Font-Bold="True">Nombre del colaborador</asp:Label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <asp:Label ID="lblFecha" runat="server" ForeColor="#2C3E50" Font-Size="11px">FECHA DE INGRESO :</asp:Label>
+                        </div>
+                        <div class="col">
+                            <asp:Label ID="lblFechaConexion" runat="server" ForeColor="#2C3E50" Font-Size="11px" Font-Bold="True">Fecha y hora del dia</asp:Label>
+                        </div>
+                    </div>
+                </div>
             </div>  
         </div>
         <div class="row console-menu-height" style="background-color: #B2BABB;">
@@ -43,6 +62,8 @@
                                 <button class="btn btn-outline-dark navbar-btn boton-buscar boton-margen" id="BtnBuscar" runat="server" onserverclick="BtnBuscar_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Busca registros de actividades relacionadas a la tarea"></button>
                                 <button class="btn btn-outline-dark navbar-btn boton-grabar boton-margen" id="BtnGrabar" runat="server" onserverclick="BtnGrabar_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Graba registro de actividad relacionada a la tarea"></button>
                                 <button class="btn btn-outline-dark navbar-btn boton-eliminar boton-margen" id="BtnEliminar" runat="server" onserverclick="BtnEliminar_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Elimina registro de actividad relacionada a la tarea"></button>
+                                <button class="btn btn-outline-dark navbar-btn boton-cargaplantilla boton-margen" id="BtnCargar" runat="server" onserverclick="BtnCargar_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Subir documento asociado"></button>
+                                <button class="btn btn-outline-dark navbar-btn boton-verarchivo boton-margen" id="BtnVerArchivo" runat="server" onserverclick="BtnVerArchivo_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Ver documento asociado a proceso de tarea"></button>
                             </nav>
                             <div id="DivOpciones" class="px-2" runat="server">
                                 <div class="row">
@@ -76,9 +97,21 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="form-group col-md-12">
+                                    <div class="form-group col-md-6">
                                         <label for="Observaciones" class="col-form-label col-form-label-sm" style="font-weight:bold;">Detalle de la actividad</label>
                                         <textarea class="form-control" id="Observaciones" rows="5" runat="server"></textarea>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="Archivo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Seleccionar documento asociado</label>
+                                        <br />
+                                        <asp:FileUpload ID="Archivo" runat="server" Width="600px" onchange="NombreArchivo();"/>
+                                        <br />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="Documento" class="col-form-label col-form-label-sm" style="font-weight:bold;">Documento asociado a actividad</label>
+                                        <input type="text" class="form-control form-control-sm" id="Documento" placeholder="" readonly="true" runat="server"/>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -92,6 +125,9 @@
                             </div>
                             <asp:HiddenField ID="HiddenField1" runat="server" />
                         </ContentTemplate>
+                        <Triggers>
+                            <asp:PostBackTrigger ControlID = "BtnCargar" />
+                        </Triggers>
                         </asp:UpdatePanel>
                     </form> 
                 </div>
@@ -122,14 +158,19 @@
     </div>
     <script src="../Scripts/AuditoriaTareaProceso.js" type="text/javascript"></script>
     <script>
-        window.onload = function () {
-            var botonNuevo = document.getElementById("BtnNuevo");
-            botonNuevo.click();
-        };
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
 
         $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-        })
+            $('[data-toggle="tooltip"]').tooltip({
+                trigger: 'hover'
+            });
+
+            $('[data-toggle="tooltip"]').on('click', function () {
+                $(this).tooltip('hide')
+            });
+        });
     </script>
 </body>
 </html>

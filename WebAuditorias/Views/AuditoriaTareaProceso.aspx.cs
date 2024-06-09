@@ -1,11 +1,14 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebAuditorias.Controllers.AuditoriaTareaProcesos;
+using WebAuditorias.Controllers.Cookies;
 using WebAuditorias.Controllers.Responsables;
+using WebAuditorias.Models;
 
 namespace WebAuditorias.Views
 {
@@ -16,6 +19,7 @@ namespace WebAuditorias.Views
             if (!IsPostBack)
             {
                 InitializedView();
+                CargaDatosUsuario();
                 CargaResponsables();
             }
         }
@@ -30,7 +34,18 @@ namespace WebAuditorias.Views
             Codigo.Value = "0";
             Fecha.Value = DateTime.Today.ToString("yyyy-MM-dd");
             Observaciones.Value = "";
+            Documento.Value = "";
             chkEstado.Checked = false;
+        }
+
+        private void CargaDatosUsuario()
+        {
+            UserInfoCookie user_cookie = new UserInfoCookie();
+            UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
+            user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
+
+            lblNombre.Text = user_cookie.Nombre;
+            lblFechaConexion.Text = DateTime.Now.ToString();
         }
 
         private void CargaResponsables()
@@ -80,6 +95,7 @@ namespace WebAuditorias.Views
                                            proceso.at_responsable,
                                            responsableNombre,
                                            proceso.at_observaciones,
+                                           proceso.at_documento,
                                            proceso.at_estado
                                        };
 
@@ -103,7 +119,8 @@ namespace WebAuditorias.Views
             parametro.at_responsable = Int16.Parse(arrayParametros[5].ToString());
             parametro.at_fecha = DateTime.Parse(arrayParametros[6].ToString());
             parametro.at_observaciones = arrayParametros[7].ToString().ToUpper();
-            parametro.at_estado = arrayParametros[8].ToString();
+            parametro.at_documento = arrayParametros[8].ToString();
+            parametro.at_estado = arrayParametros[9].ToString();
             parametro.at_usuario_creacion = "usuario";
             parametro.at_fecha_creacion = DateTime.Now;
             parametro.at_usuario_actualizacion = "usuario";
@@ -140,6 +157,28 @@ namespace WebAuditorias.Views
         {
             ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "EliminarProceso();", true);
             InitializedView();
+        }
+
+        protected void BtnCargar_ServerClick(object sender, EventArgs e)
+        {
+            string fileName;
+
+            if (Archivo.HasFile)
+            {
+                fileName = Archivo.FileName.Trim();
+                Documento.Value = fileName;
+                Archivo.SaveAs(Server.MapPath("~") + ConfigurationManager.AppSettings["PathDocs"] + @"\" + fileName);
+            }
+        }
+
+        protected void BtnVerArchivo_ServerClick(object sender, EventArgs e)
+        {
+            if (Documento.Value.ToString().Trim() != "")
+            {
+                string url = string.Format("VistaArchivo.aspx?archivo={0}", Documento.Value.ToString().Trim());
+                string script = "window.open('" + url + "')";
+                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", script, true);
+            }
         }
     }
 }

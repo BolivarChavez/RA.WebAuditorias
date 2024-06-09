@@ -65,7 +65,8 @@ async function LlenaGrid() {
             { field: 'at_responsable', headerText: 'Codigo responsable', width: 50, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' }, visible: false },
             { field: 're_nombre', headerText: 'Auditor', width: 100, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' }},
             { field: 'responsableNombre', headerText: 'Responsable', width: 100, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' }},
-            { field: 'at_observaciones', headerText: 'Observaciones', width: 150, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' }},
+            { field: 'at_observaciones', headerText: 'Observaciones', width: 150, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'at_documento', headerText: 'Documento Relacionado', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'at_estado', headerText: 'Estado', width: 100, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' }}
         ],
         pageSettings: { pageCount: 5, pageSize: 10 },
@@ -84,6 +85,7 @@ function rowSelected(args) {
     document.getElementById('Codigo').value = args.data.at_secuencia;
     document.getElementById('Fecha').value = fecha1;
     document.getElementById('Observaciones').value = args.data.at_observaciones;
+    document.getElementById('Documento').value = args.data.at_documento;
 
     var dropdownlistbox1 = document.getElementById("Auditor")
 
@@ -140,6 +142,7 @@ function GrabarProceso() {
         strParametro += document.getElementById('Responsable').value + "|";
         strParametro += fecha1 + "|";
         strParametro += document.getElementById('Observaciones').value + "|";
+        strParametro += document.getElementById('Documento').value + "|";
 
         if (document.getElementById("chkEstado").checked) {
             strParametro += "A";
@@ -211,6 +214,7 @@ function EliminarProceso() {
         strParametro += document.getElementById('Responsable').value + "|";
         strParametro += fecha1 + "|";
         strParametro += document.getElementById('Observaciones').value + "|";
+        strParametro += document.getElementById('Documento').value + "|";
         strParametro += "X";
 
         var args = '';
@@ -261,5 +265,6 @@ function cierraMessagePopUp() {
 function InicializaVista() {
     document.getElementById('Codigo').value = "0";
     document.getElementById('Observaciones').value = "";
+    document.getElementById('Documento').value = "";
     document.getElementById("chkEstado").checked = false;
 }

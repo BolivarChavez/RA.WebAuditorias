@@ -5,6 +5,9 @@ using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebAuditorias.Controllers.CatalogoGastos;
+using WebAuditorias.Controllers.Cookies;
+using WebAuditorias.Controllers.Usuarios;
+using WebAuditorias.Models;
 
 namespace WebAuditorias.Views
 {
@@ -13,7 +16,10 @@ namespace WebAuditorias.Views
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
+            {
+                CargaDatosUsuario();
                 InitializedView();
+            }
         }
 
         private void InitializedView()
@@ -23,6 +29,16 @@ namespace WebAuditorias.Views
             chkEstado.Checked = false;
         }
 
+        private void CargaDatosUsuario()
+        {
+            UserInfoCookie user_cookie = new UserInfoCookie();
+            UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
+            user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
+
+            lblNombre.Text = user_cookie.Nombre;
+            lblFechaConexion.Text = DateTime.Now.ToString();
+        }
+
         protected void BtnNuevo_ServerClick(object sender, EventArgs e)
         {
             InitializedView();
@@ -30,6 +46,20 @@ namespace WebAuditorias.Views
 
         protected void BtnBuscar_ServerClick(object sender, EventArgs e)
         {
+            //UsuariosFacultadController _controller = new UsuariosFacultadController();
+            //UserInfoCookie user_cookie = new UserInfoCookie();
+            //UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
+            //user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
+
+            //if (!_controller.ValidaFacultad(int.Parse(user_cookie.CodigoUsuario), TransaccionesAutorizadas.CatalogoGastos, TransaccionesFacultades.Consultar))
+            //{
+            //    ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "alert('Facultad no Autorizada para el Usuario');", true);
+            //}
+            //else
+            //{
+            //    ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "LlenaGrid();", true);
+            //}
+
             ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "LlenaGrid();", true);
         }
 

@@ -10,6 +10,8 @@ using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebAuditorias.Controllers.AuditoriaDocumentos;
+using WebAuditorias.Controllers.Cookies;
+using WebAuditorias.Models;
 using WebAuditorias.Models.Bases;
 
 namespace WebAuditorias.Views
@@ -21,7 +23,18 @@ namespace WebAuditorias.Views
             if (!IsPostBack)
             {
                 InitializedView();
+                CargaDatosUsuario();
             }
+        }
+
+        private void CargaDatosUsuario()
+        {
+            UserInfoCookie user_cookie = new UserInfoCookie();
+            UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
+            user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
+
+            lblNombre.Text = user_cookie.Nombre;
+            lblFechaConexion.Text = DateTime.Now.ToString();
         }
 
         private void InitializedView()

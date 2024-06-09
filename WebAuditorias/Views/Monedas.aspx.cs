@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using WebAuditorias.Controllers.Cookies;
 using WebAuditorias.Controllers.Monedas;
+using WebAuditorias.Models;
 
 namespace WebAuditorias.Views
 {
@@ -13,7 +15,10 @@ namespace WebAuditorias.Views
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
+            {
                 InitializedView();
+                CargaDatosUsuario();
+            }
         }
 
         private void InitializedView()
@@ -21,6 +26,16 @@ namespace WebAuditorias.Views
             Codigo.Value = "0";
             Descripcion.Value = "";
             chkEstado.Checked = false;
+        }
+
+        private void CargaDatosUsuario()
+        {
+            UserInfoCookie user_cookie = new UserInfoCookie();
+            UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
+            user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
+
+            lblNombre.Text = user_cookie.Nombre;
+            lblFechaConexion.Text = DateTime.Now.ToString();
         }
 
         protected void BtnNuevo_ServerClick(object sender, EventArgs e)

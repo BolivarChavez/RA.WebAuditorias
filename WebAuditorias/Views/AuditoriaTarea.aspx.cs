@@ -7,7 +7,9 @@ using System.Web.UI.WebControls;
 using WebAuditorias.Controllers.AuditoriaTareas;
 using WebAuditorias.Controllers.CatalogoPlantillas;
 using WebAuditorias.Controllers.CatalogoTareas;
+using WebAuditorias.Controllers.Cookies;
 using WebAuditorias.Controllers.Oficinas;
+using WebAuditorias.Models;
 
 namespace WebAuditorias.Views
 {
@@ -18,6 +20,7 @@ namespace WebAuditorias.Views
             if (!IsPostBack)
             {
                 InitializedView();
+                CargaDatosUsuario();
                 CargaOficinas();
                 CargaPlantillas();
                 CargaTareas(Int16.Parse(HiddenField1.Value.Trim()));
@@ -36,6 +39,16 @@ namespace WebAuditorias.Views
             Asignacion.Value = "";
             Tarea.Enabled = true;
             Estado.Enabled = false;
+        }
+
+        private void CargaDatosUsuario()
+        {
+            UserInfoCookie user_cookie = new UserInfoCookie();
+            UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
+            user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
+
+            lblNombre.Text = user_cookie.Nombre;
+            lblFechaConexion.Text = DateTime.Now.ToString();
         }
 
         private void CargaOficinas()

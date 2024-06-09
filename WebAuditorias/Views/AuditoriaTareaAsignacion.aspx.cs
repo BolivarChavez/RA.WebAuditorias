@@ -5,7 +5,9 @@ using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebAuditorias.Controllers.AuditoriaAsignacion;
+using WebAuditorias.Controllers.Cookies;
 using WebAuditorias.Controllers.Responsables;
+using WebAuditorias.Models;
 
 namespace WebAuditorias.Views
 {
@@ -16,6 +18,7 @@ namespace WebAuditorias.Views
             if (!IsPostBack)
             {
                 InitializedView();
+                CargaDatosUsuario();
                 CargaResponsables();
             }
         }
@@ -29,6 +32,16 @@ namespace WebAuditorias.Views
             Tarea.Value = arrayParametros[1];
             Codigo.Value = "0";
             chkEstado.Checked = false;
+        }
+
+        private void CargaDatosUsuario()
+        {
+            UserInfoCookie user_cookie = new UserInfoCookie();
+            UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
+            user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
+
+            lblNombre.Text = user_cookie.Nombre;
+            lblFechaConexion.Text = DateTime.Now.ToString();
         }
 
         private void CargaResponsables()

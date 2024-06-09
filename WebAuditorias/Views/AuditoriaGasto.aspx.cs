@@ -7,6 +7,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebAuditorias.Controllers.AuditoriaGastos;
 using WebAuditorias.Controllers.CatalogoGastos;
+using WebAuditorias.Controllers.Cookies;
+using WebAuditorias.Models;
 
 namespace WebAuditorias.Views
 {
@@ -17,6 +19,7 @@ namespace WebAuditorias.Views
             if (!IsPostBack)
             {
                 InitializedView();
+                CargaDatosUsuario();
                 CargaGastos();
             }
         }
@@ -28,6 +31,16 @@ namespace WebAuditorias.Views
             Valor.Value = "0";
             FechaInicio.Value = DateTime.Today.ToString("yyyy-MM-dd");
             FechaFin.Value = DateTime.Today.ToString("yyyy-MM-dd");
+        }
+
+        private void CargaDatosUsuario()
+        {
+            UserInfoCookie user_cookie = new UserInfoCookie();
+            UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
+            user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
+
+            lblNombre.Text = user_cookie.Nombre;
+            lblFechaConexion.Text = DateTime.Now.ToString();
         }
 
         private void CargaGastos()

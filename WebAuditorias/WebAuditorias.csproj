@@ -275,6 +275,7 @@
     <Compile Include="Controllers\Transacciones\TransaccionesUsuarioController.cs" />
     <Compile Include="Controllers\UsuarioOficina\UsuarioOficinaController.cs" />
     <Compile Include="Controllers\Usuarios\UsuariosController.cs" />
+    <Compile Include="Controllers\Usuarios\UsuariosFacultadController.cs" />
     <Compile Include="Inicio.aspx.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -319,10 +320,13 @@
     <Compile Include="Interfaces\Responsables\IResponsablesController.cs" />
     <Compile Include="Interfaces\Responsables\IResponsablesService.cs" />
     <Compile Include="Interfaces\Transacciones\ITransaccionesUsuarioController.cs" />
+    <Compile Include="Interfaces\UsuarioFacultad\IUsuarioFacultadService.cs" />
     <Compile Include="Interfaces\UsuarioOficina\IUsuarioOficinaController.cs" />
     <Compile Include="Interfaces\UsuarioOficina\IUsuarioOficinaService.cs" />
     <Compile Include="Interfaces\Usuarios\IUsuariosController.cs" />
+    <Compile Include="Interfaces\Usuarios\IUsuariosFacultadController.cs" />
     <Compile Include="Interfaces\Usuarios\IUsuariosService.cs" />
+    <Compile Include="Interfaces\Utils\ICifradoService.cs" />
     <Compile Include="Models\AuditoriaAsignacion.cs" />
     <Compile Include="Models\AuditoriaDocumentoProcesos.cs" />
     <Compile Include="Models\AuditoriaDocumentos.cs" />
@@ -368,6 +372,8 @@
     <Compile Include="Models\SPRetorno.cs" />
     <Compile Include="Models\TipoPlantilla.cs" />
     <Compile Include="Models\Transacciones.cs" />
+    <Compile Include="Models\TransaccionesAutorizadas.cs" />
+    <Compile Include="Models\TransaccionesFacultades.cs" />
     <Compile Include="Models\TransaccionesUsuario.cs" />
     <Compile Include="Models\TransaccionFacultad.cs" />
     <Compile Include="Models\TransaccionPerfil.cs" />
@@ -396,8 +402,10 @@
     <Compile Include="Services\Oficinas\OficinasService.cs" />
     <Compile Include="Services\Operador\OperadorService.cs" />
     <Compile Include="Services\Responsables\ResponsablesService.cs" />
+    <Compile Include="Services\UsuarioFacultad\UsuarioFacultadService.cs" />
     <Compile Include="Services\UsuarioOficina\UsuarioOficinaService.cs" />
     <Compile Include="Services\Usuarios\UsuariosService.cs" />
+    <Compile Include="Services\Utils\CifradoService.cs" />
     <Compile Include="Views\AuditoriaDocumentoProceso.aspx.cs">
       <DependentUpon>AuditoriaDocumentoProceso.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
