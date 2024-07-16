@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Consola de ejecución de opciones</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
     <link rel="stylesheet" href="../Styles/Custom-Opciones.css" />
     <link rel="stylesheet" href="../Styles/Custom-Menu.css" />
@@ -45,6 +45,11 @@
                         <asp:Label ID="labelUser" runat="server" ForeColor="#2C3E50">USUARIO</asp:Label>
                         <br />
                         <asp:Label ID="lblNombre" runat="server" ForeColor="#2C3E50">Nombre del colaborador</asp:Label>
+                        <br />
+                        <br />
+                        <asp:Label ID="lblFecha" runat="server" ForeColor="#2C3E50" Font-Size="12px">FECHA DE INGRESO</asp:Label>
+                        <br />
+                        <asp:Label ID="lblFechaConexion" runat="server" ForeColor="#2C3E50" Font-Size="12px">Fecha y hora del dia</asp:Label>
                     </header>
                     <br />
                     <div id="DivMenu" runat="server" class="overflow-auto">

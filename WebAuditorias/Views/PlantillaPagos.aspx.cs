@@ -66,6 +66,10 @@ namespace WebAuditorias.Views
             string jsonString;
             string response;
 
+            UserInfoCookie user_cookie = new UserInfoCookie();
+            UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
+            user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
+
             string[] arrayParametros;
             arrayParametros = Auditoria.Value.Split('-');
             int auditoriaId = int.Parse(arrayParametros[0]);
@@ -99,9 +103,9 @@ namespace WebAuditorias.Views
             parametro.ad_auditoria_origen = 0;
             parametro.ad_responsable = 0;
             parametro.ad_estado = "A";
-            parametro.ad_usuario_creacion = "usuario";
+            parametro.ad_usuario_creacion = user_cookie.Usuario;
             parametro.ad_fecha_creacion = DateTime.Now;
-            parametro.ad_usuario_actualizacion = "usuario";
+            parametro.ad_usuario_actualizacion = user_cookie.Usuario;
             parametro.ad_fecha_actualizacion = DateTime.Now;
 
             if (Int16.Parse(Codigo.Value) == 0)
@@ -118,7 +122,57 @@ namespace WebAuditorias.Views
 
         protected void BtnEliminar_ServerClick(object sender, EventArgs e)
         {
+            AuditoriaDocumentosController _controller = new AuditoriaDocumentosController();
+            Models.AuditoriaDocumentos parametro = new Models.AuditoriaDocumentos();
+            Plantilla_Pagos pago = new Plantilla_Pagos();
+            string jsonString;
+            string response;
 
+            UserInfoCookie user_cookie = new UserInfoCookie();
+            UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
+            user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
+
+            string[] arrayParametros;
+            arrayParametros = Auditoria.Value.Split('-');
+            int auditoriaId = int.Parse(arrayParametros[0]);
+            arrayParametros = Tarea.Value.Split('-');
+            Int16 tareaId = Int16.Parse(arrayParametros[0]);
+            arrayParametros = Plantilla.Value.Split('-');
+            Int16 plantillaId = Int16.Parse(arrayParametros[0]);
+
+            pago.Periodo = Periodo.Value.ToUpper();
+            pago.Detalle = Detalle.Value.ToUpper();
+            pago.Fecha_Pago = DateTime.Parse(Fecha_Pago.Value);
+            pago.Importe_Bruto = double.Parse(Importe_Bruto.Value, CultureInfo.InvariantCulture);
+            pago.Descuentos = double.Parse(Descuentos.Value, CultureInfo.InvariantCulture);
+            pago.Neto_Pagar = double.Parse(Neto_Pagar.Value, CultureInfo.InvariantCulture);
+            pago.Transferencia = double.Parse(Transferencia.Value, CultureInfo.InvariantCulture);
+            pago.Cheque = double.Parse(Cheque.Value, CultureInfo.InvariantCulture);
+            pago.Diferencia = double.Parse(Diferencia.Value, CultureInfo.InvariantCulture);
+            pago.Numero_Cheque = Numero_Cheque.Value.ToUpper();
+            pago.Numero_Informe = Numero_Informe.Value.ToUpper();
+            pago.Observaciones = Observaciones.Value.ToUpper();
+
+            jsonString = JsonConvert.SerializeObject(pago);
+
+            parametro.ad_empresa = 1;
+            parametro.ad_auditoria = auditoriaId;
+            parametro.ad_tarea = tareaId;
+            parametro.ad_codigo = Int16.Parse(Codigo.Value);
+            parametro.ad_plantilla = plantillaId;
+            parametro.ad_referencia = "";
+            parametro.ad_registro = jsonString;
+            parametro.ad_auditoria_origen = 0;
+            parametro.ad_responsable = 0;
+            parametro.ad_estado = "X";
+            parametro.ad_usuario_creacion = user_cookie.Usuario;
+            parametro.ad_fecha_creacion = DateTime.Now;
+            parametro.ad_usuario_actualizacion = user_cookie.Usuario;
+            parametro.ad_fecha_actualizacion = DateTime.Now;
+
+            response = _controller.Actualizacion(parametro);
+
+            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "document.getElementById('profile-tab').click(); LlenaGrid();", true);
         }
 
         protected void BtnCargar_ServerClick(object sender, EventArgs e)
@@ -170,7 +224,7 @@ namespace WebAuditorias.Views
             string[] arrayParametros;
             arrayParametros = parametros.Split('|');
 
-            _documentos = _controller.Consulta(int.Parse(arrayParametros[0]), int.Parse(arrayParametros[1]), int.Parse(arrayParametros[2]), int.Parse(arrayParametros[3])).ToList();
+            _documentos = _controller.Consulta(int.Parse(arrayParametros[0]), int.Parse(arrayParametros[1]), int.Parse(arrayParametros[2]), int.Parse(arrayParametros[3])).Where(x => x.ad_estado == "A").ToList();
 
             foreach (var lineaDoc in _documentos)
             {

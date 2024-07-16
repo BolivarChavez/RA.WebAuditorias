@@ -57,22 +57,25 @@ async function LlenaGrid() {
         toolbar: ['Search'],
         allowPaging: false,
         allowScrolling: true,
+        allowResizing: true,
         height: '100%',
         allowTextWrap: true,
         textWrapSettings: { wrapMode: 'Content' },
         gridLines: 'Both',
         columns: [
             { field: 'IdRegistro', headerText: 'Id', visible: false, width: 75, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'ReferenciaLinea', headerText: 'Referencia', width: 125, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'ReferenciaLinea', headerText: 'Referencia', visible: false, width: 125, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Item', headerText: 'Item', width: 75, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Req', headerText: 'Req', width: 75, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Proveedor', headerText: 'Proveedor', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Concepto', headerText: 'Concepto', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'Referencia', headerText: 'Referencia', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Referencia', headerText: 'Documento Factura/Recibo/Boleta', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Mes', headerText: 'Mes', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Importe_Monto', headerText: 'Importe Monto', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Monto', headerText: 'Monto', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Tipo_Cambio', headerText: 'Tipo Cambio', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Comprobante_Pago', headerText: 'Comprobante Pago', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Fecha_Pago', headerText: 'Fecha de Pago', type: 'date', width: 175, format: { type: 'date', format: 'dd/MM/yyyy' }, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Observacion_Preliminar', headerText: 'Observacion Preliminar', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Observacion_Final', headerText: 'Observacion Final', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Estado', headerText: 'Estado', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
@@ -95,6 +98,7 @@ function rowSelected(args) {
     document.getElementById('Codigo').value = args.data.IdRegistro;
     document.getElementById('Referencia').value = args.data.ReferenciaLinea;
     document.getElementById('Item').value = args.data.Item;
+    document.getElementById('Req').value = args.data.Req;
     document.getElementById('Proveedor').value = args.data.Proveedor;
     document.getElementById('Concepto').value = args.data.Concepto;
     document.getElementById('ReferenciaTransferencia').value = args.data.Referencia;
@@ -112,6 +116,14 @@ function rowSelected(args) {
     document.getElementById('Cuenta').value = args.data.Cuenta;
     document.getElementById('Sub_Cuenta').value = args.data.Sub_Cuenta;
     document.getElementById('Soporte').value = args.data.Soporte;
+
+    var date = new Date(args.data.Fecha_Pago);
+    var day = ('0' + date.getUTCDate()).slice(-2);
+    var month = ('0' + (date.getMonth() + 1)).slice(-2);
+    var year = date.getUTCFullYear();
+    var fecha = `${year}-${month}-${day}`;
+
+    document.getElementById('Fecha_Pago').value = fecha;
 }
 
 function muestraContenidoTexto(titulo, campo) {

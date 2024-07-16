@@ -23,7 +23,9 @@ namespace WebAuditorias
             user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
 
             lblNombre.Text = user_cookie.Nombre;
-            DivOpciones.InnerHtml = _TransaccionesUsuarioController.CreaOpcionesUsuario(int.Parse(user_cookie.CodigoUsuario));
+            lblFechaConexion.Text = DateTime.Now.ToString();
+
+            DivOpciones.InnerHtml = _TransaccionesUsuarioController.CreaOpcionesUsuario(int.Parse(user_cookie.CodigoUsuario));           
         }
 
         protected void Salir_ServerClick(object sender, EventArgs e)

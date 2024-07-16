@@ -78,12 +78,16 @@ namespace WebAuditorias.Views
             string[] arrayParametros;
             arrayParametros = parametros.Split('|');
 
+            UserInfoCookie user_cookie = new UserInfoCookie();
+            UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
+            user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
+
             parametro.mo_codigo = Int16.Parse(arrayParametros[1].ToString());
             parametro.mo_descripcion = arrayParametros[2].ToString().Trim().ToUpper();
             parametro.mo_estado = arrayParametros[3].ToString();
-            parametro.mo_usuario_creacion = "usuario";
+            parametro.mo_usuario_creacion = user_cookie.Usuario;
             parametro.mo_fecha_creacion = DateTime.Now;
-            parametro.mo_usuario_actualizacion = "usuario";
+            parametro.mo_usuario_actualizacion = user_cookie.Usuario;
             parametro.mo_fecha_actualizacion = DateTime.Now;
 
             if (parametro.mo_codigo == 0)
@@ -107,12 +111,16 @@ namespace WebAuditorias.Views
             string[] arrayParametros;
             arrayParametros = parametros.Split('|');
 
+            UserInfoCookie user_cookie = new UserInfoCookie();
+            UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
+            user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
+
             parametro.mo_codigo = Int16.Parse(arrayParametros[1].ToString());
             parametro.mo_descripcion = arrayParametros[2].ToString().Trim().ToUpper();
             parametro.mo_estado = arrayParametros[3].ToString();
-            parametro.mo_usuario_creacion = "usuario";
+            parametro.mo_usuario_creacion = user_cookie.Usuario;
             parametro.mo_fecha_creacion = DateTime.Now;
-            parametro.mo_usuario_actualizacion = "usuario";
+            parametro.mo_usuario_actualizacion = user_cookie.Usuario;
             parametro.mo_fecha_actualizacion = DateTime.Now;
 
             response = _controller.Actualizacion(parametro);

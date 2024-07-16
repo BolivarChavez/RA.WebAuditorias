@@ -10,15 +10,18 @@ namespace WebAuditorias.Views
         {
             if (!IsPostBack)
             {
-                string filePath = Server.MapPath("~") + ConfigurationManager.AppSettings["PathDocs"] + @"\" +Request.QueryString["archivo"];
-
-                WebClient User = new WebClient();
-                Byte[] FileBuffer = User.DownloadData(filePath);
-                if (FileBuffer != null)
+                if (Request.QueryString["archivo"].Trim() != null && Request.QueryString["archivo"].Trim() != "" && Request.QueryString["archivo"].Trim().ToLower() != "null")
                 {
-                    Response.ContentType = "application/pdf";
-                    Response.AddHeader("content-length", FileBuffer.Length.ToString());
-                    Response.BinaryWrite(FileBuffer);
+                    string filePath = Server.MapPath("~") + ConfigurationManager.AppSettings["PathDocs"] + @"\" + Request.QueryString["archivo"];
+
+                    WebClient User = new WebClient();
+                    Byte[] FileBuffer = User.DownloadData(filePath);
+                    if (FileBuffer != null)
+                    {
+                        Response.ContentType = "application/pdf";
+                        Response.AddHeader("content-length", FileBuffer.Length.ToString());
+                        Response.BinaryWrite(FileBuffer);
+                    }
                 }
             }
         }

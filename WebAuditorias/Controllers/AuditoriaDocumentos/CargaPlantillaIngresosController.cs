@@ -55,7 +55,8 @@ namespace WebAuditorias.Controllers.AuditoriaDocumentos
                             Neto_Ingreso = row[12].ToString() == "" ? 0 : double.Parse(row[12].ToString()),
                             Flujo = row[13].ToString(),
                             Estado_Cuenta_1 = row[14].ToString(),
-                            Estado_Cuenta_2 = row[15].ToString()
+                            Estado_Cuenta_2 = row[15].ToString(),
+                            Soporte = row[16].ToString()
                         };
 
                         jsonString = JsonConvert.SerializeObject(ingreso);

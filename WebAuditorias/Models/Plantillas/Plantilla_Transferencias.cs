@@ -1,8 +1,11 @@
-﻿namespace PrototipoData.Models
+﻿using System;
+
+namespace PrototipoData.Models
 {
     public class Plantilla_Transferencias
     {
         public string Item { get; set; }
+        public string Req { get; set; }
         public string Proveedor { get; set; }
         public string Concepto { get; set; }
         public string Referencia { get; set; }
@@ -11,6 +14,7 @@
         public double Monto { get; set; }
         public double Tipo_Cambio { get; set; }
         public string Comprobante_Pago { get; set; }
+        public DateTime Fecha_Pago { get; set; }
         public string Observacion_Preliminar { get; set; }
         public string Observacion_Final { get; set; }
         public string Estado { get; set; }

@@ -65,6 +65,20 @@ namespace WebAuditorias.Views
 
         protected void BtnGrabar_ServerClick(object sender, EventArgs e)
         {
+            //UsuariosFacultadController _controller = new UsuariosFacultadController();
+            //UserInfoCookie user_cookie = new UserInfoCookie();
+            //UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
+            //user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
+
+            //if (!_controller.ValidaFacultad(int.Parse(user_cookie.CodigoUsuario), TransaccionesAutorizadas.CatalogoGastos, TransaccionesFacultades.Grabar))
+            //{
+            //    ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "alert('Facultad no Autorizada para el Usuario');", true);
+            //}
+            //else
+            //{
+            //    ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "GrabarGasto();", true);
+            //}
+
             ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "GrabarGasto();", true);
         }
 
@@ -92,13 +106,17 @@ namespace WebAuditorias.Views
             string[] arrayParametros;
             arrayParametros = parametros.Split('|');
 
+            UserInfoCookie user_cookie = new UserInfoCookie();
+            UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
+            user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
+
             parametro.cg_empresa = Int16.Parse(arrayParametros[0].ToString());
             parametro.cg_codigo = Int16.Parse(arrayParametros[1].ToString());
             parametro.cg_descripion = arrayParametros[2].ToString().Trim().ToUpper();
             parametro.cg_estado = arrayParametros[3].ToString();
-            parametro.cg_usuario_creacion = "usuario";
+            parametro.cg_usuario_creacion = user_cookie.Usuario;
             parametro.cg_fecha_creacion = DateTime.Now;
-            parametro.cg_usuario_actualizacion = "usuario";
+            parametro.cg_usuario_actualizacion = user_cookie.Usuario;
             parametro.cg_fecha_actualizacion = DateTime.Now;
 
             if (parametro.cg_codigo == 0)
@@ -122,13 +140,17 @@ namespace WebAuditorias.Views
             string[] arrayParametros;
             arrayParametros = parametros.Split('|');
 
+            UserInfoCookie user_cookie = new UserInfoCookie();
+            UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
+            user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
+
             parametro.cg_empresa = Int16.Parse(arrayParametros[0].ToString());
             parametro.cg_codigo = Int16.Parse(arrayParametros[1].ToString());
             parametro.cg_descripion = arrayParametros[2].ToString().Trim().ToUpper();
             parametro.cg_estado = arrayParametros[3].ToString();
-            parametro.cg_usuario_creacion = "usuario";
+            parametro.cg_usuario_creacion = user_cookie.Usuario;
             parametro.cg_fecha_creacion = DateTime.Now;
-            parametro.cg_usuario_actualizacion = "usuario";
+            parametro.cg_usuario_actualizacion = user_cookie.Usuario;
             parametro.cg_fecha_actualizacion = DateTime.Now;
 
             response = _controller.Actualizacion(parametro);

@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="../Styles/Custom-Grid.css" />
     <script src="../Scripts/ej2.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"></script>
 </head>
 <body style="margin: 0; height: 100%; overflow: hidden; background-color: #E5E8E8;">
@@ -28,6 +29,24 @@
                     <p class="barra-titulo" style="color:#2C3E50;">Plantilla de planillas</p>
                 </div>  
                 <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2 center-block text-left my-auto">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <asp:Label ID="labelUser" runat="server" ForeColor="#2C3E50" Font-Size="11px">USUARIO :</asp:Label>
+                            </div>
+                            <div class="col">
+                                <asp:Label ID="lblNombre" runat="server" ForeColor="#2C3E50" Font-Size="11px" Font-Bold="True">Nombre del colaborador</asp:Label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <asp:Label ID="lblFecha" runat="server" ForeColor="#2C3E50" Font-Size="11px">FECHA DE INGRESO :</asp:Label>
+                            </div>
+                            <div class="col">
+                                <asp:Label ID="lblFechaConexion" runat="server" ForeColor="#2C3E50" Font-Size="11px" Font-Bold="True">Fecha y hora del dia</asp:Label>
+                            </div>
+                        </div>
+                    </div>
                 </div> 
             </div>
             <div class="row console-menu-height" style="background-color: #B2BABB;">
@@ -209,14 +228,19 @@
         </div>
         <script src="../Scripts/PlantillaPlanillas.js" type="text/javascript"></script>
         <script>
-            window.onload = function () {
-                var botonNuevo = document.getElementById("BtnNuevo");
-                botonNuevo.click();
-            };
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            });
 
             $(function () {
-                $('[data-toggle="tooltip"]').tooltip()
-            })
+                $('[data-toggle="tooltip"]').tooltip({
+                    trigger: 'hover'
+                });
+
+                $('[data-toggle="tooltip"]').on('click', function () {
+                    $(this).tooltip('hide')
+                });
+            });
         </script>
 </body>
 </html>

@@ -66,6 +66,10 @@ namespace WebAuditorias.Views
             string jsonString;
             string response;
 
+            UserInfoCookie user_cookie = new UserInfoCookie();
+            UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
+            user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
+
             string[] arrayParametros;
             arrayParametros = Auditoria.Value.Split('-');
             int auditoriaId = int.Parse(arrayParametros[0]);
@@ -104,9 +108,9 @@ namespace WebAuditorias.Views
             parametro.ad_auditoria_origen = 0;
             parametro.ad_responsable = 0;
             parametro.ad_estado = "A";
-            parametro.ad_usuario_creacion = "usuario";
+            parametro.ad_usuario_creacion = user_cookie.Usuario;
             parametro.ad_fecha_creacion = DateTime.Now;
-            parametro.ad_usuario_actualizacion = "usuario";
+            parametro.ad_usuario_actualizacion = user_cookie.Usuario;
             parametro.ad_fecha_actualizacion = DateTime.Now;
 
             if (Int16.Parse(Codigo.Value) == 0)
@@ -123,7 +127,62 @@ namespace WebAuditorias.Views
 
         protected void BtnEliminar_ServerClick(object sender, EventArgs e)
         {
+            AuditoriaDocumentosController _controller = new AuditoriaDocumentosController();
+            Models.AuditoriaDocumentos parametro = new Models.AuditoriaDocumentos();
+            Plantilla_Planillas planilla = new Plantilla_Planillas();
+            string jsonString;
+            string response;
 
+            UserInfoCookie user_cookie = new UserInfoCookie();
+            UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
+            user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
+
+            string[] arrayParametros;
+            arrayParametros = Auditoria.Value.Split('-');
+            int auditoriaId = int.Parse(arrayParametros[0]);
+            arrayParametros = Tarea.Value.Split('-');
+            Int16 tareaId = Int16.Parse(arrayParametros[0]);
+            arrayParametros = Plantilla.Value.Split('-');
+            Int16 plantillaId = Int16.Parse(arrayParametros[0]);
+
+            planilla.Mes = Mes.Value.ToUpper();
+            planilla.Fecha_Pago_Cash = DateTime.Parse(Fecha_Pago_Cash.Value);
+            planilla.Lote = Lote.Value.ToUpper();
+            planilla.Remuneracion_Cash = double.Parse(Remuneracion_Cash.Value, CultureInfo.InvariantCulture);
+            planilla.Remuneracion_Cheque = double.Parse(Remuneracion_Cheque.Value, CultureInfo.InvariantCulture);
+            planilla.Remuneracion_Total = double.Parse(Remuneracion_Total.Value, CultureInfo.InvariantCulture);
+            planilla.Fecha_Pago = DateTime.Parse(Fecha_Pago.Value);
+            planilla.Honorarios_Planilla = double.Parse(Honorarios_Planilla.Value, CultureInfo.InvariantCulture);
+            planilla.Honorarios_Incentivos = double.Parse(Honorarios_Incentivos.Value, CultureInfo.InvariantCulture);
+            planilla.Honorarios_Total = double.Parse(Honorarios_Total.Value, CultureInfo.InvariantCulture);
+            planilla.Pagado = double.Parse(Pagado.Value, CultureInfo.InvariantCulture);
+            planilla.Honorarios_Cesantes = double.Parse(Honorarios_Cesantes.Value, CultureInfo.InvariantCulture);
+            planilla.Diferencia = double.Parse(Diferencia.Value, CultureInfo.InvariantCulture);
+            planilla.Fecha_Pago_Gratificacion = DateTime.Parse(Fecha_Pago_Gratificacion.Value);
+            planilla.Gratificaciones = double.Parse(Gratificaciones.Value, CultureInfo.InvariantCulture);
+            planilla.Numero_Informe = Numero_Informe.Value.ToUpper();
+            planilla.Observaciones = Observaciones.Value.ToUpper();
+
+            jsonString = JsonConvert.SerializeObject(planilla);
+
+            parametro.ad_empresa = 1;
+            parametro.ad_auditoria = auditoriaId;
+            parametro.ad_tarea = tareaId;
+            parametro.ad_codigo = Int16.Parse(Codigo.Value);
+            parametro.ad_plantilla = plantillaId;
+            parametro.ad_referencia = "";
+            parametro.ad_registro = jsonString;
+            parametro.ad_auditoria_origen = 0;
+            parametro.ad_responsable = 0;
+            parametro.ad_estado = "X";
+            parametro.ad_usuario_creacion = user_cookie.Usuario;
+            parametro.ad_fecha_creacion = DateTime.Now;
+            parametro.ad_usuario_actualizacion = user_cookie.Usuario;
+            parametro.ad_fecha_actualizacion = DateTime.Now;
+
+            response = _controller.Actualizacion(parametro);
+
+            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "document.getElementById('profile-tab').click(); LlenaGrid();", true);
         }
 
         protected void BtnCargar_ServerClick(object sender, EventArgs e)
@@ -175,7 +234,7 @@ namespace WebAuditorias.Views
             string[] arrayParametros;
             arrayParametros = parametros.Split('|');
 
-            _documentos = _controller.Consulta(int.Parse(arrayParametros[0]), int.Parse(arrayParametros[1]), int.Parse(arrayParametros[2]), int.Parse(arrayParametros[3])).ToList();
+            _documentos = _controller.Consulta(int.Parse(arrayParametros[0]), int.Parse(arrayParametros[1]), int.Parse(arrayParametros[2]), int.Parse(arrayParametros[3])).Where(x => x.ad_estado == "A").ToList();
 
             foreach (var lineaDoc in _documentos)
             {

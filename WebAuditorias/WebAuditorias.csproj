@@ -195,6 +195,8 @@
     <Content Include="Scripts\PlantillaTransferencias.js" />
     <Content Include="Scripts\PlantillaTributos.js" />
     <Content Include="Scripts\Responsables.js" />
+    <Content Include="Scripts\RevisaPlantillas.js" />
+    <Content Include="Scripts\RevisaProcesos.js" />
     <Content Include="Styles\Custom-Grid-Font.css" />
     <Content Include="Styles\Custom-Grid.css" />
     <Content Include="Styles\Custom-Inicio.css" />
@@ -203,6 +205,7 @@
     <Content Include="Styles\Custom-Toolbar.css" />
     <Content Include="Styles\font-awesome.min.css" />
     <Content Include="Styles\material.css" />
+    <Content Include="Views\AuditoriaConsulta.aspx" />
     <Content Include="Views\AuditoriaDocumentoProceso.aspx" />
     <Content Include="Views\AuditoriaGasto.aspx" />
     <Content Include="Views\Auditorias.aspx" />
@@ -216,7 +219,6 @@
     <Content Include="Views\Cotizaciones.aspx" />
     <Content Include="Views\DetalleLineaDocumento.aspx" />
     <Content Include="Views\Monedas.aspx" />
-    <Content Include="Views\Plantilla.aspx" />
     <Content Include="Views\PlantillaCheques.aspx" />
     <Content Include="Views\PlantillaComisiones.aspx" />
     <Content Include="Views\PlantillaIngresos.aspx" />
@@ -229,7 +231,8 @@
     <Content Include="Views\PlantillaTransferencias.aspx" />
     <Content Include="Views\PlantillaTributos.aspx" />
     <Content Include="Views\Responsables.aspx" />
-    <Content Include="Views\Responsables1.aspx" />
+    <Content Include="Views\RevisaPlantillas.aspx" />
+    <Content Include="Views\RevisaProcesos.aspx" />
     <Content Include="Views\VistaArchivo.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -406,6 +409,13 @@
     <Compile Include="Services\UsuarioOficina\UsuarioOficinaService.cs" />
     <Compile Include="Services\Usuarios\UsuariosService.cs" />
     <Compile Include="Services\Utils\CifradoService.cs" />
+    <Compile Include="Views\AuditoriaConsulta.aspx.cs">
+      <DependentUpon>AuditoriaConsulta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\AuditoriaConsulta.aspx.designer.cs">
+      <DependentUpon>AuditoriaConsulta.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\AuditoriaDocumentoProceso.aspx.cs">
       <DependentUpon>AuditoriaDocumentoProceso.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -497,13 +507,6 @@
     <Compile Include="Views\Monedas.aspx.designer.cs">
       <DependentUpon>Monedas.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Plantilla.aspx.cs">
-      <DependentUpon>Plantilla.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Views\Plantilla.aspx.designer.cs">
-      <DependentUpon>Plantilla.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Views\PlantillaCheques.aspx.cs">
       <DependentUpon>PlantillaCheques.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -588,12 +591,19 @@
     <Compile Include="Views\Responsables.aspx.designer.cs">
       <DependentUpon>Responsables.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Responsables1.aspx.cs">
-      <DependentUpon>Responsables1.aspx</DependentUpon>
+    <Compile Include="Views\RevisaPlantillas.aspx.cs">
+      <DependentUpon>RevisaPlantillas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Views\Responsables1.aspx.designer.cs">
-      <DependentUpon>Responsables1.aspx</DependentUpon>
+    <Compile Include="Views\RevisaPlantillas.aspx.designer.cs">
+      <DependentUpon>RevisaPlantillas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RevisaProcesos.aspx.cs">
+      <DependentUpon>RevisaProcesos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\RevisaProcesos.aspx.designer.cs">
+      <DependentUpon>RevisaProcesos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\VistaArchivo.aspx.cs">
       <DependentUpon>VistaArchivo.aspx</DependentUpon>

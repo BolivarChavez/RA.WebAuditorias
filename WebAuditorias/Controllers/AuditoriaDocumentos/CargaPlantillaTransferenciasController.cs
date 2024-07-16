@@ -41,23 +41,25 @@ namespace WebAuditorias.Controllers.AuditoriaDocumentos
                         Plantilla_Transferencias transferencia = new Plantilla_Transferencias
                         {
                             Item = row[0].ToString(),
-                            Proveedor = row[1].ToString(),
-                            Concepto = row[2].ToString(),
-                            Referencia = row[3].ToString(),
-                            Mes = row[4].ToString(),
-                            Importe_Monto = row[5].ToString() == "" ? 0 : double.Parse(row[5].ToString()),
-                            Monto = row[6].ToString() == "" ? 0 : double.Parse(row[6].ToString()),
-                            Tipo_Cambio = row[7].ToString() == "" ? 0 : double.Parse(row[7].ToString()),
-                            Comprobante_Pago = row[8].ToString(),
-                            Observacion_Preliminar = row[9].ToString(),
-                            Observacion_Final = row[10].ToString(),
-                            Estado = row[11].ToString(),
-                            Banco = row[12].ToString(),
-                            Empresa = row[13].ToString(),
-                            Sede = row[14].ToString(),
-                            Cuenta = row[15].ToString(),
-                            Sub_Cuenta = row[16].ToString(),
-                            Soporte = row[17].ToString()
+                            Req = row[1].ToString(),
+                            Proveedor = row[2].ToString(),
+                            Concepto = row[3].ToString(),
+                            Referencia = row[4].ToString(),
+                            Mes = row[5].ToString(),
+                            Importe_Monto = row[6].ToString() == "" ? 0 : double.Parse(row[6].ToString()),
+                            Monto = row[7].ToString() == "" ? 0 : double.Parse(row[7].ToString()),
+                            Tipo_Cambio = row[8].ToString() == "" ? 0 : double.Parse(row[8].ToString()),
+                            Comprobante_Pago = row[9].ToString(),
+                            Fecha_Pago = DateTime.Parse(row[10].ToString()),
+                            Observacion_Preliminar = row[11].ToString(),
+                            Observacion_Final = row[12].ToString(),
+                            Estado = row[13].ToString(),
+                            Banco = row[14].ToString(),
+                            Empresa = row[15].ToString(),
+                            Sede = row[16].ToString(),
+                            Cuenta = row[17].ToString(),
+                            Sub_Cuenta = row[18].ToString(),
+                            Soporte = row[19].ToString()
                         };
 
                         jsonString = JsonConvert.SerializeObject(transferencia);

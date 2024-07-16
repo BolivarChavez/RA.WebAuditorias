@@ -57,13 +57,14 @@ async function LlenaGrid() {
         toolbar: ['Search'],
         allowPaging: false,
         allowScrolling: true,
+        allowResizing: true,
         height: '100%',
         allowTextWrap: true,
         textWrapSettings: { wrapMode: 'Content' },
         gridLines: 'Both',
         columns: [
             { field: 'IdRegistro', headerText: 'Id', visible: false, width: 75, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'ReferenciaLinea', headerText: 'Referencia', width: 125, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'ReferenciaLinea', headerText: 'Referencia', visible: false, width: 125, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Fecha', headerText: 'Fecha', type: 'date', width: 175, format: { type: 'date', format: 'dd/MM/yyyy' }, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Periodo', headerText: 'Periodo', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Tributo', headerText: 'Tributo', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
@@ -104,13 +105,13 @@ function rowSelected(args) {
     document.getElementById('Periodo').value = args.data.Periodo;
     document.getElementById('Tributo').value = args.data.Tributo;
     document.getElementById('Tributo_Resultante').value = args.data.Tributo_Resultante;
-    document.getElementById('Intereses').value = args.data.Tributo_Resultante;
-    document.getElementById('Total_Pagar').value = args.data.Tributo_Resultante;
-    document.getElementById('Forma_Pago').value = args.data.Tributo_Resultante;
-    document.getElementById('Egreso').value = args.data.Tributo_Resultante;
-    document.getElementById('Fecha_Informe').value = args.data.Tributo_Resultante;
-    document.getElementById('Numero_Informe').value = args.data.Tributo_Resultante;
-    document.getElementById('Observaciones').value = args.data.Tributo_Resultante;
+    document.getElementById('Intereses').value = args.data.Intereses;
+    document.getElementById('Total_Pagar').value = args.data.Total_Pagar;
+    document.getElementById('Forma_Pago').value = args.data.Forma_Pago;
+    document.getElementById('Egreso').value = args.data.Egreso;
+    document.getElementById('Fecha_Informe').value = fecha2;
+    document.getElementById('Numero_Informe').value = args.data.Numero_Informe;
+    document.getElementById('Observaciones').value = args.data.Observaciones;
 }
 
 function muestraContenidoTexto(titulo, campo) {

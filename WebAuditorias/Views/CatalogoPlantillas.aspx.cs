@@ -87,13 +87,17 @@ namespace WebAuditorias.Views
             string[] arrayParametros;
             arrayParametros = parametros.Split('|');
 
+            UserInfoCookie user_cookie = new UserInfoCookie();
+            UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
+            user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
+
             parametro.cp_empresa = Int16.Parse(arrayParametros[0].ToString());
             parametro.cp_codigo = Int16.Parse(arrayParametros[1].ToString());
             parametro.cp_descripcion = arrayParametros[2].ToString().Trim().ToUpper();
             parametro.cp_estado = arrayParametros[3].ToString();
-            parametro.cp_usuario_creacion = "usuario";
+            parametro.cp_usuario_creacion = user_cookie.Usuario;
             parametro.cp_fecha_creacion = DateTime.Now;
-            parametro.cp_usuario_actualizacion = "usuario";
+            parametro.cp_usuario_actualizacion = user_cookie.Usuario;
             parametro.cp_fecha_actualizacion = DateTime.Now;
 
             if (parametro.cp_codigo == 0)
@@ -117,13 +121,17 @@ namespace WebAuditorias.Views
             string[] arrayParametros;
             arrayParametros = parametros.Split('|');
 
+            UserInfoCookie user_cookie = new UserInfoCookie();
+            UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
+            user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
+
             parametro.cp_empresa = Int16.Parse(arrayParametros[0].ToString());
             parametro.cp_codigo = Int16.Parse(arrayParametros[1].ToString());
             parametro.cp_descripcion = arrayParametros[2].ToString().Trim().ToUpper();
             parametro.cp_estado = arrayParametros[3].ToString();
-            parametro.cp_usuario_creacion = "usuario";
+            parametro.cp_usuario_creacion = user_cookie.Usuario;
             parametro.cp_fecha_creacion = DateTime.Now;
-            parametro.cp_usuario_actualizacion = "usuario";
+            parametro.cp_usuario_actualizacion = user_cookie.Usuario;
             parametro.cp_fecha_actualizacion = DateTime.Now;
 
             response = _controller.Actualizacion(parametro);

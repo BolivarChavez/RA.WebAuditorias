@@ -57,16 +57,18 @@ async function LlenaGrid() {
         toolbar: ['Search'],
         allowPaging: false,
         allowScrolling: true,
+        allowResizing: true,
         height: '100%',
         allowTextWrap: true,
         textWrapSettings: { wrapMode: 'Content' },
         gridLines: 'Both',
         columns: [
             { field: 'IdRegistro', headerText: 'Id', visible: false, width: 75, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'ReferenciaLinea', headerText: 'Referencia', width: 125, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'ReferenciaLinea', headerText: 'Referencia', visible: false, width: 125, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Codigo', headerText: 'Codigo', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Fecha_Documento', headerText: 'Fecha de Documento', type: 'date', width: 175, format: { type: 'date', format: 'dd/MM/yyyy' }, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Fecha_Inicio_Pago', headerText: 'Fecha de Inicio de Pago', type: 'date', width: 175, format: { type: 'date', format: 'dd/MM/yyyy' }, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Monto_Prestamo', headerText: 'Monto de Préstamo', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Valor_Cuota', headerText: 'Valor Cuota', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Total_Cancelado', headerText: 'Total Cancelado', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Saldo_Pendiente', headerText: 'Saldo Pendiente', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
@@ -104,6 +106,7 @@ function rowSelected(args) {
     document.getElementById('Fecha_Documento').value = fecha1;
     document.getElementById('Fecha_Inicio_Pago').value = fecha2;
 
+    document.getElementById('Monto_Prestamo').value = args.data.Monto_Prestamo;
     document.getElementById('Valor_Cuota').value = args.data.Valor_Cuota;
     document.getElementById('Total_Cancelado').value = args.data.Total_Cancelado;
     document.getElementById('Saldo_Pendiente').value = args.data.Saldo_Pendiente;

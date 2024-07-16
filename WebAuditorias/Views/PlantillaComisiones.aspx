@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Plantilla de comisiones</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
     <link rel="stylesheet" href="../Styles/Custom-Opciones.css" />
     <link rel="stylesheet" href="../Styles/Custom-Toolbar.css" />
@@ -138,7 +138,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
-                                                        <label for="No_Girado" class="col-form-label col-form-label-sm" style="font-weight:bold;">No girado</label>
+                                                        <label for="No_Girado" class="col-form-label col-form-label-sm" style="font-weight:bold;">No. girado</label>
                                                         <input type="text" class="form-control form-control-sm" id="No_Girado" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
@@ -181,6 +181,10 @@
                                             <asp:HiddenField ID="HiddenField1" runat="server" />
                                             <asp:HiddenField ID="HiddenField2" runat="server" />
                                         </ContentTemplate>
+                                        <Triggers>
+                                            <asp:PostBackTrigger ControlID = "BtnCargar" />
+                                            <asp:PostBackTrigger ControlID = "BtnCargaPlantilla" />
+                                        </Triggers>
                                         </asp:UpdatePanel>
                                     </form> 
                                 </div>

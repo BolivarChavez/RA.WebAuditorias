@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Plantilla de transferencias</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
     <link rel="stylesheet" href="../Styles/Custom-Opciones.css" />
     <link rel="stylesheet" href="../Styles/Custom-Toolbar.css" />
@@ -105,6 +105,10 @@
                                                         <input type="text" class="form-control form-control-sm" id="Item" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
+                                                        <label for="Req" class="col-form-label col-form-label-sm" style="font-weight:bold;">Req</label>
+                                                        <input type="text" class="form-control form-control-sm" id="Req" placeholder="" runat="server"/>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
                                                         <label for="Proveedor" class="col-form-label col-form-label-sm" style="font-weight:bold;">Proveedor</label>
                                                         <input type="text" class="form-control form-control-sm" id="Proveedor" placeholder="" runat="server"/>
                                                     </div>
@@ -112,12 +116,12 @@
                                                         <label for="Concepto" class="col-form-label col-form-label-sm" style="font-weight:bold;">Concepto</label>
                                                         <input type="text" class="form-control form-control-sm" id="Concepto" placeholder="" runat="server" onclick="muestraContenidoTexto('Concepto', 'Concepto')"/>
                                                     </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label for="ReferenciaTransferencia" class="col-form-label col-form-label-sm" style="font-weight:bold;">Referencia transferencia</label>
-                                                        <input type="text" class="form-control form-control-sm" id="ReferenciaTransferencia" placeholder="" runat="server" onclick="muestraContenidoTexto('Referencia Transferencia', 'ReferenciaTransferencia')"/>
-                                                    </div>
                                                 </div>
                                                 <div class="row">
+                                                    <div class="form-group col-md-3">
+                                                        <label for="ReferenciaTransferencia" class="col-form-label col-form-label-sm" style="font-weight:bold;">Documento Factura/Recibo/Boleta</label>
+                                                        <input type="text" class="form-control form-control-sm" id="ReferenciaTransferencia" placeholder="" runat="server" onclick="muestraContenidoTexto('Referencia Transferencia', 'ReferenciaTransferencia')"/>
+                                                    </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Mes" class="col-form-label col-form-label-sm" style="font-weight:bold;">Mes</label>
                                                         <input type="text" class="form-control form-control-sm" id="Mes" placeholder="" runat="server"/>
@@ -130,20 +134,26 @@
                                                         <label for="Monto" class="col-form-label col-form-label-sm" style="font-weight:bold;">Monto</label>
                                                         <input type="text" class="form-control form-control-sm" id="Monto" placeholder="" runat="server"/>
                                                     </div>
+                                                </div>
+                                                <div class="row">
                                                     <div class="form-group col-md-3">
                                                         <label for="Tipo_Cambio" class="col-form-label col-form-label-sm" style="font-weight:bold;">Tipo cambio</label>
                                                         <input type="text" class="form-control form-control-sm" id="Tipo_Cambio" placeholder="" runat="server"/>
                                                     </div>
-                                                </div>
-                                                <div class="row">
                                                     <div class="form-group col-md-3">
                                                         <label for="Comprobante_Pago" class="col-form-label col-form-label-sm" style="font-weight:bold;">Comprobante pago</label>
                                                         <input type="text" class="form-control form-control-sm" id="Comprobante_Pago" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
+                                                        <label for="Fecha_Pago" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha de Pago</label>
+                                                        <input type="text" class="form-control form-control-sm" id="Fecha_Pago" placeholder="" runat="server"/>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
                                                         <label for="Observacion_Preliminar" class="col-form-label col-form-label-sm" style="font-weight:bold;">Observación preliminar</label>
                                                         <input type="text" class="form-control form-control-sm" id="Observacion_Preliminar" placeholder="" runat="server" onclick="muestraContenidoTexto('Observacion Preliminar', 'Observacion_Preliminar')"/>
                                                     </div>
+                                                </div>
+                                                <div class="row">
                                                     <div class="form-group col-md-3">
                                                         <label for="Observacion_Final" class="col-form-label col-form-label-sm" style="font-weight:bold;">Observación final</label>
                                                         <input type="text" class="form-control form-control-sm" id="Observacion_Final" placeholder="" runat="server" onclick="muestraContenidoTexto('Observacion Final', 'Observacion_Final')"/>
@@ -152,8 +162,6 @@
                                                         <label for="Estado" class="col-form-label col-form-label-sm" style="font-weight:bold;">Estado</label>
                                                         <input type="text" class="form-control form-control-sm" id="Estado" placeholder="" runat="server"/>
                                                     </div>
-                                                </div>
-                                                <div class="row">
                                                     <div class="form-group col-md-3">
                                                         <label for="Banco" class="col-form-label col-form-label-sm" style="font-weight:bold;">Banco</label>
                                                         <input type="text" class="form-control form-control-sm" id="Banco" placeholder="" runat="server"/>
@@ -162,6 +170,8 @@
                                                         <label for="Empresa" class="col-form-label col-form-label-sm" style="font-weight:bold;">Empresa</label>
                                                         <input type="text" class="form-control form-control-sm" id="Empresa" placeholder="" runat="server"/>
                                                     </div>
+                                                </div>
+                                                <div class="row">
                                                     <div class="form-group col-md-3">
                                                         <label for="Sede" class="col-form-label col-form-label-sm" style="font-weight:bold;">Sede</label>
                                                         <input type="text" class="form-control form-control-sm" id="Sede" placeholder="" runat="server"/>
@@ -170,8 +180,6 @@
                                                         <label for="Cuenta" class="col-form-label col-form-label-sm" style="font-weight:bold;">Cuenta</label>
                                                         <input type="text" class="form-control form-control-sm" id="Cuenta" placeholder="" runat="server"/>
                                                     </div>
-                                                </div>
-                                                <div class="row">
                                                     <div class="form-group col-md-3">
                                                         <label for="Sub_Cuenta" class="col-form-label col-form-label-sm" style="font-weight:bold;">Sub Cuenta</label>
                                                         <input type="text" class="form-control form-control-sm" id="Sub_Cuenta" placeholder="" runat="server"/>
@@ -197,6 +205,10 @@
                                                 <asp:HiddenField ID="HiddenField1" runat="server" />
                                                 <asp:HiddenField ID="HiddenField2" runat="server" />
                                         </ContentTemplate>
+                                        <Triggers>
+                                            <asp:PostBackTrigger ControlID = "BtnCargar" />
+                                            <asp:PostBackTrigger ControlID = "BtnCargaPlantilla" />
+                                        </Triggers>
                                         </asp:UpdatePanel>
                                     </form> 
                                 </div>

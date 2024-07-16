@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Plantilla de ingresos</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
     <link rel="stylesheet" href="../Styles/Custom-Opciones.css" />
     <link rel="stylesheet" href="../Styles/Custom-Toolbar.css" />
@@ -172,6 +172,12 @@
                                                         <input type="text" class="form-control form-control-sm" id="Estado_Cuenta_2" placeholder="" runat="server"/>
                                                     </div>
                                                 </div>
+                                                <div class="row">
+                                                    <div class="form-group col-md-3">
+                                                        <label for="Soporte" class="col-form-label col-form-label-sm" style="font-weight:bold;">Soporte</label>
+                                                        <input type="text" class="form-control form-control-sm" id="Soporte" placeholder="" runat="server" onclick="muestraContenidoTexto('Soporte', 'Soporte')"/>
+                                                    </div>
+                                                </div>
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" value="" id="chkEstado" runat="server"/>
                                                     <label class="form-check-label form-control-sm" for="chkEstado">El registro de la plantilla se encuentra activo</label>
@@ -189,6 +195,10 @@
                                             <asp:HiddenField ID="HiddenField1" runat="server" />
                                             <asp:HiddenField ID="HiddenField2" runat="server" />
                                         </ContentTemplate>
+                                        <Triggers>
+                                            <asp:PostBackTrigger ControlID = "BtnCargar" />
+                                            <asp:PostBackTrigger ControlID = "BtnCargaPlantilla" />
+                                        </Triggers>
                                         </asp:UpdatePanel>
                                     </form> 
                                 </div>

@@ -20,5 +20,6 @@ namespace PrototipoData.Models
         public string Flujo { get; set; }
         public string Estado_Cuenta_1 { get; set; }
         public string Estado_Cuenta_2 { get; set; }
+        public string Soporte { get; set; }
     }
 }

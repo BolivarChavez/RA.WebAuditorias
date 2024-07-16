@@ -55,13 +55,13 @@ namespace WebAuditorias.Controllers.Transacciones
                         {
                             contenido += @"<tbody class=""hide"">";
                             contenido += @"<tr onmouseover=""setBackground(this, '#E5E8E8');"" onmouseout=""restoreBackground(this);"">";
-                            linea = @"<td id=""codigo"" style=""width:10%; cursor:pointer; font-family:Roboto; font-weight:normal;"" onClick=""EjecutaOpcion(this.id)"">" + transaccion.tr_codigo.ToString() + "</td>";
+                            linea = @"<td id=""codigo"" style=""width:10%; cursor:pointer; font-family:Open Sans; font-weight:normal;"" onClick=""EjecutaOpcion(this.id)"">" + transaccion.tr_codigo.ToString() + "</td>";
                             linea_rep1 = linea.Replace("codigo", transaccion.tr_codigo.ToString());
                             contenido += linea_rep1;
-                            linea = @"<td id=""codigo"" style=""width:80%; cursor:pointer; font-family:Roboto; font-weight:normal;"" onClick=""EjecutaOpcion(this.id)"">" + transaccion.tr_descripcion.Trim() + "</td>";
+                            linea = @"<td id=""codigo"" style=""width:80%; cursor:pointer; font-family:Open Sans; font-weight:normal;"" onClick=""EjecutaOpcion(this.id)"">" + transaccion.tr_descripcion.Trim() + "</td>";
                             linea_rep1 = linea.Replace("codigo", "opt-" + transaccion.tr_codigo.ToString());
                             contenido += linea_rep1;
-                            linea = @"<td id=""codigo"" style=""width:10%; display:none; font-family:Roboto; font-weight:normal;"">" + transaccion.tr_programa.Trim() + "</td>";
+                            linea = @"<td id=""codigo"" style=""width:10%; display:none; font-family:Open Sans; font-weight:normal;"">" + transaccion.tr_programa.Trim() + "</td>";
                             linea_rep1 = linea.Replace("codigo", "pag-" + transaccion.tr_codigo.ToString());
                             contenido += linea_rep1;
                             contenido += @"</tr>";

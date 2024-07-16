@@ -89,6 +89,10 @@ namespace WebAuditorias.Views
             string[] arrayParametros;
             arrayParametros = parametros.Split('|');
 
+            UserInfoCookie user_cookie = new UserInfoCookie();
+            UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
+            user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
+
             parametro.aa_empresa = Int16.Parse(arrayParametros[0].ToString());
             parametro.aa_auditoria = int.Parse(arrayParametros[1].ToString());
             parametro.aa_tarea = Int16.Parse(arrayParametros[2].ToString());
@@ -97,9 +101,9 @@ namespace WebAuditorias.Views
             parametro.aa_tipo = arrayParametros[5].ToString();
             parametro.aa_rol = arrayParametros[6].ToString();
             parametro.aa_estado = arrayParametros[7].ToString();
-            parametro.aa_usuario_creacion = "usuario";
+            parametro.aa_usuario_creacion = user_cookie.Usuario;
             parametro.aa_fecha_creacion = DateTime.Now;
-            parametro.aa_usuario_actualizacion = "usuario";
+            parametro.aa_usuario_actualizacion = user_cookie.Usuario;
             parametro.aa_fecha_actualizacion = DateTime.Now;
 
             if (parametro.aa_secuencia == 0)
