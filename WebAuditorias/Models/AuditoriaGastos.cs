@@ -11,6 +11,7 @@ namespace WebAuditorias.Models
         public DateTime ag_fecha_inicio { get; set; }
         public DateTime ag_fecha_fin { get; set; }
         public double ag_valor { get; set; }
+        public Int16 ag_responsable { get; set; }
         public string ag_estado { get; set; }
         public string ag_usuario_creacion { get; set; }
         public DateTime ag_fecha_creacion { get; set; }

@@ -63,6 +63,7 @@ async function LlenaGrid() {
             { field: 'ag_fecha_inicio', headerText: 'Fecha de inicio de gasto', type: 'date', width: 150, format: { type: 'date', format: 'dd/MM/yyyy' }, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'ag_fecha_fin', headerText: 'Fecha de fin de gasto', type: 'date', width: 150, format: { type: 'date', format: 'dd/MM/yyyy' }, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'ag_valor', headerText: 'Total de Gasto', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'ag_responsable', headerText: 'Responsable', visible: false, width: 150, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'ag_estado', headerText: 'Estado de tarea', width: 150, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } }
         ],
         pageSettings: { pageCount: 5, pageSize: 10 },
@@ -94,6 +95,13 @@ function rowSelected(args) {
     for (var i = 0; i <= dropdownlistbox1.length - 1; i++) {
         if (args.data.ag_tipo == dropdownlistbox1.options[i].value)
             dropdownlistbox1.selectedIndex = i;
+    }
+
+    var dropdownlistbox2 = document.getElementById("Responsable")
+
+    for (var i = 0; i <= dropdownlistbox2.length - 1; i++) {
+        if (args.data.ag_responsable == dropdownlistbox2.options[i].value)
+            dropdownlistbox2.selectedIndex = i;
     }
 
     document.getElementById("chkEstado").checked = (args.data.ag_estado === 'A') ? true : false;
@@ -167,6 +175,7 @@ function GrabarProceso() {
         strParametro += fecha1 + "|";
         strParametro += fecha2 + "|";
         strParametro += document.getElementById('Valor').value + "|";
+        strParametro += document.getElementById('Responsable').value + "|";
 
         if (document.getElementById("chkEstado").checked) {
             strParametro += "A";
@@ -240,6 +249,7 @@ function EliminarProceso() {
         strParametro += fecha1 + "|";
         strParametro += fecha2 + "|";
         strParametro += document.getElementById('Valor').value + "|";
+        strParametro += document.getElementById('Responsable').value + "|";
         strParametro += "X";
 
         var args = '';

@@ -220,7 +220,7 @@ namespace WebAuditorias.Views
             string[] arrayParametros;
             arrayParametros = parametros.Split('|');
 
-            _documentos = _controller.Consulta(int.Parse(arrayParametros[0]), int.Parse(arrayParametros[1]), int.Parse(arrayParametros[2]), int.Parse(arrayParametros[3])).Where(x => x.ad_estado == "A").ToList();
+            _documentos = _controller.Consulta(int.Parse(arrayParametros[0]), int.Parse(arrayParametros[1]), int.Parse(arrayParametros[2]), int.Parse(arrayParametros[3]), 0).Where(x => x.ad_estado == "A").ToList();
 
             foreach (var lineaDoc in _documentos)
             {
@@ -231,6 +231,7 @@ namespace WebAuditorias.Views
                         IdRegistro = lineaDoc.ad_codigo,
                         ReferenciaLinea = lineaDoc.ad_referencia,
                         IdEstado = lineaDoc.ad_estado,
+                        ReferenciaDocumento = "",
                         Mes = regularizacion.Mes,
                         Fecha = regularizacion.Fecha,
                         Detalle = regularizacion.Detalle,
@@ -289,6 +290,20 @@ namespace WebAuditorias.Views
             parametros += Plantilla.Value.ToString().Split('-')[0] + "|" + Plantilla.Value.ToString().Split('-')[1] + "|" + Codigo.Value.ToString();
 
             ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "window.open('AuditoriaDocumentoProceso.aspx?plantilla=" + parametros + "', '_blank');", true);
+        }
+
+        protected void BtnAddTareaGrupo_ServerClick(object sender, EventArgs e)
+        {
+            string parametros = "";
+
+            parametros += "1|";
+            parametros += Auditoria.Value.ToString().Split('-')[0] + "|";
+            parametros += Auditoria.Value.ToString().Substring(Auditoria.Value.ToString().IndexOf('-') + 1) + "|";
+            parametros += Tarea.Value.ToString().Split('-')[0] + "|";
+            parametros += Tarea.Value.ToString().Substring(Tarea.Value.ToString().IndexOf('-') + 1) + "|";
+            parametros += Plantilla.Value.ToString().Split('-')[0] + "|" + Plantilla.Value.ToString().Split('-')[1] + "|" + Codigo.Value.ToString();
+
+            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "window.open('AuditoriaDocumentoProcesoGrupo.aspx?plantilla=" + parametros + "', '_blank');", true);
         }
     }
 }

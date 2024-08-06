@@ -108,7 +108,7 @@ namespace WebAuditorias.Views
             AuditoriasController _controller = new AuditoriasController();
             List<Models.Auditorias> _auditorias = new List<Models.Auditorias>();
 
-            _auditorias = _controller.Consulta(1, 0).OrderByDescending(au => au.au_codigo).ToList();
+            _auditorias = _controller.Consulta(1, 0, 0).OrderByDescending(au => au.au_codigo).ToList();
 
             return JsonConvert.SerializeObject(_auditorias);
         }
@@ -153,6 +153,40 @@ namespace WebAuditorias.Views
             return response;
         }
 
+        [System.Web.Services.WebMethod]
+        public static string CopiarAuditoria(string parametros)
+        {
+            AuditoriasController _controller = new AuditoriasController();
+            Models.Auditorias parametro = new Models.Auditorias();
+            string response;
+            string[] arrayParametros;
+            arrayParametros = parametros.Split('|');
+
+            UserInfoCookie user_cookie = new UserInfoCookie();
+            UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
+            user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
+
+            parametro.au_empresa = Int16.Parse(arrayParametros[0].ToString());
+            parametro.au_codigo = int.Parse(arrayParametros[1].ToString());
+            parametro.au_oficina_origen = Int16.Parse(arrayParametros[2].ToString());
+            parametro.au_oficina_destino = Int16.Parse(arrayParametros[3].ToString());
+            parametro.au_tipo_proceso = Int16.Parse(arrayParametros[4].ToString());
+            parametro.au_fecha_inicio = DateTime.Parse(arrayParametros[5].ToString());
+            parametro.au_fecha_cierre = DateTime.Parse(arrayParametros[6].ToString());
+            parametro.au_tipo = arrayParametros[7].ToString().Trim().ToUpper();
+            parametro.au_observaciones = arrayParametros[8].ToString().Trim().ToUpper();
+            parametro.au_estado = arrayParametros[9].ToString().Trim().ToUpper();
+            parametro.au_usuario_creacion = user_cookie.Usuario;
+            parametro.au_fecha_creacion = DateTime.Now;
+            parametro.au_usuario_actualizacion = user_cookie.Usuario;
+            parametro.au_fecha_actualizacion = DateTime.Now;
+
+            response = _controller.CopiaAuditoria(parametro);
+
+            return response;
+        }
+
+
         protected void BtnEliminar_ServerClick(object sender, EventArgs e)
         {
             ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "EliminarProceso();", true);
@@ -166,6 +200,11 @@ namespace WebAuditorias.Views
         protected void BtnCerrar_ServerClick(object sender, EventArgs e)
         {
             ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "CerrarProceso();", true);
+        }
+
+        protected void BtnCopiar_ServerClick(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "CopiarProceso();", true);
         }
     }
 }

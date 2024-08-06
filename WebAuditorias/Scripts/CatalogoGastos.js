@@ -42,6 +42,8 @@ async function LlenaGrid() {
         height: '100%',
         columns: [
             { field: 'cg_codigo', headerText: 'Codigo', visible: false, width: 20, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'categoriaCodigo', headerText: 'Codigo', visible: false, width: 20, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'categoriaDescripcion', headerText: 'Categoria', width: 150, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'cg_descripion', headerText: 'Descripcion', width: 150, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'cg_estado', headerText: 'Estado', width: 150, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } }
         ],
@@ -55,6 +57,13 @@ function rowSelected(args) {
     document.getElementById('Codigo').value = args.data.cg_codigo;
     document.getElementById('Descripcion').value = args.data.cg_descripion;
     document.getElementById("chkEstado").checked = (args.data.cg_estado === 'A') ? true : false;
+
+    var dropdownlistbox1 = document.getElementById("Categoria")
+
+    for (var i = 0; i <= dropdownlistbox1.length - 1; i++) {
+        if (args.data.categoriaCodigo == dropdownlistbox1.options[i].value)
+            dropdownlistbox1.selectedIndex = i;
+    }
 }
 
 function ValidaDatos() {
@@ -82,6 +91,7 @@ function GrabarGasto() {
     if (confirm("Confirma la grabación del registro de catálogo de gastos?")) {
         strParametro = "1|";
         strParametro += document.getElementById('Codigo').value + "|";
+        strParametro += document.getElementById('Categoria').value + "|";
         strParametro += document.getElementById('Descripcion').value + "|";
 
         if (document.getElementById("chkEstado").checked) {
@@ -139,6 +149,7 @@ function EliminarGasto() {
     if (confirm("Confirma la eliminación del registro de catálogo de gastos?")) {
         strParametro = "1|";
         strParametro += document.getElementById('Codigo').value + "|";
+        strParametro += document.getElementById('Categoria').value + "|";
         strParametro += document.getElementById('Descripcion').value + "|";
         strParametro += "X";
 

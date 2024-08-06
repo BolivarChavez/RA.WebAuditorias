@@ -6,6 +6,7 @@ namespace WebAuditorias.Models
     {
         public Int16 cg_empresa { get; set; }
         public Int16 cg_codigo { get; set; }
+        public Int16 cg_categoria { get; set; }
         public string cg_descripion { get; set; }
         public string cg_estado { get; set; }
         public string cg_usuario_creacion { get; set; }

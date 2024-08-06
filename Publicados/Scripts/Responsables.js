@@ -86,9 +86,11 @@ function rowSelected(args) {
 function ValidaDatos() {
     var nombre;
     var cargo;
+    var correo;
 
     nombre = document.getElementById('Nombre').value;
     cargo = document.getElementById('Cargo').value;
+    correo = document.getElementById('Correo').value;
 
     if (nombre.trim() === "") {
         document.getElementById('messageContent').innerHTML = "ERROR : No se ha ingresado nombre para el responsable";
@@ -102,7 +104,21 @@ function ValidaDatos() {
         return false;
     }
 
+    if (correo.trim() !== "") {
+        if (!validaEmail(correo)) {
+            document.getElementById('messageContent').innerHTML = "ERROR : El correo electronico no es válido";
+            $('#popupMessage').modal('show');
+            return false;
+        }
+    }
+
     return true;
+}
+
+function validaEmail(email) {
+    return email.match(
+        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
 }
 
 function GrabarResponsables() {

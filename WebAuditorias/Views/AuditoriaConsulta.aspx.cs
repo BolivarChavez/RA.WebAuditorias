@@ -1,10 +1,14 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebAuditorias.Controllers.AuditoriaDocumentoProcesos;
 using WebAuditorias.Controllers.AuditoriaDocumentos;
 using WebAuditorias.Controllers.Auditorias;
+using WebAuditorias.Controllers.CatalogoProcesos;
 using WebAuditorias.Controllers.Cookies;
 using WebAuditorias.Models;
 
@@ -17,8 +21,8 @@ namespace WebAuditorias.Views
             if (!IsPostBack)
             {
                 CargaDatosUsuario();
-                CargaProcesosAuditoria();
-                CargaPlantillasRegistradas();
+                CargaProcesos();
+                DetalleInfo.Visible = false;
             }
         }
 
@@ -30,6 +34,22 @@ namespace WebAuditorias.Views
 
             lblNombre.Text = user_cookie.Nombre;
             lblFechaConexion.Text = DateTime.Now.ToString();
+            Anio.Value = DateTime.Now.Year.ToString();
+        }
+
+        private void CargaProcesos()
+        {
+            CatalogoProcesosController _controller = new CatalogoProcesosController();
+            List<Models.CatalogoProcesos> _procesos = new List<Models.CatalogoProcesos>();
+
+            _procesos = _controller.Consulta(1).ToList();
+            _procesos.Add(new Models.CatalogoProcesos { cp_codigo = 0, cp_descripcion = "Seleccionar Todos" });
+
+            Proceso.DataSource = _procesos.OrderBy(x => x.cp_codigo);
+            Proceso.DataValueField = "cp_codigo";
+            Proceso.DataTextField = "cp_descripcion";
+            Proceso.DataBind();
+            Proceso.SelectedIndex = 0;
         }
 
         private void CargaProcesosAuditoria()
@@ -37,14 +57,28 @@ namespace WebAuditorias.Views
             AuditoriasController _controller = new AuditoriasController();
             List<Models.Auditorias> _auditorias = new List<Models.Auditorias>();
 
-            _auditorias = _controller.Consulta(1, 0).OrderByDescending(au => au.au_codigo).ToList();
+            if (Proceso.SelectedValue.Trim() == "0")
+                _auditorias = _controller.Consulta(1, 0, int.Parse(Anio.Value)).OrderByDescending(au => au.au_codigo).ToList();
+            else
+                _auditorias = _controller.Consulta(1, 0, int.Parse(Anio.Value)).Where(au => au.au_tipo_proceso == int.Parse(Proceso.SelectedValue.Trim())).OrderByDescending(au => au.au_codigo).ToList();
 
             numPA.InnerHtml = _auditorias.Where(p => p.au_estado == "A").Count().ToString();
             numPC.InnerHtml = _auditorias.Where(p => p.au_estado == "C").Count().ToString();
             numPP.InnerHtml = _auditorias.Where(p => p.au_estado == "P").Count().ToString();
+
+            if (HttpContext.Current.Request.Cookies["AnioConsulta"] != null)
+            {
+                HttpCookie myCookie = new HttpCookie("AnioConsulta");
+                myCookie.Expires = DateTime.Now.AddDays(-1d);
+                HttpContext.Current.Response.Cookies.Add(myCookie);
+            }
+
+            HttpCookie anioConsulta = new HttpCookie("AnioConsulta");
+            anioConsulta.Value = Anio.Value;
+            HttpContext.Current.Response.Cookies.Add(anioConsulta);
         }
 
-        private string ConsultaPlantillas(int tipoPlantilla)
+        private static string ConsultaPlantillas(int tipoPlantilla, int anio)
         {
             AuditoriaDocumentosController _controller = new AuditoriaDocumentosController();
             List<Models.AuditoriaDocumentos> _documentos = new List<Models.AuditoriaDocumentos>();
@@ -55,9 +89,9 @@ namespace WebAuditorias.Views
             int plantillasIngresadas;
             int plantillasRevisadas;
 
-            _auditoriaDocumentosProcesos = _controllerDocumento.Consulta(1, 0, 0, 0).Where(lt => lt.ad_estado != "X").ToList();
+            _auditoriaDocumentosProcesos = _controllerDocumento.Consulta(1, 0, 0, 0, anio).Where(lt => lt.ad_estado != "X").ToList();
 
-            _documentos = _controller.Consulta(1, 0, 0, tipoPlantilla).Where(x => x.ad_estado == "A").ToList();
+            _documentos = _controller.Consulta(1, 0, 0, tipoPlantilla, anio).Where(x => x.ad_estado == "A").ToList();
 
             var chequesProcesados = from documento in _documentos
                                     join proceso in _auditoriaDocumentosProcesos
@@ -71,64 +105,122 @@ namespace WebAuditorias.Views
             return plantillasIngresadas.ToString() + "|" + (plantillasIngresadas - plantillasRevisadas).ToString();
         }
 
-        private void CargaPlantillasRegistradas()
+        [System.Web.Services.WebMethod]
+        public static string CargaPlantillasRegistradas(string anio)
         {
             string[] arrayRespuesta;
+            List<ResumenPlantillas> listaPlantillas = new List<ResumenPlantillas>();
 
-            arrayRespuesta = ConsultaPlantillas((int)TipoPlantilla.Plantillas.Plantilla_Cheques).Split('|');
+            arrayRespuesta = ConsultaPlantillas((int)TipoPlantilla.Plantillas.Plantilla_Cheques, int.Parse(anio)).Split('|');
+            listaPlantillas.Add(new ResumenPlantillas
+            {
+                IdPlantilla = (int)TipoPlantilla.Plantillas.Plantilla_Cheques,
+                NombrePlantilla = "Plantilla de Cheques",
+                Registradas = arrayRespuesta[0].Trim(),
+                Pendientes = arrayRespuesta[1].Trim()
+            });
 
-            p1t.InnerHtml = arrayRespuesta[0].Trim();
-            p1r.InnerHtml = arrayRespuesta[1].Trim();
+            arrayRespuesta = ConsultaPlantillas((int)TipoPlantilla.Plantillas.Plantilla_Comisiones, int.Parse(anio)).Split('|');
+            listaPlantillas.Add(new ResumenPlantillas
+            {
+                IdPlantilla = (int)TipoPlantilla.Plantillas.Plantilla_Comisiones,
+                NombrePlantilla = "Plantilla de Comisiones",
+                Registradas = arrayRespuesta[0].Trim(),
+                Pendientes = arrayRespuesta[1].Trim()
+            });
 
-            arrayRespuesta = ConsultaPlantillas((int)TipoPlantilla.Plantillas.Plantilla_Comisiones).Split('|');
+            arrayRespuesta = ConsultaPlantillas((int)TipoPlantilla.Plantillas.Plantilla_Ingresos, int.Parse(anio)).Split('|');
+            listaPlantillas.Add(new ResumenPlantillas
+            {
+                IdPlantilla = (int)TipoPlantilla.Plantillas.Plantilla_Ingresos,
+                NombrePlantilla = "Plantilla de Ingresos",
+                Registradas = arrayRespuesta[0].Trim(),
+                Pendientes = arrayRespuesta[1].Trim()
+            });
 
-            p2t.InnerHtml = arrayRespuesta[0].Trim();
-            p2r.InnerHtml = arrayRespuesta[1].Trim();
+            arrayRespuesta = ConsultaPlantillas((int)TipoPlantilla.Plantillas.Plantilla_Mutuos, int.Parse(anio)).Split('|');
+            listaPlantillas.Add(new ResumenPlantillas
+            {
+                IdPlantilla = (int)TipoPlantilla.Plantillas.Plantilla_Mutuos,
+                NombrePlantilla = "Plantilla de Mutuos",
+                Registradas = arrayRespuesta[0].Trim(),
+                Pendientes = arrayRespuesta[1].Trim()
+            });
 
-            arrayRespuesta = ConsultaPlantillas((int)TipoPlantilla.Plantillas.Plantilla_Ingresos).Split('|');
+            arrayRespuesta = ConsultaPlantillas((int)TipoPlantilla.Plantillas.Plantilla_Pagos, int.Parse(anio)).Split('|');
+            listaPlantillas.Add(new ResumenPlantillas
+            {
+                IdPlantilla = (int)TipoPlantilla.Plantillas.Plantilla_Pagos,
+                NombrePlantilla = "Plantilla de Pagos",
+                Registradas = arrayRespuesta[0].Trim(),
+                Pendientes = arrayRespuesta[1].Trim()
+            });
 
-            p3t.InnerHtml = arrayRespuesta[0].Trim();
-            p3r.InnerHtml = arrayRespuesta[1].Trim();
+            arrayRespuesta = ConsultaPlantillas((int)TipoPlantilla.Plantillas.Plantilla_Planillas, int.Parse(anio)).Split('|');
+            listaPlantillas.Add(new ResumenPlantillas
+            {
+                IdPlantilla = (int)TipoPlantilla.Plantillas.Plantilla_Planillas,
+                NombrePlantilla = "Plantilla de Planillas",
+                Registradas = arrayRespuesta[0].Trim(),
+                Pendientes = arrayRespuesta[1].Trim()
+            });
 
-            arrayRespuesta = ConsultaPlantillas((int)TipoPlantilla.Plantillas.Plantilla_Mutuos).Split('|');
+            arrayRespuesta = ConsultaPlantillas((int)TipoPlantilla.Plantillas.Plantilla_Reembolsos, int.Parse(anio)).Split('|');
+            listaPlantillas.Add(new ResumenPlantillas
+            {
+                IdPlantilla = (int)TipoPlantilla.Plantillas.Plantilla_Reembolsos,
+                NombrePlantilla = "Plantilla de Reembolsos",
+                Registradas = arrayRespuesta[0].Trim(),
+                Pendientes = arrayRespuesta[1].Trim()
+            });
 
-            p4t.InnerHtml = arrayRespuesta[0].Trim();
-            p4r.InnerHtml = arrayRespuesta[1].Trim();
+            arrayRespuesta = ConsultaPlantillas((int)TipoPlantilla.Plantillas.Plantilla_Regalias, int.Parse(anio)).Split('|');
+            listaPlantillas.Add(new ResumenPlantillas
+            {
+                IdPlantilla = (int)TipoPlantilla.Plantillas.Plantilla_Regalias,
+                NombrePlantilla = "Plantilla de Regalias",
+                Registradas = arrayRespuesta[0].Trim(),
+                Pendientes = arrayRespuesta[1].Trim()
+            });
 
-            arrayRespuesta = ConsultaPlantillas((int)TipoPlantilla.Plantillas.Plantilla_Pagos).Split('|');
+            arrayRespuesta = ConsultaPlantillas((int)TipoPlantilla.Plantillas.Plantilla_Regularizaciones, int.Parse(anio)).Split('|');
+            listaPlantillas.Add(new ResumenPlantillas
+            {
+                IdPlantilla = (int)TipoPlantilla.Plantillas.Plantilla_Regularizaciones,
+                NombrePlantilla = "Plantilla de Regularizaciones",
+                Registradas = arrayRespuesta[0].Trim(),
+                Pendientes = arrayRespuesta[1].Trim()
+            });
 
-            p5t.InnerHtml = arrayRespuesta[0].Trim();
-            p5r.InnerHtml = arrayRespuesta[1].Trim();
+            arrayRespuesta = ConsultaPlantillas((int)TipoPlantilla.Plantillas.Plantilla_Transferencias, int.Parse(anio)).Split('|');
+            listaPlantillas.Add(new ResumenPlantillas
+            {
+                IdPlantilla = (int)TipoPlantilla.Plantillas.Plantilla_Transferencias,
+                NombrePlantilla = "Plantilla de Transferencias",
+                Registradas = arrayRespuesta[0].Trim(),
+                Pendientes = arrayRespuesta[1].Trim()
+            });
 
-            arrayRespuesta = ConsultaPlantillas((int)TipoPlantilla.Plantillas.Plantilla_Planillas).Split('|');
+            arrayRespuesta = ConsultaPlantillas((int)TipoPlantilla.Plantillas.Plantilla_Tributos, int.Parse(anio)).Split('|');
+            listaPlantillas.Add(new ResumenPlantillas
+            {
+                IdPlantilla = (int)TipoPlantilla.Plantillas.Plantilla_Tributos,
+                NombrePlantilla = "Plantilla de Tributos",
+                Registradas = arrayRespuesta[0].Trim(),
+                Pendientes = arrayRespuesta[1].Trim()
+            });
 
-            p6t.InnerHtml = arrayRespuesta[0].Trim();
-            p6r.InnerHtml = arrayRespuesta[1].Trim();
+            return JsonConvert.SerializeObject(listaPlantillas);
+        }
 
-            arrayRespuesta = ConsultaPlantillas((int)TipoPlantilla.Plantillas.Plantilla_Reembolsos).Split('|');
+        protected void BtnBuscar_ServerClick(object sender, EventArgs e)
+        {
+            DetalleInfo.Visible = false;
 
-            p7t.InnerHtml = arrayRespuesta[0].Trim();
-            p7r.InnerHtml = arrayRespuesta[1].Trim();
+            CargaProcesosAuditoria();
+            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "LlenaGridPlantilla();", true);
 
-            arrayRespuesta = ConsultaPlantillas((int)TipoPlantilla.Plantillas.Plantilla_Regalias).Split('|');
-
-            p8t.InnerHtml = arrayRespuesta[0].Trim();
-            p8r.InnerHtml = arrayRespuesta[1].Trim();
-
-            arrayRespuesta = ConsultaPlantillas((int)TipoPlantilla.Plantillas.Plantilla_Regularizaciones).Split('|');
-
-            p9t.InnerHtml = arrayRespuesta[0].Trim();
-            p9r.InnerHtml = arrayRespuesta[1].Trim();
-
-            arrayRespuesta = ConsultaPlantillas((int)TipoPlantilla.Plantillas.Plantilla_Transferencias).Split('|');
-
-            p10t.InnerHtml = arrayRespuesta[0].Trim();
-            p10r.InnerHtml = arrayRespuesta[1].Trim();
-
-            arrayRespuesta = ConsultaPlantillas((int)TipoPlantilla.Plantillas.Plantilla_Tributos).Split('|');
-
-            p11t.InnerHtml = arrayRespuesta[0].Trim();
-            p11r.InnerHtml = arrayRespuesta[1].Trim();
+            DetalleInfo.Visible = true;
         }
     }
 }

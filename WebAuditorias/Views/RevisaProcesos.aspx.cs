@@ -89,8 +89,9 @@ namespace WebAuditorias.Views
             AuditoriasController _controller = new AuditoriasController();
             List<Models.Auditorias> _auditorias = new List<Models.Auditorias>();
             string estado = Request.QueryString["estado"].Trim();
+            string anioConsulta = Request.Cookies["AnioConsulta"].Value;
 
-            _auditorias = _controller.Consulta(1, 0).Where(au => au.au_estado == estado).OrderByDescending(au => au.au_codigo).ToList();
+            _auditorias = _controller.Consulta(1, 0, int.Parse(anioConsulta)).Where(au => au.au_estado == estado).OrderByDescending(au => au.au_codigo).ToList();
 
             ProcesoAuditoria.DataSource = _auditorias;
             ProcesoAuditoria.DataValueField = "au_codigo";
@@ -105,7 +106,7 @@ namespace WebAuditorias.Views
             AuditoriasController _controller = new AuditoriasController();
             List<Models.Auditorias> _auditorias = new List<Models.Auditorias>();
 
-            _auditorias = _controller.Consulta(1, codigoAuditoria).ToList();
+            _auditorias = _controller.Consulta(1, codigoAuditoria, 0).ToList();
             HiddenField1.Value = _auditorias.FirstOrDefault().au_tipo_proceso.ToString();
 
             Codigo.Value = _auditorias.FirstOrDefault().au_codigo.ToString();
@@ -142,6 +143,39 @@ namespace WebAuditorias.Views
             return JsonConvert.SerializeObject(listaAuditoriaGastos);
         }
 
+        [System.Web.Services.WebMethod]
+        public static string CerrarAuditoria(string parametros)
+        {
+            AuditoriasController _controller = new AuditoriasController();
+            Models.Auditorias parametro = new Models.Auditorias();
+            string response;
+            string[] arrayParametros;
+            arrayParametros = parametros.Split('|');
+
+            UserInfoCookie user_cookie = new UserInfoCookie();
+            UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
+            user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
+
+            parametro.au_empresa = Int16.Parse(arrayParametros[0].ToString());
+            parametro.au_codigo = int.Parse(arrayParametros[1].ToString());
+            parametro.au_oficina_origen = 0;
+            parametro.au_oficina_destino = 0;
+            parametro.au_tipo_proceso = 0;
+            parametro.au_fecha_inicio = DateTime.Now;
+            parametro.au_fecha_cierre = DateTime.Now;
+            parametro.au_tipo = "";
+            parametro.au_observaciones = "";
+            parametro.au_estado = "C";
+            parametro.au_usuario_creacion = user_cookie.Usuario;
+            parametro.au_fecha_creacion = DateTime.Now;
+            parametro.au_usuario_actualizacion = user_cookie.Usuario;
+            parametro.au_fecha_actualizacion = DateTime.Now;
+
+            response = _controller.Actualizacion(parametro);
+
+            return response;
+        }
+
         protected void ProcesoAuditoria_SelectedIndexChanged(object sender, EventArgs e)
         {
             ConsultaDatosAuditoria(int.Parse(ProcesoAuditoria.SelectedValue));
@@ -150,6 +184,16 @@ namespace WebAuditorias.Views
         protected void BtnBuscar_ServerClick(object sender, EventArgs e)
         {
             ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "ConsultaInicial();", true);
+        }
+
+        protected void BtnCerrar_ServerClick(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "CerrarAuditoria();", true);
+        }
+
+        protected void BtnInforme_ServerClick(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "window.open('InformeTareas.aspx?auditoria=" + ProcesoAuditoria.SelectedValue + "', '_blank');", true);
         }
     }
 }

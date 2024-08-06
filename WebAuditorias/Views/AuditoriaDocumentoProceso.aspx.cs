@@ -80,7 +80,7 @@ namespace WebAuditorias.Views
             List<Models.Responsables> _responsables = new List<Models.Responsables>();
 
             _responsables = _controllerResponsable.Consulta(1).ToList();
-            _auditoriaDocumentosProcesos = _controller.Consulta(int.Parse(arrayParametros[0]), int.Parse(arrayParametros[1]), int.Parse(arrayParametros[2]), int.Parse(arrayParametros[3])).Where(lt => lt.ad_estado != "X").ToList();
+            _auditoriaDocumentosProcesos = _controller.Consulta(int.Parse(arrayParametros[0]), int.Parse(arrayParametros[1]), int.Parse(arrayParametros[2]), int.Parse(arrayParametros[3]), 0).Where(lt => lt.ad_estado != "X").ToList();
 
             var listaAuditoriaDocumentosProcesos = from proceso in _auditoriaDocumentosProcesos
                                                    join auditor in _responsables on proceso.ad_auditor equals auditor.re_codigo
@@ -124,7 +124,7 @@ namespace WebAuditorias.Views
             parametro.ad_fecha = DateTime.Parse(arrayParametros[5].ToString());
             parametro.ad_auditor = Int16.Parse(arrayParametros[6].ToString());
             parametro.ad_responsable = Int16.Parse(arrayParametros[7].ToString());
-            parametro.ad_observaciones = arrayParametros[8].ToString().ToUpper();
+            parametro.ad_observaciones = arrayParametros[8].ToString();
             parametro.ad_documento = arrayParametros[9].ToString();
             parametro.ad_estado = arrayParametros[10].ToString();
             parametro.ad_usuario_creacion = user_cookie.Usuario; 

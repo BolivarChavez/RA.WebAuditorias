@@ -13,11 +13,11 @@ namespace WebAuditorias.Controllers.AuditoriaDocumentoProcesos
             return _auditoriaDocumentoProcesosService.Actualizacion(auditoriaDocumento);
         }
 
-        public IEnumerable<Models.AuditoriaDocumentoProcesos> Consulta(int empresa, int auditoria, int tarea, int codigo)
+        public IEnumerable<Models.AuditoriaDocumentoProcesos> Consulta(int empresa, int auditoria, int tarea, int codigo, int anio)
         {
             AuditoriaDocumentoProcesosService _auditoriaDocumentoProcesosService = new AuditoriaDocumentoProcesosService();
 
-            return _auditoriaDocumentoProcesosService.Consulta(empresa, auditoria, tarea, codigo);
+            return _auditoriaDocumentoProcesosService.Consulta(empresa, auditoria, tarea, codigo, anio);
         }
 
         public string Ingreso(Models.AuditoriaDocumentoProcesos auditoriaDocumento)

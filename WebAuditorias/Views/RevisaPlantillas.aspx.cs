@@ -34,6 +34,7 @@ namespace WebAuditorias.Views
             lblNombre.Text = user_cookie.Nombre;
             lblFechaConexion.Text = DateTime.Now.ToString();
             HiddenField2.Value = Request.QueryString["plantilla"].Trim();
+            HiddenField4.Value = Request.Cookies["AnioConsulta"].Value;
         }
 
         [System.Web.Services.WebMethod]
@@ -49,7 +50,7 @@ namespace WebAuditorias.Views
             List<Models.Responsables> _responsables = new List<Models.Responsables>();
 
             _responsables = _controllerResponsable.Consulta(1).ToList();
-            _auditoriaDocumentosProcesos = _controller.Consulta(int.Parse(arrayParametros[0]), int.Parse(arrayParametros[1]), int.Parse(arrayParametros[2]), int.Parse(arrayParametros[3])).Where(lt => lt.ad_estado != "X").ToList();
+            _auditoriaDocumentosProcesos = _controller.Consulta(int.Parse(arrayParametros[0]), int.Parse(arrayParametros[1]), int.Parse(arrayParametros[2]), int.Parse(arrayParametros[3]), 0).Where(lt => lt.ad_estado != "X").ToList();
 
             var listaAuditoriaDocumentosProcesos = from proceso in _auditoriaDocumentosProcesos
                                                    join auditor in _responsables on proceso.ad_auditor equals auditor.re_codigo
@@ -78,7 +79,7 @@ namespace WebAuditorias.Views
             List<Models.Auditorias> _auditorias = new List<Models.Auditorias>();
             string estado = Request.QueryString["estado"].Trim();
 
-            _auditorias = _controller.Consulta(1, 0).Where(au => au.au_estado == estado).OrderByDescending(au => au.au_codigo).ToList();
+            _auditorias = _controller.ConsultaPlantilla(1, 0, int.Parse(HiddenField4.Value), int.Parse(HiddenField2.Value)).Where(au => au.au_estado == estado).OrderByDescending(au => au.au_codigo).ToList();
 
             ProcesoAuditoria.DataSource = _auditorias;
             ProcesoAuditoria.DataValueField = "au_codigo";
@@ -93,38 +94,8 @@ namespace WebAuditorias.Views
             AuditoriasController _controller = new AuditoriasController();
             List<Models.Auditorias> _auditorias = new List<Models.Auditorias>();
 
-            _auditorias = _controller.Consulta(1, codigoAuditoria).ToList();
+            _auditorias = _controller.Consulta(1, codigoAuditoria, 0).ToList();
             HiddenField1.Value = _auditorias.FirstOrDefault().au_tipo_proceso.ToString();
-        }
-
-        [System.Web.Services.WebMethod]
-        public static string ConsultaPlantillaCheques(string parametros)
-        {
-            return "";
-        }
-
-        [System.Web.Services.WebMethod]
-        public static string ConsultaPlantillaComisiones(string parametros)
-        {
-            return "";
-        }
-
-        [System.Web.Services.WebMethod]
-        public static string ConsultaPlantillaIngresos(string parametros)
-        {
-            return "";
-        }
-
-        [System.Web.Services.WebMethod]
-        public static string ConsultaPlantillaMutuos(string parametros)
-        {
-            return "";
-        }
-
-        [System.Web.Services.WebMethod]
-        public static string ConsultaPlantillaPagos(string parametros)
-        {
-            return "";
         }
 
         protected void BtnBuscar_ServerClick(object sender, EventArgs e)

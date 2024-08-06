@@ -65,39 +65,43 @@
                             </nav>
                             <div id="DivOpciones" class="px-2" runat="server">
                                 <div class="row">
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-4">
                                         <label for="Auditoria" class="col-form-label col-form-label-sm" style="font-weight:bold;">Auditoria</label>
-                                        <input type="text" class="form-control form-control-sm" id="Auditoria" placeholder="0" readonly="true" runat="server"/>
+                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Auditoria" placeholder="0" readonly="true" runat="server"/>
                                     </div>
-                                    <div class="form-group col-md-6"">
+                                    <div class="form-group col-md-4"">
                                         <label for="Codigo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Código</label>
-                                        <input type="text" class="form-control form-control-sm" id="Codigo" placeholder="0" readonly="true" runat="server"/>
+                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Codigo" placeholder="0" readonly="true" runat="server"/>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-4">
                                         <label for="TipoGasto" class="col-form-label col-form-label-sm" style="font-weight:bold;">Tipo de gasto asociado</label>
-                                        <asp:DropDownList ID="TipoGasto" CssClass="form-select form-select-sm" style="width: 300px" runat="server"></asp:DropDownList>
+                                        <asp:DropDownList ID="TipoGasto" CssClass="form-select form-select-sm" style="width: 100%; font-size: 12px" runat="server"></asp:DropDownList>
                                     </div>
-                                    <div class="form-group col-md-6">
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
                                         <label for="FechaInicio" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha de inicio de registro</label>
-                                        <input type="date" class="form-control form-control-sm" id="FechaInicio" placeholder="" style="width: 300px" runat="server"/>
+                                        <input type="date" class="form-control form-control-sm" id="FechaInicio" placeholder="" style="width: 300px; font-size: 12px" runat="server"/>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-4">
                                         <label for="FechaFin" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha de fin de registro</label>
-                                        <input type="date" class="form-control form-control-sm" id="FechaFin" placeholder="" style="width: 300px" runat="server"/>
+                                        <input type="date" class="form-control form-control-sm" id="FechaFin" placeholder="" style="width: 300px; font-size: 12px" runat="server"/>
                                     </div>
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-4">
                                         <label for="Valor" class="col-form-label col-form-label-sm" style="font-weight:bold;">Total de gasto</label>
-                                        <input type="text" class="form-control form-control-sm" id="Valor" placeholder="" style="width: 300px" runat="server"/>
+                                        <input type="text" class="form-control form-control-sm" id="Valor" placeholder="" style="width: 300px; font-size: 12px" runat="server"/>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-4">
+                                        <label for="TipoGasto" class="col-form-label col-form-label-sm" style="font-weight:bold;">Responsable del gasto</label>
+                                        <asp:DropDownList ID="Responsable" CssClass="form-select form-select-sm" style="width: 100%; font-size: 12px" runat="server"></asp:DropDownList>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
                                         <input class="form-check-input" type="checkbox" value="" id="chkEstado" runat="server"/>
-                                        <label class="form-check-label form-control-sm" for="chkEstado">El registro seleccionado se encuentra activo</label>
+                                        <label class="form-check-label form-control-sm" style="font-size: 12px" for="chkEstado">El registro seleccionado se encuentra activo</label>
                                     </div>
                                 </div>
                             </div>

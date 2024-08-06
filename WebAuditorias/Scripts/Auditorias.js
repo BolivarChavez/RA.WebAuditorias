@@ -436,10 +436,96 @@ function CerrarProceso() {
     return strData;
 }
 
+function ValidaDatosCopia() {
+    var codigo = document.getElementById('Codigo').value;
+
+    if (codigo.trim() === "0") {
+        document.getElementById('messageContent').innerHTML = "ERROR : Debe seleccionar un registro de auditoría para poder realizar la copia";
+        $('#popupMessage').modal('show');
+        return false;
+    }
+
+    return true;
+}
+
+function CopiarProceso() {
+    var strData;
+    var strParametro;
+
+    if (!ValidaDatosCopia()) {
+        return strData;
+    }
+
+    if (confirm("Confirma la creación de la copia del registro de auditoria?")) {
+        var date1 = new Date(document.getElementById('FechaInicio').value + 'T00:00:00.000Z');
+        var day1 = date1.getUTCDate();
+        var month1 = date1.getUTCMonth() + 1;
+        var year1 = date1.getUTCFullYear();
+        var fecha1 = year1 + "-" + month1 + "-" + day1;
+
+        var date2 = new Date(document.getElementById('FechaCierre').value + 'T00:00:00.000Z');
+        var day2 = date2.getUTCDate();
+        var month2 = date2.getUTCMonth() + 1;
+        var year2 = date2.getUTCFullYear();
+        var fecha2 = year2 + "-" + month2 + "-" + day2;
+
+        strParametro = "1|";
+        strParametro += document.getElementById('Codigo').value + "|";
+        strParametro += document.getElementById('OficinaOrigen').value + "|";
+        strParametro += document.getElementById('OficinaDestino').value + "|";
+        strParametro += document.getElementById('TipoProceso').value + "|";
+        strParametro += fecha1 + "|";
+        strParametro += fecha2 + "|";
+        strParametro += document.getElementById('Tipo').value + "|";
+        strParametro += document.getElementById('Observaciones').value + "|";
+        strParametro += "A";
+
+        var args = '';
+        args += "'parametros':'" + strParametro + "'";
+        $.ajax({
+            async: false,
+            cache: false,
+            type: "POST",
+            url: "Auditorias.aspx/CopiarAuditoria",
+            data: "{" + args + "}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                if (response.d != '') {
+                    strData = response.d;
+                }
+            },
+            fail: function (response) {
+                debugger;
+                alert(response.d);
+            }
+        });
+    }
+    else {
+        strData = "";
+    }
+
+    var retornoProceso = JSON.parse(strData)
+
+    if (retornoProceso[0]['retorno'] === 0) {
+        InicializaVista();
+        document.getElementById('messageContent').innerHTML = "La grabación del registro ha finalizado";
+        $('#popupMessage').modal('show');
+    }
+    else {
+        document.getElementById('messageContent').innerHTML = "ERROR : " + retornoProceso[0]['mensaje'];
+        $('#popupMessage').modal('show');
+    }
+
+    LlenaGrid();
+    return strData;
+}
+
+
 function CargaTareas() {
     var estado = document.getElementById('Estado').value;
 
-    if (estado === "P") {
+    if (estado === "P" || estado === "A") {
         var auditoria = document.getElementById('Codigo').value + '|';
         auditoria += document.getElementById('Observaciones').value + '|';
         auditoria += document.getElementById('TipoProceso').value + '|' + document.getElementById("TipoProceso").options[document.getElementById("TipoProceso").selectedIndex].text;
@@ -456,7 +542,7 @@ function CargaTareas() {
 function CargaGastos() {
     var estado = document.getElementById('Estado').value;
 
-    if (estado === "P") {
+    if (estado === "P" || estado === "A") {
         var auditoria = document.getElementById('Codigo').value + '-' + document.getElementById("Observaciones").value;
 
         window.open('AuditoriaGasto.aspx?auditoria=' + auditoria, '_blank');

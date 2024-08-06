@@ -139,7 +139,7 @@ namespace WebAuditorias.Views
             parametro.at_auditoria = int.Parse(arrayParametros[1].ToString());
             parametro.at_tarea = Int16.Parse(arrayParametros[2].ToString());
             parametro.at_oficina = Int16.Parse(arrayParametros[3].ToString());
-            parametro.at_asignacion = arrayParametros[4].ToString().Trim().ToUpper();
+            parametro.at_asignacion = arrayParametros[4].ToString().Trim();
             parametro.at_estado = arrayParametros[5].ToString().Trim().ToUpper();
             parametro.at_usuario_creacion = user_cookie.Usuario;
             parametro.at_fecha_creacion = DateTime.Now;

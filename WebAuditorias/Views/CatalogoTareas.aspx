@@ -67,23 +67,23 @@
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <label for="Codigo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Código</label>
-                                            <input type="text" class="form-control form-control-sm" id="Codigo" placeholder="0" readonly="true" runat="server"/>
+                                            <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Codigo" placeholder="0" readonly="true" runat="server"/>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="Proceso" class="col-form-label col-form-label-sm" style="font-weight:bold;">Proceso</label>
-                                            <asp:DropDownList ID="Proceso" CssClass="form-select form-select-sm" style="width: 250px" runat="server"></asp:DropDownList>
+                                            <asp:DropDownList ID="Proceso" CssClass="form-select form-select-sm" style="width: 250px; font-size: 12px" runat="server"></asp:DropDownList>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <label for="Descripcion" class="col-form-label col-form-label-sm" style="font-weight:bold;">Descripción</label>
-                                            <input type="text" class="form-control form-control-sm" id="Descripcion" placeholder="" runat="server" maxlength="80"/>
+                                            <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Descripcion" placeholder="" runat="server" maxlength="80"/>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <input class="form-check-input" type="checkbox" value="" id="chkEstado" runat="server"/>
-                                            <label class="form-check-label form-control-sm" for="chkEstado">El registro seleccionado se encuentra activo</label>
+                                            <label class="form-check-label form-control-sm" style="font-size: 12px" for="chkEstado">El registro seleccionado se encuentra activo</label>
                                         </div>
                                     </div>
                                 </div>

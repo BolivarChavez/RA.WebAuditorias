@@ -156,9 +156,12 @@
     <Content Include="Images\Cancelar.png" />
     <Content Include="Images\CargaArchivo.png" />
     <Content Include="Images\Cerrar.png" />
+    <Content Include="Images\Copiar.png" />
     <Content Include="Images\Detener.png" />
     <Content Include="Images\Eliminar.png" />
+    <Content Include="Images\ExportarInforme.png" />
     <Content Include="Images\FondoWebAuditoria.jpg" />
+    <Content Include="Images\GrupoRegistro.png" />
     <Content Include="Images\Guardar.png" />
     <Content Include="Images\GuardarComo.png" />
     <Content Include="Images\Inactivar.png" />
@@ -169,7 +172,9 @@
     <Content Include="Images\VerArchivo.png" />
     <Content Include="Images\VerLinea.png" />
     <Content Include="Inicio.aspx" />
+    <Content Include="Scripts\AuditoriaConsulta.js" />
     <Content Include="Scripts\AuditoriaDocumentoProceso.js" />
+    <Content Include="Scripts\AuditoriaDocumentoProcesoGrupo.js" />
     <Content Include="Scripts\AuditoriaGasto.js" />
     <Content Include="Scripts\Auditorias.js" />
     <Content Include="Scripts\AuditoriaTarea.js" />
@@ -179,6 +184,7 @@
     <Content Include="Scripts\CatalogoPlantillas.js" />
     <Content Include="Scripts\CatalogoProcesos.js" />
     <Content Include="Scripts\CatalogoTareas.js" />
+    <Content Include="Scripts\CategoriaGastos.js" />
     <Content Include="Scripts\Consola.js" />
     <Content Include="Scripts\Cotizaciones.js" />
     <Content Include="Scripts\ej2.min.js" />
@@ -195,6 +201,7 @@
     <Content Include="Scripts\PlantillaTransferencias.js" />
     <Content Include="Scripts\PlantillaTributos.js" />
     <Content Include="Scripts\Responsables.js" />
+    <Content Include="Scripts\ResumenAuditoria.js" />
     <Content Include="Scripts\RevisaPlantillas.js" />
     <Content Include="Scripts\RevisaProcesos.js" />
     <Content Include="Styles\Custom-Grid-Font.css" />
@@ -207,6 +214,7 @@
     <Content Include="Styles\material.css" />
     <Content Include="Views\AuditoriaConsulta.aspx" />
     <Content Include="Views\AuditoriaDocumentoProceso.aspx" />
+    <Content Include="Views\AuditoriaDocumentoProcesoGrupo.aspx" />
     <Content Include="Views\AuditoriaGasto.aspx" />
     <Content Include="Views\Auditorias.aspx" />
     <Content Include="Views\AuditoriaTarea.aspx" />
@@ -216,8 +224,11 @@
     <Content Include="Views\CatalogoPlantillas.aspx" />
     <Content Include="Views\CatalogoProcesos.aspx" />
     <Content Include="Views\CatalogoTareas.aspx" />
+    <Content Include="Views\CategoriaGastos.aspx" />
+    <Content Include="Views\ConsultaPlantillasService.asmx" />
     <Content Include="Views\Cotizaciones.aspx" />
     <Content Include="Views\DetalleLineaDocumento.aspx" />
+    <Content Include="Views\InformeTareas.aspx" />
     <Content Include="Views\Monedas.aspx" />
     <Content Include="Views\PlantillaCheques.aspx" />
     <Content Include="Views\PlantillaComisiones.aspx" />
@@ -231,6 +242,7 @@
     <Content Include="Views\PlantillaTransferencias.aspx" />
     <Content Include="Views\PlantillaTributos.aspx" />
     <Content Include="Views\Responsables.aspx" />
+    <Content Include="Views\ResumenAuditoria.aspx" />
     <Content Include="Views\RevisaPlantillas.aspx" />
     <Content Include="Views\RevisaProcesos.aspx" />
     <Content Include="Views\VistaArchivo.aspx" />
@@ -268,6 +280,7 @@
     <Compile Include="Controllers\CatalogoPlantillas\CatalogoPlantillasController.cs" />
     <Compile Include="Controllers\CatalogoProcesos\CatalogoProcesosController.cs" />
     <Compile Include="Controllers\CatalogoTareas\CatalogoTareasController.cs" />
+    <Compile Include="Controllers\CategoriaGastos\CategoriaGastosController.cs" />
     <Compile Include="Controllers\Cookies\UserInfoCookieController.cs" />
     <Compile Include="Controllers\Cotizaciones\CotizacionesController.cs" />
     <Compile Include="Controllers\Empresas\EmpresasController.cs" />
@@ -308,6 +321,8 @@
     <Compile Include="Interfaces\CatalogoProcesos\ICatalogoProcesosService.cs" />
     <Compile Include="Interfaces\CatalogoTareas\ICatalogoTareasController.cs" />
     <Compile Include="Interfaces\CatalogoTareas\ICatalogoTareasService.cs" />
+    <Compile Include="Interfaces\CategoriaGastos\ICategoriaGastosController.cs" />
+    <Compile Include="Interfaces\CategoriaGastos\ICategoriaGastosService.cs" />
     <Compile Include="Interfaces\Cookies\IUserInfoCookieController.cs" />
     <Compile Include="Interfaces\Cotizaciones\ICotizacionesService.cs" />
     <Compile Include="Interfaces\Cotizaciones\ICotizacionesController.cs" />
@@ -334,6 +349,7 @@
     <Compile Include="Models\AuditoriaDocumentoProcesos.cs" />
     <Compile Include="Models\AuditoriaDocumentos.cs" />
     <Compile Include="Models\AuditoriaGastos.cs" />
+    <Compile Include="Models\AuditoriaResumen.cs" />
     <Compile Include="Models\Auditorias.cs" />
     <Compile Include="Models\AuditoriaTareaProcesos.cs" />
     <Compile Include="Models\AuditoriaTareas.cs" />
@@ -352,6 +368,7 @@
     <Compile Include="Models\CatalogoPlantillas.cs" />
     <Compile Include="Models\CatalogoProcesos.cs" />
     <Compile Include="Models\CatalogoTareas.cs" />
+    <Compile Include="Models\CategoriaGastos.cs" />
     <Compile Include="Models\Cotizaciones.cs" />
     <Compile Include="Models\Empresas.cs" />
     <Compile Include="Models\Facultades.cs" />
@@ -372,6 +389,7 @@
     <Compile Include="Models\Plantillas\Plantilla_Transferencias.cs" />
     <Compile Include="Models\Plantillas\Plantilla_Tributos.cs" />
     <Compile Include="Models\Responsables.cs" />
+    <Compile Include="Models\ResumenPlantillas.cs" />
     <Compile Include="Models\SPRetorno.cs" />
     <Compile Include="Models\TipoPlantilla.cs" />
     <Compile Include="Models\Transacciones.cs" />
@@ -398,6 +416,7 @@
     <Compile Include="Services\CatalogoPlantillas\CatalogoPlantillasService.cs" />
     <Compile Include="Services\CatalogoProcesos\CatalogoProcesosService.cs" />
     <Compile Include="Services\CatalogoTareas\CatalogoTareasService.cs" />
+    <Compile Include="Services\CategoriaGastos\CategoriaGastosService.cs" />
     <Compile Include="Services\Cotizaciones\CotizacionesService.cs" />
     <Compile Include="Services\Empresas\EmpresasService.cs" />
     <Compile Include="Services\Login\LoginService.cs" />
@@ -422,6 +441,13 @@
     </Compile>
     <Compile Include="Views\AuditoriaDocumentoProceso.aspx.designer.cs">
       <DependentUpon>AuditoriaDocumentoProceso.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AuditoriaDocumentoProcesoGrupo.aspx.cs">
+      <DependentUpon>AuditoriaDocumentoProcesoGrupo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\AuditoriaDocumentoProcesoGrupo.aspx.designer.cs">
+      <DependentUpon>AuditoriaDocumentoProcesoGrupo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\AuditoriaGasto.aspx.cs">
       <DependentUpon>AuditoriaGasto.aspx</DependentUpon>
@@ -486,6 +512,17 @@
     <Compile Include="Views\CatalogoTareas.aspx.designer.cs">
       <DependentUpon>CatalogoTareas.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\CategoriaGastos.aspx.cs">
+      <DependentUpon>CategoriaGastos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\CategoriaGastos.aspx.designer.cs">
+      <DependentUpon>CategoriaGastos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ConsultaPlantillasService.asmx.cs">
+      <DependentUpon>ConsultaPlantillasService.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Views\Cotizaciones.aspx.cs">
       <DependentUpon>Cotizaciones.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -499,6 +536,13 @@
     </Compile>
     <Compile Include="Views\DetalleLineaDocumento.aspx.designer.cs">
       <DependentUpon>DetalleLineaDocumento.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InformeTareas.aspx.cs">
+      <DependentUpon>InformeTareas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\InformeTareas.aspx.designer.cs">
+      <DependentUpon>InformeTareas.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\Monedas.aspx.cs">
       <DependentUpon>Monedas.aspx</DependentUpon>
@@ -590,6 +634,13 @@
     </Compile>
     <Compile Include="Views\Responsables.aspx.designer.cs">
       <DependentUpon>Responsables.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ResumenAuditoria.aspx.cs">
+      <DependentUpon>ResumenAuditoria.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\ResumenAuditoria.aspx.designer.cs">
+      <DependentUpon>ResumenAuditoria.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\RevisaPlantillas.aspx.cs">
       <DependentUpon>RevisaPlantillas.aspx</DependentUpon>

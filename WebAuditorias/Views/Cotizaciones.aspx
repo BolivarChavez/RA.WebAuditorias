@@ -66,27 +66,27 @@
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <label for="MonedaBase" class="col-form-label col-form-label-sm" style="font-weight:bold;">Moneda Base</label>
-                                            <asp:DropDownList ID="MonedaBase" CssClass="form-select form-select-sm" style="width: 300px" runat="server"></asp:DropDownList>
+                                            <asp:DropDownList ID="MonedaBase" CssClass="form-select form-select-sm" style="width: 300px; font-size: 12px" runat="server"></asp:DropDownList>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="MonedaDestino" class="col-form-label col-form-label-sm" style="font-weight:bold;">Moneda Destino</label>
-                                            <asp:DropDownList ID="MonedaDestino" CssClass="form-select form-select-sm" style="width: 300px" runat="server"></asp:DropDownList>
+                                            <asp:DropDownList ID="MonedaDestino" CssClass="form-select form-select-sm" style="width: 300px; font-size: 12px" runat="server"></asp:DropDownList>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <label for="Cotizacion" class="col-form-label col-form-label-sm" style="font-weight:bold;">Cotización</label>
-                                            <input type="number" class="form-control form-control-sm" style="width: 300px" id="Cotizacion" placeholder="" runat="server"/>
+                                            <input type="number" class="form-control form-control-sm" style="width: 300px; font-size: 12px" id="Cotizacion" placeholder="" runat="server"/>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="Fecha" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha de Vigencia</label>
-                                            <input type="date" class="form-control form-control-sm" style="width: 300px" id="Fecha" placeholder="" runat="server"/>
+                                            <input type="date" class="form-control form-control-sm" style="width: 300px; font-size: 12px" id="Fecha" placeholder="" runat="server"/>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <input class="form-check-input" type="checkbox" value="" id="chkEstado" runat="server"/>
-                                            <label class="form-check-label form-control-sm" for="chkEstado">El registro seleccionado se encuentra activo</label>
+                                            <label class="form-check-label form-control-sm" style="font-size: 12px" for="chkEstado">El registro seleccionado se encuentra activo</label>
                                         </div>
                                     </div>
                                 </div>

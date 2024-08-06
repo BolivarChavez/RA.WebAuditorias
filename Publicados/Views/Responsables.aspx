@@ -8,7 +8,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Catálogo de responsables de auditorías</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
     <link rel="stylesheet" href="../Styles/Custom-Opciones.css" />
     <link rel="stylesheet" href="../Styles/Custom-Toolbar.css" />
@@ -66,27 +66,27 @@
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <label for="Codigo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Código</label>
-                                            <input type="text" class="form-control form-control-sm" id="Codigo" placeholder="0" readonly="true" runat="server"/>
+                                            <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Codigo" placeholder="0" readonly="true" runat="server"/>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="Nombre" class="col-form-label col-form-label-sm" style="font-weight:bold;">Nombre del responsable</label>
-                                            <input type="text" class="form-control form-control-sm" id="Nombre" placeholder="" runat="server" maxlength="150"/>
+                                            <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Nombre" placeholder="" runat="server" maxlength="150"/>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <label for="Cargo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Cargo</label>
-                                            <input type="text" class="form-control form-control-sm" id="Cargo" placeholder="" runat="server" maxlength="80"/>
+                                            <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Cargo" placeholder="" runat="server" maxlength="80"/>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="Oficina" class="col-form-label col-form-label-sm" style="font-weight:bold;">Oficina de origen</label>
-                                            <asp:DropDownList ID="Oficina" CssClass="form-select form-select-sm" style="width: 300px" runat="server"></asp:DropDownList>
+                                            <asp:DropDownList ID="Oficina" CssClass="form-select form-select-sm" style="width: 300px; font-size: 12px" runat="server"></asp:DropDownList>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <label for="Tipo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Tipo</label>
-                                            <asp:DropDownList ID="Tipo" CssClass="form-select form-select-sm" style="width: 300px" runat="server">
+                                            <asp:DropDownList ID="Tipo" CssClass="form-select form-select-sm" style="width: 300px; font-size: 12px" runat="server">
                                                 <asp:ListItem Value="A">AUDITOR</asp:ListItem>
                                                 <asp:ListItem Value="J">JEFE DE AUDITORIA</asp:ListItem>
                                                 <asp:ListItem Value="R">RESPONSABLE DE INFORMACION</asp:ListItem>
@@ -94,19 +94,19 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="Correo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Correo electrónico</label>
-                                            <input type="email" class="form-control form-control-sm" id="Correo" placeholder="" runat="server" maxlength="100"/>
+                                            <input type="email" class="form-control form-control-sm" style="font-size: 12px" id="Correo" placeholder="" runat="server" maxlength="100"/>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <label for="Usuario" class="col-form-label col-form-label-sm" style="font-weight:bold;">Usuario</label>
-                                            <input type="text" class="form-control form-control-sm" id="Usuario" placeholder="" runat="server"/>
+                                            <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Usuario" placeholder="" runat="server"/>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <input class="form-check-input" type="checkbox" value="" id="chkEstado" runat="server"/>
-                                            <label class="form-check-label form-control-sm" for="chkEstado">El registro seleccionado se encuentra activo</label>
+                                            <label class="form-check-label form-control-sm" style="font-size: 12px" for="chkEstado">El registro seleccionado se encuentra activo</label>
                                         </div>
                                     </div>
                                 </div>

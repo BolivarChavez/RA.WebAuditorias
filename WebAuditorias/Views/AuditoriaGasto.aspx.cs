@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using WebAuditorias.Controllers.AuditoriaGastos;
 using WebAuditorias.Controllers.CatalogoGastos;
 using WebAuditorias.Controllers.Cookies;
+using WebAuditorias.Controllers.Responsables;
 using WebAuditorias.Models;
 
 namespace WebAuditorias.Views
@@ -21,6 +22,7 @@ namespace WebAuditorias.Views
                 InitializedView();
                 CargaDatosUsuario();
                 CargaGastos();
+                CargaResponsables();
             }
         }
 
@@ -56,6 +58,19 @@ namespace WebAuditorias.Views
             TipoGasto.DataBind();
         }
 
+        private void CargaResponsables()
+        {
+            ResponsablesController _controller = new ResponsablesController();
+            List<Models.Responsables> _responsables = new List<Models.Responsables>();
+
+            _responsables = _controller.Consulta(1).Where(re => re.re_estado == "A").ToList();
+
+            Responsable.DataSource = _responsables;
+            Responsable.DataValueField = "re_codigo";
+            Responsable.DataTextField = "re_nombre";
+            Responsable.DataBind();
+        }
+
         [System.Web.Services.WebMethod]
         public static string ConsultaGastosAuditoria(string parametros)
         {
@@ -74,7 +89,7 @@ namespace WebAuditorias.Views
             var listaAuditoriaGastos = from gastoAudit in _auditoriaGastos
                                        join gasto in _gastos on gastoAudit.ag_tipo  equals gasto.cg_codigo
                                        orderby gasto.cg_descripion ascending
-                                       select new { gastoAudit.ag_secuencia, gastoAudit.ag_tipo, gasto.cg_descripion, gastoAudit.ag_fecha_inicio, gastoAudit.ag_fecha_fin, gastoAudit.ag_valor, gastoAudit.ag_estado };
+                                       select new { gastoAudit.ag_secuencia, gastoAudit.ag_tipo, gasto.cg_descripion, gastoAudit.ag_fecha_inicio, gastoAudit.ag_fecha_fin, gastoAudit.ag_valor, gastoAudit.ag_estado, gastoAudit.ag_responsable };
 
             return JsonConvert.SerializeObject(listaAuditoriaGastos);
         }
@@ -99,7 +114,8 @@ namespace WebAuditorias.Views
             parametro.ag_fecha_inicio = DateTime.Parse(arrayParametros[4].ToString());
             parametro.ag_fecha_fin = DateTime.Parse(arrayParametros[5].ToString());
             parametro.ag_valor = double.Parse(arrayParametros[6].ToString(), CultureInfo.InvariantCulture);
-            parametro.ag_estado = arrayParametros[7].ToString().Trim().ToUpper();
+            parametro.ag_responsable = Int16.Parse(arrayParametros[7].ToString());
+            parametro.ag_estado = arrayParametros[8].ToString().Trim().ToUpper();
             parametro.ag_usuario_creacion = user_cookie.Usuario;
             parametro.ag_fecha_creacion = DateTime.Now;
             parametro.ag_usuario_actualizacion = user_cookie.Usuario;

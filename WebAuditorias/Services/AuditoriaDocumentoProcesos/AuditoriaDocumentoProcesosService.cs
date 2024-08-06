@@ -28,7 +28,7 @@ namespace WebAuditorias.Services.AuditoriaDocumentoProcesos
             return result;
         }
 
-        public IEnumerable<Models.AuditoriaDocumentoProcesos> Consulta(int empresa, int auditoria, int tarea, int codigo)
+        public IEnumerable<Models.AuditoriaDocumentoProcesos> Consulta(int empresa, int auditoria, int tarea, int codigo, int anio)
         {
             HttpClient client = new HttpClient();
             List<Models.AuditoriaDocumentoProcesos> listaError = new List<Models.AuditoriaDocumentoProcesos>();
@@ -40,7 +40,7 @@ namespace WebAuditorias.Services.AuditoriaDocumentoProcesos
             url = ConfigurationManager.AppSettings["UrlOpciones"].ToString();
             _key = ConfigurationManager.AppSettings["Llave_cifrado"].ToString();
 
-            var uri = new Uri(string.Format(url + "AuditoriaDocumentoProcesos/Consulta/{0}/{1}/{2}/{3}", empresa.ToString().Trim(), auditoria.ToString().Trim(), tarea.ToString().Trim(), codigo.ToString().Trim()));
+            var uri = new Uri(string.Format(url + "AuditoriaDocumentoProcesos/Consulta/{0}/{1}/{2}/{3}/{4}", empresa.ToString().Trim(), auditoria.ToString().Trim(), tarea.ToString().Trim(), codigo.ToString().Trim(), anio.ToString().Trim()));
 
             //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", stoken);
             var response = client.GetAsync(uri).Result;

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using WebAuditorias.Models;
 
 namespace WebAuditorias.Interfaces.Auditorias
 {
@@ -8,6 +9,12 @@ namespace WebAuditorias.Interfaces.Auditorias
 
         string Actualizacion(Models.Auditorias auditoria);
 
-        IEnumerable<Models.Auditorias> Consulta(int empresa, int codigo);
+        IEnumerable<Models.Auditorias> Consulta(int empresa, int codigo, int anio);
+
+        IEnumerable<Models.Auditorias> ConsultaPlantilla(int empresa, int codigo, int anio, int plantilla);
+
+        IEnumerable<AuditoriaResumen> ConsultaResumen(int empresa, int anio);
+
+        string CopiaAuditoria(Models.Auditorias auditoria);
     }
 }

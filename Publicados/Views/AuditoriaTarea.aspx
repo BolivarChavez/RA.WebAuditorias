@@ -8,7 +8,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tareas relacionadas a auditoria</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
     <link rel="stylesheet" href="../Styles/Custom-Opciones.css" />
     <link rel="stylesheet" href="../Styles/Custom-Toolbar.css" />
@@ -71,38 +71,38 @@
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <label for="Auditoria" class="col-form-label col-form-label-sm" style="font-weight:bold;">Auditoría</label>
-                                        <input type="text" class="form-control form-control-sm" id="Auditoria" placeholder="0" readonly="true" runat="server"/>
+                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Auditoria" placeholder="0" readonly="true" runat="server"/>
                                     </div>
                                     <div class="form-group col-md-6"">
                                         <label for="Codigo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Código</label>
-                                        <input type="text" class="form-control form-control-sm" id="Codigo" placeholder="0" readonly="true" runat="server"/>
+                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Codigo" placeholder="0" readonly="true" runat="server"/>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <label for="Tarea" class="col-form-label col-form-label-sm" style="font-weight:bold;">Tarea asignada al proceso de auditoría</label>
-                                        <asp:DropDownList ID="Tarea" CssClass="form-select form-select-sm" style="width: 100%" runat="server"></asp:DropDownList>
+                                        <asp:DropDownList ID="Tarea" CssClass="form-select form-select-sm" style="width: 100%; font-size: 12px" runat="server"></asp:DropDownList>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="Oficina" class="col-form-label col-form-label-sm" style="font-weight:bold;">Oficina de realizacion de la auditoría</label>
-                                        <asp:DropDownList ID="Oficina" CssClass="form-select form-select-sm" style="width: 300px" runat="server"></asp:DropDownList>
+                                        <label for="Oficina" class="col-form-label col-form-label-sm" style="font-weight:bold;">Oficina Auditoría</label>
+                                        <asp:DropDownList ID="Oficina" CssClass="form-select form-select-sm" style="width: 300px; font-size: 12px" runat="server"></asp:DropDownList>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <label for="Asignacion" class="col-form-label col-form-label-sm" style="font-weight:bold;">Descripción</label>
-                                        <input type="text" class="form-control form-control-sm" id="Asignacion" placeholder="" runat="server"/>
+                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Asignacion" placeholder="" runat="server"/>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="Tipo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Plantilla de registro de información</label>
-                                        <asp:DropDownList ID="cboPlantillas" CssClass="form-select form-select-sm" style="width: 300px" runat="server">
+                                        <asp:DropDownList ID="cboPlantillas" CssClass="form-select form-select-sm" style="width: 300px; font-size: 12px" runat="server">
                                         </asp:DropDownList>
                                     </div> 
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <label class="form-check-label form-control-sm" for="Estado" style="font-weight:bold;">Estado</label>
-                                        <asp:DropDownList ID="Estado" CssClass="form-select form-select-sm" style="width: 300px" runat="server" Enabled="false">
+                                        <asp:DropDownList ID="Estado" CssClass="form-select form-select-sm" style="width: 300px; font-size: 12px" runat="server" Enabled="false">
                                             <asp:ListItem Value="A">ABIERTA</asp:ListItem>
                                             <asp:ListItem Value="P">EN PROCESO</asp:ListItem>
                                             <asp:ListItem Value="C">CERRADA</asp:ListItem>

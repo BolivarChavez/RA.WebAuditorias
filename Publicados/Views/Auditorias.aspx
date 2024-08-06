@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Registro de auditorías</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
     <link rel="stylesheet" href="../Styles/Custom-Opciones.css" />
     <link rel="stylesheet" href="../Styles/Custom-Toolbar.css" />
@@ -65,51 +65,52 @@
                                     <button class="btn btn-outline-dark navbar-btn boton-addproceso boton-margen" id="BtnAddTarea" runat="server" onserverclick="BtnAddTarea_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Asociar tareas a auditoría seleccionada"></button>
                                     <button class="btn btn-outline-dark navbar-btn boton-addgasto boton-margen" id="BtnAddGasto" runat="server" onserverclick="BtnAddGasto_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Asociar gastos a auditoría seleccionada"></button>
                                     <button class="btn btn-outline-dark navbar-btn boton-cerrar boton-margen" id="BtnCerrar" runat="server" onserverclick="BtnCerrar_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Cierre de auditoría"></button>
+                                    <button class="btn btn-outline-dark navbar-btn boton-copiar boton-margen" id="BtnCopiar" runat="server" onserverclick="BtnCopiar_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Copia registro de auditoría"></button>
                                 </nav>
                                 <div id="DivOpciones" class="mx-2" runat="server">
                                     <div class="row">
                                         <div class="form-group col-md-4">
                                                 <label for="Codigo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Código</label>
-                                                <input type="text" class="form-control form-control-sm" style="width: 300px" id="Codigo" placeholder="0" readonly="true" runat="server"/>
+                                                <input type="text" class="form-control form-control-sm" style="width: 300px; font-size: 12px" id="Codigo" placeholder="0" readonly="true" runat="server"/>
                                         </div>
                                         <div class="form-group col-md-4">
                                                 <label for="TipoProceso" class="col-form-label col-form-label-sm" style="font-weight:bold;">Tipo de proceso</label>
-                                                <asp:DropDownList ID="TipoProceso" CssClass="form-select form-select-sm" style="width: 300px" runat="server" AutoPostBack="True"></asp:DropDownList>
+                                                <asp:DropDownList ID="TipoProceso" CssClass="form-select form-select-sm" style="width: 300px; font-size: 12px" runat="server" AutoPostBack="True"></asp:DropDownList>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="OficinaOrigen" class="col-form-label col-form-label-sm" style="font-weight:bold;">Oficina de origen</label>
-                                            <asp:DropDownList ID="OficinaOrigen" CssClass="form-select form-select-sm" style="width: 300px" runat="server"></asp:DropDownList>
+                                            <asp:DropDownList ID="OficinaOrigen" CssClass="form-select form-select-sm" style="width: 300px; font-size: 12px" runat="server"></asp:DropDownList>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-4">
                                             <label for="OficinaDestino" class="col-form-label col-form-label-sm" style="font-weight:bold;">Oficina de destino</label>
-                                            <asp:DropDownList ID="OficinaDestino" CssClass="form-select form-select-sm" style="width: 300px" runat="server"></asp:DropDownList>
+                                            <asp:DropDownList ID="OficinaDestino" CssClass="form-select form-select-sm" style="width: 300px; font-size: 12px" runat="server"></asp:DropDownList>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="FechaInicio" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha de Inicio</label>
-                                            <input type="date" class="form-control form-control-sm" id="FechaInicio" placeholder="" style="width: 300px" runat="server"/>
+                                            <input type="date" class="form-control form-control-sm" style="width: 300px; font-size: 12px" id="FechaInicio" placeholder="" runat="server"/>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="FechaCierre" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha de Cierre</label>
-                                            <input type="date" class="form-control form-control-sm" id="FechaCierre" placeholder="" style="width: 300px" runat="server"/>
+                                            <input type="date" class="form-control form-control-sm" style="width: 300px; font-size: 12px" id="FechaCierre" placeholder="" runat="server"/>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-4">
                                             <label for="Tipo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Tipo de auditoría</label>
-                                            <asp:DropDownList ID="Tipo" CssClass="form-select form-select-sm" style="width: 300px" runat="server">
+                                            <asp:DropDownList ID="Tipo" CssClass="form-select form-select-sm" style="width: 300px; font-size: 12px" runat="server">
                                                 <asp:ListItem Value="L">LOCAL</asp:ListItem>
                                                 <asp:ListItem Value="R">REMOTA</asp:ListItem>
                                             </asp:DropDownList>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="Observaciones" class="col-form-label col-form-label-sm" style="font-weight:bold;">Observaciones</label>
-                                            <input type="text" class="form-control form-control-sm" id="Observaciones" placeholder="" runat="server" maxlength="400"/>
+                                            <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Observaciones" placeholder="" runat="server" maxlength="400"/>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label class="form-check-label form-control-sm" for="Estado" style="font-weight:bold";>Estado</label>
-                                            <asp:DropDownList ID="Estado" CssClass="form-select form-select-sm" style="width: 300px" runat="server" Enabled="false">
+                                            <asp:DropDownList ID="Estado" CssClass="form-select form-select-sm" style="width: 300px; font-size: 12px" runat="server" Enabled="false">
                                                 <asp:ListItem Value="A">ABIERTA</asp:ListItem>
                                                 <asp:ListItem Value="P">EN PROCESO</asp:ListItem>
                                                 <asp:ListItem Value="C">CERRADA</asp:ListItem>

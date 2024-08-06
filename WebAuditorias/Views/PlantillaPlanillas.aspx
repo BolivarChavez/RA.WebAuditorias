@@ -76,120 +76,122 @@
                                                 <button class="btn btn-outline-dark navbar-btn boton-cargaplantilla boton-margen" id="BtnCargar" runat="server" onserverclick="BtnCargar_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Subir archivo de plantilla"></button>
                                                 <button class="btn btn-outline-dark navbar-btn boton-agregaplantilla boton-margen" id="BtnCargaPlantilla" runat="server" onserverclick="BtnCargaPlantilla_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Grablar plantilla desde archivo"></button>
                                                 <button class="btn btn-outline-dark navbar-btn boton-addproceso boton-margen" id="BtnAddTarea" runat="server" onserverclick="BtnAddTarea_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Asociar actividades al registro seleccionado"></button>
+                                                <button class="btn btn-outline-dark navbar-btn boton-gruporegistro boton-margen" id="BtnAddTareaGrupo" runat="server" onserverclick="BtnAddTareaGrupo_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Asociar actividades a un grupo de registros"></button>
                                             </nav>
                                             <div id="DivOpciones" class="px-2" style="overflow-x: hidden; overflow-y: auto" runat="server">
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
                                                         <label for="Auditoria" class="col-form-label col-form-label-sm" style="font-weight:bold;">Auditoría</label>
-                                                        <input type="text" class="form-control form-control-sm" id="Auditoria" placeholder="0" readonly="true" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Auditoria" placeholder="0" readonly="true" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Codigo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Código</label>
-                                                        <input type="text" class="form-control form-control-sm" id="Codigo" placeholder="0" readonly="true" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Codigo" placeholder="0" readonly="true" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Tarea" class="col-form-label col-form-label-sm" style="font-weight:bold;">Tarea</label>
-                                                        <input type="text" class="form-control form-control-sm" id="Tarea" placeholder="0" readonly="true" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Tarea" placeholder="0" readonly="true" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Plantilla" class="col-form-label col-form-label-sm" style="font-weight:bold;">Plantilla</label>
-                                                        <input type="text" class="form-control form-control-sm" id="Plantilla" placeholder="0" readonly="true" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Plantilla" placeholder="0" readonly="true" runat="server"/>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="Referencia" class="col-form-label col-form-label-sm" style="font-weight:bold;">Referencia</label>
-                                                    <input type="text" class="form-control form-control-sm" id="Referencia" placeholder="" runat="server"/>
+                                                    <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Referencia" placeholder="" runat="server"/>
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
                                                         <label for="Mes" class="col-form-label col-form-label-sm" style="font-weight:bold;">Mes</label>
-                                                        <input type="text" class="form-control form-control-sm" id="Mes" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Mes" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Fecha_Pago_Cash" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha pago cash</label>
-                                                        <input type="text" class="form-control form-control-sm" id="Fecha_Pago_Cash" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Fecha_Pago_Cash" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Lote" class="col-form-label col-form-label-sm" style="font-weight:bold;">Lote</label>
-                                                        <input type="text" class="form-control form-control-sm" id="Lote" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Lote" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Remuneracion_Cash" class="col-form-label col-form-label-sm" style="font-weight:bold;">Remuneración cash</label>
-                                                        <input type="text" class="form-control form-control-sm" id="Remuneracion_Cash" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Remuneracion_Cash" placeholder="" runat="server"/>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
                                                         <label for="Remuneracion_Cheque" class="col-form-label col-form-label-sm" style="font-weight:bold;">Remuneración cheque</label>
-                                                        <input type="text" class="form-control form-control-sm" id="Remuneracion_Cheque" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Remuneracion_Cheque" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Remuneracion_Total" class="col-form-label col-form-label-sm" style="font-weight:bold;">Remuneración total</label>
-                                                        <input type="text" class="form-control form-control-sm" id="Remuneracion_Total" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Remuneracion_Total" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Fecha_Pago" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha pago</label>
-                                                        <input type="text" class="form-control form-control-sm" id="Fecha_Pago" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Fecha_Pago" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Honorarios_Planilla" class="col-form-label col-form-label-sm" style="font-weight:bold;">Honorarios planilla</label>
-                                                        <input type="text" class="form-control form-control-sm" id="Honorarios_Planilla" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Honorarios_Planilla" placeholder="" runat="server"/>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
                                                         <label for="Honorarios_Incentivos" class="col-form-label col-form-label-sm" style="font-weight:bold;">Honorarios incentivos</label>
-                                                        <input type="text" class="form-control form-control-sm" id="Honorarios_Incentivos" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Honorarios_Incentivos" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Honorarios_Total" class="col-form-label col-form-label-sm" style="font-weight:bold;">Honorarios total</label>
-                                                        <input type="text" class="form-control form-control-sm" id="Honorarios_Total" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Honorarios_Total" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Pagado" class="col-form-label col-form-label-sm" style="font-weight:bold;">Pagado</label>
-                                                        <input type="text" class="form-control form-control-sm" id="Pagado" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Pagado" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Honorarios_Cesantes" class="col-form-label col-form-label-sm" style="font-weight:bold;">Honorarios Cesantes</label>
-                                                        <input type="text" class="form-control form-control-sm" id="Honorarios_Cesantes" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Honorarios_Cesantes" placeholder="" runat="server"/>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
                                                         <label for="Diferencia" class="col-form-label col-form-label-sm" style="font-weight:bold;">Diferencia</label>
-                                                        <input type="text" class="form-control form-control-sm" id="Diferencia" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Diferencia" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Fecha_Pago_Gratificacion" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha pago gratificación</label>
-                                                        <input type="text" class="form-control form-control-sm" id="Fecha_Pago_Gratificacion" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Fecha_Pago_Gratificacion" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Gratificaciones" class="col-form-label col-form-label-sm" style="font-weight:bold;">Gratificaciones</label>
-                                                        <input type="text" class="form-control form-control-sm" id="Gratificaciones" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Gratificaciones" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Numero_Informe" class="col-form-label col-form-label-sm" style="font-weight:bold;">Numero informe</label>
-                                                        <input type="text" class="form-control form-control-sm" id="Numero_Informe" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Numero_Informe" placeholder="" runat="server"/>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
                                                         <label for="Observaciones" class="col-form-label col-form-label-sm" style="font-weight:bold;">Observaciones</label>
-                                                        <input type="text" class="form-control form-control-sm" id="Observaciones" placeholder="" runat="server" onclick="muestraContenidoTexto('Observaciones', 'Observaciones')"/>
+                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Observaciones" placeholder="" runat="server" onclick="muestraContenidoTexto('Observaciones', 'Observaciones')"/>
                                                     </div>
                                                 </div>
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" value="" id="chkEstado" runat="server"/>
-                                                    <label class="form-check-label form-control-sm" for="chkEstado">El registro de la plantilla se encuentra activo</label>
+                                                    <label class="form-check-label form-control-sm" style="font-size: 12px" for="chkEstado">El registro de la plantilla se encuentra activo</label>
                                                 </div>
                                                <div class="form-group">
                                                     <label for="CargaArchivo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Carga plantilla desde archivo</label>
                                                     <br />
-                                                    <asp:FileUpload ID="CargaArchivo" runat="server" Width="600px"/>
+                                                    <asp:FileUpload ID="CargaArchivo" runat="server" Width="600px" Font-Size="12 px"/>
                                                     <br />
                                                     <label class="form-check-label form-control-sm" for="Hoja" style="font-weight:bold";>Hoja</label>
-                                                    <asp:DropDownList ID="Hoja" CssClass="form-select form-select-sm" style="width: 300px" runat="server">
-                                                    </asp:DropDownList>                                                 </div>
+                                                    <asp:DropDownList ID="Hoja" CssClass="form-select form-select-sm" style="width: 300px; font-size: 12px" runat="server">
+                                                    </asp:DropDownList>                                                 
+                                               </div>
                                                 </div>
                                                 <asp:HiddenField ID="HiddenField1" runat="server" />
                                                 <asp:HiddenField ID="HiddenField2" runat="server" />

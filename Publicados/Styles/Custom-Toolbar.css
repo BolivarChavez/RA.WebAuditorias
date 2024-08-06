@@ -338,6 +338,74 @@
     background-color: #E5E8E8;
 }
 
+.boton-gruporegistro:before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: text-top;
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url('../Images/GrupoRegistro.png');
+}
+
+.boton-gruporegistro:hover {
+    border-color: steelblue;
+    background-color: #E5E8E8;
+}
+
+.boton-copiar:before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: text-top;
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url('../Images/Copiar.png');
+}
+
+.boton-copiar:hover {
+    border-color: steelblue;
+    background-color: #E5E8E8;
+}
+
+.boton-copiar:before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: text-top;
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url('../Images/Copiar.png');
+}
+
+.boton-copiar:hover {
+    border-color: steelblue;
+    background-color: #E5E8E8;
+}
+
+.boton-informe:before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: text-top;
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url('../Images/ExportarInforme.png');
+}
+
+.boton-informe:hover {
+    border-color: steelblue;
+    background-color: #E5E8E8;
+}
+
 .boton-margen {
     margin-left: 4px;
 }

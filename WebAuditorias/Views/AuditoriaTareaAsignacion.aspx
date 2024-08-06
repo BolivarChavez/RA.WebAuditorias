@@ -67,27 +67,27 @@
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <label for="Auditoria" class="col-form-label col-form-label-sm" style="font-weight:bold;">Auditoria</label>
-                                        <input type="text" class="form-control form-control-sm" id="Auditoria" placeholder="0" readonly="true" runat="server"/>
+                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Auditoria" placeholder="0" readonly="true" runat="server"/>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="Tarea" class="col-form-label col-form-label-sm" style="font-weight:bold;">Tarea asignada al proceso de auditoria</label>
-                                        <input type="text" class="form-control form-control-sm" id="Tarea" placeholder="0" readonly="true" runat="server"/>
+                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Tarea" placeholder="0" readonly="true" runat="server"/>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-6"">
                                         <label for="Codigo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Secuencia de actividad de tarea</label>
-                                        <input type="text" class="form-control form-control-sm" id="Codigo" placeholder="0" readonly="true" runat="server"/>
+                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Codigo" placeholder="0" readonly="true" runat="server"/>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="Responsable" class="col-form-label col-form-label-sm" style="font-weight:bold;">Responsable asignado</label>
-                                        <asp:DropDownList ID="Responsable" CssClass="form-select form-select-sm" style="width: 50%" runat="server"></asp:DropDownList>
+                                        <asp:DropDownList ID="Responsable" CssClass="form-select form-select-sm" style="width: 50%; font-size: 12px" runat="server"></asp:DropDownList>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <label class="form-check-label form-control-sm" for="TipoAsignacion" style="font-weight:bold";>Tipo de asignacion</label>
-                                        <asp:DropDownList ID="TipoAsignacion" CssClass="form-select form-select-sm" style="width: 300px" runat="server">
+                                        <asp:DropDownList ID="TipoAsignacion" CssClass="form-select form-select-sm" style="width: 300px; font-size: 12px" runat="server">
                                             <asp:ListItem Value="R">RESPONSABLE DE AUDITORIA</asp:ListItem>
                                             <asp:ListItem Value="P">CONOCIMIENTO DE PROCESO</asp:ListItem>
                                             <asp:ListItem Value="C">CAPACITACION</asp:ListItem>
@@ -95,7 +95,7 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label class="form-check-label form-control-sm" for="RolAsignacion" style="font-weight:bold";>Rol de asignacion</label>
-                                        <asp:DropDownList ID="RolAsignacion" CssClass="form-select form-select-sm" style="width: 300px" runat="server">
+                                        <asp:DropDownList ID="RolAsignacion" CssClass="form-select form-select-sm" style="width: 300px; font-size: 12px" runat="server">
                                             <asp:ListItem Value="A">AUDITOR</asp:ListItem>
                                             <asp:ListItem Value="J">SUPERVISOR O JEFE</asp:ListItem>
                                         </asp:DropDownList>                                    
@@ -105,7 +105,7 @@
                                     <div class="form-group col-md-6">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="" id="chkEstado" runat="server"/>
-                                            <label class="form-check-label form-control-sm" for="chkEstado">El registro seleccionado se encuentra activo</label>
+                                            <label class="form-check-label form-control-sm" style="font-size: 12px" for="chkEstado">El registro seleccionado se encuentra activo</label>
                                         </div>
                                     </div>
                                 </div>

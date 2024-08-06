@@ -85,7 +85,7 @@ namespace WebAuditorias.Views
             AuditoriaDocumentosController _controller = new AuditoriaDocumentosController();
             List<Models.AuditoriaDocumentos> _documentos = new List<Models.AuditoriaDocumentos>();
 
-            _documentos = _controller.Consulta(int.Parse(arrayParametros[0]), int.Parse(arrayParametros[1]), int.Parse(arrayParametros[2]), int.Parse(arrayParametros[3])).ToList();
+            _documentos = _controller.Consulta(int.Parse(arrayParametros[0]), int.Parse(arrayParametros[1]), int.Parse(arrayParametros[2]), int.Parse(arrayParametros[3]), 0).ToList();
             return _documentos.Where(li => li.ad_codigo == int.Parse(arrayParametros[4])).FirstOrDefault().ad_registro;
         }
     }

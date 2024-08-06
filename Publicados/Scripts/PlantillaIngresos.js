@@ -57,14 +57,15 @@ async function LlenaGrid() {
         toolbar: ['Search'],
         allowPaging: false,
         allowScrolling: true,
+        allowResizing: true,
         height: '100%',
         allowTextWrap: true,
         textWrapSettings: { wrapMode: 'Content' },
         gridLines: 'Both',
         columns: [
             { field: 'IdRegistro', headerText: 'Id', visible: false, width: 75, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'ReferenciaLinea', headerText: 'Referencia', width: 125, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'Mes', headerText: 'Mes', width: 75, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'ReferenciaLinea', headerText: 'Referencia', visible: false, width: 125, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Mes', headerText: 'Mes', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Factura', headerText: 'Factura', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Cuenta', headerText: 'Cuenta', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Detalle', headerText: 'Detalle', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
@@ -79,7 +80,8 @@ async function LlenaGrid() {
             { field: 'Neto_Ingreso', headerText: 'Neto Ingreso', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Flujo', headerText: 'Flujo', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Estado_Cuenta_1', headerText: 'Estado Cuenta 1', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'Estado_Cuenta_2', headerText: 'Estado Cuenta 2', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } }
+            { field: 'Estado_Cuenta_2', headerText: 'Estado Cuenta 2', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Soporte', headerText: 'Soporte', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } }
         ],
         pageSettings: { pageCount: 5, pageSize: 10 },
         rowSelected: rowSelected
@@ -113,12 +115,12 @@ function rowSelected(args) {
     document.getElementById('Detraccion_Moneda_Destino').value = args.data.Detraccion_Moneda_Destino;
     document.getElementById('Detraccion_Moneda_Base').value = args.data.Detraccion_Moneda_Base;
     document.getElementById('Comprobante_Ingreso').value = args.data.Comprobante_Ingreso;
-    document.getElementById('TipoCambio').value = args.data.TipoCambio;
     document.getElementById('Neto_Ingreso').value = args.data.Neto_Ingreso;
 
     document.getElementById('Flujo').value = args.data.Flujo;
     document.getElementById('Estado_Cuenta_1').value = args.data.Estado_Cuenta_1;
     document.getElementById('Estado_Cuenta_2').value = args.data.Estado_Cuenta_2;
+    document.getElementById('Soporte').value = args.data.Soporte;
 }
 
 function muestraContenidoTexto(titulo, campo) {

@@ -18,10 +18,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"></script>
+    <script src="../Scripts/AuditoriaConsulta.js" type="text/javascript"></script>
 </head>
 <body style="margin: 0; height: 100%; overflow: hidden; background-color: #E5E8E8;">
+    <div class="container-fluid">
     <form id="form1" runat="server">
-        <div class="container-fluid">
             <div class="row header-bar-height" style="background-color: #E5E8E8;">
                 <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2 my-auto">
                     <img class="image-logo-empresa" src="../Images/LogoRomeroyAsociados.png" />
@@ -51,9 +52,22 @@
                 </div>  
             </div>
             <div class="row console-menu-height" style="background-color: #B2BABB;">
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 px-4 py-4 bg-white h-100 opcion-backcolor-2" style="overflow-y: scroll;">
-                    <div class="container-fluid">
-                        <h3>Procesos de Auditoría</h3>
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 px-4 py-0 bg-white h-100 opcion-backcolor-2" style="overflow-y: scroll;">
+                    <nav class="navbar navbar-expand-lg">
+                        <button class="btn btn-outline-dark navbar-btn boton-buscar boton-margen" id="BtnBuscar" runat="server" onserverclick="BtnBuscar_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Consultar información"></button>
+                    </nav>
+                    <div class="row py-2">
+                        <div class="form-group col-md-2">
+                            <label for="Anio" class="col-form-label col-form-label-sm" style="font-weight:bold;">Año</label>
+                            <input type="number" class="form-control form-control-sm" style="width: 50%; font-size: 12px" id="Anio" placeholder="0" runat="server"/>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="Proceso" class="col-form-label col-form-label-sm" style="font-weight:bold;">Proceso de auditoría</label>
+                            <asp:DropDownList ID="Proceso" CssClass="form-select form-select-sm" style="width: 100%; font-size: 12px" runat="server"></asp:DropDownList>
+                        </div>
+                    </div>
+                    <div class="container-fluid" id="DetalleInfo" runat="server">
+                        <h4>Procesos de Auditoría</h4>
                         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-1 border-bottom"></div>
                         <div class="row py-2">
                             <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 d-flex align-items-stretch">
@@ -87,150 +101,45 @@
                                 </div>
                             </div>
                         </div>
-                        <h3>Plantillas Registradas</h3>
+                        <h4>Plantillas Registradas</h4>
                         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-1 border-bottom"></div>
-                        <div class="row py-2">
-                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 d-flex align-items-stretch">
-                                <div class="card border-primary mb-3" style="width: 100%;">
-                                  <div class="card-header">Plantilla de Cheques</div>
-                                  <div class="card-body text-primary">
-                                    <h3 id="p1t" class="card-title" style="text-align: center;" runat="server">0</h3>
-                                    <p class="card-text">Plantillas registradas en procesos de auditorías</p>
-                                    <h3 id="p1r" class="card-title" style="text-align: center; color: #FFC107;" runat="server">0</h3>
-                                    <p class="card-text" style="color: #FFC107;">Plantillas registradas y pedientes de revisión.</p>
-                                    <a href="RevisaPlantillas.aspx?estado=P&plantilla=1" target="_blank" class="btn btn-primary mt-auto align-self-start">Acceder</a>
-                                  </div>
+                        <div id="GridConsulta" class="content-wrapper py-2" style="width:100%">
+                            <script id="template1" type="text/x-template">
+                                <div>
+                                    <a href="RevisaPlantillas.aspx?estado=P&plantilla=${IdPlantilla}" style="color:#0D6EFD;" target="_blank"  >
+                                    ${Registradas}
+                                    </a>
                                 </div>
-                            </div>
-                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 d-flex align-items-stretch">
-                                <div class="card border-primary mb-3" style="width: 100%;">
-                                  <div class="card-header">Plantilla de Comisiones</div>
-                                  <div class="card-body text-primary">
-                                    <h3 id="p2t" class="card-title" style="text-align: center;" runat="server">0</h3>
-                                    <p class="card-text">Plantillas registradas en procesos de auditorías</p>
-                                    <h3 id="p2r" class="card-title" style="text-align: center; color: #FFC107;" runat="server">0</h3>
-                                    <p class="card-text" style="color: #FFC107;">Plantillas registradas y pedientes de revisión.</p>
-                                    <a href="RevisaPlantillas.aspx?estado=P&plantilla=2" target="_blank" class="btn btn-primary mt-auto align-self-start">Acceder</a>
-                                  </div>
+                            </script>
+                            <script id="template2" type="text/x-template">
+                                <div>
+                                    <a href="RevisaPlantillas.aspx?estado=P&plantilla=${IdPlantilla}" style="color:#FFC107;" target="_blank"  >
+                                    ${Pendientes}
+                                    </a>
                                 </div>
-                            </div>
-                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 d-flex align-items-stretch">
-                                <div class="card border-primary mb-3" style="width: 100%;">
-                                  <div class="card-header">Plantilla de Ingresos</div>
-                                  <div class="card-body text-primary">
-                                    <h3 id="p3t" class="card-title" style="text-align: center;" runat="server">0</h3>
-                                    <p class="card-text">Plantillas registradas en procesos de auditorías</p>
-                                    <h3 id="p3r" class="card-title" style="text-align: center; color: #FFC107;" runat="server">0</h3>
-                                    <p class="card-text" style="color: #FFC107;">Plantillas registradas y pedientes de revisión.</p>
-                                    <a href="RevisaPlantillas.aspx?estado=P&plantilla=3" target="_blank" class="btn btn-primary mt-auto align-self-start">Acceder</a>
-                                  </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 d-flex align-items-stretch">
-                                <div class="card border-primary mb-3" style="width: 100%;">
-                                  <div class="card-header">Plantilla de Mutuos</div>
-                                  <div class="card-body text-primary">
-                                    <h3 id="p4t" class="card-title" style="text-align: center;" runat="server">0</h3>
-                                    <p class="card-text">Plantillas registradas en procesos de auditorías</p>
-                                    <h3 id="p4r" class="card-title" style="text-align: center; color: #FFC107;" runat="server">0</h3>
-                                    <p class="card-text" style="color: #FFC107;">Plantillas registradas y pedientes de revisión.</p>
-                                    <a href="RevisaPlantillas.aspx?estado=P&plantilla=4" target="_blank" class="btn btn-primary mt-auto align-self-start">Acceder</a>
-                                  </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row py-2">
-                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 d-flex align-items-stretch">
-                                <div class="card border-primary mb-3" style="width: 100%;">
-                                  <div class="card-header">Plantilla de Pagos</div>
-                                  <div class="card-body text-primary">
-                                    <h3 id="p5t" class="card-title" style="text-align: center;" runat="server">0</h3>
-                                    <p class="card-text">Plantillas registradas en procesos de auditorías</p>
-                                    <h3 id="p5r" class="card-title" style="text-align: center; color: #FFC107;" runat="server">0</h3>
-                                    <p class="card-text" style="color: #FFC107;">Plantillas registradas y pedientes de revisión.</p>
-                                    <a href="RevisaPlantillas.aspx?estado=P&plantilla=5" target="_blank" class="btn btn-primary mt-auto align-self-start">Acceder</a>
-                                  </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 d-flex align-items-stretch">
-                                <div class="card border-primary mb-3" style="width: 100%;">
-                                  <div class="card-header">Plantilla de Planillas</div>
-                                  <div class="card-body text-primary">
-                                    <h3 id="p6t" class="card-title" style="text-align: center;" runat="server">0</h3>
-                                    <p class="card-text">Plantillas registradas en procesos de auditorías</p>
-                                    <h3 id="p6r" class="card-title" style="text-align: center; color: #FFC107;" runat="server">0</h3>
-                                    <p class="card-text" style="color: #FFC107;">Plantillas registradas y pedientes de revisión.</p>
-                                    <a href="RevisaPlantillas.aspx?estado=P&plantilla=6" target="_blank" class="btn btn-primary mt-auto align-self-start">Acceder</a>
-                                  </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 d-flex align-items-stretch">
-                                <div class="card border-primary mb-3" style="width: 100%;">
-                                  <div class="card-header">Plantilla de Reembolsos</div>
-                                  <div class="card-body text-primary">
-                                    <h3 id="p7t" class="card-title" style="text-align: center;" runat="server">0</h3>
-                                    <p class="card-text">Plantillas registradas en procesos de auditorías</p>
-                                    <h3 id="p7r" class="card-title" style="text-align: center; color: #FFC107;" runat="server">0</h3>
-                                    <p class="card-text" style="color: #FFC107;">Plantillas registradas y pedientes de revisión.</p>
-                                    <a href="RevisaPlantillas.aspx?estado=P&plantilla=7" target="_blank" class="btn btn-primary mt-auto align-self-start">Acceder</a>
-                                  </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 d-flex align-items-stretch">
-                                <div class="card border-primary mb-3" style="width: 100%;">
-                                  <div class="card-header">Plantilla de Regalias</div>
-                                  <div class="card-body text-primary">
-                                    <h3 id="p8t" class="card-title" style="text-align: center;" runat="server">0</h3>
-                                    <p class="card-text">Plantillas registradas en procesos de auditorías</p>
-                                    <h3 id="p8r" class="card-title" style="text-align: center; color: #FFC107;" runat="server">0</h3>
-                                    <p class="card-text" style="color: #FFC107;">Plantillas registradas y pedientes de revisión.</p>
-                                    <a href="RevisaPlantillas.aspx?estado=P&plantilla=8" target="_blank" class="btn btn-primary mt-auto align-self-start">Acceder</a>
-                                  </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row py-2">
-                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 d-flex align-items-stretch">
-                                <div class="card border-primary mb-3" style="width: 100%;">
-                                  <div class="card-header">Plantilla de Regularizaciones</div>
-                                  <div class="card-body text-primary">
-                                    <h3 id="p9t" class="card-title" style="text-align: center;" runat="server">0</h3>
-                                    <p class="card-text">Plantillas registradas en procesos de auditorías</p>
-                                    <h3 id="p9r" class="card-title" style="text-align: center; color: #FFC107;" runat="server">0</h3>
-                                    <p class="card-text" style="color: #FFC107;">Plantillas registradas y pedientes de revisión.</p>
-                                    <a href="RevisaPlantillas.aspx?estado=P&plantilla=9" target="_blank" class="btn btn-primary mt-auto align-self-start">Acceder</a>
-                                  </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 d-flex align-items-stretch">
-                                <div class="card border-primary mb-3" style="width: 100%;">
-                                  <div class="card-header">Plantilla de Transferencias</div>
-                                  <div class="card-body text-primary">
-                                    <h3 id="p10t" class="card-title" style="text-align: center;" runat="server">0</h3>
-                                    <p class="card-text">Plantillas registradas en procesos de auditorías</p>
-                                    <h3 id="p10r" class="card-title" style="text-align: center; color: #FFC107;" runat="server">0</h3>
-                                    <p class="card-text" style="color: #FFC107;">Plantillas registradas y pedientes de revisión.</p>
-                                    <a href="RevisaPlantillas.aspx?estado=P&plantilla=10" target="_blank" class="btn btn-primary mt-auto align-self-start">Acceder</a>
-                                  </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 d-flex align-items-stretch">
-                                <div class="card border-primary mb-3" style="width: 100%;">
-                                  <div class="card-header">Plantilla de Tributos</div>
-                                  <div class="card-body text-primary">
-                                    <h3 id="p11t" class="card-title" style="text-align: center;" runat="server">0</h3>
-                                    <p class="card-text">Plantillas registradas en procesos de auditorías</p>
-                                    <h3 id="p11r" class="card-title" style="text-align: center; color: #FFC107;" runat="server">0</h3>
-                                    <p class="card-text" style="color: #FFC107;">Plantillas registradas y pedientes de revisión.</p>
-                                    <a href="RevisaPlantillas.aspx?estado=P&plantilla=11" target="_blank" class="btn btn-primary mt-auto align-self-start">Acceder</a>
-                                  </div>
-                                </div>
+                            </script>
+                            <div id="Grid">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </form>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip({
+                trigger: 'hover'
+            });
+
+            $('[data-toggle="tooltip"]').on('click', function () {
+                $(this).tooltip('hide')
+            });
+        });
+    </script>
 </body>
 </html>

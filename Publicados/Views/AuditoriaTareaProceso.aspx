@@ -8,7 +8,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Actividades relacionadas a tareas de auditoría</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
     <link rel="stylesheet" href="../Styles/Custom-Opciones.css" />
     <link rel="stylesheet" href="../Styles/Custom-Toolbar.css" />
@@ -69,56 +69,56 @@
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <label for="Auditoria" class="col-form-label col-form-label-sm" style="font-weight:bold;">Auditoría</label>
-                                        <input type="text" class="form-control form-control-sm" id="Auditoria" placeholder="0" readonly="true" runat="server"/>
+                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Auditoria" placeholder="0" readonly="true" runat="server"/>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="Tarea" class="col-form-label col-form-label-sm" style="font-weight:bold;">Tarea asignada al proceso de auditoría</label>
-                                        <input type="text" class="form-control form-control-sm" id="Tarea" placeholder="0" readonly="true" runat="server"/>
+                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Tarea" placeholder="0" readonly="true" runat="server"/>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-6"">
                                         <label for="Codigo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Secuencia de actividad de tarea</label>
-                                        <input type="text" class="form-control form-control-sm" id="Codigo" placeholder="0" readonly="true" runat="server"/>
+                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Codigo" placeholder="0" readonly="true" runat="server"/>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="Fecha" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha de registro del proceso</label>
-                                        <input type="date" class="form-control form-control-sm" id="Fecha" placeholder="" style="width: 300px" runat="server"/>
+                                        <input type="date" class="form-control form-control-sm" id="Fecha" placeholder="" style="width: 300px; font-size: 12px" runat="server"/>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <label for="Auditor" class="col-form-label col-form-label-sm" style="font-weight:bold;">Auditor asignado</label>
-                                        <asp:DropDownList ID="Auditor" CssClass="form-select form-select-sm" style="width: 50%" runat="server"></asp:DropDownList>
+                                        <asp:DropDownList ID="Auditor" CssClass="form-select form-select-sm" style="width: 50%; font-size: 12px" runat="server"></asp:DropDownList>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="Responsable" class="col-form-label col-form-label-sm" style="font-weight:bold;">Responsable asignado</label>
-                                        <asp:DropDownList ID="Responsable" CssClass="form-select form-select-sm" style="width: 50%" runat="server"></asp:DropDownList>
+                                        <asp:DropDownList ID="Responsable" CssClass="form-select form-select-sm" style="width: 50%; font-size: 12px" runat="server"></asp:DropDownList>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <label for="Observaciones" class="col-form-label col-form-label-sm" style="font-weight:bold;">Detalle de la actividad</label>
-                                        <textarea class="form-control" id="Observaciones" rows="5" runat="server"></textarea>
+                                        <textarea class="form-control" style="font-size: 12px" id="Observaciones" rows="5" runat="server"></textarea>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="Archivo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Seleccionar documento asociado</label>
                                         <br />
-                                        <asp:FileUpload ID="Archivo" runat="server" Width="600px" onchange="NombreArchivo();"/>
+                                        <asp:FileUpload ID="Archivo" runat="server" Width="600px" onchange="NombreArchivo();" Font-Size="12 px"/>
                                         <br />
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <label for="Documento" class="col-form-label col-form-label-sm" style="font-weight:bold;">Documento asociado a actividad</label>
-                                        <input type="text" class="form-control form-control-sm" id="Documento" placeholder="" readonly="true" runat="server"/>
+                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Documento" placeholder="" readonly="true" runat="server"/>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="" id="chkEstado" runat="server"/>
-                                            <label class="form-check-label form-control-sm" for="chkEstado">El registro seleccionado se encuentra ya procesado</label>
+                                            <label class="form-check-label form-control-sm" style="font-size: 12px" for="chkEstado">El registro seleccionado se encuentra ya procesado</label>
                                         </div>
                                     </div>
                                 </div>
