@@ -13,6 +13,7 @@ using WebAuditorias.Controllers.AuditoriaDocumentos;
 using WebAuditorias.Models.Bases;
 using WebAuditorias.Controllers.Cookies;
 using WebAuditorias.Models;
+using System.Runtime.Caching;
 
 namespace WebAuditorias.Views
 {
@@ -63,8 +64,12 @@ namespace WebAuditorias.Views
             AuditoriaDocumentosController _controller = new AuditoriaDocumentosController();
             Models.AuditoriaDocumentos parametro = new Models.AuditoriaDocumentos();
             Plantilla_Reembolsos reembolso = new Plantilla_Reembolsos();
+            List<ValidaPlantilla> validaPlantilla = new List<ValidaPlantilla>();
+            CargaPlantillaReembolsosController plantillaContoller = new CargaPlantillaReembolsosController();
             string jsonString;
             string response;
+            double valorDecimal;
+            DateTime fechaTabla;
 
             UserInfoCookie user_cookie = new UserInfoCookie();
             UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
@@ -78,15 +83,34 @@ namespace WebAuditorias.Views
             arrayParametros = Plantilla.Value.Split('-');
             Int16 plantillaId = Int16.Parse(arrayParametros[0]);
 
-            reembolso.Codigo = Codigo.Value.ToUpper();
-            reembolso.Fecha_Documento = DateTime.Parse(Fecha_Documento.Value);
-            reembolso.Referencia = Referencia.Value.ToUpper();  
-            reembolso.Valor_Moneda_Destino = double.Parse(Valor_Moneda_Destino.Value, CultureInfo.InvariantCulture);
-            reembolso.Valor_Tasa_Cambio = double.Parse(Valor_Tasa_Cambio.Value, CultureInfo.InvariantCulture);
-            reembolso.Valor_Moneda_Base = double.Parse(Valor_Moneda_Base.Value, CultureInfo.InvariantCulture);
-            reembolso.Estado = Estado.Value.ToUpper();
+            reembolso.Documento = Documento.Value.ToUpper();
+            reembolso.Fecha_Documento = !DateTime.TryParse(Fecha_Documento.Value.Trim(), out fechaTabla) ? DateTime.Parse("1900-01-01") : DateTime.Parse(Fecha_Documento.Value.Trim());  
+            reembolso.Soporte = Soporte.Value.ToUpper();
+            reembolso.Valor_Total = !double.TryParse(Valor_Total.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Valor_Total.Value.Trim(), CultureInfo.InvariantCulture);  
+            reembolso.Moneda = Moneda.Value.ToUpper();
+            reembolso.Moneda = Moneda.Value.ToUpper();
             reembolso.Numero_Cheque = Numero_Cheque.Value.ToUpper();
-            reembolso.Adjuntos = Adjuntos.Value.ToUpper();  
+            reembolso.Adjuntos = Adjuntos.Value.ToUpper();
+            reembolso.Observaciones = Observaciones.Value.ToUpper();
+
+            var validaResponse = plantillaContoller.ValidarRegistroReembolso(reembolso);
+
+            if (validaResponse != null && validaResponse.Count > 0)
+            {
+                validaPlantilla.Add(new ValidaPlantilla() { Linea = 0, Campos = validaResponse });
+                ObjectCache cache = MemoryCache.Default;
+                string CacheKey = user_cookie.Usuario.Trim();
+
+                if (cache.Contains(CacheKey))
+                    cache.Remove(CacheKey);
+
+                CacheItemPolicy cacheItemPolicy = new CacheItemPolicy();
+                cacheItemPolicy.AbsoluteExpiration = DateTime.Now.AddHours(1.0);
+                cache.Add(CacheKey, validaPlantilla, cacheItemPolicy);
+
+                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('0', 'Existen campos con errores')", true);
+                return;
+            }
 
             jsonString = JsonConvert.SerializeObject(reembolso);
 
@@ -114,7 +138,7 @@ namespace WebAuditorias.Views
                 response = _controller.Actualizacion(parametro);
             }
 
-            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "document.getElementById('profile-tab').click(); LlenaGrid();", true);
+            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('1', 'El registro de plantilla se grabó exitosamente')", true);
         }
 
         protected void BtnEliminar_ServerClick(object sender, EventArgs e)
@@ -124,6 +148,8 @@ namespace WebAuditorias.Views
             Plantilla_Reembolsos reembolso = new Plantilla_Reembolsos();
             string jsonString;
             string response;
+            double valorDecimal;
+            DateTime fechaTabla;
 
             UserInfoCookie user_cookie = new UserInfoCookie();
             UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
@@ -137,15 +163,15 @@ namespace WebAuditorias.Views
             arrayParametros = Plantilla.Value.Split('-');
             Int16 plantillaId = Int16.Parse(arrayParametros[0]);
 
-            reembolso.Codigo = Codigo.Value.ToUpper();
-            reembolso.Fecha_Documento = DateTime.Parse(Fecha_Documento.Value);
-            reembolso.Referencia = Referencia.Value.ToUpper();
-            reembolso.Valor_Moneda_Destino = double.Parse(Valor_Moneda_Destino.Value, CultureInfo.InvariantCulture);
-            reembolso.Valor_Tasa_Cambio = double.Parse(Valor_Tasa_Cambio.Value, CultureInfo.InvariantCulture);
-            reembolso.Valor_Moneda_Base = double.Parse(Valor_Moneda_Base.Value, CultureInfo.InvariantCulture);
-            reembolso.Estado = Estado.Value.ToUpper();
+            reembolso.Documento = Documento.Value.ToUpper();
+            reembolso.Fecha_Documento = !DateTime.TryParse(Fecha_Documento.Value.Trim(), out fechaTabla) ? DateTime.Parse("1900-01-01") : DateTime.Parse(Fecha_Documento.Value.Trim());
+            reembolso.Soporte = Soporte.Value.ToUpper();
+            reembolso.Valor_Total = !double.TryParse(Valor_Total.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Valor_Total.Value.Trim(), CultureInfo.InvariantCulture);
+            reembolso.Moneda = Moneda.Value.ToUpper();
+            reembolso.Moneda = Moneda.Value.ToUpper();
             reembolso.Numero_Cheque = Numero_Cheque.Value.ToUpper();
             reembolso.Adjuntos = Adjuntos.Value.ToUpper();
+            reembolso.Observaciones = Observaciones.Value.ToUpper();
 
             jsonString = JsonConvert.SerializeObject(reembolso);
 
@@ -166,7 +192,7 @@ namespace WebAuditorias.Views
 
             response = _controller.Actualizacion(parametro);
 
-            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "document.getElementById('profile-tab').click(); LlenaGrid();", true);
+            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('1', 'El registro de plantilla se eliminó exitosamente')", true);
         }
 
         protected void BtnCargar_ServerClick(object sender, EventArgs e)
@@ -230,15 +256,15 @@ namespace WebAuditorias.Views
                         ReferenciaLinea = lineaDoc.ad_referencia,
                         IdEstado = lineaDoc.ad_estado,
                         ReferenciaDocumento = "",
-                        Codigo = reembolso.Codigo,
+                        Documento = reembolso.Documento,
                         Fecha_Documento = reembolso.Fecha_Documento,
-                        Referencia = reembolso.Referencia,
-                        Valor_Moneda_Destino = reembolso.Valor_Moneda_Destino,
-                        Valor_Tasa_Cambio = reembolso.Valor_Tasa_Cambio,
-                        Valor_Moneda_Base = reembolso.Valor_Moneda_Base,
+                        Soporte = reembolso.Soporte,
+                        Valor_Total = Math.Round(reembolso.Valor_Total, 2),
+                        Moneda = reembolso.Moneda,
                         Estado = reembolso.Estado,
                         Numero_Cheque = reembolso.Numero_Cheque,
-                        Adjuntos = reembolso.Adjuntos
+                        Adjuntos = reembolso.Adjuntos,
+                        Observaciones = reembolso.Observaciones
                     }
                     );
             }
@@ -255,6 +281,10 @@ namespace WebAuditorias.Views
             string referencia = Referencia.Value.Trim();
             string response = "";
 
+            UserInfoCookie user_cookie = new UserInfoCookie();
+            UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
+            user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
+
             string[] arrayParametros;
             arrayParametros = Auditoria.Value.Split('-');
             int auditoriaId = int.Parse(arrayParametros[0]);
@@ -267,11 +297,23 @@ namespace WebAuditorias.Views
 
             if (response == "")
             {
-                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "alert('La plantilla se ha procesado correctamente');", true);
+                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('1', 'La plantilla se ha procesado correctamente')", true);
             }
             else
             {
-                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "alert('Error : " + response + "');", true);
+                var listaErrores = JsonConvert.DeserializeObject<List<ValidaPlantilla>>(response);
+
+                ObjectCache cache = MemoryCache.Default;
+                string CacheKey = user_cookie.Usuario.Trim();
+
+                if (cache.Contains(CacheKey))
+                    cache.Remove(CacheKey);
+
+                CacheItemPolicy cacheItemPolicy = new CacheItemPolicy();
+                cacheItemPolicy.AbsoluteExpiration = DateTime.Now.AddHours(1.0);
+                cache.Add(CacheKey, listaErrores, cacheItemPolicy);
+
+                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('0', 'Existen campos con errores')", true);
             }
         }
 

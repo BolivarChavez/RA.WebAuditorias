@@ -71,19 +71,20 @@ async function LlenaGrid() {
             { field: 'Beneficiario', headerText: 'Beneficiario', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Concepto', headerText: 'Concepto', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Comprobante', headerText: 'Comprobante', width: 100, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Moneda', headerText: 'Moneda', width: 100, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Monto', headerText: 'Monto', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Fecha_Pago', headerText: 'Fecha de Pago', type: 'date', width: 175, format: { type: 'date', format: 'dd/MM/yyyy' }, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Comprobante_Egreso', headerText: 'Comprobante de Egreso', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Banco', headerText: 'Banco', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'Numero_Cheque', headerText: 'Numero de Cheque', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Numero_Cheque', headerText: 'Número de Cheque', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Tipo_Cambio', headerText: 'Tipo de Cambio', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'Observacion_Preliminar', headerText: 'Observacion Preliminar', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'Observacion_Final', headerText: 'Observacion Final', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Observacion_Preliminar', headerText: 'Observación Preliminar', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Observacion_Final', headerText: 'Observación Final', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Estado', headerText: 'Estado', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Empresa', headerText: 'Empresa', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Sede', headerText: 'Sede', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'Cuenta', headerText: 'Cuenta', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'Sub_Cuenta', headerText: 'Sub Cuenta', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } }
+            { field: 'Cuenta', headerText: 'Cuenta Contable', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Sub_Cuenta', headerText: 'Sub Cuenta Contable', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } }
         ],
         pageSettings: { pageCount: 5, pageSize: 10 },
         rowSelected: rowSelected
@@ -103,6 +104,8 @@ function rowSelected(args) {
     document.getElementById('Beneficiario').value = args.data.Beneficiario;
 
     document.getElementById('Comprobante').value = args.data.Comprobante;
+    document.getElementById('Concepto').value = args.data.Concepto;
+    document.getElementById('Moneda').value = args.data.Moneda;
     document.getElementById('Monto').value = args.data.Monto;
 
     var date = new Date(args.data.Fecha_Pago);
@@ -138,4 +141,30 @@ function cierraContenidoTexto() {
     var campo = document.getElementById('HiddenField1').value;
     document.getElementById(campo).value = document.getElementById('message-text').value;
     $('#myModal').modal('hide');
+}
+
+function mensajeGrabacion(respuesta, mensaje) {
+    if (respuesta === "1") {
+        Swal.fire({
+            title: "Plantilla de Cheques",
+            text: mensaje,
+            icon: "success",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Continuar"
+        }).then(function () {
+            document.getElementById('profile-tab').click();
+            LlenaGrid();
+        });
+    }
+    else {
+        Swal.fire({
+            title: "Plantilla de Cheques",
+            text: mensaje,
+            icon: "error",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Continuar"
+        }).then(function () {
+            window.open("ErroresDatosPlantilla.aspx?plantilla=Plantilla de Cheques", "_blank");
+        });
+    }
 }

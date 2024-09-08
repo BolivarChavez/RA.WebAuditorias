@@ -10,6 +10,7 @@ namespace PrototipoData.Models
         public string Beneficiario { get; set; }
         public string Concepto { get; set; }
         public string Comprobante { get; set; }
+        public string Moneda { get; set; }
         public double Monto { get; set; }
         public DateTime Fecha_Pago { get; set; }
         public string Comprobante_Egreso { get; set; }

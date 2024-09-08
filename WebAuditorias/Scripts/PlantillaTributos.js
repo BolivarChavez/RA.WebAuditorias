@@ -66,7 +66,7 @@ async function LlenaGrid() {
             { field: 'IdRegistro', headerText: 'Id', visible: false, width: 75, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'ReferenciaLinea', headerText: 'Referencia', visible: false, width: 125, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Fecha', headerText: 'Fecha', type: 'date', width: 175, format: { type: 'date', format: 'dd/MM/yyyy' }, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'Periodo', headerText: 'Periodo', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Periodo', headerText: 'Período', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Tributo', headerText: 'Tributo', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Tributo_Resultante', headerText: 'Tributo Resultante', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Intereses', headerText: 'Intereses', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
@@ -74,7 +74,7 @@ async function LlenaGrid() {
             { field: 'Forma_Pago', headerText: 'Forma de Pago', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Egreso', headerText: 'Egreso', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Fecha_Informe', headerText: 'Fecha de Informe', type: 'date', width: 175, format: { type: 'date', format: 'dd/MM/yyyy' }, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'Numero_Informe', headerText: 'Numero de Informe', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Numero_Informe', headerText: 'Número de Informe', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Observaciones', headerText: 'Observaciones', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } }
         ],
         pageSettings: { pageCount: 5, pageSize: 10 },
@@ -125,4 +125,30 @@ function cierraContenidoTexto() {
     var campo = document.getElementById('HiddenField1').value;
     document.getElementById(campo).value = document.getElementById('message-text').value;
     $('#myModal').modal('hide');
+}
+
+function mensajeGrabacion(respuesta, mensaje) {
+    if (respuesta === "1") {
+        Swal.fire({
+            title: "Plantilla de Tributos",
+            text: mensaje,
+            icon: "success",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Continuar"
+        }).then(function () {
+            document.getElementById('profile-tab').click();
+            LlenaGrid();
+        });
+    }
+    else {
+        Swal.fire({
+            title: "Plantilla de Tributos",
+            text: mensaje,
+            icon: "error",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Continuar"
+        }).then(function () {
+            window.open("ErroresDatosPlantilla.aspx?plantilla=Plantilla de Tributos", "_blank");
+        });
+    }
 }

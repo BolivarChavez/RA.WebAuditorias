@@ -8,8 +8,9 @@ namespace PrototipoData.Models
         public string Req { get; set; }
         public string Proveedor { get; set; }
         public string Concepto { get; set; }
-        public string Referencia { get; set; }
+        public string Documento { get; set; }
         public string Mes { get; set; }
+        public string Moneda { get; set; }
         public double Importe_Monto { get; set; }
         public double Monto { get; set; }
         public double Tipo_Cambio { get; set; }

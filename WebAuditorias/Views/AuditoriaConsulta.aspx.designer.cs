@@ -11,7 +11,7 @@ namespace WebAuditorias.Views
 {
 
 
-    public partial class AuditoriaConsulta
+    public partial class AuditoriaConsultaNew
     {
 
         /// <summary>
@@ -121,5 +121,14 @@ namespace WebAuditorias.Views
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl numPP;
+
+        /// <summary>
+        /// Control TablaPlantilla.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl TablaPlantilla;
     }
 }

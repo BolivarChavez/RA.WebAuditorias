@@ -222,6 +222,15 @@ namespace WebAuditorias.Views
         protected global::System.Web.UI.HtmlControls.HtmlInputText Descripcion;
 
         /// <summary>
+        /// Control Moneda.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Moneda;
+
+        /// <summary>
         /// Control Valor_Fijo.
         /// </summary>
         /// <remarks>
@@ -231,31 +240,40 @@ namespace WebAuditorias.Views
         protected global::System.Web.UI.HtmlControls.HtmlInputText Valor_Fijo;
 
         /// <summary>
-        /// Control Valor_Proporcional.
+        /// Control Ingresos_Facturados.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText Valor_Proporcional;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Ingresos_Facturados;
 
         /// <summary>
-        /// Control Porcentaje.
+        /// Control Ingresos_Cartera.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText Porcentaje;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Ingresos_Cartera;
 
         /// <summary>
-        /// Control Subtotal.
+        /// Control Retencion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText Subtotal;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Retencion;
+
+        /// <summary>
+        /// Control Total_Soles.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Total_Soles;
 
         /// <summary>
         /// Control Tasa_Cambio.
@@ -267,13 +285,13 @@ namespace WebAuditorias.Views
         protected global::System.Web.UI.HtmlControls.HtmlInputText Tasa_Cambio;
 
         /// <summary>
-        /// Control Total.
+        /// Control Total_Dolares.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText Total;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Total_Dolares;
 
         /// <summary>
         /// Control Adjuntos.
@@ -292,6 +310,24 @@ namespace WebAuditorias.Views
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText Cuenta;
+
+        /// <summary>
+        /// Control Soporte.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Soporte;
+
+        /// <summary>
+        /// Control Observaciones.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Observaciones;
 
         /// <summary>
         /// Control chkEstado.

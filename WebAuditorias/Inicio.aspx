@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../Styles/Custom-Inicio.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script type="text/javascript">
         function noBack() { window.history.forward() }
@@ -19,6 +20,31 @@
         window.onload = noBack;
         window.onpageshow = function (evt) { if (evt.persisted) noBack() }
         window.onunload = function () { void (0) }
+
+        function validaLogin(respuesta, mensaje, pagina) {
+            if (respuesta === "1") {
+                Swal.fire({
+                    title: "Inicio de Sesión",
+                    text: mensaje,
+                    icon: "success",
+                    confirmButtonColor: "#3085d6",
+                    confirmButtonText: "Acceder"
+                }).then(function () {
+                    window.location = pagina;
+                });
+            }
+            else {
+                Swal.fire({
+                    title: "Inicio de Sesión",
+                    text: mensaje,
+                    icon: "error",
+                    confirmButtonColor: "#3085d6",
+                    confirmButtonText: "Ingresar credenciales nuevamente"
+                }).then(function () {
+                    window.location = pagina;
+                });
+            }
+        }
     </script>
 </head>
 <body>

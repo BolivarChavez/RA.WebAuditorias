@@ -5,8 +5,13 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.OleDb;
+using System.Drawing.Drawing2D;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
+using System.Runtime.Caching;
+using System.Threading;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebAuditorias.Controllers.AuditoriaDocumentos;
@@ -86,7 +91,8 @@ namespace WebAuditorias.Views
                         Beneficiario = cheque.Beneficiario,
                         Concepto = cheque.Concepto,
                         Comprobante = cheque.Comprobante,
-                        Monto = cheque.Monto,
+                        Moneda = cheque.Moneda,
+                        Monto = Math.Round(cheque.Monto, 2),
                         Fecha_Pago = cheque.Fecha_Pago,
                         Comprobante_Egreso = cheque.Comprobante_Egreso,
                         Banco = cheque.Banco,
@@ -137,8 +143,12 @@ namespace WebAuditorias.Views
             AuditoriaDocumentosController _controller = new AuditoriaDocumentosController();
             Models.AuditoriaDocumentos parametro = new Models.AuditoriaDocumentos();
             Plantilla_Cheques cheque = new Plantilla_Cheques();
+            List<ValidaPlantilla> validaPlantilla = new List<ValidaPlantilla>();
+            CargaPlantillaChequesController plantillaContoller = new CargaPlantillaChequesController();
             string jsonString;
             string response;
+            double valorDecimal;
+            DateTime fechaTabla;
 
             UserInfoCookie user_cookie = new UserInfoCookie();
             UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
@@ -158,12 +168,13 @@ namespace WebAuditorias.Views
             cheque.Beneficiario = Beneficiario.Value.ToUpper();
             cheque.Concepto = Concepto.Value.ToUpper();
             cheque.Comprobante = Comprobante.Value.ToUpper();
-            cheque.Monto = double.Parse(Monto.Value, CultureInfo.InvariantCulture);
-            cheque.Fecha_Pago = DateTime.Parse(FechaPago.Value);
+            cheque.Moneda = Moneda.Value.ToUpper();
+            cheque.Monto = !double.TryParse(Monto.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Monto.Value.Trim(), CultureInfo.InvariantCulture);
+            cheque.Fecha_Pago = !DateTime.TryParse(FechaPago.Value.Trim(), out fechaTabla) ? DateTime.Parse("1900-01-01") : DateTime.Parse(FechaPago.Value.Trim()); 
             cheque.Comprobante_Egreso = ComprobanteEgreso.Value.ToUpper();
             cheque.Banco = Banco.Value.ToUpper();
             cheque.Numero_Cheque = NumeroCheque.Value.ToUpper();
-            cheque.Tipo_Cambio = double.Parse(TipoCambio.Value, CultureInfo.InvariantCulture);
+            cheque.Tipo_Cambio = !double.TryParse(TipoCambio.Value.Trim(), out valorDecimal) ? 0 : double.Parse(TipoCambio.Value.Trim(), CultureInfo.InvariantCulture); 
             cheque.Observacion_Preliminar = ObservacionPreliminar.Value.ToUpper();
             cheque.Observacion_Final = Observacion_Final.Value.ToUpper();
             cheque.Estado = Estado.Value.ToUpper();
@@ -171,6 +182,25 @@ namespace WebAuditorias.Views
             cheque.Sede = Sede.Value.ToUpper();
             cheque.Cuenta = Cuenta.Value.ToUpper();
             cheque.Sub_Cuenta = SubCuenta.Value.ToUpper();
+
+            var validaResponse = plantillaContoller.ValidarRegistroCheque(cheque);
+
+            if (validaResponse != null && validaResponse.Count > 0)
+            {
+                validaPlantilla.Add(new ValidaPlantilla() { Linea = 0, Campos = validaResponse });
+                ObjectCache cache = MemoryCache.Default;
+                string CacheKey = user_cookie.Usuario.Trim();
+
+                if (cache.Contains(CacheKey))
+                    cache.Remove(CacheKey);
+
+                CacheItemPolicy cacheItemPolicy = new CacheItemPolicy();
+                cacheItemPolicy.AbsoluteExpiration = DateTime.Now.AddHours(1.0);
+                cache.Add(CacheKey, validaPlantilla, cacheItemPolicy);
+
+                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('0', 'Existen campos con errores')", true);
+                return;
+            }
 
             jsonString = JsonConvert.SerializeObject(cheque);
 
@@ -198,7 +228,7 @@ namespace WebAuditorias.Views
                 response = _controller.Actualizacion(parametro);
             }
 
-            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "document.getElementById('profile-tab').click(); LlenaGrid();", true);
+            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('1', 'El registro de plantilla se grabó exitosamente')", true);
         }
 
         protected void BtnEliminar_ServerClick(object sender, EventArgs e)
@@ -207,6 +237,8 @@ namespace WebAuditorias.Views
             Models.AuditoriaDocumentos parametro = new Models.AuditoriaDocumentos();
             Plantilla_Cheques cheque = new Plantilla_Cheques();
             string jsonString;
+            double valorDecimal;
+            DateTime fechaTabla;
 
             UserInfoCookie user_cookie = new UserInfoCookie();
             UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
@@ -226,12 +258,13 @@ namespace WebAuditorias.Views
             cheque.Beneficiario = Beneficiario.Value.ToUpper();
             cheque.Concepto = Concepto.Value.ToUpper();
             cheque.Comprobante = Comprobante.Value.ToUpper();
-            cheque.Monto = double.Parse(Monto.Value, CultureInfo.InvariantCulture);
-            cheque.Fecha_Pago = DateTime.Parse(FechaPago.Value);
+            cheque.Moneda = Moneda.Value.ToUpper();
+            cheque.Monto = !double.TryParse(Monto.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Monto.Value.Trim(), CultureInfo.InvariantCulture);//double.Parse(Monto.Value, CultureInfo.InvariantCulture);
+            cheque.Fecha_Pago = !DateTime.TryParse(FechaPago.Value.Trim(), out fechaTabla) ? DateTime.Parse("1900-01-01") : DateTime.Parse(FechaPago.Value.Trim()); //DateTime.Parse(FechaPago.Value);
             cheque.Comprobante_Egreso = ComprobanteEgreso.Value.ToUpper();
             cheque.Banco = Banco.Value.ToUpper();
             cheque.Numero_Cheque = NumeroCheque.Value.ToUpper();
-            cheque.Tipo_Cambio = double.Parse(TipoCambio.Value, CultureInfo.InvariantCulture);
+            cheque.Tipo_Cambio = !double.TryParse(TipoCambio.Value.Trim(), out valorDecimal) ? 0 : double.Parse(TipoCambio.Value.Trim(), CultureInfo.InvariantCulture); //double.Parse(TipoCambio.Value, CultureInfo.InvariantCulture);
             cheque.Observacion_Preliminar = ObservacionPreliminar.Value.ToUpper();
             cheque.Observacion_Final = Observacion_Final.Value.ToUpper();
             cheque.Estado = Estado.Value.ToUpper();
@@ -259,7 +292,7 @@ namespace WebAuditorias.Views
 
             _controller.Actualizacion(parametro);
 
-            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "document.getElementById('profile-tab').click(); LlenaGrid();", true);
+            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('1', 'El registro de plantilla se eliminó exitosamente')", true);
         }
 
         protected void BtnCargar_ServerClick(object sender, EventArgs e)
@@ -284,6 +317,10 @@ namespace WebAuditorias.Views
             string referencia = Referencia.Value.Trim();
             string response = "";
 
+            UserInfoCookie user_cookie = new UserInfoCookie();
+            UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
+            user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
+
             string[] arrayParametros;
             arrayParametros = Auditoria.Value.Split('-');
             int auditoriaId = int.Parse(arrayParametros[0]);
@@ -296,11 +333,23 @@ namespace WebAuditorias.Views
 
             if (response == "")
             {
-                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "alert('La plantilla se ha procesado correctamente');", true);
+                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('1', 'La plantilla se ha procesado correctamente')", true);
             }
             else
             {
-                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "alert('Error : " + response  +"');", true);
+                var listaErrores = JsonConvert.DeserializeObject<List<ValidaPlantilla>>(response);
+
+                ObjectCache cache = MemoryCache.Default;
+                string CacheKey = user_cookie.Usuario.Trim();
+
+                if (cache.Contains(CacheKey))
+                    cache.Remove(CacheKey);
+
+                CacheItemPolicy cacheItemPolicy = new CacheItemPolicy();
+                cacheItemPolicy.AbsoluteExpiration = DateTime.Now.AddHours(1.0);
+                cache.Add(CacheKey, listaErrores, cacheItemPolicy);
+
+                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('0', 'Existen campos con errores')", true);
             }
         }
 

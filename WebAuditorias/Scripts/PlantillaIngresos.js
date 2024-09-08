@@ -70,18 +70,23 @@ async function LlenaGrid() {
             { field: 'Cuenta', headerText: 'Cuenta', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Detalle', headerText: 'Detalle', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Concepto', headerText: 'Concepto', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Moneda', headerText: 'Moneda', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Subtotal', headerText: 'Sub Total', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'Porcentaje', headerText: 'Porcentaje', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Porcentaje', headerText: 'IGV', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Total', headerText: 'Total', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'Fecha_Detraccion', headerText: 'Fecha de Detraccion', type: 'date', width: 175, format: { type: 'date', format: 'dd/MM/yyyy' }, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'Detraccion_Moneda_Destino', headerText: 'Detraccion Moneda Destino', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'Detraccion_Moneda_Base', headerText: 'Detraccion Moneda Base', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'Comprobante_Ingreso', headerText: 'Comprobante de Ingreso', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Fecha_Detraccion', headerText: 'Fecha de Detracción', type: 'date', width: 175, format: { type: 'date', format: 'dd/MM/yyyy' }, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Detraccion_Moneda_Destino', headerText: 'Detracción Moneda Destino', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Neto_Ingreso', headerText: 'Neto Ingreso', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Flujo', headerText: 'Flujo', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Estado_Cuenta_1', headerText: 'Estado Cuenta 1', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Estado_Cuenta_2', headerText: 'Estado Cuenta 2', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'Soporte', headerText: 'Soporte', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } }
+            { field: 'Soporte', headerText: 'Soporte', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Observacion', headerText: 'Observaciones', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Banco', headerText: 'Banco', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Empresa', headerText: 'Empresa', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Sede', headerText: 'Sede', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Cuenta_Contable', headerText: 'Cuenta Contable', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'SubCuenta', headerText: 'Sub Cuenta Contable', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } }
         ],
         pageSettings: { pageCount: 5, pageSize: 10 },
         rowSelected: rowSelected
@@ -99,8 +104,8 @@ function rowSelected(args) {
     document.getElementById('Factura').value = args.data.Factura;
     document.getElementById('Cuenta').value = args.data.Cuenta;
     document.getElementById('Detalle').value = args.data.Detalle;
-
     document.getElementById('Concepto').value = args.data.Concepto;
+    document.getElementById('Moneda').value = args.data.Moneda;
     document.getElementById('Subtotal').value = args.data.Subtotal;
     document.getElementById('Porcentaje').value = args.data.Porcentaje;
     document.getElementById('Total').value = args.data.Total;
@@ -113,14 +118,17 @@ function rowSelected(args) {
 
     document.getElementById('Fecha_Detraccion').value = fecha;
     document.getElementById('Detraccion_Moneda_Destino').value = args.data.Detraccion_Moneda_Destino;
-    document.getElementById('Detraccion_Moneda_Base').value = args.data.Detraccion_Moneda_Base;
-    document.getElementById('Comprobante_Ingreso').value = args.data.Comprobante_Ingreso;
     document.getElementById('Neto_Ingreso').value = args.data.Neto_Ingreso;
-
     document.getElementById('Flujo').value = args.data.Flujo;
     document.getElementById('Estado_Cuenta_1').value = args.data.Estado_Cuenta_1;
     document.getElementById('Estado_Cuenta_2').value = args.data.Estado_Cuenta_2;
     document.getElementById('Soporte').value = args.data.Soporte;
+    document.getElementById('Observacion').value = args.data.Observacion;
+    document.getElementById('Banco').value = args.data.Banco;
+    document.getElementById('Empresa').value = args.data.Empresa;
+    document.getElementById('Sede').value = args.data.Sede;
+    document.getElementById('Cuenta_Contable').value = args.data.Cuenta_Contable;
+    document.getElementById('SubCuenta').value = args.data.SubCuenta;
 }
 
 function muestraContenidoTexto(titulo, campo) {
@@ -134,4 +142,30 @@ function cierraContenidoTexto() {
     var campo = document.getElementById('HiddenField1').value;
     document.getElementById(campo).value = document.getElementById('message-text').value;
     $('#myModal').modal('hide');
+}
+
+function mensajeGrabacion(respuesta, mensaje) {
+    if (respuesta === "1") {
+        Swal.fire({
+            title: "Plantilla de Ingresos",
+            text: mensaje,
+            icon: "success",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Continuar"
+        }).then(function () {
+            document.getElementById('profile-tab').click();
+            LlenaGrid();
+        });
+    }
+    else {
+        Swal.fire({
+            title: "Plantilla de Ingresos",
+            text: mensaje,
+            icon: "error",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Continuar"
+        }).then(function () {
+            window.open("ErroresDatosPlantilla.aspx?plantilla=Plantilla de Ingresos", "_blank");
+        });
+    }
 }

@@ -47,6 +47,9 @@
     <Reference Include="AspNetDependencyInjection, Version=4.0.7233.38877, Culture=neutral, PublicKeyToken=f30c056d3cb8b991, processorArchitecture=MSIL">
       <HintPath>..\packages\Jehoel.AspNetDependencyInjection.4.0.0\lib\net472\AspNetDependencyInjection.dll</HintPath>
     </Reference>
+    <Reference Include="LocalStorage, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LocalStorage.2.1.0\lib\netstandard2.0\LocalStorage.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
@@ -84,6 +87,7 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
@@ -204,6 +208,7 @@
     <Content Include="Scripts\ResumenAuditoria.js" />
     <Content Include="Scripts\RevisaPlantillas.js" />
     <Content Include="Scripts\RevisaProcesos.js" />
+    <Content Include="Styles\Custom-Collapse.css" />
     <Content Include="Styles\Custom-Grid-Font.css" />
     <Content Include="Styles\Custom-Grid.css" />
     <Content Include="Styles\Custom-Inicio.css" />
@@ -212,6 +217,7 @@
     <Content Include="Styles\Custom-Toolbar.css" />
     <Content Include="Styles\font-awesome.min.css" />
     <Content Include="Styles\material.css" />
+    <Content Include="Views\AuditoriaConsultaOld.aspx" />
     <Content Include="Views\AuditoriaConsulta.aspx" />
     <Content Include="Views\AuditoriaDocumentoProceso.aspx" />
     <Content Include="Views\AuditoriaDocumentoProcesoGrupo.aspx" />
@@ -228,6 +234,7 @@
     <Content Include="Views\ConsultaPlantillasService.asmx" />
     <Content Include="Views\Cotizaciones.aspx" />
     <Content Include="Views\DetalleLineaDocumento.aspx" />
+    <Content Include="Views\ErroresDatosPlantilla.aspx" />
     <Content Include="Views\InformeTareas.aspx" />
     <Content Include="Views\Monedas.aspx" />
     <Content Include="Views\PlantillaCheques.aspx" />
@@ -371,6 +378,7 @@
     <Compile Include="Models\CategoriaGastos.cs" />
     <Compile Include="Models\Cotizaciones.cs" />
     <Compile Include="Models\Empresas.cs" />
+    <Compile Include="Models\ErroresPlantilla.cs" />
     <Compile Include="Models\Facultades.cs" />
     <Compile Include="Models\GruposOpciones.cs" />
     <Compile Include="Models\LoginUsuario.cs" />
@@ -404,6 +412,7 @@
     <Compile Include="Models\UsuarioOficina.cs" />
     <Compile Include="Models\UsuarioPerfil.cs" />
     <Compile Include="Models\Usuarios.cs" />
+    <Compile Include="Models\ValidaPlantilla.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AuditoriaAsignacion\AuditoriaAsignacionService.cs" />
     <Compile Include="Services\AuditoriaDocumentoProcesos\AuditoriaDocumentoProcesosService.cs" />
@@ -428,6 +437,13 @@
     <Compile Include="Services\UsuarioOficina\UsuarioOficinaService.cs" />
     <Compile Include="Services\Usuarios\UsuariosService.cs" />
     <Compile Include="Services\Utils\CifradoService.cs" />
+    <Compile Include="Views\AuditoriaConsultaOld.aspx.cs">
+      <DependentUpon>AuditoriaConsultaOld.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\AuditoriaConsultaOld.aspx.designer.cs">
+      <DependentUpon>AuditoriaConsultaOld.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\AuditoriaConsulta.aspx.cs">
       <DependentUpon>AuditoriaConsulta.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -536,6 +552,13 @@
     </Compile>
     <Compile Include="Views\DetalleLineaDocumento.aspx.designer.cs">
       <DependentUpon>DetalleLineaDocumento.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ErroresDatosPlantilla.aspx.cs">
+      <DependentUpon>ErroresDatosPlantilla.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\ErroresDatosPlantilla.aspx.designer.cs">
+      <DependentUpon>ErroresDatosPlantilla.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\InformeTareas.aspx.cs">
       <DependentUpon>InformeTareas.aspx</DependentUpon>

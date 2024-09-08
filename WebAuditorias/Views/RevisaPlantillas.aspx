@@ -78,33 +78,49 @@
                             </asp:UpdatePanel>
                         </form> 
                     </div>
-                    <div class="row py-2">
-                        <div id="GridConsultaTareas" class="content-wrapper py-2" style="width:100%">
-                            <br />
-                            <br />
-                            <h6 id="TituloSeccion3">Tareas asociadas a proceso de Auditoría</h6>
-                            <div id="GridTareas">
+                    <br />
+                    <div class="mx-2">
+                        <div class="card text-left border-primary rounded-2 shadow" style="width: 100%; height:450px">
+                            <div id="TituloSeccion3" class="card-header text-primary">
+                                <b>Tareas asociadas a proceso de Auditoría</b>
+                            </div>
+                            <div id="GridConsultaTareas" class="content-wrapper py-2" style="width:100%">
+                                <div class="card-body">
+                                    <div id="GridTareas">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row py-2">
-                        <div id="GridConsulta" class="content-wrapper py-2" style="width:100%;">
-                            <br />
-                            <br />
-                            <h6 id="TituloSeccion4">Plantillas asociadas a tarea</h6>
-                            <div id="Grid">
+                    <br />
+                    <div class="mx-2">
+                        <div class="card text-left border-primary rounded-2 shadow" style="width: 100%; height:600px">
+                            <div id="TituloSeccion4" class="card-header text-primary">
+                                <b>Plantillas asociadas a tarea</b>
+                            </div>
+                            <div id="GridConsulta" class="content-wrapper py-2" style="width:100%;">
+                                <div class="card-body">
+                                    <div id="Grid">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row py-2">
-                        <div id="GridConsultaProcesos" class="content-wrapper py-2" style="width:100%">
-                            <br />
-                            <br />
-                            <h6 id="TituloSeccion5">Actividades asociadas a plantilla</h6>
-                            <div id="GridProcesos">
+                    <br />
+                    <div class="mx-2">
+                        <div class="card text-left border-primary rounded-2 shadow" style="width: 100%; height:450px">
+                            <div id="TituloSeccion5" class="card-header text-primary">
+                                <b>Actividades asociadas a plantilla</b>
+                            </div>
+                            <div id="GridConsultaProcesos" class="content-wrapper py-2" style="width:100%">
+                                <div class="card-body">
+                                    <div id="GridProcesos">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <br />
                     <div class="row py-2">
                         <div id="GridFinConsultaProcesos" class="content-wrapper py-2" style="width:100%">
                         </div>

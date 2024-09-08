@@ -231,13 +231,13 @@ namespace WebAuditorias.Views
         protected global::System.Web.UI.HtmlControls.HtmlInputText Concepto;
 
         /// <summary>
-        /// Control ReferenciaTransferencia.
+        /// Control Documento.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText ReferenciaTransferencia;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Documento;
 
         /// <summary>
         /// Control Mes.
@@ -247,6 +247,15 @@ namespace WebAuditorias.Views
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText Mes;
+
+        /// <summary>
+        /// Control Moneda.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Moneda;
 
         /// <summary>
         /// Control Importe_Monto.

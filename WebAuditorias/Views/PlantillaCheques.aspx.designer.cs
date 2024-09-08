@@ -249,6 +249,15 @@ namespace WebAuditorias.Views
         protected global::System.Web.UI.HtmlControls.HtmlInputText Comprobante;
 
         /// <summary>
+        /// Control Moneda.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Moneda;
+
+        /// <summary>
         /// Control Monto.
         /// </summary>
         /// <remarks>

@@ -204,6 +204,33 @@ namespace WebAuditorias.Views
         protected global::System.Web.UI.HtmlControls.HtmlInputText CodigoMutuo;
 
         /// <summary>
+        /// Control Banco.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Banco;
+
+        /// <summary>
+        /// Control Moneda.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Moneda;
+
+        /// <summary>
+        /// Control Detalle.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Detalle;
+
+        /// <summary>
         /// Control Fecha_Documento.
         /// </summary>
         /// <remarks>
@@ -211,15 +238,6 @@ namespace WebAuditorias.Views
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText Fecha_Documento;
-
-        /// <summary>
-        /// Control Fecha_Inicio_Pago.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText Fecha_Inicio_Pago;
 
         /// <summary>
         /// Control Monto_Prestamo.
@@ -231,6 +249,24 @@ namespace WebAuditorias.Views
         protected global::System.Web.UI.HtmlControls.HtmlInputText Monto_Prestamo;
 
         /// <summary>
+        /// Control Fecha_Pago_Cuota.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Fecha_Pago_Cuota;
+
+        /// <summary>
+        /// Control Numero_Cuota.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Numero_Cuota;
+
+        /// <summary>
         /// Control Valor_Cuota.
         /// </summary>
         /// <remarks>
@@ -240,13 +276,13 @@ namespace WebAuditorias.Views
         protected global::System.Web.UI.HtmlControls.HtmlInputText Valor_Cuota;
 
         /// <summary>
-        /// Control Total_Cancelado.
+        /// Control Comprobante_Pago.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText Total_Cancelado;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Comprobante_Pago;
 
         /// <summary>
         /// Control Saldo_Pendiente.
@@ -267,31 +303,22 @@ namespace WebAuditorias.Views
         protected global::System.Web.UI.HtmlControls.HtmlInputText Cuotas_Pendientes;
 
         /// <summary>
-        /// Control Contrato_Adjunto.
+        /// Control Documento_Legal.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText Contrato_Adjunto;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Documento_Legal;
 
         /// <summary>
-        /// Control Comprobante_Pago.
+        /// Control Observacion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText Comprobante_Pago;
-
-        /// <summary>
-        /// Control Cuenta.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText Cuenta;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Observacion;
 
         /// <summary>
         /// Control chkEstado.

@@ -13,6 +13,7 @@ using WebAuditorias.Controllers.AuditoriaDocumentos;
 using WebAuditorias.Models.Bases;
 using WebAuditorias.Controllers.Cookies;
 using WebAuditorias.Models;
+using System.Runtime.Caching;
 
 namespace WebAuditorias.Views
 {
@@ -63,8 +64,12 @@ namespace WebAuditorias.Views
             AuditoriaDocumentosController _controller = new AuditoriaDocumentosController();
             Models.AuditoriaDocumentos parametro = new Models.AuditoriaDocumentos();
             Plantilla_Regularizaciones regularizacion = new Plantilla_Regularizaciones();
+            List<ValidaPlantilla> validaPlantilla = new List<ValidaPlantilla>();
+            CargaPlantillaRegularizacionesController plantillaContoller = new CargaPlantillaRegularizacionesController();
             string jsonString;
             string response;
+            double valorDecimal;
+            DateTime fechaTabla;
 
             UserInfoCookie user_cookie = new UserInfoCookie();
             UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
@@ -79,15 +84,34 @@ namespace WebAuditorias.Views
             Int16 plantillaId = Int16.Parse(arrayParametros[0]);
 
             regularizacion.Mes = Mes.Value.ToUpper();
-            regularizacion.Fecha = DateTime.Parse(Fecha.Value);
+            regularizacion.Fecha = !DateTime.TryParse(Fecha.Value.Trim(), out fechaTabla) ? DateTime.Parse("1900-01-01") : DateTime.Parse(Fecha.Value.Trim());  
             regularizacion.Detalle = Detalle.Value.ToUpper();
-            regularizacion.Monto = double.Parse(Monto.Value, CultureInfo.InvariantCulture);
+            regularizacion.Monto = !double.TryParse(Monto.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Monto.Value.Trim(), CultureInfo.InvariantCulture); 
             regularizacion.Motivo = Motivo.Value.ToUpper(); 
             regularizacion.Banco_Ingreso = Banco_Ingreso.Value.ToUpper();
             regularizacion.Banco_Regularizar = Banco_Regularizar.Value.ToUpper();
             regularizacion.Cuenta = Cuenta.Value.ToUpper(); 
             regularizacion.Estado = Estado.Value.ToUpper(); 
-            regularizacion.Soporte = Soporte.Value.ToUpper();   
+            regularizacion.Soporte = Soporte.Value.ToUpper();
+
+            var validaResponse = plantillaContoller.ValidarRegistroRegularizacion(regularizacion);
+
+            if (validaResponse != null && validaResponse.Count > 0)
+            {
+                validaPlantilla.Add(new ValidaPlantilla() { Linea = 0, Campos = validaResponse });
+                ObjectCache cache = MemoryCache.Default;
+                string CacheKey = user_cookie.Usuario.Trim();
+
+                if (cache.Contains(CacheKey))
+                    cache.Remove(CacheKey);
+
+                CacheItemPolicy cacheItemPolicy = new CacheItemPolicy();
+                cacheItemPolicy.AbsoluteExpiration = DateTime.Now.AddHours(1.0);
+                cache.Add(CacheKey, validaPlantilla, cacheItemPolicy);
+
+                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('0', 'Existen campos con errores')", true);
+                return;
+            }
 
             jsonString = JsonConvert.SerializeObject(regularizacion);
 
@@ -115,7 +139,7 @@ namespace WebAuditorias.Views
                 response = _controller.Actualizacion(parametro);
             }
 
-            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "document.getElementById('profile-tab').click(); LlenaGrid();", true);
+            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('1', 'El registro de plantilla se grabó exitosamente')", true);
         }
 
         protected void BtnEliminar_ServerClick(object sender, EventArgs e)
@@ -125,6 +149,8 @@ namespace WebAuditorias.Views
             Plantilla_Regularizaciones regularizacion = new Plantilla_Regularizaciones();
             string jsonString;
             string response;
+            double valorDecimal;
+            DateTime fechaTabla;
 
             UserInfoCookie user_cookie = new UserInfoCookie();
             UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
@@ -139,9 +165,9 @@ namespace WebAuditorias.Views
             Int16 plantillaId = Int16.Parse(arrayParametros[0]);
 
             regularizacion.Mes = Mes.Value.ToUpper();
-            regularizacion.Fecha = DateTime.Parse(Fecha.Value);
+            regularizacion.Fecha = !DateTime.TryParse(Fecha.Value.Trim(), out fechaTabla) ? DateTime.Parse("1900-01-01") : DateTime.Parse(Fecha.Value.Trim());
             regularizacion.Detalle = Detalle.Value.ToUpper();
-            regularizacion.Monto = double.Parse(Monto.Value, CultureInfo.InvariantCulture);
+            regularizacion.Monto = !double.TryParse(Monto.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Monto.Value.Trim(), CultureInfo.InvariantCulture);
             regularizacion.Motivo = Motivo.Value.ToUpper();
             regularizacion.Banco_Ingreso = Banco_Ingreso.Value.ToUpper();
             regularizacion.Banco_Regularizar = Banco_Regularizar.Value.ToUpper();
@@ -168,7 +194,7 @@ namespace WebAuditorias.Views
 
             response = _controller.Actualizacion(parametro);
 
-            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "document.getElementById('profile-tab').click(); LlenaGrid();", true);
+            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('1', 'El registro de plantilla se eliminó exitosamente')", true);
         }
 
         protected void BtnCargar_ServerClick(object sender, EventArgs e)
@@ -235,7 +261,7 @@ namespace WebAuditorias.Views
                         Mes = regularizacion.Mes,
                         Fecha = regularizacion.Fecha,
                         Detalle = regularizacion.Detalle,
-                        Monto = regularizacion.Monto,
+                        Monto = Math.Round(regularizacion.Monto, 2),
                         Motivo = regularizacion.Motivo,
                         Banco_Ingreso = regularizacion.Banco_Ingreso,
                         Banco_Regularizar = regularizacion.Banco_Regularizar,
@@ -258,6 +284,10 @@ namespace WebAuditorias.Views
             string referencia = Referencia.Value.Trim();
             string response = "";
 
+            UserInfoCookie user_cookie = new UserInfoCookie();
+            UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
+            user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
+
             string[] arrayParametros;
             arrayParametros = Auditoria.Value.Split('-');
             int auditoriaId = int.Parse(arrayParametros[0]);
@@ -270,11 +300,23 @@ namespace WebAuditorias.Views
 
             if (response == "")
             {
-                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "alert('La plantilla se ha procesado correctamente');", true);
+                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('1', 'La plantilla se ha procesado correctamente')", true);
             }
             else
             {
-                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "alert('Error : " + response + "');", true);
+                var listaErrores = JsonConvert.DeserializeObject<List<ValidaPlantilla>>(response);
+
+                ObjectCache cache = MemoryCache.Default;
+                string CacheKey = user_cookie.Usuario.Trim();
+
+                if (cache.Contains(CacheKey))
+                    cache.Remove(CacheKey);
+
+                CacheItemPolicy cacheItemPolicy = new CacheItemPolicy();
+                cacheItemPolicy.AbsoluteExpiration = DateTime.Now.AddHours(1.0);
+                cache.Add(CacheKey, listaErrores, cacheItemPolicy);
+
+                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('0', 'Existen campos con errores')", true);
             }
         }
 

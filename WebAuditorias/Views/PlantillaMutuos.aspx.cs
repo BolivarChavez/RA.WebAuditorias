@@ -13,6 +13,7 @@ using System.Globalization;
 using WebAuditorias.Models.Bases;
 using WebAuditorias.Controllers.Cookies;
 using WebAuditorias.Models;
+using System.Runtime.Caching;
 
 namespace WebAuditorias.Views
 {
@@ -63,8 +64,12 @@ namespace WebAuditorias.Views
             AuditoriaDocumentosController _controller = new AuditoriaDocumentosController();
             Models.AuditoriaDocumentos parametro = new Models.AuditoriaDocumentos();
             Plantilla_Mutuos mutuo = new Plantilla_Mutuos();
+            List<ValidaPlantilla> validaPlantilla = new List<ValidaPlantilla>();
+            CargaPlantillaMutuosController plantillaContoller = new CargaPlantillaMutuosController();
             string jsonString;
             string response;
+            double valorDecimal;
+            DateTime fechaTabla;
 
             UserInfoCookie user_cookie = new UserInfoCookie();
             UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
@@ -78,17 +83,39 @@ namespace WebAuditorias.Views
             arrayParametros = Plantilla.Value.Split('-');
             Int16 plantillaId = Int16.Parse(arrayParametros[0]);
 
-            mutuo.Codigo = Codigo.Value.ToUpper();
-            mutuo.Fecha_Documento = DateTime.Parse(Fecha_Documento.Value);
-            mutuo.Fecha_Inicio_Pago = DateTime.Parse(Fecha_Inicio_Pago.Value);
-            mutuo.Monto_Prestamo = double.Parse(Monto_Prestamo.Value, CultureInfo.InvariantCulture);
-            mutuo.Valor_Cuota = double.Parse(Valor_Cuota.Value, CultureInfo.InvariantCulture);
-            mutuo.Total_Cancelado = double.Parse(Total_Cancelado.Value, CultureInfo.InvariantCulture);
-            mutuo.Saldo_Pendiente = double.Parse(Saldo_Pendiente.Value, CultureInfo.InvariantCulture);
+            mutuo.Codigo = CodigoMutuo.Value.ToUpper();
+            mutuo.Banco = Banco.Value.ToUpper();
+            mutuo.Moneda = Moneda.Value.ToUpper();
+            mutuo.Detalle = Detalle.Value.ToUpper();
+            mutuo.Fecha_Documento = !DateTime.TryParse(Fecha_Documento.Value.Trim(), out fechaTabla) ? DateTime.Parse("1900-01-01") : DateTime.Parse(Fecha_Documento.Value.Trim());  
+            mutuo.Monto_Prestamo = !double.TryParse(Monto_Prestamo.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Monto_Prestamo.Value.Trim(), CultureInfo.InvariantCulture); 
+            mutuo.Fecha_Pago_Cuota = !DateTime.TryParse(Fecha_Pago_Cuota.Value.Trim(), out fechaTabla) ? DateTime.Parse("1900-01-01") : DateTime.Parse(Fecha_Pago_Cuota.Value.Trim());
+            mutuo.Numero_Cuota = Numero_Cuota.Value.ToUpper();
+            mutuo.Valor_Cuota = !double.TryParse(Valor_Cuota.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Valor_Cuota.Value.Trim(), CultureInfo.InvariantCulture);
+            mutuo.Comprobante_Pago = Comprobante_Pago.Value.ToUpper();
+            mutuo.Saldo_Pendiente = !double.TryParse(Saldo_Pendiente.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Saldo_Pendiente.Value.Trim(), CultureInfo.InvariantCulture);
             mutuo.Cuotas_Pendientes = Cuotas_Pendientes.Value.ToUpper();
-            mutuo.Contrato_Adjunto = Contrato_Adjunto.Value.ToUpper();
-            mutuo.Comprobante_Pago = Comprobante_Pago.Value.ToUpper();  
-            mutuo.Cuenta = Cuenta.Value.ToUpper();  
+            mutuo.Documento_Legal = Documento_Legal.Value.ToUpper();
+            mutuo.Observacion = Observacion.Value.ToUpper();
+
+            var validaResponse = plantillaContoller.ValidarRegistroMutuo(mutuo);
+
+            if (validaResponse != null && validaResponse.Count > 0)
+            {
+                validaPlantilla.Add(new ValidaPlantilla() { Linea = 0, Campos = validaResponse });
+                ObjectCache cache = MemoryCache.Default;
+                string CacheKey = user_cookie.Usuario.Trim();
+
+                if (cache.Contains(CacheKey))
+                    cache.Remove(CacheKey);
+
+                CacheItemPolicy cacheItemPolicy = new CacheItemPolicy();
+                cacheItemPolicy.AbsoluteExpiration = DateTime.Now.AddHours(1.0);
+                cache.Add(CacheKey, validaPlantilla, cacheItemPolicy);
+
+                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('0', 'Existen campos con errores')", true);
+                return;
+            }
 
             jsonString = JsonConvert.SerializeObject(mutuo);
 
@@ -116,7 +143,7 @@ namespace WebAuditorias.Views
                 response = _controller.Actualizacion(parametro);
             }
 
-            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "document.getElementById('profile-tab').click(); LlenaGrid();", true);
+            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('1', 'El registro de plantilla se grabó exitosamente')", true);
         }
 
         protected void BtnEliminar_ServerClick(object sender, EventArgs e)
@@ -126,6 +153,8 @@ namespace WebAuditorias.Views
             Plantilla_Mutuos mutuo = new Plantilla_Mutuos();
             string jsonString;
             string response;
+            double valorDecimal;
+            DateTime fechaTabla;
 
             UserInfoCookie user_cookie = new UserInfoCookie();
             UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
@@ -139,17 +168,20 @@ namespace WebAuditorias.Views
             arrayParametros = Plantilla.Value.Split('-');
             Int16 plantillaId = Int16.Parse(arrayParametros[0]);
 
-            mutuo.Codigo = Codigo.Value.ToUpper();
-            mutuo.Fecha_Documento = DateTime.Parse(Fecha_Documento.Value);
-            mutuo.Fecha_Inicio_Pago = DateTime.Parse(Fecha_Inicio_Pago.Value);
-            mutuo.Monto_Prestamo = double.Parse(Monto_Prestamo.Value, CultureInfo.InvariantCulture);
-            mutuo.Valor_Cuota = double.Parse(Valor_Cuota.Value, CultureInfo.InvariantCulture);
-            mutuo.Total_Cancelado = double.Parse(Total_Cancelado.Value, CultureInfo.InvariantCulture);
-            mutuo.Saldo_Pendiente = double.Parse(Saldo_Pendiente.Value, CultureInfo.InvariantCulture);
-            mutuo.Cuotas_Pendientes = Cuotas_Pendientes.Value.ToUpper();
-            mutuo.Contrato_Adjunto = Contrato_Adjunto.Value.ToUpper();
+            mutuo.Codigo = CodigoMutuo.Value.ToUpper();
+            mutuo.Banco = Banco.Value.ToUpper();
+            mutuo.Moneda = Moneda.Value.ToUpper();
+            mutuo.Detalle = Detalle.Value.ToUpper();
+            mutuo.Fecha_Documento = !DateTime.TryParse(Fecha_Documento.Value.Trim(), out fechaTabla) ? DateTime.Parse("1900-01-01") : DateTime.Parse(Fecha_Documento.Value.Trim());
+            mutuo.Monto_Prestamo = !double.TryParse(Monto_Prestamo.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Monto_Prestamo.Value.Trim(), CultureInfo.InvariantCulture);
+            mutuo.Fecha_Pago_Cuota = !DateTime.TryParse(Fecha_Pago_Cuota.Value.Trim(), out fechaTabla) ? DateTime.Parse("1900-01-01") : DateTime.Parse(Fecha_Pago_Cuota.Value.Trim());
+            mutuo.Numero_Cuota = Numero_Cuota.Value.ToUpper();
+            mutuo.Valor_Cuota = !double.TryParse(Valor_Cuota.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Valor_Cuota.Value.Trim(), CultureInfo.InvariantCulture);
             mutuo.Comprobante_Pago = Comprobante_Pago.Value.ToUpper();
-            mutuo.Cuenta = Cuenta.Value.ToUpper();
+            mutuo.Saldo_Pendiente = !double.TryParse(Saldo_Pendiente.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Saldo_Pendiente.Value.Trim(), CultureInfo.InvariantCulture);
+            mutuo.Cuotas_Pendientes = Cuotas_Pendientes.Value.ToUpper();
+            mutuo.Documento_Legal = Documento_Legal.Value.ToUpper();
+            mutuo.Observacion = Observacion.Value.ToUpper();
 
             jsonString = JsonConvert.SerializeObject(mutuo);
 
@@ -170,7 +202,7 @@ namespace WebAuditorias.Views
 
             response = _controller.Actualizacion(parametro);
 
-            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "document.getElementById('profile-tab').click(); LlenaGrid();", true);
+            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('1', 'El registro de plantilla se eliminó exitosamente')", true);
         }
 
         protected void BtnCargar_ServerClick(object sender, EventArgs e)
@@ -235,16 +267,19 @@ namespace WebAuditorias.Views
                         IdEstado = lineaDoc.ad_estado,
                         ReferenciaDocumento = "",
                         Codigo = mutuo.Codigo,
+                        Banco = mutuo.Banco,
+                        Moneda = mutuo.Moneda,
+                        Detalle = mutuo.Detalle,
                         Fecha_Documento = mutuo.Fecha_Documento,
-                        Fecha_Inicio_Pago = mutuo.Fecha_Inicio_Pago,
-                        Monto_Prestamo = mutuo.Monto_Prestamo,
-                        Valor_Cuota  = mutuo.Valor_Cuota,
-                        Total_Cancelado = mutuo.Total_Cancelado,
-                        Saldo_Pendiente = mutuo.Saldo_Pendiente,
-                        Cuotas_Pendientes  = mutuo.Cuotas_Pendientes,
-                        Contrato_Adjunto = mutuo.Contrato_Adjunto,
+                        Monto_Prestamo = Math.Round(mutuo.Monto_Prestamo, 2),
+                        Fecha_Pago_Cuota = mutuo.Fecha_Pago_Cuota,
+                        Numero_Cuota = mutuo.Numero_Cuota,
+                        Valor_Cuota = Math.Round(mutuo.Valor_Cuota, 2),
                         Comprobante_Pago = mutuo.Comprobante_Pago,
-                        Cuenta  = mutuo.Cuenta
+                        Saldo_Pendiente = mutuo.Saldo_Pendiente,
+                        Cuotas_Pendientes = mutuo.Cuotas_Pendientes,
+                        Documento_Legal = mutuo.Documento_Legal,
+                        Observacion = mutuo.Observacion
                     }
                     );
             }
@@ -261,6 +296,10 @@ namespace WebAuditorias.Views
             string referencia = Referencia.Value.Trim();
             string response = "";
 
+            UserInfoCookie user_cookie = new UserInfoCookie();
+            UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
+            user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
+
             string[] arrayParametros;
             arrayParametros = Auditoria.Value.Split('-');
             int auditoriaId = int.Parse(arrayParametros[0]);
@@ -273,11 +312,23 @@ namespace WebAuditorias.Views
 
             if (response == "")
             {
-                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "alert('La plantilla se ha procesado correctamente');", true);
+                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('1', 'La plantilla se ha procesado correctamente')", true);
             }
             else
             {
-                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "alert('Error : " + response + "');", true);
+                var listaErrores = JsonConvert.DeserializeObject<List<ValidaPlantilla>>(response);
+
+                ObjectCache cache = MemoryCache.Default;
+                string CacheKey = user_cookie.Usuario.Trim();
+
+                if (cache.Contains(CacheKey))
+                    cache.Remove(CacheKey);
+
+                CacheItemPolicy cacheItemPolicy = new CacheItemPolicy();
+                cacheItemPolicy.AbsoluteExpiration = DateTime.Now.AddHours(1.0);
+                cache.Add(CacheKey, listaErrores, cacheItemPolicy);
+
+                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('0', 'Existen campos con errores')", true);
             }
         }
 

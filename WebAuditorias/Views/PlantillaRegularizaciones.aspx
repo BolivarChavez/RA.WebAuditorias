@@ -17,6 +17,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../Scripts/PlantillaRegularizaciones.js" type="text/javascript"></script>
 </head>
 <body style="margin: 0; height: 100%; overflow: hidden; background-color: #E5E8E8;">
         <div class="container-fluid">
@@ -103,43 +105,43 @@
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
                                                         <label for="Mes" class="col-form-label col-form-label-sm" style="font-weight:bold;">Mes</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Mes" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Mes" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Fecha" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Fecha" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Fecha" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Detalle" class="col-form-label col-form-label-sm" style="font-weight:bold;">Detalle</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Detalle" placeholder="" runat="server" onclick="muestraContenidoTexto('Detalle', 'Detalle')"/>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Detalle" placeholder="" runat="server" onclick="muestraContenidoTexto('Detalle', 'Detalle')"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Monto" class="col-form-label col-form-label-sm" style="font-weight:bold;">Monto</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Monto" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Monto" placeholder="" runat="server"/>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
                                                         <label for="Motivo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Motivo</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Motivo" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Motivo" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Banco_Ingreso" class="col-form-label col-form-label-sm" style="font-weight:bold;">Banco ingreso</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Banco_Ingreso" placeholder="" runat="server"/>
+                                                        <label for="Banco_Ingreso" class="col-form-label col-form-label-sm" style="font-weight:bold;">Banco Ingreso</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Banco_Ingreso" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Banco_Regularizar" class="col-form-label col-form-label-sm" style="font-weight:bold;">Banco regularizar</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Banco_Regularizar" placeholder="" runat="server"/>
+                                                        <label for="Banco_Regularizar" class="col-form-label col-form-label-sm" style="font-weight:bold;">Banco Regularizar</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Banco_Regularizar" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Cuenta" class="col-form-label col-form-label-sm" style="font-weight:bold;">Cuenta</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Cuenta" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Cuenta" placeholder="" runat="server"/>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
                                                         <label for="Estado" class="col-form-label col-form-label-sm" style="font-weight:bold;">Estado</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Estado" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Estado" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Soporte" class="col-form-label col-form-label-sm" style="font-weight:bold;">Soporte</label>
@@ -191,7 +193,7 @@
                         <button type="button" class="close" data-dismiss="modal" onclick="cierraContenidoTexto()">&times;</button>
                     </div>
                     <div class="modal-body">
-                        <textarea rows="5" class="form-control" style="overflow-y:scroll;" id="message-text"></textarea>
+                        <textarea rows="5" class="form-control" style="overflow-y:scroll; font-size: 12px" id="message-text"></textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cierraContenidoTexto()">Cerrar</button>
@@ -199,7 +201,6 @@
                 </div>
             </div>
         </div>
-        <script src="../Scripts/PlantillaRegularizaciones.js" type="text/javascript"></script>
         <script>
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip()

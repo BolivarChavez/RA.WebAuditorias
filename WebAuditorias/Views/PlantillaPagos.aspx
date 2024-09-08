@@ -18,7 +18,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../Scripts/PlantillaPagos.js" type="text/javascript"></script>
 </head>
 <body style="margin: 0; height: 100%; overflow: hidden; background-color: #E5E8E8;">
         <div class="container-fluid">
@@ -105,28 +106,28 @@
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
                                                         <label for="Periodo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Período</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Periodo" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Periodo" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Detalle" class="col-form-label col-form-label-sm" style="font-weight:bold;">Detalle</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Detalle" placeholder="" runat="server" onclick="muestraContenidoTexto('Detalle', 'Detalle')"/>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Detalle" placeholder="" runat="server" onclick="muestraContenidoTexto('Detalle', 'Detalle')"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Fecha_Pago" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha pago</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Fecha_Pago" placeholder="" runat="server"/>
+                                                        <label for="Fecha_Pago" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha de Pago</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Fecha_Pago" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Importe_Bruto" class="col-form-label col-form-label-sm" style="font-weight:bold;">Importe bruto</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Importe_Bruto" placeholder="" runat="server"/>
+                                                        <label for="Importe_Bruto" class="col-form-label col-form-label-sm" style="font-weight:bold;">Importe Bruto</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Importe_Bruto" placeholder="" runat="server"/>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
                                                         <label for="Descuentos" class="col-form-label col-form-label-sm" style="font-weight:bold;">Descuentos</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Descuentos" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Descuentos" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Neto_Pagar" class="col-form-label col-form-label-sm" style="font-weight:bold;">Neto pagar</label>
+                                                        <label for="Neto_Pagar" class="col-form-label col-form-label-sm" style="font-weight:bold;">Neto a Pagar</label>
                                                         <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Neto_Pagar" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
@@ -144,11 +145,11 @@
                                                         <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Diferencia" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Numero_Cheque" class="col-form-label col-form-label-sm" style="font-weight:bold;">Numero cheque</label>
+                                                        <label for="Numero_Cheque" class="col-form-label col-form-label-sm" style="font-weight:bold;">Número de Cheque</label>
                                                         <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Numero_Cheque" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Numero_Informe" class="col-form-label col-form-label-sm" style="font-weight:bold;">Numero informe</label>
+                                                        <label for="Numero_Informe" class="col-form-label col-form-label-sm" style="font-weight:bold;">Número de Informe</label>
                                                         <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Numero_Informe" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
@@ -201,7 +202,7 @@
                         <button type="button" class="close" data-dismiss="modal" onclick="cierraContenidoTexto()">&times;</button>
                     </div>
                     <div class="modal-body">
-                        <textarea rows="5" class="form-control" style="overflow-y:scroll;" id="message-text"></textarea>
+                        <textarea rows="5" class="form-control" style="overflow-y:scroll; font-size: 12px" id="message-text"></textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cierraContenidoTexto()">Cerrar</button>
@@ -209,7 +210,6 @@
                 </div>
             </div>
         </div>
-        <script src="../Scripts/PlantillaPagos.js" type="text/javascript"></script>
         <script>
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip()

@@ -69,21 +69,22 @@ async function LlenaGrid() {
             { field: 'Req', headerText: 'Req', width: 75, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Proveedor', headerText: 'Proveedor', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Concepto', headerText: 'Concepto', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'Referencia', headerText: 'Documento Factura/Recibo/Boleta', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Documento', headerText: 'Documento (Factura/Recibo/Boleta)', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Mes', headerText: 'Mes', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Moneda', headerText: 'Moneda', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Importe_Monto', headerText: 'Importe Monto', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Monto', headerText: 'Monto', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'Tipo_Cambio', headerText: 'Tipo Cambio', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'Comprobante_Pago', headerText: 'Comprobante Pago', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Tipo_Cambio', headerText: 'Tipo de Cambio', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Comprobante_Pago', headerText: 'Comprobante de Pago', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Fecha_Pago', headerText: 'Fecha de Pago', type: 'date', width: 175, format: { type: 'date', format: 'dd/MM/yyyy' }, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'Observacion_Preliminar', headerText: 'Observacion Preliminar', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'Observacion_Final', headerText: 'Observacion Final', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Observacion_Preliminar', headerText: 'Observación Preliminar', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Observacion_Final', headerText: 'Observación Final', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Estado', headerText: 'Estado', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Banco', headerText: 'Banco', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Empresa', headerText: 'Empresa', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Sede', headerText: 'Sede', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'Cuenta', headerText: 'Cuenta', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'Sub_Cuenta', headerText: 'Sub Cuenta', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Cuenta', headerText: 'Cuenta Contable', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Sub_Cuenta', headerText: 'Sub Cuenta Contable', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Soporte', headerText: 'Soporte', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } }
         ],
         pageSettings: { pageCount: 5, pageSize: 10 },
@@ -97,12 +98,14 @@ function rowSelected(args) {
 
     document.getElementById('Codigo').value = args.data.IdRegistro;
     document.getElementById('Referencia').value = args.data.ReferenciaLinea;
+
     document.getElementById('Item').value = args.data.Item;
     document.getElementById('Req').value = args.data.Req;
     document.getElementById('Proveedor').value = args.data.Proveedor;
     document.getElementById('Concepto').value = args.data.Concepto;
-    document.getElementById('ReferenciaTransferencia').value = args.data.Referencia;
+    document.getElementById('Documento').value = args.data.Documento;
     document.getElementById('Mes').value = args.data.Mes;
+    document.getElementById('Moneda').value = args.data.Moneda;
     document.getElementById('Importe_Monto').value = args.data.Importe_Monto;
     document.getElementById('Monto').value = args.data.Monto;
     document.getElementById('Tipo_Cambio').value = args.data.Tipo_Cambio;
@@ -137,4 +140,30 @@ function cierraContenidoTexto() {
     var campo = document.getElementById('HiddenField1').value;
     document.getElementById(campo).value = document.getElementById('message-text').value;
     $('#myModal').modal('hide');
+}
+
+function mensajeGrabacion(respuesta, mensaje) {
+    if (respuesta === "1") {
+        Swal.fire({
+            title: "Plantilla de Transferencias",
+            text: mensaje,
+            icon: "success",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Continuar"
+        }).then(function () {
+            document.getElementById('profile-tab').click();
+            LlenaGrid();
+        });
+    }
+    else {
+        Swal.fire({
+            title: "Plantilla de Transferencias",
+            text: mensaje,
+            icon: "error",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Continuar"
+        }).then(function () {
+            window.open("ErroresDatosPlantilla.aspx?plantilla=Plantilla de Transferencias", "_blank");
+        });
+    }
 }

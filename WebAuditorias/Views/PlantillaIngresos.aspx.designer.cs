@@ -240,6 +240,15 @@ namespace WebAuditorias.Views
         protected global::System.Web.UI.HtmlControls.HtmlInputText Concepto;
 
         /// <summary>
+        /// Control Moneda.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Moneda;
+
+        /// <summary>
         /// Control Subtotal.
         /// </summary>
         /// <remarks>
@@ -285,24 +294,6 @@ namespace WebAuditorias.Views
         protected global::System.Web.UI.HtmlControls.HtmlInputText Detraccion_Moneda_Destino;
 
         /// <summary>
-        /// Control Detraccion_Moneda_Base.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText Detraccion_Moneda_Base;
-
-        /// <summary>
-        /// Control Comprobante_Ingreso.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText Comprobante_Ingreso;
-
-        /// <summary>
         /// Control Neto_Ingreso.
         /// </summary>
         /// <remarks>
@@ -346,6 +337,60 @@ namespace WebAuditorias.Views
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText Soporte;
+
+        /// <summary>
+        /// Control Observacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Observacion;
+
+        /// <summary>
+        /// Control Banco.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Banco;
+
+        /// <summary>
+        /// Control Empresa.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Empresa;
+
+        /// <summary>
+        /// Control Sede.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Sede;
+
+        /// <summary>
+        /// Control Cuenta_Contable.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Cuenta_Contable;
+
+        /// <summary>
+        /// Control SubCuenta.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText SubCuenta;
 
         /// <summary>
         /// Control chkEstado.

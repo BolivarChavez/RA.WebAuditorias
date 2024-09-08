@@ -13,6 +13,7 @@ using WebAuditorias.Controllers.AuditoriaDocumentos;
 using WebAuditorias.Models.Bases;
 using WebAuditorias.Controllers.Cookies;
 using WebAuditorias.Models;
+using System.Runtime.Caching;
 
 namespace WebAuditorias.Views
 {
@@ -63,8 +64,12 @@ namespace WebAuditorias.Views
             AuditoriaDocumentosController _controller = new AuditoriaDocumentosController();
             Models.AuditoriaDocumentos parametro = new Models.AuditoriaDocumentos();
             Plantilla_Pagos pago = new Plantilla_Pagos();
+            List<ValidaPlantilla> validaPlantilla = new List<ValidaPlantilla>();
+            CargaPlantillaPagosController plantillaContoller = new CargaPlantillaPagosController();
             string jsonString;
             string response;
+            double valorDecimal;
+            DateTime fechaTabla;
 
             UserInfoCookie user_cookie = new UserInfoCookie();
             UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
@@ -80,16 +85,35 @@ namespace WebAuditorias.Views
 
             pago.Periodo = Periodo.Value.ToUpper();
             pago.Detalle = Detalle.Value.ToUpper();
-            pago.Fecha_Pago = DateTime.Parse(Fecha_Pago.Value);
-            pago.Importe_Bruto = double.Parse(Importe_Bruto.Value, CultureInfo.InvariantCulture);
-            pago.Descuentos = double.Parse(Descuentos.Value, CultureInfo.InvariantCulture);
-            pago.Neto_Pagar = double.Parse(Neto_Pagar.Value, CultureInfo.InvariantCulture);
-            pago.Transferencia = double.Parse(Transferencia.Value, CultureInfo.InvariantCulture);
-            pago.Cheque = double.Parse(Cheque.Value, CultureInfo.InvariantCulture);
-            pago.Diferencia = double.Parse(Diferencia.Value, CultureInfo.InvariantCulture);
+            pago.Fecha_Pago = !DateTime.TryParse(Fecha_Pago.Value.Trim(), out fechaTabla) ? DateTime.Parse("1900-01-01") : DateTime.Parse(Fecha_Pago.Value.Trim());  
+            pago.Importe_Bruto = !double.TryParse(Importe_Bruto.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Importe_Bruto.Value.Trim(), CultureInfo.InvariantCulture);  
+            pago.Descuentos = !double.TryParse(Descuentos.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Descuentos.Value.Trim(), CultureInfo.InvariantCulture);  
+            pago.Neto_Pagar = !double.TryParse(Neto_Pagar.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Neto_Pagar.Value.Trim(), CultureInfo.InvariantCulture);  
+            pago.Transferencia = !double.TryParse(Transferencia.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Transferencia.Value.Trim(), CultureInfo.InvariantCulture); 
+            pago.Cheque = !double.TryParse(Cheque.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Cheque.Value.Trim(), CultureInfo.InvariantCulture);  
+            pago.Diferencia = !double.TryParse(Diferencia.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Diferencia.Value.Trim(), CultureInfo.InvariantCulture);  
             pago.Numero_Cheque = Numero_Cheque.Value.ToUpper();
             pago.Numero_Informe = Numero_Informe.Value.ToUpper();
             pago.Observaciones = Observaciones.Value.ToUpper();
+
+            var validaResponse = plantillaContoller.ValidarRegistroPago(pago);
+
+            if (validaResponse != null && validaResponse.Count > 0)
+            {
+                validaPlantilla.Add(new ValidaPlantilla() { Linea = 0, Campos = validaResponse });
+                ObjectCache cache = MemoryCache.Default;
+                string CacheKey = user_cookie.Usuario.Trim();
+
+                if (cache.Contains(CacheKey))
+                    cache.Remove(CacheKey);
+
+                CacheItemPolicy cacheItemPolicy = new CacheItemPolicy();
+                cacheItemPolicy.AbsoluteExpiration = DateTime.Now.AddHours(1.0);
+                cache.Add(CacheKey, validaPlantilla, cacheItemPolicy);
+
+                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('0', 'Existen campos con errores')", true);
+                return;
+            }
 
             jsonString = JsonConvert.SerializeObject(pago);
 
@@ -117,7 +141,7 @@ namespace WebAuditorias.Views
                 response = _controller.Actualizacion(parametro);
             }
 
-            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "document.getElementById('profile-tab').click(); LlenaGrid();", true);
+            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('1', 'El registro de plantilla se grabó exitosamente')", true);
         }
 
         protected void BtnEliminar_ServerClick(object sender, EventArgs e)
@@ -127,6 +151,8 @@ namespace WebAuditorias.Views
             Plantilla_Pagos pago = new Plantilla_Pagos();
             string jsonString;
             string response;
+            double valorDecimal;
+            DateTime fechaTabla;
 
             UserInfoCookie user_cookie = new UserInfoCookie();
             UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
@@ -142,13 +168,13 @@ namespace WebAuditorias.Views
 
             pago.Periodo = Periodo.Value.ToUpper();
             pago.Detalle = Detalle.Value.ToUpper();
-            pago.Fecha_Pago = DateTime.Parse(Fecha_Pago.Value);
-            pago.Importe_Bruto = double.Parse(Importe_Bruto.Value, CultureInfo.InvariantCulture);
-            pago.Descuentos = double.Parse(Descuentos.Value, CultureInfo.InvariantCulture);
-            pago.Neto_Pagar = double.Parse(Neto_Pagar.Value, CultureInfo.InvariantCulture);
-            pago.Transferencia = double.Parse(Transferencia.Value, CultureInfo.InvariantCulture);
-            pago.Cheque = double.Parse(Cheque.Value, CultureInfo.InvariantCulture);
-            pago.Diferencia = double.Parse(Diferencia.Value, CultureInfo.InvariantCulture);
+            pago.Fecha_Pago = !DateTime.TryParse(Fecha_Pago.Value.Trim(), out fechaTabla) ? DateTime.Parse("1900-01-01") : DateTime.Parse(Fecha_Pago.Value.Trim());
+            pago.Importe_Bruto = !double.TryParse(Importe_Bruto.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Importe_Bruto.Value.Trim(), CultureInfo.InvariantCulture);
+            pago.Descuentos = !double.TryParse(Descuentos.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Descuentos.Value.Trim(), CultureInfo.InvariantCulture);
+            pago.Neto_Pagar = !double.TryParse(Neto_Pagar.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Neto_Pagar.Value.Trim(), CultureInfo.InvariantCulture);
+            pago.Transferencia = !double.TryParse(Transferencia.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Transferencia.Value.Trim(), CultureInfo.InvariantCulture);
+            pago.Cheque = !double.TryParse(Cheque.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Cheque.Value.Trim(), CultureInfo.InvariantCulture);
+            pago.Diferencia = !double.TryParse(Diferencia.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Diferencia.Value.Trim(), CultureInfo.InvariantCulture);
             pago.Numero_Cheque = Numero_Cheque.Value.ToUpper();
             pago.Numero_Informe = Numero_Informe.Value.ToUpper();
             pago.Observaciones = Observaciones.Value.ToUpper();
@@ -172,7 +198,7 @@ namespace WebAuditorias.Views
 
             response = _controller.Actualizacion(parametro);
 
-            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "document.getElementById('profile-tab').click(); LlenaGrid();", true);
+            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('1', 'El registro de plantilla se eliminó exitosamente')", true);
         }
 
         protected void BtnCargar_ServerClick(object sender, EventArgs e)
@@ -240,11 +266,11 @@ namespace WebAuditorias.Views
                         Detalle = pago.Detalle,
                         Fecha_Pago = pago.Fecha_Pago,
                         Importe_Bruto= pago.Importe_Bruto,
-                        Descuentos = pago.Descuentos,
-                        Neto_Pagar = pago.Neto_Pagar,
-                        Transferencia = pago.Transferencia,
-                        Cheque = pago.Cheque,
-                        Diferencia = pago.Diferencia,
+                        Descuentos = Math.Round(pago.Descuentos, 2),
+                        Neto_Pagar = Math.Round(pago.Neto_Pagar, 2),
+                        Transferencia = Math.Round(pago.Transferencia, 2),
+                        Cheque = Math.Round(pago.Cheque, 2),
+                        Diferencia = Math.Round(pago.Diferencia, 2),
                         Numero_Cheque = pago.Numero_Cheque,
                         Numero_Informe = pago.Numero_Informe,
                         Observaciones = pago.Observaciones
@@ -264,6 +290,10 @@ namespace WebAuditorias.Views
             string referencia = Referencia.Value.Trim();
             string response = "";
 
+            UserInfoCookie user_cookie = new UserInfoCookie();
+            UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
+            user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
+
             string[] arrayParametros;
             arrayParametros = Auditoria.Value.Split('-');
             int auditoriaId = int.Parse(arrayParametros[0]);
@@ -276,11 +306,23 @@ namespace WebAuditorias.Views
 
             if (response == "")
             {
-                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "alert('La plantilla se ha procesado correctamente');", true);
+                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('1', 'La plantilla se ha procesado correctamente')", true);
             }
             else
             {
-                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "alert('Error : " + response + "');", true);
+                var listaErrores = JsonConvert.DeserializeObject<List<ValidaPlantilla>>(response);
+
+                ObjectCache cache = MemoryCache.Default;
+                string CacheKey = user_cookie.Usuario.Trim();
+
+                if (cache.Contains(CacheKey))
+                    cache.Remove(CacheKey);
+
+                CacheItemPolicy cacheItemPolicy = new CacheItemPolicy();
+                cacheItemPolicy.AbsoluteExpiration = DateTime.Now.AddHours(1.0);
+                cache.Add(CacheKey, listaErrores, cacheItemPolicy);
+
+                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('0', 'Existen campos con errores')", true);
             }
         }
 

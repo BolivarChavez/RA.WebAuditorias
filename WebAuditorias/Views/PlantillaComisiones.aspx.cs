@@ -13,6 +13,7 @@ using WebAuditorias.Models.Bases;
 using System.Globalization;
 using WebAuditorias.Controllers.Cookies;
 using WebAuditorias.Models;
+using System.Runtime.Caching;
 
 namespace WebAuditorias.Views
 {
@@ -63,8 +64,12 @@ namespace WebAuditorias.Views
             AuditoriaDocumentosController _controller = new AuditoriaDocumentosController();
             Models.AuditoriaDocumentos parametro = new Models.AuditoriaDocumentos();
             Plantilla_Comisiones comision = new Plantilla_Comisiones();
+            List<ValidaPlantilla> validaPlantilla = new List<ValidaPlantilla>();
+            CargaPlantillaComisionesController plantillaContoller = new CargaPlantillaComisionesController();
             string jsonString;
             string response;
+            double valorDecimal;
+            DateTime fechaTabla;
 
             UserInfoCookie user_cookie = new UserInfoCookie();
             UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
@@ -79,19 +84,38 @@ namespace WebAuditorias.Views
             Int16 plantillaId = Int16.Parse(arrayParametros[0]);
 
             comision.Mes = Mes.Value.ToUpper();
-            comision.Monto_Recuperado = double.Parse(Monto_Recuperado.Value, CultureInfo.InvariantCulture);
-            comision.Monto_Planilla = double.Parse(Monto_Planilla.Value, CultureInfo.InvariantCulture);
-            comision.Monto_Honorarios = double.Parse(Monto_Honorarios.Value, CultureInfo.InvariantCulture);
-            comision.Total_Incentivos = double.Parse(Total_Incentivos.Value, CultureInfo.InvariantCulture);
-            comision.Cheque_Girado = double.Parse(Cheque_Girado.Value, CultureInfo.InvariantCulture);
-            comision.Pagado = double.Parse(Pagado.Value, CultureInfo.InvariantCulture);
+            comision.Monto_Recuperado = !double.TryParse(Monto_Recuperado.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Monto_Recuperado.Value.Trim(), CultureInfo.InvariantCulture); 
+            comision.Monto_Planilla = !double.TryParse(Monto_Planilla.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Monto_Planilla.Value.Trim(), CultureInfo.InvariantCulture);  
+            comision.Monto_Honorarios = !double.TryParse(Monto_Honorarios.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Monto_Honorarios.Value.Trim(), CultureInfo.InvariantCulture); 
+            comision.Total_Incentivos = !double.TryParse(Total_Incentivos.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Total_Incentivos.Value.Trim(), CultureInfo.InvariantCulture);  
+            comision.Cheque_Girado = !double.TryParse(Cheque_Girado.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Cheque_Girado.Value.Trim(), CultureInfo.InvariantCulture);  
+            comision.Pagado = !double.TryParse(Pagado.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Pagado.Value.Trim(), CultureInfo.InvariantCulture);  
             comision.Entregado_Caja_Interna_1 = Entregado_Caja_Interna_1.Value.ToUpper();
-            comision.No_Girado = double.Parse(No_Girado.Value, CultureInfo.InvariantCulture);
-            comision.Fecha_Informe = DateTime.Parse(Fecha_Informe.Value);
-            comision.Fecha_Contabilidad = DateTime.Parse(Fecha_Contabilidad.Value);
+            comision.No_Girado = !double.TryParse(No_Girado.Value.Trim(), out valorDecimal) ? 0 : double.Parse(No_Girado.Value.Trim(), CultureInfo.InvariantCulture);  
+            comision.Fecha_Informe = !DateTime.TryParse(Fecha_Informe.Value.Trim(), out fechaTabla) ? DateTime.Parse("1900-01-01") : DateTime.Parse(Fecha_Informe.Value.Trim());  
+            comision.Fecha_Contabilidad = !DateTime.TryParse(Fecha_Contabilidad.Value.Trim(), out fechaTabla) ? DateTime.Parse("1900-01-01") : DateTime.Parse(Fecha_Contabilidad.Value.Trim());  
             comision.Informe_Comisiones = Informe_Comisiones.Value.ToUpper();
             comision.Entregado_Caja_Interna_2 = Entregado_Caja_Interna_2.Value.ToUpper();
             comision.Observaciones = Observaciones.Value.ToUpper();
+
+            var validaResponse = plantillaContoller.ValidarRegistroComision(comision);
+
+            if (validaResponse != null && validaResponse.Count > 0)
+            {
+                validaPlantilla.Add(new ValidaPlantilla() { Linea = 0, Campos = validaResponse });
+                ObjectCache cache = MemoryCache.Default;
+                string CacheKey = user_cookie.Usuario.Trim();
+
+                if (cache.Contains(CacheKey))
+                    cache.Remove(CacheKey);
+
+                CacheItemPolicy cacheItemPolicy = new CacheItemPolicy();
+                cacheItemPolicy.AbsoluteExpiration = DateTime.Now.AddHours(1.0);
+                cache.Add(CacheKey, validaPlantilla, cacheItemPolicy);
+
+                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('0', 'Existen campos con errores')", true);
+                return;
+            }
 
             jsonString = JsonConvert.SerializeObject(comision);
 
@@ -119,7 +143,7 @@ namespace WebAuditorias.Views
                 response = _controller.Actualizacion(parametro);
             }
 
-            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "document.getElementById('profile-tab').click(); LlenaGrid();", true);
+            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('1', 'El registro de plantilla se grabó exitosamente')", true);
         }
 
         public void CargaHojasArchivo(string fileName)
@@ -155,7 +179,8 @@ namespace WebAuditorias.Views
             Plantilla_Comisiones comision = new Plantilla_Comisiones();
             string jsonString;
             string response;
-
+            double valorDecimal;
+            DateTime fechaTabla;
 
             UserInfoCookie user_cookie = new UserInfoCookie();
             UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
@@ -170,16 +195,16 @@ namespace WebAuditorias.Views
             Int16 plantillaId = Int16.Parse(arrayParametros[0]);
 
             comision.Mes = Mes.Value.ToUpper();
-            comision.Monto_Recuperado = double.Parse(Monto_Recuperado.Value, CultureInfo.InvariantCulture);
-            comision.Monto_Planilla = double.Parse(Monto_Planilla.Value, CultureInfo.InvariantCulture);
-            comision.Monto_Honorarios = double.Parse(Monto_Honorarios.Value, CultureInfo.InvariantCulture);
-            comision.Total_Incentivos = double.Parse(Total_Incentivos.Value, CultureInfo.InvariantCulture);
-            comision.Cheque_Girado = double.Parse(Cheque_Girado.Value, CultureInfo.InvariantCulture);
-            comision.Pagado = double.Parse(Pagado.Value, CultureInfo.InvariantCulture);
+            comision.Monto_Recuperado = !double.TryParse(Monto_Recuperado.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Monto_Recuperado.Value.Trim(), CultureInfo.InvariantCulture);
+            comision.Monto_Planilla = !double.TryParse(Monto_Planilla.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Monto_Planilla.Value.Trim(), CultureInfo.InvariantCulture);
+            comision.Monto_Honorarios = !double.TryParse(Monto_Honorarios.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Monto_Honorarios.Value.Trim(), CultureInfo.InvariantCulture);
+            comision.Total_Incentivos = !double.TryParse(Total_Incentivos.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Total_Incentivos.Value.Trim(), CultureInfo.InvariantCulture);
+            comision.Cheque_Girado = !double.TryParse(Cheque_Girado.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Cheque_Girado.Value.Trim(), CultureInfo.InvariantCulture);
+            comision.Pagado = !double.TryParse(Pagado.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Pagado.Value.Trim(), CultureInfo.InvariantCulture);
             comision.Entregado_Caja_Interna_1 = Entregado_Caja_Interna_1.Value.ToUpper();
-            comision.No_Girado = double.Parse(No_Girado.Value, CultureInfo.InvariantCulture);
-            comision.Fecha_Informe = DateTime.Parse(Fecha_Informe.Value);
-            comision.Fecha_Contabilidad = DateTime.Parse(Fecha_Contabilidad.Value);
+            comision.No_Girado = !double.TryParse(No_Girado.Value.Trim(), out valorDecimal) ? 0 : double.Parse(No_Girado.Value.Trim(), CultureInfo.InvariantCulture);
+            comision.Fecha_Informe = !DateTime.TryParse(Fecha_Informe.Value.Trim(), out fechaTabla) ? DateTime.Parse("1900-01-01") : DateTime.Parse(Fecha_Informe.Value.Trim());
+            comision.Fecha_Contabilidad = !DateTime.TryParse(Fecha_Contabilidad.Value.Trim(), out fechaTabla) ? DateTime.Parse("1900-01-01") : DateTime.Parse(Fecha_Contabilidad.Value.Trim());
             comision.Informe_Comisiones = Informe_Comisiones.Value.ToUpper();
             comision.Entregado_Caja_Interna_2 = Entregado_Caja_Interna_2.Value.ToUpper();
             comision.Observaciones = Observaciones.Value.ToUpper();
@@ -203,7 +228,7 @@ namespace WebAuditorias.Views
 
             response = _controller.Actualizacion(parametro);
 
-            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "document.getElementById('profile-tab').click(); LlenaGrid();", true);
+            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('1', 'El registro de plantilla se eliminó exitosamente')", true);
         }
 
         protected void BtnCargar_ServerClick(object sender, EventArgs e)
@@ -243,14 +268,14 @@ namespace WebAuditorias.Views
                         IdEstado = lineaDoc.ad_estado,
                         ReferenciaDocumento = "",
                         Mes = comision.Mes,
-                        Monto_Recuperado = comision.Monto_Recuperado,
-                        Monto_Planilla = comision.Monto_Planilla,
-                        Monto_Honorarios = comision.Monto_Honorarios,
-                        Total_Incentivos = comision.Total_Incentivos,
-                        Cheque_Girado = comision.Cheque_Girado,
-                        Pagado = comision.Pagado,
+                        Monto_Recuperado = Math.Round(comision.Monto_Recuperado, 2),
+                        Monto_Planilla = Math.Round(comision.Monto_Planilla, 2),    
+                        Monto_Honorarios = Math.Round(comision.Monto_Honorarios, 2),
+                        Total_Incentivos = Math.Round(comision.Total_Incentivos, 2),
+                        Cheque_Girado = Math.Round(comision.Cheque_Girado, 2),
+                        Pagado = Math.Round(comision.Pagado, 2),
                         Entregado_Caja_Interna_1 = comision.Entregado_Caja_Interna_1,
-                        No_Girado = comision.No_Girado,
+                        No_Girado = Math.Round(comision.No_Girado, 2),
                         Fecha_Informe = comision.Fecha_Informe,
                         Fecha_Contabilidad = comision.Fecha_Contabilidad,
                         Informe_Comisiones = comision.Informe_Comisiones,
@@ -272,6 +297,10 @@ namespace WebAuditorias.Views
             string referencia = Referencia.Value.Trim();
             string response = "";
 
+            UserInfoCookie user_cookie = new UserInfoCookie();
+            UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
+            user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
+
             string[] arrayParametros;
             arrayParametros = Auditoria.Value.Split('-');
             int auditoriaId = int.Parse(arrayParametros[0]);
@@ -284,11 +313,23 @@ namespace WebAuditorias.Views
 
             if (response == "")
             {
-                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "alert('La plantilla se ha procesado correctamente');", true);
+                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('1', 'La plantilla se ha procesado correctamente')", true);
             }
             else
             {
-                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "alert('Error : " + response + "');", true);
+                var listaErrores = JsonConvert.DeserializeObject<List<ValidaPlantilla>>(response);
+
+                ObjectCache cache = MemoryCache.Default;
+                string CacheKey = user_cookie.Usuario.Trim();
+
+                if (cache.Contains(CacheKey))
+                    cache.Remove(CacheKey);
+
+                CacheItemPolicy cacheItemPolicy = new CacheItemPolicy();
+                cacheItemPolicy.AbsoluteExpiration = DateTime.Now.AddHours(1.0);
+                cache.Add(CacheKey, listaErrores, cacheItemPolicy);
+
+                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('0', 'Existen campos con errores')", true);
             }
         }
 

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
+using System.Configuration;
+using System.IO;
 using System.Web.UI;
 using WebAuditorias.Controllers.Login;
 using WebAuditorias.Models;
@@ -33,7 +36,7 @@ namespace WebAuditorias
             System.Threading.Thread.Sleep(1000);
             respuesta = _LoginController.ProcesaLogin(login).Split('|');
 
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('" + respuesta[3].Trim() + "'); window.location ='" + respuesta[4].Trim()  + "';", true);
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "validaLogin('" + respuesta[0].Trim() + "','" + respuesta[3].Trim() + "','" + respuesta[4].Trim() + "')", true);
         }
     }
 }

@@ -19,6 +19,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../Scripts/PlantillaMutuos.js" type="text/javascript"></script>
 </head>
 <body style="margin: 0; height: 100%; overflow: hidden; background-color: #E5E8E8;">
         <div class="container-fluid">
@@ -104,52 +106,66 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
-                                                        <label for="CodigoMutuo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Código mutuo</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="CodigoMutuo" placeholder="" runat="server"/>
+                                                        <label for="CodigoMutuo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Código Mutuo</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="CodigoMutuo" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Fecha_Documento" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha documento</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Fecha_Documento" placeholder="" runat="server"/>
+                                                        <label for="Banco" class="col-form-label col-form-label-sm" style="font-weight:bold;">Banco</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Banco" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Fecha_Inicio_Pago" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha inicio pago</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Fecha_Inicio_Pago" placeholder="" runat="server"/>
+                                                        <label for="Moneda" class="col-form-label col-form-label-sm" style="font-weight:bold;">Moneda</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Moneda" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Monto_Prestamo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Monto préstamo</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Monto_Prestamo" placeholder="" runat="server"/>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group col-md-3">
-                                                        <label for="Valor_Cuota" class="col-form-label col-form-label-sm" style="font-weight:bold;">Valor cuota</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Valor_Cuota" placeholder="" runat="server"/>
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label for="Total_Cancelado" class="col-form-label col-form-label-sm" style="font-weight:bold;">Total cancelado</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Total_Cancelado" placeholder="" runat="server"/>
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label for="Saldo_Pendiente" class="col-form-label col-form-label-sm" style="font-weight:bold;">Saldo pendiente</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Saldo_Pendiente" placeholder="" runat="server"/>
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label for="Cuotas_Pendientes" class="col-form-label col-form-label-sm" style="font-weight:bold;">Cuotas pendientes</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Cuotas_Pendientes" placeholder="" runat="server"/>
+                                                        <label for="Detalle" class="col-form-label col-form-label-sm" style="font-weight:bold;">Detalle</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Detalle" placeholder="" runat="server" onclick="muestraContenidoTexto('Detalle', 'Detalle')"/>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
-                                                        <label for="Contrato_Adjunto" class="col-form-label col-form-label-sm" style="font-weight:bold;">Contrato adjunto</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Contrato_Adjunto" placeholder="" runat="server" onclick="muestraContenidoTexto('Contrato_Adjunto', 'Contrato_Adjunto')"/>
+                                                        <label for="Fecha_Documento" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha de Documento</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Fecha_Documento" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Comprobante_Pago" class="col-form-label col-form-label-sm" style="font-weight:bold;">Comprobante pago</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Comprobante_Pago" placeholder="" runat="server"/>
+                                                        <label for="Monto_Prestamo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Monto de Préstamo</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Monto_Prestamo" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Cuenta" class="col-form-label col-form-label-sm" style="font-weight:bold;">Cuenta</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Cuenta" placeholder="" runat="server"/>
+                                                        <label for="Fecha_Pago_Cuota" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha de Pago de Cuota</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Fecha_Pago_Cuota" placeholder="" runat="server"/>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="Numero_Cuota" class="col-form-label col-form-label-sm" style="font-weight:bold;">Número de Cuota</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Numero_Cuota" placeholder="" runat="server"/>
+                                                    </div>                                                     
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-md-3">
+                                                        <label for="Valor_Cuota" class="col-form-label col-form-label-sm" style="font-weight:bold;">Valor Cuota</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Valor_Cuota" placeholder="" runat="server"/>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="Comprobante_Pago" class="col-form-label col-form-label-sm" style="font-weight:bold;">Comprobante de Pago</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Comprobante_Pago" placeholder="" runat="server"/>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="Saldo_Pendiente" class="col-form-label col-form-label-sm" style="font-weight:bold;">Saldo Pendiente</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Saldo_Pendiente" placeholder="" runat="server"/>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="Cuotas_Pendientes" class="col-form-label col-form-label-sm" style="font-weight:bold;">Cuotas Pendientes</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Cuotas_Pendientes" placeholder="" runat="server"/>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-md-3">
+                                                        <label for="Documento_Legal" class="col-form-label col-form-label-sm" style="font-weight:bold;">Documento Legal</label>
+                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Documento_Legal" placeholder="" runat="server"/>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="Observacion" class="col-form-label col-form-label-sm" style="font-weight:bold;">Observaciones</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Observacion" placeholder="" runat="server" onclick="muestraContenidoTexto('Observaciones', 'Observacion')"/>
                                                     </div>
                                                 </div>
                                                 <div class="form-check">
@@ -197,7 +213,7 @@
                         <button type="button" class="close" data-dismiss="modal" onclick="cierraContenidoTexto()">&times;</button>
                     </div>
                     <div class="modal-body">
-                        <textarea rows="5" class="form-control" style="overflow-y:scroll;" id="message-text"></textarea>
+                        <textarea rows="5" class="form-control" style="overflow-y:scroll; font-size: 12px" id="message-text"></textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cierraContenidoTexto()">Cerrar</button>
@@ -205,7 +221,6 @@
                 </div>
             </div>
         </div>
-        <script src="../Scripts/PlantillaMutuos.js" type="text/javascript"></script>
         <script>
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip()

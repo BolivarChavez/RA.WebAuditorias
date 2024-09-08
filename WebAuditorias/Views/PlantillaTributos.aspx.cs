@@ -13,6 +13,7 @@ using WebAuditorias.Controllers.AuditoriaDocumentos;
 using WebAuditorias.Models.Bases;
 using WebAuditorias.Controllers.Cookies;
 using WebAuditorias.Models;
+using System.Runtime.Caching;
 
 namespace WebAuditorias.Views
 {
@@ -63,8 +64,12 @@ namespace WebAuditorias.Views
             AuditoriaDocumentosController _controller = new AuditoriaDocumentosController();
             Models.AuditoriaDocumentos parametro = new Models.AuditoriaDocumentos();
             Plantilla_Tributos tributo = new Plantilla_Tributos();
+            List<ValidaPlantilla> validaPlantilla = new List<ValidaPlantilla>();
+            CargaPlantillaTributosController plantillaContoller = new CargaPlantillaTributosController();
             string jsonString;
             string response;
+            double valorDecimal;
+            DateTime fechaTabla;
 
             UserInfoCookie user_cookie = new UserInfoCookie();
             UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
@@ -78,17 +83,36 @@ namespace WebAuditorias.Views
             arrayParametros = Plantilla.Value.Split('-');
             Int16 plantillaId = Int16.Parse(arrayParametros[0]);
 
-            tributo.Fecha = DateTime.Parse(Fecha.Value);
+            tributo.Fecha = !DateTime.TryParse(Fecha.Value.Trim(), out fechaTabla) ? DateTime.Parse("1900-01-01") : DateTime.Parse(Fecha.Value.Trim());
             tributo.Periodo = Periodo.Value.ToUpper();
             tributo.Tributo = Tributo.Value.ToUpper();
-            tributo.Tributo_Resultante = double.Parse(Tributo_Resultante.Value, CultureInfo.InvariantCulture);
-            tributo.Intereses = double.Parse(Intereses.Value, CultureInfo.InvariantCulture);
-            tributo.Total_Pagar = double.Parse(Total_Pagar.Value, CultureInfo.InvariantCulture);
+            tributo.Tributo_Resultante = !double.TryParse(Tributo_Resultante.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Tributo_Resultante.Value.Trim(), CultureInfo.InvariantCulture);
+            tributo.Intereses = !double.TryParse(Intereses.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Intereses.Value.Trim(), CultureInfo.InvariantCulture);
+            tributo.Total_Pagar = !double.TryParse(Total_Pagar.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Total_Pagar.Value.Trim(), CultureInfo.InvariantCulture);
             tributo.Forma_Pago = Forma_Pago.Value.ToUpper();
             tributo.Egreso = Egreso.Value.ToUpper();
-            tributo.Fecha_Informe = DateTime.Parse(Fecha_Informe.Value);
+            tributo.Fecha_Informe = !DateTime.TryParse(Fecha_Informe.Value.Trim(), out fechaTabla) ? DateTime.Parse("1900-01-01") : DateTime.Parse(Fecha_Informe.Value.Trim());
             tributo.Numero_Informe = Numero_Informe.Value.ToUpper();
             tributo.Observaciones = Observaciones.Value.ToUpper();
+
+            var validaResponse = plantillaContoller.ValidarRegistroTributo(tributo);
+
+            if (validaResponse != null && validaResponse.Count > 0)
+            {
+                validaPlantilla.Add(new ValidaPlantilla() { Linea = 0, Campos = validaResponse });
+                ObjectCache cache = MemoryCache.Default;
+                string CacheKey = user_cookie.Usuario.Trim();
+
+                if (cache.Contains(CacheKey))
+                    cache.Remove(CacheKey);
+
+                CacheItemPolicy cacheItemPolicy = new CacheItemPolicy();
+                cacheItemPolicy.AbsoluteExpiration = DateTime.Now.AddHours(1.0);
+                cache.Add(CacheKey, validaPlantilla, cacheItemPolicy);
+
+                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('0', 'Existen campos con errores')", true);
+                return;
+            }
 
             jsonString = JsonConvert.SerializeObject(tributo);
 
@@ -116,7 +140,7 @@ namespace WebAuditorias.Views
                 response = _controller.Actualizacion(parametro);
             }
 
-            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "document.getElementById('profile-tab').click(); LlenaGrid();", true);
+            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('1', 'El registro de plantilla se grabó exitosamente')", true);
         }
 
         protected void BtnEliminar_ServerClick(object sender, EventArgs e)
@@ -126,6 +150,8 @@ namespace WebAuditorias.Views
             Plantilla_Tributos tributo = new Plantilla_Tributos();
             string jsonString;
             string response;
+            double valorDecimal;
+            DateTime fechaTabla;
 
             UserInfoCookie user_cookie = new UserInfoCookie();
             UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
@@ -139,15 +165,15 @@ namespace WebAuditorias.Views
             arrayParametros = Plantilla.Value.Split('-');
             Int16 plantillaId = Int16.Parse(arrayParametros[0]);
 
-            tributo.Fecha = DateTime.Parse(Fecha.Value);
+            tributo.Fecha = !DateTime.TryParse(Fecha.Value.Trim(), out fechaTabla) ? DateTime.Parse("1900-01-01") : DateTime.Parse(Fecha.Value.Trim());
             tributo.Periodo = Periodo.Value.ToUpper();
             tributo.Tributo = Tributo.Value.ToUpper();
-            tributo.Tributo_Resultante = double.Parse(Tributo_Resultante.Value, CultureInfo.InvariantCulture);
-            tributo.Intereses = double.Parse(Intereses.Value, CultureInfo.InvariantCulture);
-            tributo.Total_Pagar = double.Parse(Total_Pagar.Value, CultureInfo.InvariantCulture);
+            tributo.Tributo_Resultante = !double.TryParse(Tributo_Resultante.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Tributo_Resultante.Value.Trim(), CultureInfo.InvariantCulture);
+            tributo.Intereses = !double.TryParse(Intereses.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Intereses.Value.Trim(), CultureInfo.InvariantCulture);
+            tributo.Total_Pagar = !double.TryParse(Total_Pagar.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Total_Pagar.Value.Trim(), CultureInfo.InvariantCulture);
             tributo.Forma_Pago = Forma_Pago.Value.ToUpper();
             tributo.Egreso = Egreso.Value.ToUpper();
-            tributo.Fecha_Informe = DateTime.Parse(Fecha_Informe.Value);
+            tributo.Fecha_Informe = !DateTime.TryParse(Fecha_Informe.Value.Trim(), out fechaTabla) ? DateTime.Parse("1900-01-01") : DateTime.Parse(Fecha_Informe.Value.Trim());
             tributo.Numero_Informe = Numero_Informe.Value.ToUpper();
             tributo.Observaciones = Observaciones.Value.ToUpper();
 
@@ -170,7 +196,7 @@ namespace WebAuditorias.Views
 
             response = _controller.Actualizacion(parametro);
 
-            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "document.getElementById('profile-tab').click(); LlenaGrid();", true);
+            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('1', 'El registro de plantilla se eliminó exitosamente')", true);
         }
 
         protected void BtnCargar_ServerClick(object sender, EventArgs e)
@@ -237,9 +263,9 @@ namespace WebAuditorias.Views
                         Fecha = tributo.Fecha,
                         Periodo = tributo.Periodo,
                         Tributo = tributo.Tributo,
-                        Tributo_Resultante = tributo.Tributo_Resultante,
-                        Intereses = tributo.Intereses,
-                        Total_Pagar = tributo.Total_Pagar,
+                        Tributo_Resultante = Math.Round(tributo.Tributo_Resultante, 2),
+                        Intereses = Math.Round(tributo.Intereses, 2),
+                        Total_Pagar = Math.Round(tributo.Total_Pagar, 2),
                         Forma_Pago = tributo.Forma_Pago,
                         Egreso = tributo.Egreso,
                         Fecha_Informe = tributo.Fecha_Informe,
@@ -261,6 +287,10 @@ namespace WebAuditorias.Views
             string referencia = Referencia.Value.Trim();
             string response = "";
 
+            UserInfoCookie user_cookie = new UserInfoCookie();
+            UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
+            user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
+
             string[] arrayParametros;
             arrayParametros = Auditoria.Value.Split('-');
             int auditoriaId = int.Parse(arrayParametros[0]);
@@ -273,11 +303,23 @@ namespace WebAuditorias.Views
 
             if (response == "")
             {
-                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "alert('La plantilla se ha procesado correctamente');", true);
+                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('1', 'La plantilla se ha procesado correctamente')", true);
             }
             else
             {
-                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "alert('Error : " + response + "');", true);
+                var listaErrores = JsonConvert.DeserializeObject<List<ValidaPlantilla>>(response);
+
+                ObjectCache cache = MemoryCache.Default;
+                string CacheKey = user_cookie.Usuario.Trim();
+
+                if (cache.Contains(CacheKey))
+                    cache.Remove(CacheKey);
+
+                CacheItemPolicy cacheItemPolicy = new CacheItemPolicy();
+                cacheItemPolicy.AbsoluteExpiration = DateTime.Now.AddHours(1.0);
+                cache.Add(CacheKey, listaErrores, cacheItemPolicy);
+
+                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('0', 'Existen campos con errores')", true);
             }
         }
 

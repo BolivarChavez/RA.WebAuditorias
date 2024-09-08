@@ -35,6 +35,62 @@ namespace WebAuditorias.Views
             lblFechaConexion.Text = DateTime.Now.ToString();
             HiddenField2.Value = Request.QueryString["plantilla"].Trim();
             HiddenField4.Value = Request.Cookies["AnioConsulta"].Value;
+            TituloOpcion.InnerHtml = "Revisión de Procesos de Auditoría - " + ObtieneTituloOpcion();
+        }
+
+        private string ObtieneTituloOpcion()
+        {
+            string tituloOpcion = "";
+
+            switch (HiddenField2.Value.Trim())
+            {
+                case "1":
+                    tituloOpcion = "Plantilla de Cheques";
+                    break;
+
+                case "2":
+                    tituloOpcion = "Plantilla de Comisiones";
+                    break;
+
+                case "3":
+                    tituloOpcion = "Plantilla de Ingresos";
+                    break;
+
+                case "4":
+                    tituloOpcion = "Plantilla de Mutuos";
+                    break;
+
+                case "5":
+                    tituloOpcion = "Plantilla de Pagos";
+                    break;
+
+                case "6":
+                    tituloOpcion = "Plantilla de Planillas";
+                    break;
+
+                case "7":
+                    tituloOpcion = "Plantilla de Reembolsos";
+                    break;
+
+                case "8":
+                    tituloOpcion = "Plantilla de Regalías";
+                    break;
+
+                case "9":
+                    tituloOpcion = "Plantilla de Regularizaciones";
+                    break;
+
+                case "10":
+                    tituloOpcion = "Plantilla de Transferencias";
+                    break;
+
+                case "11":
+                    tituloOpcion = "Plantilla de Tributos";
+                    break;
+
+            }
+
+            return tituloOpcion;
         }
 
         [System.Web.Services.WebMethod]

@@ -13,6 +13,7 @@ using WebAuditorias.Models.Bases;
 using System.Globalization;
 using WebAuditorias.Controllers.Cookies;
 using WebAuditorias.Models;
+using System.Runtime.Caching;
 
 namespace WebAuditorias.Views
 {
@@ -63,8 +64,12 @@ namespace WebAuditorias.Views
             AuditoriaDocumentosController _controller = new AuditoriaDocumentosController();
             Models.AuditoriaDocumentos parametro = new Models.AuditoriaDocumentos();
             Plantilla_Ingresos ingreso = new Plantilla_Ingresos();
+            List<ValidaPlantilla> validaPlantilla = new List<ValidaPlantilla>();
+            CargaPlantillaIngresosController plantillaContoller = new CargaPlantillaIngresosController();
             string jsonString;
             string response;
+            double valorDecimal;
+            DateTime fechaTabla;
 
             UserInfoCookie user_cookie = new UserInfoCookie();
             UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
@@ -77,24 +82,48 @@ namespace WebAuditorias.Views
             Int16 tareaId = Int16.Parse(arrayParametros[0]);
             arrayParametros = Plantilla.Value.Split('-');
             Int16 plantillaId = Int16.Parse(arrayParametros[0]);
-
+            
             ingreso.Mes = Mes.Value.ToUpper();
             ingreso.Factura = Factura.Value.ToUpper();
             ingreso.Cuenta = Cuenta.Value.ToUpper();
             ingreso.Detalle = Detalle.Value.ToUpper();
             ingreso.Concepto = Concepto.Value.ToUpper();
-            ingreso.Subtotal = double.Parse(Subtotal.Value, CultureInfo.InvariantCulture);
-            ingreso.Porcentaje = double.Parse(Porcentaje.Value, CultureInfo.InvariantCulture);
-            ingreso.Total = double.Parse(Total.Value, CultureInfo.InvariantCulture);
-            ingreso.Fecha_Detraccion = DateTime.Parse(Fecha_Detraccion.Value);
-            ingreso.Detraccion_Moneda_Destino = double.Parse(Detraccion_Moneda_Destino.Value, CultureInfo.InvariantCulture);
-            ingreso.Detraccion_Moneda_Base = double.Parse(Detraccion_Moneda_Base.Value, CultureInfo.InvariantCulture);
-            ingreso.Comprobante_Ingreso = Comprobante_Ingreso.Value.ToUpper();
-            ingreso.Neto_Ingreso = double.Parse(Neto_Ingreso.Value, CultureInfo.InvariantCulture);
+            ingreso.Moneda = Moneda.Value.ToUpper();
+            ingreso.Subtotal = !double.TryParse(Subtotal.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Subtotal.Value.Trim(), CultureInfo.InvariantCulture); 
+            ingreso.Porcentaje = !double.TryParse(Porcentaje.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Porcentaje.Value.Trim(), CultureInfo.InvariantCulture); 
+            ingreso.Total = !double.TryParse(Total.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Total.Value.Trim(), CultureInfo.InvariantCulture); 
+            ingreso.Fecha_Detraccion = !DateTime.TryParse(Fecha_Detraccion.Value.Trim(), out fechaTabla) ? DateTime.Parse("1900-01-01") : DateTime.Parse(Fecha_Detraccion.Value.Trim());  //DateTime.Parse(Fecha_Detraccion.Value);
+            ingreso.Detraccion_Moneda_Destino = !double.TryParse(Detraccion_Moneda_Destino.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Detraccion_Moneda_Destino.Value.Trim(), CultureInfo.InvariantCulture);
+            ingreso.Neto_Ingreso = !double.TryParse(Neto_Ingreso.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Neto_Ingreso.Value.Trim(), CultureInfo.InvariantCulture);  
             ingreso.Flujo = Flujo.Value.ToUpper();
             ingreso.Estado_Cuenta_1 = Estado_Cuenta_1.Value.ToUpper();
             ingreso.Estado_Cuenta_2 = Estado_Cuenta_2.Value.ToUpper();
             ingreso.Soporte = Soporte.Value.ToUpper();
+            ingreso.Observacion = Observacion.Value.ToUpper();
+            ingreso.Banco = Banco.Value.ToUpper();
+            ingreso.Empresa = Empresa.Value.ToUpper();
+            ingreso.Sede = Sede.Value.ToUpper();
+            ingreso.Cuenta_Contable = Cuenta_Contable.Value.ToUpper();
+            ingreso.SubCuenta = SubCuenta.Value.ToUpper();
+
+            var validaResponse = plantillaContoller.ValidarRegistroIngreso(ingreso);
+
+            if (validaResponse != null && validaResponse.Count > 0)
+            {
+                validaPlantilla.Add(new ValidaPlantilla() { Linea = 0, Campos = validaResponse });
+                ObjectCache cache = MemoryCache.Default;
+                string CacheKey = user_cookie.Usuario.Trim();
+
+                if (cache.Contains(CacheKey))
+                    cache.Remove(CacheKey);
+
+                CacheItemPolicy cacheItemPolicy = new CacheItemPolicy();
+                cacheItemPolicy.AbsoluteExpiration = DateTime.Now.AddHours(1.0);
+                cache.Add(CacheKey, validaPlantilla, cacheItemPolicy);
+
+                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('0', 'Existen campos con errores')", true);
+                return;
+            }
 
             jsonString = JsonConvert.SerializeObject(ingreso);
 
@@ -122,7 +151,7 @@ namespace WebAuditorias.Views
                 response = _controller.Actualizacion(parametro);
             }
 
-            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "document.getElementById('profile-tab').click(); LlenaGrid();", true);
+            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('1', 'El registro de plantilla se grabó exitosamente')", true); ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "document.getElementById('profile-tab').click(); LlenaGrid();", true);
         }
 
         protected void BtnEliminar_ServerClick(object sender, EventArgs e)
@@ -132,6 +161,8 @@ namespace WebAuditorias.Views
             Plantilla_Ingresos ingreso = new Plantilla_Ingresos();
             string jsonString;
             string response;
+            double valorDecimal;
+            DateTime fechaTabla;
 
             UserInfoCookie user_cookie = new UserInfoCookie();
             UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
@@ -150,18 +181,23 @@ namespace WebAuditorias.Views
             ingreso.Cuenta = Cuenta.Value.ToUpper();
             ingreso.Detalle = Detalle.Value.ToUpper();
             ingreso.Concepto = Concepto.Value.ToUpper();
-            ingreso.Subtotal = double.Parse(Subtotal.Value, CultureInfo.InvariantCulture);
-            ingreso.Porcentaje = double.Parse(Porcentaje.Value, CultureInfo.InvariantCulture);
-            ingreso.Total = double.Parse(Total.Value, CultureInfo.InvariantCulture);
-            ingreso.Fecha_Detraccion = DateTime.Parse(Fecha_Detraccion.Value);
-            ingreso.Detraccion_Moneda_Destino = double.Parse(Detraccion_Moneda_Destino.Value, CultureInfo.InvariantCulture);
-            ingreso.Detraccion_Moneda_Base = double.Parse(Detraccion_Moneda_Base.Value, CultureInfo.InvariantCulture);
-            ingreso.Comprobante_Ingreso = Comprobante_Ingreso.Value.ToUpper();
-            ingreso.Neto_Ingreso = double.Parse(Neto_Ingreso.Value, CultureInfo.InvariantCulture);
+            ingreso.Moneda = Moneda.Value.ToUpper();
+            ingreso.Subtotal = !double.TryParse(Subtotal.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Subtotal.Value.Trim(), CultureInfo.InvariantCulture);
+            ingreso.Porcentaje = !double.TryParse(Porcentaje.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Porcentaje.Value.Trim(), CultureInfo.InvariantCulture);
+            ingreso.Total = !double.TryParse(Total.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Total.Value.Trim(), CultureInfo.InvariantCulture);
+            ingreso.Fecha_Detraccion = !DateTime.TryParse(Fecha_Detraccion.Value.Trim(), out fechaTabla) ? DateTime.Parse("1900-01-01") : DateTime.Parse(Fecha_Detraccion.Value.Trim());  //DateTime.Parse(Fecha_Detraccion.Value);
+            ingreso.Detraccion_Moneda_Destino = !double.TryParse(Detraccion_Moneda_Destino.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Detraccion_Moneda_Destino.Value.Trim(), CultureInfo.InvariantCulture);
+            ingreso.Neto_Ingreso = !double.TryParse(Neto_Ingreso.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Neto_Ingreso.Value.Trim(), CultureInfo.InvariantCulture);
             ingreso.Flujo = Flujo.Value.ToUpper();
             ingreso.Estado_Cuenta_1 = Estado_Cuenta_1.Value.ToUpper();
             ingreso.Estado_Cuenta_2 = Estado_Cuenta_2.Value.ToUpper();
             ingreso.Soporte = Soporte.Value.ToUpper();
+            ingreso.Observacion = Observacion.Value.ToUpper();
+            ingreso.Banco = Banco.Value.ToUpper();
+            ingreso.Empresa = Empresa.Value.ToUpper();
+            ingreso.Sede = Sede.Value.ToUpper();
+            ingreso.Cuenta_Contable = Cuenta_Contable.Value.ToUpper();
+            ingreso.SubCuenta = SubCuenta.Value.ToUpper();
 
             jsonString = JsonConvert.SerializeObject(ingreso);
 
@@ -182,7 +218,7 @@ namespace WebAuditorias.Views
 
             response = _controller.Actualizacion(parametro);
 
-            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "document.getElementById('profile-tab').click(); LlenaGrid();", true);
+            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('1', 'El registro de plantilla se eliminó exitosamente')", true);
         }
 
         protected void BtnCargar_ServerClick(object sender, EventArgs e)
@@ -251,18 +287,23 @@ namespace WebAuditorias.Views
                         Cuenta = ingreso.Cuenta,
                         Detalle = ingreso.Detalle,
                         Concepto = ingreso.Concepto,
-                        Subtotal = ingreso.Subtotal,
-                        Porcentaje = ingreso.Porcentaje,
-                        Total = ingreso.Total,
+                        Moneda = ingreso.Moneda,
+                        Subtotal = Math.Round(ingreso.Subtotal, 2),
+                        Porcentaje = Math.Round(ingreso.Porcentaje, 2),
+                        Total = Math.Round(ingreso.Total, 2),
                         Fecha_Detraccion = ingreso.Fecha_Detraccion,
-                        Detraccion_Moneda_Destino = ingreso.Detraccion_Moneda_Destino,
-                        Detraccion_Moneda_Base = ingreso.Detraccion_Moneda_Base,
-                        Comprobante_Ingreso = ingreso.Comprobante_Ingreso,
-                        Neto_Ingreso = ingreso.Neto_Ingreso,
+                        Detraccion_Moneda_Destino = Math.Round(ingreso.Detraccion_Moneda_Destino, 2),
+                        Neto_Ingreso = Math.Round(ingreso.Neto_Ingreso, 2),
                         Flujo = ingreso.Flujo,
                         Estado_Cuenta_1 = ingreso.Estado_Cuenta_1,
                         Estado_Cuenta_2 = ingreso.Estado_Cuenta_2,
-                        Soporte = ingreso.Soporte
+                        Soporte = ingreso.Soporte,
+                        Observacion = ingreso.Observacion,
+                        Banco = ingreso.Banco,
+                        Empresa = ingreso.Empresa,
+                        Sede = ingreso.Sede,
+                        Cuenta_Contable = ingreso.Cuenta_Contable,
+                        SubCuenta = ingreso.SubCuenta
                     }
                     );
             }
@@ -279,6 +320,10 @@ namespace WebAuditorias.Views
             string referencia = Referencia.Value.Trim();
             string response = "";
 
+            UserInfoCookie user_cookie = new UserInfoCookie();
+            UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
+            user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
+
             string[] arrayParametros;
             arrayParametros = Auditoria.Value.Split('-');
             int auditoriaId = int.Parse(arrayParametros[0]);
@@ -291,11 +336,23 @@ namespace WebAuditorias.Views
 
             if (response == "")
             {
-                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "alert('La plantilla se ha procesado correctamente');", true);
+                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('1', 'La plantilla se ha procesado correctamente')", true);
             }
             else
             {
-                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "alert('Error : " + response + "');", true);
+                var listaErrores = JsonConvert.DeserializeObject<List<ValidaPlantilla>>(response);
+
+                ObjectCache cache = MemoryCache.Default;
+                string CacheKey = user_cookie.Usuario.Trim();
+
+                if (cache.Contains(CacheKey))
+                    cache.Remove(CacheKey);
+
+                CacheItemPolicy cacheItemPolicy = new CacheItemPolicy();
+                cacheItemPolicy.AbsoluteExpiration = DateTime.Now.AddHours(1.0);
+                cache.Add(CacheKey, listaErrores, cacheItemPolicy);
+
+                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('0', 'Existen campos con errores')", true);
             }
         }
 

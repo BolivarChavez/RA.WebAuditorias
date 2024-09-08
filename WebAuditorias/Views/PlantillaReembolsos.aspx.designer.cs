@@ -195,13 +195,13 @@ namespace WebAuditorias.Views
         protected global::System.Web.UI.HtmlControls.HtmlInputText Referencia;
 
         /// <summary>
-        /// Control CodigoReembolso.
+        /// Control Documento.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText CodigoReembolso;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Documento;
 
         /// <summary>
         /// Control Fecha_Documento.
@@ -213,40 +213,31 @@ namespace WebAuditorias.Views
         protected global::System.Web.UI.HtmlControls.HtmlInputText Fecha_Documento;
 
         /// <summary>
-        /// Control ReferenciaReembolso.
+        /// Control Soporte.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText ReferenciaReembolso;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Soporte;
 
         /// <summary>
-        /// Control Valor_Moneda_Destino.
+        /// Control Valor_Total.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText Valor_Moneda_Destino;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Valor_Total;
 
         /// <summary>
-        /// Control Valor_Tasa_Cambio.
+        /// Control Moneda.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText Valor_Tasa_Cambio;
-
-        /// <summary>
-        /// Control Valor_Moneda_Base.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText Valor_Moneda_Base;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Moneda;
 
         /// <summary>
         /// Control Estado.
@@ -274,6 +265,15 @@ namespace WebAuditorias.Views
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText Adjuntos;
+
+        /// <summary>
+        /// Control Observaciones.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Observaciones;
 
         /// <summary>
         /// Control chkEstado.

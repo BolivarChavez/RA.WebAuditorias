@@ -1,9 +1,7 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebAuditorias.Controllers.AuditoriaDocumentoProcesos;
 using WebAuditorias.Controllers.AuditoriaDocumentos;
@@ -14,7 +12,7 @@ using WebAuditorias.Models;
 
 namespace WebAuditorias.Views
 {
-    public partial class AuditoriaConsulta : System.Web.UI.Page
+    public partial class AuditoriaConsultaNew : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -105,10 +103,10 @@ namespace WebAuditorias.Views
             return plantillasIngresadas.ToString() + "|" + (plantillasIngresadas - plantillasRevisadas).ToString();
         }
 
-        [System.Web.Services.WebMethod]
-        public static string CargaPlantillasRegistradas(string anio)
+        private string CargaPlantillasRegistradas(string anio)
         {
             string[] arrayRespuesta;
+            string tablaPlantilla;
             List<ResumenPlantillas> listaPlantillas = new List<ResumenPlantillas>();
 
             arrayRespuesta = ConsultaPlantillas((int)TipoPlantilla.Plantillas.Plantilla_Cheques, int.Parse(anio)).Split('|');
@@ -210,15 +208,41 @@ namespace WebAuditorias.Views
                 Pendientes = arrayRespuesta[1].Trim()
             });
 
-            return JsonConvert.SerializeObject(listaPlantillas);
+            tablaPlantilla = "";
+            tablaPlantilla += @"<table class=""table"">";
+            tablaPlantilla += @"<tr>";
+            tablaPlantilla += @"<th scope=""col"" class=""text-primary"" style=""visibility:hidden; font-size: 14px"">Id</th>";
+            tablaPlantilla += @"<th scope=""col"" class=""text-primary"" style=""font-size: 14px;"">Tipo de Plantilla</ th >";
+            tablaPlantilla += @"<th scope=""col"" class=""text-primary"" style=""text-align: center; font-size: 14px"">Total de Plantillas Registradas</ th >";
+            tablaPlantilla += @"<th scope=""col"" class=""text-primary"" style=""text-align: center; font-size: 14px"">Total de Plantillas Pendientes de Revisión</ th >";
+            tablaPlantilla += @"</tr>";
+            tablaPlantilla += @"<thead>";
+            tablaPlantilla += @"</thead>";
+            tablaPlantilla += @"<tbody>";
+
+            foreach (var plantilla in listaPlantillas.OrderBy(x => x.IdPlantilla))
+            {
+                tablaPlantilla += @"<tr>";
+                tablaPlantilla += $"<td style=\"font-size: 14px; visibility:hidden;\">{plantilla.IdPlantilla}</td>";
+                tablaPlantilla += $"<td style=\"font-size: 14px\">{plantilla.NombrePlantilla}</td>";
+                tablaPlantilla += $"<td style=\"font-size: 14px; text-align: center;\"><a href=\"RevisaPlantillas.aspx?estado=P&plantilla={plantilla.IdPlantilla}\" style=\"color:#0D6EFD;\" target =\"_blank\"><b>{plantilla.Registradas}</b></a></td>";
+                tablaPlantilla += $"<td style=\"font-size: 14px; text-align: center;\"><a href=\"RevisaPlantillas.aspx?estado=P&plantilla={plantilla.IdPlantilla}\" style=\"color:#FFC107;\" target =\"_blank\"><b>{plantilla.Pendientes}</b></a></td>";
+                tablaPlantilla += @"</tr>";
+            }
+
+            tablaPlantilla += @"</tbody>";
+            tablaPlantilla += @" </table>";
+
+            return tablaPlantilla;
         }
+
 
         protected void BtnBuscar_ServerClick(object sender, EventArgs e)
         {
             DetalleInfo.Visible = false;
 
             CargaProcesosAuditoria();
-            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "LlenaGridPlantilla();", true);
+            TablaPlantilla.InnerHtml = CargaPlantillasRegistradas(Anio.Value);
 
             DetalleInfo.Visible = true;
         }

@@ -13,6 +13,7 @@ using WebAuditorias.Controllers.AuditoriaDocumentos;
 using WebAuditorias.Models.Bases;
 using WebAuditorias.Controllers.Cookies;
 using WebAuditorias.Models;
+using System.Runtime.Caching;
 
 namespace WebAuditorias.Views
 {
@@ -63,8 +64,12 @@ namespace WebAuditorias.Views
             AuditoriaDocumentosController _controller = new AuditoriaDocumentosController();
             Models.AuditoriaDocumentos parametro = new Models.AuditoriaDocumentos();
             Plantilla_Regalias regalia = new Plantilla_Regalias();
+            List<ValidaPlantilla> validaPlantilla = new List<ValidaPlantilla>();
+            CargaPlantillaRegaliasController plantillaContoller = new CargaPlantillaRegaliasController();
             string jsonString;
             string response;
+            double valorDecimal;
+            DateTime fechaTabla;
 
             UserInfoCookie user_cookie = new UserInfoCookie();
             UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
@@ -78,17 +83,40 @@ namespace WebAuditorias.Views
             arrayParametros = Plantilla.Value.Split('-');
             Int16 plantillaId = Int16.Parse(arrayParametros[0]);
 
-            regalia.Codigo = Codigo.Value.ToUpper();
-            regalia.Fecha = DateTime.Parse(Fecha.Value);
+            regalia.Codigo = CodigoRegalia.Value.ToUpper();
+            regalia.Fecha = !DateTime.TryParse(Fecha.Value.Trim(), out fechaTabla) ? DateTime.Parse("1900-01-01") : DateTime.Parse(Fecha.Value.Trim());  
             regalia.Descripcion = Descripcion.Value.ToUpper();
-            regalia.Valor_Fijo = double.Parse(Valor_Fijo.Value, CultureInfo.InvariantCulture);
-            regalia.Valor_Proporcional = double.Parse(Valor_Proporcional.Value, CultureInfo.InvariantCulture);
-            regalia.Porcentaje = double.Parse(Porcentaje.Value, CultureInfo.InvariantCulture);
-            regalia.Subtotal = double.Parse(Subtotal.Value, CultureInfo.InvariantCulture);
-            regalia.Tasa_Cambio = double.Parse(Tasa_Cambio.Value, CultureInfo.InvariantCulture);
-            regalia.Total = double.Parse(Total.Value, CultureInfo.InvariantCulture);
+            regalia.Moneda = Moneda.Value.ToUpper();
+            regalia.Valor_Fijo = !double.TryParse(Valor_Fijo.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Valor_Fijo.Value.Trim(), CultureInfo.InvariantCulture);  
+            regalia.Ingresos_Facturados = !double.TryParse(Ingresos_Facturados.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Ingresos_Facturados.Value.Trim(), CultureInfo.InvariantCulture);  
+            regalia.Ingresos_Cartera = !double.TryParse(Ingresos_Cartera.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Ingresos_Cartera.Value.Trim(), CultureInfo.InvariantCulture);  
+            regalia.Retencion = !double.TryParse(Retencion.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Retencion.Value.Trim(), CultureInfo.InvariantCulture);  
+            regalia.Total_Soles = !double.TryParse(Total_Soles.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Total_Soles.Value.Trim(), CultureInfo.InvariantCulture);  
+            regalia.Tasa_Cambio = !double.TryParse(Tasa_Cambio.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Tasa_Cambio.Value.Trim(), CultureInfo.InvariantCulture);  
+            regalia.Total_Dolares = !double.TryParse(Total_Dolares.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Total_Dolares.Value.Trim(), CultureInfo.InvariantCulture);  
             regalia.Adjuntos = Adjuntos.Value.ToUpper();
             regalia.Cuenta = Cuenta.Value.ToUpper();
+            regalia.Soporte = Soporte.Value.ToUpper();
+            regalia.Observaciones = Observaciones.Value.ToUpper();
+
+            var validaResponse = plantillaContoller.ValidarRegistroRegalia(regalia);
+
+            if (validaResponse != null && validaResponse.Count > 0)
+            {
+                validaPlantilla.Add(new ValidaPlantilla() { Linea = 0, Campos = validaResponse });
+                ObjectCache cache = MemoryCache.Default;
+                string CacheKey = user_cookie.Usuario.Trim();
+
+                if (cache.Contains(CacheKey))
+                    cache.Remove(CacheKey);
+
+                CacheItemPolicy cacheItemPolicy = new CacheItemPolicy();
+                cacheItemPolicy.AbsoluteExpiration = DateTime.Now.AddHours(1.0);
+                cache.Add(CacheKey, validaPlantilla, cacheItemPolicy);
+
+                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('0', 'Existen campos con errores')", true);
+                return;
+            }
 
             jsonString = JsonConvert.SerializeObject(regalia);
 
@@ -116,7 +144,7 @@ namespace WebAuditorias.Views
                 response = _controller.Actualizacion(parametro);
             }
 
-            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "document.getElementById('profile-tab').click(); LlenaGrid();", true);
+            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('1', 'El registro de plantilla se grabó exitosamente')", true);
         }
 
         protected void BtnEliminar_ServerClick(object sender, EventArgs e)
@@ -126,6 +154,8 @@ namespace WebAuditorias.Views
             Plantilla_Regalias regalia = new Plantilla_Regalias();
             string jsonString;
             string response;
+            double valorDecimal;
+            DateTime fechaTabla;
 
             UserInfoCookie user_cookie = new UserInfoCookie();
             UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
@@ -139,17 +169,21 @@ namespace WebAuditorias.Views
             arrayParametros = Plantilla.Value.Split('-');
             Int16 plantillaId = Int16.Parse(arrayParametros[0]);
 
-            regalia.Codigo = Codigo.Value.ToUpper();
-            regalia.Fecha = DateTime.Parse(Fecha.Value);
+            regalia.Codigo = CodigoRegalia.Value.ToUpper();
+            regalia.Fecha = !DateTime.TryParse(Fecha.Value.Trim(), out fechaTabla) ? DateTime.Parse("1900-01-01") : DateTime.Parse(Fecha.Value.Trim());
             regalia.Descripcion = Descripcion.Value.ToUpper();
-            regalia.Valor_Fijo = double.Parse(Valor_Fijo.Value, CultureInfo.InvariantCulture);
-            regalia.Valor_Proporcional = double.Parse(Valor_Proporcional.Value, CultureInfo.InvariantCulture);
-            regalia.Porcentaje = double.Parse(Porcentaje.Value, CultureInfo.InvariantCulture);
-            regalia.Subtotal = double.Parse(Subtotal.Value, CultureInfo.InvariantCulture);
-            regalia.Tasa_Cambio = double.Parse(Tasa_Cambio.Value, CultureInfo.InvariantCulture);
-            regalia.Total = double.Parse(Total.Value, CultureInfo.InvariantCulture);
+            regalia.Moneda = Moneda.Value.ToUpper();
+            regalia.Valor_Fijo = !double.TryParse(Valor_Fijo.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Valor_Fijo.Value.Trim(), CultureInfo.InvariantCulture);
+            regalia.Ingresos_Facturados = !double.TryParse(Ingresos_Facturados.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Ingresos_Facturados.Value.Trim(), CultureInfo.InvariantCulture);
+            regalia.Ingresos_Cartera = !double.TryParse(Ingresos_Cartera.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Ingresos_Cartera.Value.Trim(), CultureInfo.InvariantCulture);
+            regalia.Retencion = !double.TryParse(Retencion.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Retencion.Value.Trim(), CultureInfo.InvariantCulture);
+            regalia.Total_Soles = !double.TryParse(Total_Soles.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Total_Soles.Value.Trim(), CultureInfo.InvariantCulture);
+            regalia.Tasa_Cambio = !double.TryParse(Tasa_Cambio.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Tasa_Cambio.Value.Trim(), CultureInfo.InvariantCulture);
+            regalia.Total_Dolares = !double.TryParse(Total_Dolares.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Total_Dolares.Value.Trim(), CultureInfo.InvariantCulture);
             regalia.Adjuntos = Adjuntos.Value.ToUpper();
             regalia.Cuenta = Cuenta.Value.ToUpper();
+            regalia.Soporte = Soporte.Value.ToUpper();
+            regalia.Observaciones = Observaciones.Value.ToUpper();
 
             jsonString = JsonConvert.SerializeObject(regalia);
 
@@ -170,7 +204,7 @@ namespace WebAuditorias.Views
 
             response = _controller.Actualizacion(parametro);
 
-            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "document.getElementById('profile-tab').click(); LlenaGrid();", true);
+            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('1', 'El registro de plantilla se eliminó exitosamente')", true);
         }
 
         protected void BtnCargar_ServerClick(object sender, EventArgs e)
@@ -237,14 +271,18 @@ namespace WebAuditorias.Views
                         Codigo = regalia.Codigo,
                         Fecha = regalia.Fecha,
                         Descripcion = regalia.Descripcion,
-                        Valor_Fijo = regalia.Valor_Fijo,
-                        Valor_Proporcional = regalia.Valor_Proporcional,
-                        Porcentaje = regalia.Porcentaje,
-                        Subtotal = regalia.Subtotal,
-                        Tasa_Cambio = regalia.Tasa_Cambio,
-                        Total = regalia.Total,
+                        Moneda = regalia.Moneda,
+                        Valor_Fijo = Math.Round(regalia.Valor_Fijo, 2),
+                        Ingresos_Facturados = Math.Round(regalia.Ingresos_Facturados, 2),
+                        Ingresos_Cartera = Math.Round(regalia.Ingresos_Cartera, 2),
+                        Retencion = Math.Round(regalia.Retencion, 2),
+                        Total_Soles = Math.Round(regalia.Total_Soles, 2),
+                        Tasa_Cambio = Math.Round(regalia.Tasa_Cambio, 2),
+                        Total_Dolares = Math.Round(regalia.Total_Dolares, 2),
                         Adjuntos = regalia.Adjuntos,
-                        Cuenta = regalia.Cuenta
+                        Cuenta = regalia.Cuenta,
+                        Soporte = regalia.Soporte,
+                        Observaciones = regalia.Observaciones
                     }
                     );
             }
@@ -261,6 +299,10 @@ namespace WebAuditorias.Views
             string referencia = Referencia.Value.Trim();
             string response = "";
 
+            UserInfoCookie user_cookie = new UserInfoCookie();
+            UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
+            user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
+
             string[] arrayParametros;
             arrayParametros = Auditoria.Value.Split('-');
             int auditoriaId = int.Parse(arrayParametros[0]);
@@ -273,11 +315,23 @@ namespace WebAuditorias.Views
 
             if (response == "")
             {
-                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "alert('La plantilla se ha procesado correctamente');", true);
+                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('1', 'La plantilla se ha procesado correctamente')", true);
             }
             else
             {
-                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "alert('Error : " + response + "');", true);
+                var listaErrores = JsonConvert.DeserializeObject<List<ValidaPlantilla>>(response);
+
+                ObjectCache cache = MemoryCache.Default;
+                string CacheKey = user_cookie.Usuario.Trim();
+
+                if (cache.Contains(CacheKey))
+                    cache.Remove(CacheKey);
+
+                CacheItemPolicy cacheItemPolicy = new CacheItemPolicy();
+                cacheItemPolicy.AbsoluteExpiration = DateTime.Now.AddHours(1.0);
+                cache.Add(CacheKey, listaErrores, cacheItemPolicy);
+
+                ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('0', 'Existen campos con errores')", true);
             }
         }
 
