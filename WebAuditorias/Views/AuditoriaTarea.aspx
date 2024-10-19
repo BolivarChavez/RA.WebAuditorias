@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tareas relacionadas a auditoria</title>
+    <title>Tareas relacionadas a auditoría</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
     <link rel="stylesheet" href="../Styles/Custom-Opciones.css" />
@@ -27,7 +27,7 @@
                 <img class="image-logo-empresa" src="../Images/LogoRomeroyAsociados.png" />
             </div>    
             <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8 center-block text-left my-auto">
-                <p class="barra-titulo" style="color:#2C3E50;">Tareas relacionadas a auditoria</p>
+                <p class="barra-titulo" style="color:#2C3E50;">Tareas relacionadas a auditoría</p>
             </div>  
             <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2 center-block text-left my-auto">
                 <div class="container">
@@ -128,7 +128,7 @@
         <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Tareas relacionadas a auditoria</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Tareas relacionadas a auditoría</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cierraMessagePopUp()">
                 <span aria-hidden="true">&times;</span>
             </button>

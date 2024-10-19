@@ -53,21 +53,28 @@
                 </div>  
             </div>
             <div class="row console-menu-height" style="background-color: #B2BABB;">
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 px-4 py-0 bg-white h-100 opcion-backcolor-2" style="overflow-y: scroll;">
+                <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2 py-0 h-100 opcion-backcolor-1" style="background-color: #B7BABA;">
                     <nav class="navbar navbar-expand-lg">
                         <button class="btn btn-outline-dark navbar-btn boton-buscar boton-margen" id="BtnBuscar" onserverclick="BtnBuscar_ServerClick" runat="server" data-toggle="tooltip" data-placement="bottom" title="Consultar información"></button>
                     </nav>
-                    <div class="row py-2">
-                        <div class="form-group col-md-2">
+                    <div class="row py-1">
+                        <div class="form-group">
                             <label for="Anio" class="col-form-label col-form-label-sm" style="font-weight:bold;">Año</label>
                             <input type="number" class="form-control form-control-sm" style="width: 50%; font-size: 12px" id="Anio" placeholder="0" runat="server"/>
                         </div>
                     </div>
-                    <div class="container-fluid" id="DetalleInfo" runat="server">
-                        <h4>Resumen de control de auditorias</h4>
-                        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-1 border-bottom"></div>
-                        <div id="GridConsulta" class="content-wrapper py-2" style="width:100%">
-                            <div id="Grid">
+                </div>
+                <div class="col-sm-12 col-md-10 col-lg-10 col-xl-10 px-0 py-0 bg-white h-100 opcion-backcolor-2" style="overflow-y: scroll; overflow-x: hidden">
+                    <div class="row px-4 py-2">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 d-flex align-items-stretch">
+                            <div class="card text-left border-primary rounded-2 shadow" style="width: 100%;">
+                                <div class="card-header text-primary">
+                                    <b>Resumen de control de auditorías</b>
+                                </div>
+                                <div id="GridConsulta" class="card-body" runat="server">
+                                    <div id="Grid">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

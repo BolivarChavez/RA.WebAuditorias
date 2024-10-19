@@ -15,10 +15,11 @@
     <link rel="stylesheet" href="../Styles/material.css" />
     <link rel="stylesheet" href="../Styles/Custom-Grid.css" />
     <link rel="stylesheet" href="../Styles/Custom-Grid-Font.css" />
+    <link rel="stylesheet" href="../Styles/Custom-Collapse.css" />
     <script src="../Scripts/ej2.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js"></script>
 </head>
 <body style="margin: 0; height: 100%; overflow: hidden; background-color: #E5E8E8;">
     <div class="container-fluid">
@@ -58,7 +59,6 @@
                         <h4 id="Auditoria" runat="server">Descripcion de auditoria</h4>
                         <h4 id="Proceso" runat="server">Proceso de auditoria</h4>
                         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-1 border-bottom"></div>
-
                         <div id="DetalleConsulta" class="content-wrapper py-2" style="width:100%" runat="server">
                         </div>
                         <asp:HiddenField ID="HiddenField1" runat="server" />

@@ -71,7 +71,7 @@ async function LlenaGrid() {
             { field: 'Monto_Honorarios', headerText: 'Monto Honorarios', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Total_Incentivos', headerText: 'Total Incentivos', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Cheque_Girado', headerText: 'Cheque Girado', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'Pagado', headerText: 'Pagago', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Pagado', headerText: 'Pagado', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Entregado_Caja_Interna_1', headerText: 'Entregado Caja Interna 1', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'No_Girado', headerText: 'No Girado', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Fecha_Informe', headerText: 'Fecha de Informe', type: 'date', width: 175, format: { type: 'date', format: 'dd/MM/yyyy' }, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
@@ -132,4 +132,30 @@ function cierraContenidoTexto() {
     var campo = document.getElementById('HiddenField1').value;
     document.getElementById(campo).value = document.getElementById('message-text').value;
     $('#myModal').modal('hide');
+}
+
+function mensajeGrabacion(respuesta, mensaje) {
+    if (respuesta === "1") {
+        Swal.fire({
+            title: "Plantilla de Comisiones",
+            text: mensaje,
+            icon: "success",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Continuar"
+        }).then(function () {
+            document.getElementById('profile-tab').click();
+            LlenaGrid();
+        });
+    }
+    else {
+        Swal.fire({
+            title: "Plantilla de Comisiones",
+            text: mensaje,
+            icon: "error",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Continuar"
+        }).then(function () {
+            window.open("ErroresDatosPlantilla.aspx?plantilla=Plantilla de Comisiones", "_blank");
+        });
+    }
 }

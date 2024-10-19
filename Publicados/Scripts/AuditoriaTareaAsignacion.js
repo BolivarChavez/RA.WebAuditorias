@@ -103,63 +103,63 @@ function GrabarProceso() {
     var strData;
     var strParametro;
 
-    const auditoria = document.getElementById('Auditoria').value.split('-');
-    const tarea = document.getElementById('Tarea').value.split('-');
+    Swal.fire({
+        title: "Asignaciones a tareas de auditoría",
+        text: "Confirma la grabación del registro de asignación de tarea de auditoría?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Continuar",
+        cancelButtonText: "Cancelar",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const auditoria = document.getElementById('Auditoria').value.split('-');
+            const tarea = document.getElementById('Tarea').value.split('-');
 
-    if (confirm("Confirma la grabación del registro de actividad de tarea de auditoría?")) {
-        strParametro = "1|";
-        strParametro += auditoria[0] + "|";
-        strParametro += tarea[0] + "|";
-        strParametro += document.getElementById('Codigo').value + "|";
-        strParametro += document.getElementById('Responsable').value + "|";
-        strParametro += document.getElementById('TipoAsignacion').value + "|";
-        strParametro += document.getElementById('RolAsignacion').value + "|";
+            strParametro = "1|";
+            strParametro += auditoria[0] + "|";
+            strParametro += tarea[0] + "|";
+            strParametro += document.getElementById('Codigo').value + "|";
+            strParametro += document.getElementById('Responsable').value + "|";
+            strParametro += document.getElementById('TipoAsignacion').value + "|";
+            strParametro += document.getElementById('RolAsignacion').value + "|";
 
-        if (document.getElementById("chkEstado").checked) {
-            strParametro += "A";
+            if (document.getElementById("chkEstado").checked) {
+                strParametro += "A";
+            }
+            else {
+                strParametro += "I";
+            }
+
+            var args = '';
+            args += "'parametros':'" + strParametro + "'";
+            $.ajax({
+                async: false,
+                cache: false,
+                type: "POST",
+                url: "AuditoriaTareaAsignacion.aspx/GrabarAuditoriaAsignacion",
+                data: "{" + args + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response.d != '') {
+                        strData = response.d;
+                    }
+                },
+                fail: function (response) {
+                    debugger;
+                    alert(response.d);
+                }
+            });
+
+            retornoProceso(strData, 'La grabación del registro ha finalizado');
         }
         else {
-            strParametro += "I";
+            strData = "";
         }
+    });
 
-        var args = '';
-        args += "'parametros':'" + strParametro + "'";
-        $.ajax({
-            async: false,
-            cache: false,
-            type: "POST",
-            url: "AuditoriaTareaAsignacion.aspx/GrabarAuditoriaAsignacion",
-            data: "{" + args + "}",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                if (response.d != '') {
-                    strData = response.d;
-                }
-            },
-            fail: function (response) {
-                debugger;
-                alert(response.d);
-            }
-        });
-    }
-    else {
-        strData = "";
-    }
-
-    var retornoProceso = JSON.parse(strData)
-
-    if (retornoProceso[0]['retorno'] === 0) {
-        InicializaVista();
-        document.getElementById('messageContent').innerHTML = "La grabación del registro ha finalizado";
-        $('#popupMessage').modal('show');
-    }
-    else {
-        document.getElementById('messageContent').innerHTML = "ERROR : " + retornoProceso[0]['mensaje'];
-        $('#popupMessage').modal('show');
-    }
-
-    LlenaGrid();
     return strData;
 }
 
@@ -167,57 +167,57 @@ function EliminarProceso() {
     var strData;
     var strParametro;
 
-    const auditoria = document.getElementById('Auditoria').value.split('-');
-    const tarea = document.getElementById('Tarea').value.split('-');
+    Swal.fire({
+        title: "Asignaciones a tareas de auditoría",
+        text: "Confirma la grabación del registro de asignación de tarea de auditoría?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Continuar",
+        cancelButtonText: "Cancelar",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const auditoria = document.getElementById('Auditoria').value.split('-');
+            const tarea = document.getElementById('Tarea').value.split('-');
 
-    if (confirm("Confirma la eliminación del registro de actividad de tarea de auditoría?")) {
-        strParametro = "1|";
-        strParametro += auditoria[0] + "|";
-        strParametro += tarea[0] + "|";
-        strParametro += document.getElementById('Codigo').value + "|";
-        strParametro += document.getElementById('Responsable').value + "|";
-        strParametro += document.getElementById('TipoAsignacion').value + "|";
-        strParametro += document.getElementById('RolAsignacion').value + "|";
-        strParametro += "X";
+            strParametro = "1|";
+            strParametro += auditoria[0] + "|";
+            strParametro += tarea[0] + "|";
+            strParametro += document.getElementById('Codigo').value + "|";
+            strParametro += document.getElementById('Responsable').value + "|";
+            strParametro += document.getElementById('TipoAsignacion').value + "|";
+            strParametro += document.getElementById('RolAsignacion').value + "|";
+            strParametro += "X";
 
-        var args = '';
-        args += "'parametros':'" + strParametro + "'";
-        $.ajax({
-            async: false,
-            cache: false,
-            type: "POST",
-            url: "AuditoriaTareaAsignacion.aspx/GrabarAuditoriaAsignacion",
-            data: "{" + args + "}",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                if (response.d != '') {
-                    strData = response.d;
+            var args = '';
+            args += "'parametros':'" + strParametro + "'";
+            $.ajax({
+                async: false,
+                cache: false,
+                type: "POST",
+                url: "AuditoriaTareaAsignacion.aspx/GrabarAuditoriaAsignacion",
+                data: "{" + args + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response.d != '') {
+                        strData = response.d;
+                    }
+                },
+                fail: function (response) {
+                    debugger;
+                    alert(response.d);
                 }
-            },
-            fail: function (response) {
-                debugger;
-                alert(response.d);
-            }
-        });
-    }
-    else {
-        strData = "";
-    }
+            });
 
-    var retornoProceso = JSON.parse(strData)
+            retornoProceso(strData, 'La eliminación del registro ha finalizado');
+        }
+        else {
+            strData = "";
+        }
+    });
 
-    if (retornoProceso[0]['retorno'] === 0) {
-        InicializaVista();
-        document.getElementById('messageContent').innerHTML = "La eliminación del registro ha finalizado";
-        $('#popupMessage').modal('show');
-    }
-    else {
-        document.getElementById('messageContent').innerHTML = "ERROR : " + retornoProceso[0]['mensaje'];
-        $('#popupMessage').modal('show');
-    }
-
-    LlenaGrid();
     return strData;
 }
 
@@ -228,4 +228,31 @@ function cierraMessagePopUp() {
 function InicializaVista() {
     document.getElementById('Codigo').value = "0";
     document.getElementById("chkEstado").checked = false;
+}
+
+function retornoProceso(dataProceso, mensaje) {
+    var retornoProceso = JSON.parse(dataProceso)
+
+    if (retornoProceso[0]['retorno'] === 0) {
+        InicializaVista();
+
+        Swal.fire({
+            title: "Asignaciones a tareas de auditoría",
+            text: mensaje,
+            icon: "success",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Continuar"
+        });
+    }
+    else {
+        Swal.fire({
+            title: "Asignaciones a tareas de auditoría",
+            text: retornoProceso[0]['mensaje'],
+            icon: "error",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Continuar"
+        });
+    }
+
+    LlenaGrid();
 }

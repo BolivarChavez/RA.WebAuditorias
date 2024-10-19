@@ -42,8 +42,9 @@ async function LlenaGrid() {
 
     var grid = new ej.grids.Grid({
         dataSource: JSON.parse(dataGrid),
+        showColumnChooser: true,
         allowExcelExport: true,
-        toolbar: ['ExcelExport'],
+        toolbar: ['ColumnChooser', 'ExcelExport'],
         allowPaging: false,
         allowScrolling: true,
         allowResizing: true,
@@ -60,14 +61,14 @@ async function LlenaGrid() {
             { field: 'OficinaDestino', headerText: 'Oficina Destino', width: 200, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'FechaInicio', headerText: 'Fecha de Inicio', width: 150, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'FechaCierre', headerText: 'Fecha de Cierre', width: 150, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'Gastos', headerText: 'Total Gastos', width: 150, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Gastos', headerText: 'Total Gastos', width: 150, format: 'N2', textAlign: 'Right', customAttributes: { class: 'boldheadergrid' }, type: 'number' },
             { field: 'Tarea', headerText: 'Tarea', width: 300, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Asignacion', headerText: 'Asignacion', width: 300, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Responsables', headerText: 'Responsables', width: 300, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'ProcesosActivos', headerText: 'Actividades Creadas', width: 150, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'ProcesosCerrados', headerText: 'Actividades Procesadas', width: 150, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'PlantillasActivas', headerText: 'Plantillas Registradas', width: 150, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'PlantillasProcesadas', headerText: 'Plantillas Procesadas', width: 150, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'ProcesosActivos', headerText: 'Actividades Creadas', width: 150, textAlign: 'Right', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'ProcesosCerrados', headerText: 'Actividades Procesadas', width: 150, textAlign: 'Right', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'PlantillasActivas', headerText: 'Plantillas Registradas', width: 150, textAlign: 'Right', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'PlantillasProcesadas', headerText: 'Plantillas Procesadas', width: 150, textAlign: 'Right', customAttributes: { class: 'boldheadergrid' } },
             { field: 'EstadoTarea', headerText: 'Estado Tarea', width: 150, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } }
         ],
         pageSettings: { pageCount: 5, pageSize: 10 }

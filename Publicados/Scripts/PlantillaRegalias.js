@@ -65,17 +65,21 @@ async function LlenaGrid() {
         columns: [
             { field: 'IdRegistro', headerText: 'Id', visible: false, width: 75, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'ReferenciaLinea', headerText: 'Referencia', visible: false, width: 125, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'Codigo', headerText: 'Codigo', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Codigo', headerText: 'Código Relagía', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Fecha', headerText: 'Fecha', type: 'date', width: 175, format: { type: 'date', format: 'dd/MM/yyyy' }, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'Descripcion', headerText: 'Descripcion', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Descripcion', headerText: 'Descripción', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Moneda', headerText: 'Moneda', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Valor_Fijo', headerText: 'Valor Fijo', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'Valor_Proporcional', headerText: 'Valor Proporcional', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'Porcentaje', headerText: 'Porcentaje', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'Subtotal', headerText: 'Sub Total', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Ingresos_Facturados', headerText: 'Ingresos Facturados', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Ingresos_Cartera', headerText: 'Ingresos Cartera Comprada', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Retencion', headerText: 'Retencion Renta 2da Categoría', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Total_Soles', headerText: 'Total Soles', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Tasa_Cambio', headerText: 'Tasa de Cambio', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'Total', headerText: 'Total', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'Adjuntos', headerText: 'Adjuntos', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
-            { field: 'Cuenta', headerText: 'Cuenta', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } }
+            { field: 'Total_Dolares', headerText: 'Total Dólares', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Adjuntos', headerText: 'Archivos', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Cuenta', headerText: 'Cuenta Contable', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Soporte', headerText: 'Soporte', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
+            { field: 'Observaciones', headerText: 'Observaciones', width: 250, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } }
         ],
         pageSettings: { pageCount: 5, pageSize: 10 },
         rowSelected: rowSelected
@@ -99,14 +103,18 @@ function rowSelected(args) {
 
     document.getElementById('Fecha').value = fecha;
     document.getElementById('Descripcion').value = args.data.Descripcion;
+    document.getElementById('Moneda').value = args.data.Moneda;
     document.getElementById('Valor_Fijo').value = args.data.Valor_Fijo;
-    document.getElementById('Valor_Proporcional').value = args.data.Valor_Proporcional;
-    document.getElementById('Porcentaje').value = args.data.Porcentaje;
-    document.getElementById('Subtotal').value = args.data.Subtotal;
+    document.getElementById('Ingresos_Facturados').value = args.data.Ingresos_Facturados;
+    document.getElementById('Ingresos_Cartera').value = args.data.Ingresos_Cartera;
+    document.getElementById('Retencion').value = args.data.Retencion;
+    document.getElementById('Total_Soles').value = args.data.Total_Soles;
     document.getElementById('Tasa_Cambio').value = args.data.Tasa_Cambio;
-    document.getElementById('Total').value = args.data.Total;
+    document.getElementById('Total_Dolares').value = args.data.Total_Dolares;
     document.getElementById('Adjuntos').value = args.data.Adjuntos;
     document.getElementById('Cuenta').value = args.data.Cuenta;
+    document.getElementById('Soporte').value = args.data.Soporte;
+    document.getElementById('Observaciones').value = args.data.Observaciones;
 }
 
 function muestraContenidoTexto(titulo, campo) {
@@ -120,4 +128,30 @@ function cierraContenidoTexto() {
     var campo = document.getElementById('HiddenField1').value;
     document.getElementById(campo).value = document.getElementById('message-text').value;
     $('#myModal').modal('hide');
+}
+
+function mensajeGrabacion(respuesta, mensaje) {
+    if (respuesta === "1") {
+        Swal.fire({
+            title: "Plantilla de Regalías",
+            text: mensaje,
+            icon: "success",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Continuar"
+        }).then(function () {
+            document.getElementById('profile-tab').click();
+            LlenaGrid();
+        });
+    }
+    else {
+        Swal.fire({
+            title: "Plantilla de Regalías",
+            text: mensaje,
+            icon: "error",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Continuar"
+        }).then(function () {
+            window.open("ErroresDatosPlantilla.aspx?plantilla=Plantilla de Regalías", "_blank");
+        });
+    }
 }

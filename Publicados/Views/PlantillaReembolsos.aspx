@@ -18,6 +18,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../Scripts/PlantillaReembolsos.js" type="text/javascript"></script>
 </head>
 <body style="margin: 0; height: 100%; overflow: hidden; background-color: #E5E8E8;">
         <div class="container-fluid">
@@ -103,44 +105,44 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
-                                                        <label for="CodigoReembolso" class="col-form-label col-form-label-sm" style="font-weight:bold;">Código reembolso</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="CodigoReembolso" placeholder="" runat="server"/>
+                                                        <label for="Documento" class="col-form-label col-form-label-sm" style="font-weight:bold;">Número de Documento</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Documento" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Fecha_Documento" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha documento</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Fecha_Documento" placeholder="" runat="server"/>
+                                                        <label for="Fecha_Documento" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha de Documento</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Fecha_Documento" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="ReferenciaReembolso" class="col-form-label col-form-label-sm" style="font-weight:bold;">No. Liquidación / Factura / Boleta</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="ReferenciaReembolso" placeholder="" runat="server" onclick="muestraContenidoTexto('ReferenciaReembolso', 'ReferenciaReembolso')"/>
+                                                        <label for="Soporte" class="col-form-label col-form-label-sm" style="font-weight:bold;">Soporte (No. Liquidación/Factura/Boleta)</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Soporte" placeholder="" runat="server" />
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Valor_Moneda_Destino" class="col-form-label col-form-label-sm" style="font-weight:bold;">Valor moneda destino</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Valor_Moneda_Destino" placeholder="" runat="server"/>
+                                                        <label for="Valor_Total" class="col-form-label col-form-label-sm" style="font-weight:bold;">Valor Total</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Valor_Total" placeholder="" runat="server"/>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
-                                                        <label for="Valor_Tasa_Cambio" class="col-form-label col-form-label-sm" style="font-weight:bold;">Valor tasa cambio</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Valor_Tasa_Cambio" placeholder="" runat="server"/>
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label for="Valor_Moneda_Base" class="col-form-label col-form-label-sm" style="font-weight:bold;">Valor moneda base</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Valor_Moneda_Base" placeholder="" runat="server"/>
+                                                        <label for="Moneda" class="col-form-label col-form-label-sm" style="font-weight:bold;">Moneda</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Moneda" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Estado" class="col-form-label col-form-label-sm" style="font-weight:bold;">Estado</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Estado" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Estado" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Numero_Cheque" class="col-form-label col-form-label-sm" style="font-weight:bold;">Número cheque</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Numero_Cheque" placeholder="" runat="server"/>
+                                                        <label for="Numero_Cheque" class="col-form-label col-form-label-sm" style="font-weight:bold;">Número de Cheque</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Numero_Cheque" placeholder="" runat="server"/>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="Adjuntos" class="col-form-label col-form-label-sm" style="font-weight:bold;">Adjuntos</label>
+                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Adjuntos" placeholder="" runat="server" onclick="muestraContenidoTexto('Adjuntos', 'Adjuntos')"/>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
-                                                        <label for="Adjuntos" class="col-form-label col-form-label-sm" style="font-weight:bold;">Adjuntos</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Adjuntos" placeholder="" runat="server" onclick="muestraContenidoTexto('Adjuntos', 'Adjuntos')"/>
+                                                        <label for="Observaciones" class="col-form-label col-form-label-sm" style="font-weight:bold;">Observaciones</label>
+                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Observaciones" placeholder="" runat="server" onclick="muestraContenidoTexto('Observaciones', 'Observaciones')"/>
                                                     </div>
                                                 </div>
                                                 <div class="form-check">
@@ -188,7 +190,7 @@
                         <button type="button" class="close" data-dismiss="modal" onclick="cierraContenidoTexto()">&times;</button>
                     </div>
                     <div class="modal-body">
-                        <textarea rows="5" class="form-control" style="overflow-y:scroll;" id="message-text"></textarea>
+                        <textarea rows="5" class="form-control" style="overflow-y:scroll; font-size: 12px" id="message-text"></textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cierraContenidoTexto()">Cerrar</button>
@@ -196,7 +198,6 @@
                 </div>
             </div>
         </div>
-        <script src="../Scripts/PlantillaReembolsos.js" type="text/javascript"></script>
         <script>
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip()

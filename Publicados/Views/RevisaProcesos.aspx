@@ -72,55 +72,61 @@
                                 </div>
                                 <div id="Div1" class="mx-2" runat="server">
                                     <br />
-                                    <h6 id="TituloSeccion1">Información General</h6>
-                                    <div class="row">
-                                        <div class="form-group col-md-4">
-                                                <label for="Codigo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Código</label>
-                                                <input type="text" class="form-control form-control-sm" style="width: 300px; font-size: 12px" id="Codigo" placeholder="0" readonly="true" runat="server"/>
+                                    <div class="card text-left border-primary rounded-2 shadow" style="width: 100%;">
+                                        <div class="card-header text-primary">
+                                            <b>Información General</b>
                                         </div>
-                                        <div class="form-group col-md-4">
-                                                <label for="TipoProceso" class="col-form-label col-form-label-sm" style="font-weight:bold;">Tipo de proceso</label>
-                                                <asp:DropDownList ID="TipoProceso" CssClass="form-select form-select-sm" style="width: 300px; font-size: 12px" runat="server" Enabled="false"></asp:DropDownList>
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="OficinaOrigen" class="col-form-label col-form-label-sm" style="font-weight:bold;">Oficina de origen</label>
-                                            <asp:DropDownList ID="OficinaOrigen" CssClass="form-select form-select-sm" style="width: 300px; font-size: 12px" runat="server" Enabled="false"></asp:DropDownList>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-4">
-                                            <label for="OficinaDestino" class="col-form-label col-form-label-sm" style="font-weight:bold;">Oficina de destino</label>
-                                            <asp:DropDownList ID="OficinaDestino" CssClass="form-select form-select-sm" style="width: 300px; font-size: 12px" runat="server" Enabled="false"></asp:DropDownList>
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="FechaInicio" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha de Inicio</label>
-                                            <input type="date" class="form-control form-control-sm" id="FechaInicio" placeholder="" style="width: 300px; font-size: 12px" runat="server" readonly="true"/>
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="FechaCierre" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha de Cierre</label>
-                                            <input type="date" class="form-control form-control-sm" id="FechaCierre" placeholder="" style="width: 300px; font-size: 12px" runat="server" readonly="true"/>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-4">
-                                            <label for="Tipo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Tipo de auditoría</label>
-                                            <asp:DropDownList ID="Tipo" CssClass="form-select form-select-sm" style="width: 300px; font-size: 12px" runat="server" Enabled="false">
-                                                <asp:ListItem Value="L">LOCAL</asp:ListItem>
-                                                <asp:ListItem Value="R">REMOTA</asp:ListItem>
-                                            </asp:DropDownList>
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="Observaciones" class="col-form-label col-form-label-sm" style="font-weight:bold;">Observaciones</label>
-                                            <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Observaciones" placeholder="" runat="server" maxlength="400" readonly="true"/>
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label class="form-check-label form-control-sm" for="Estado" style="font-weight:bold";>Estado</label>
-                                            <asp:DropDownList ID="Estado" CssClass="form-select form-select-sm" style="width: 300px; font-size: 12px" runat="server" Enabled="false">
-                                                <asp:ListItem Value="A">ABIERTA</asp:ListItem>
-                                                <asp:ListItem Value="P">EN PROCESO</asp:ListItem>
-                                                <asp:ListItem Value="C">CERRADA</asp:ListItem>
-                                                <asp:ListItem Value="X">ANULADA</asp:ListItem>
-                                            </asp:DropDownList>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="form-group col-md-4">
+                                                        <label for="Codigo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Código</label>
+                                                        <input type="text" class="form-control form-control-sm" style="width: 300px; font-size: 12px" id="Codigo" placeholder="0" readonly="true" runat="server"/>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                        <label for="TipoProceso" class="col-form-label col-form-label-sm" style="font-weight:bold;">Tipo de proceso</label>
+                                                        <asp:DropDownList ID="TipoProceso" CssClass="form-select form-select-sm" style="width: 300px; font-size: 12px" runat="server" Enabled="false"></asp:DropDownList>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="OficinaOrigen" class="col-form-label col-form-label-sm" style="font-weight:bold;">Oficina de origen</label>
+                                                    <asp:DropDownList ID="OficinaOrigen" CssClass="form-select form-select-sm" style="width: 300px; font-size: 12px" runat="server" Enabled="false"></asp:DropDownList>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-md-4">
+                                                    <label for="OficinaDestino" class="col-form-label col-form-label-sm" style="font-weight:bold;">Oficina de destino</label>
+                                                    <asp:DropDownList ID="OficinaDestino" CssClass="form-select form-select-sm" style="width: 300px; font-size: 12px" runat="server" Enabled="false"></asp:DropDownList>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="FechaInicio" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha de Inicio</label>
+                                                    <input type="date" class="form-control form-control-sm" id="FechaInicio" placeholder="" style="width: 300px; font-size: 12px" runat="server" readonly="true"/>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="FechaCierre" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha de Cierre</label>
+                                                    <input type="date" class="form-control form-control-sm" id="FechaCierre" placeholder="" style="width: 300px; font-size: 12px" runat="server" readonly="true"/>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-md-4">
+                                                    <label for="Tipo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Tipo de auditoría</label>
+                                                    <asp:DropDownList ID="Tipo" CssClass="form-select form-select-sm" style="width: 300px; font-size: 12px" runat="server" Enabled="false">
+                                                        <asp:ListItem Value="L">LOCAL</asp:ListItem>
+                                                        <asp:ListItem Value="R">REMOTA</asp:ListItem>
+                                                    </asp:DropDownList>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="Observaciones" class="col-form-label col-form-label-sm" style="font-weight:bold;">Observaciones</label>
+                                                    <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Observaciones" placeholder="" runat="server" maxlength="400" readonly="true"/>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label class="form-check-label form-control-sm" for="Estado" style="font-weight:bold";>Estado</label>
+                                                    <asp:DropDownList ID="Estado" CssClass="form-select form-select-sm" style="width: 300px; font-size: 12px" runat="server" Enabled="false">
+                                                        <asp:ListItem Value="A">ABIERTA</asp:ListItem>
+                                                        <asp:ListItem Value="P">EN PROCESO</asp:ListItem>
+                                                        <asp:ListItem Value="C">CERRADA</asp:ListItem>
+                                                        <asp:ListItem Value="X">ANULADA</asp:ListItem>
+                                                    </asp:DropDownList>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -131,33 +137,55 @@
                             </asp:UpdatePanel>
                         </form> 
                     </div>
-                    <div class="row py-2">
-                        <div id="GridConsultaGastos" class="content-wrapper py-2" style="width:100%">
-                            <h6 id="TituloSeccion2">Gastos de proceso de auditoría</h6>
-                            <div id="GridGastos">
+                    <br />
+                    <div class="mx-2">
+                        <div class="card text-left border-primary rounded-2 shadow" style="width: 100%; height:450px">
+                            <div class="card-header text-primary">
+                                <b>Gastos de proceso de auditoría</b>
+                            </div>
+                            <div id="GridConsultaGastos" class="content-wrapper py-2" style="width:100%;">
+                                <div class="card-body">
+                                    <div id="GridGastos">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row py-2">
-                        <div id="GridConsultaTareas" class="content-wrapper py-2" style="width:100%">
-                            <br />
-                            <br />
-                            <h6 id="TituloSeccion3">Tareas asociadas a proceso de Auditoría</h6>
-                            <div id="GridTareas">
+                    <br />
+                    <div class="mx-2">
+                        <div class="card text-left border-primary rounded-2 shadow" style="width: 100%; height:450px">
+                            <div class="card-header text-primary">
+                                <b>Tareas asociadas a proceso de Auditoría</b>
+                             </div>
+                            <div id="GridConsultaTareas" class="content-wrapper py-2" style="width:100%">
+                                <div class="card-body">
+                                    <div id="GridTareas">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row py-2">
-                        <div id="GridConsultaAsignacion" class="content-wrapper py-2" style="width:100%">
-                            <br />
-                            <br />
-                            <h6 id="TituloSeccion4">Responsables asignados a tarea</h6>
-                            <div id="GridAsignacion">
+                    <br />
+                    <div class="mx-2">
+                        <div class="card text-left border-primary rounded-2 shadow" style="width: 100%; height:450px">
+                            <div id="TituloSeccion4" class="card-header text-primary">
+                                <b>Responsables asignados a tarea</b>
+                            </div>
+                            <div id="GridConsultaAsignacion" class="content-wrapper py-2" style="width:100%">
+                                <div class="card-body">
+                                    <div id="GridAsignacion">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row py-2">
-                        <div id="GridConsultaProcesos" class="content-wrapper py-2" style="width:100%">
+                    <br />
+                    <div class="mx-2">
+                        <div class="card text-left border-primary rounded-2 shadow" style="width: 100%; height:450px">
+                            <div id="TituloSeccion5" class="card-header text-primary">
+                                <b>Procesos asociados a tarea</b>
+                            </div>
+                            <div id="GridConsultaProcesos" class="content-wrapper py-2" style="width:100%;">
                             <script id="template" type="text/x-template">
                                 <div >
                                     <a href="VistaArchivo.aspx?archivo=${at_documento}" target="_blank"  >
@@ -165,10 +193,10 @@
                                     </a>
                                 </div>
                             </script>
-                            <br />
-                            <br />
-                            <h6 id="TituloSeccion5">Procesos asociados a tarea</h6>
-                            <div id="GridProcesos">
+                            <div class="card-body">
+                                <div id="GridProcesos">
+                                </div>
+                            </div>
                             </div>
                         </div>
                     </div>

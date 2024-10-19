@@ -52,7 +52,7 @@ async function LlenaGridGastos() {
         allowPaging: false,
         allowScrolling: true,
         allowTextWrap: true,
-        height: '100%',
+        height: '250px',
         allowTextWrap: true,
         textWrapSettings: { wrapMode: 'Content' },
         columns: [
@@ -136,7 +136,7 @@ async function LlenaGridTareas() {
         allowPaging: false,
         allowScrolling: true,
         allowTextWrap: true,
-        height: '100%',
+        height: '250px',
         allowTextWrap: true,
         textWrapSettings: { wrapMode: 'Content' },
         columns: [
@@ -155,8 +155,8 @@ async function LlenaGridTareas() {
 async function seleccionTarea(args) {
     const idTarea = args.data.at_tarea;
 
-    document.getElementById("TituloSeccion4").innerHTML = "Responsables asignados a tarea : " + args.data.ct_descripcion;
-    document.getElementById("TituloSeccion5").innerHTML = "Procesos asociados a tarea : " + args.data.ct_descripcion;
+    document.getElementById("TituloSeccion4").innerHTML = "<b>Responsables asignados a tarea : " + args.data.ct_descripcion + "</b>";
+    document.getElementById("TituloSeccion5").innerHTML = "<b>Procesos asociados a tarea : " + args.data.ct_descripcion + "</b>";
 
     await LlenaGridAsignacion(idTarea);
     await LlenaGridProceso(idTarea);
@@ -164,8 +164,8 @@ async function seleccionTarea(args) {
 }
 
 async function ConsultaInicial() {
-    document.getElementById("TituloSeccion4").innerHTML = "Responsables asignados a tarea";
-    document.getElementById("TituloSeccion5").innerHTML = "Procesos asociados a tarea"; 
+    document.getElementById("TituloSeccion4").innerHTML = "<b>Responsables asignados a tarea</b>";
+    document.getElementById("TituloSeccion5").innerHTML = "<b>Procesos asociados a tarea</b>"; 
 
     document.getElementById('GridAsignacion').innerHTML = "";
     document.getElementById('GridProcesos').innerHTML = "";
@@ -230,7 +230,7 @@ async function LlenaGridAsignacion(idTarea) {
         allowPaging: false,
         allowScrolling: true,
         allowTextWrap: true,
-        height: '100%',
+        height: '250px',
         allowTextWrap: true,
         textWrapSettings: { wrapMode: 'Content' },
         columns: [
@@ -302,7 +302,7 @@ async function LlenaGridProceso(idTarea) {
         allowPaging: false,
         allowScrolling: true,
         allowTextWrap: true,
-        height: '100%',
+        height: '250px',
         allowTextWrap: true,
         textWrapSettings: { wrapMode: 'Content' },
         columns: [

@@ -18,6 +18,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../Scripts/PlantillaPlanillas.js" type="text/javascript"></script>
 </head>
 <body style="margin: 0; height: 100%; overflow: hidden; background-color: #E5E8E8;">
         <div class="container-fluid">
@@ -104,51 +106,51 @@
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
                                                         <label for="Mes" class="col-form-label col-form-label-sm" style="font-weight:bold;">Mes</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Mes" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Mes" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Fecha_Pago_Cash" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha pago cash</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Fecha_Pago_Cash" placeholder="" runat="server"/>
+                                                        <label for="Fecha_Pago_Cash" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha de Pago Cash</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Fecha_Pago_Cash" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Lote" class="col-form-label col-form-label-sm" style="font-weight:bold;">Lote</label>
                                                         <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Lote" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Remuneracion_Cash" class="col-form-label col-form-label-sm" style="font-weight:bold;">Remuneración cash</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Remuneracion_Cash" placeholder="" runat="server"/>
+                                                        <label for="Remuneracion_Cash" class="col-form-label col-form-label-sm" style="font-weight:bold;">Remuneraciones Cash</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Remuneracion_Cash" placeholder="" runat="server"/>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
-                                                        <label for="Remuneracion_Cheque" class="col-form-label col-form-label-sm" style="font-weight:bold;">Remuneración cheque</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Remuneracion_Cheque" placeholder="" runat="server"/>
+                                                        <label for="Remuneracion_Cheque" class="col-form-label col-form-label-sm" style="font-weight:bold;">Remuneraciones Cheque</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Remuneracion_Cheque" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Remuneracion_Total" class="col-form-label col-form-label-sm" style="font-weight:bold;">Remuneración total</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Remuneracion_Total" placeholder="" runat="server"/>
+                                                        <label for="Remuneracion_Total" class="col-form-label col-form-label-sm" style="font-weight:bold;">Remuneraciones Total</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Remuneracion_Total" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Fecha_Pago" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha pago</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Fecha_Pago" placeholder="" runat="server"/>
+                                                        <label for="Fecha_Pago" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha de Pago</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Fecha_Pago" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Honorarios_Planilla" class="col-form-label col-form-label-sm" style="font-weight:bold;">Honorarios planilla</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Honorarios_Planilla" placeholder="" runat="server"/>
+                                                        <label for="Honorarios_Planilla" class="col-form-label col-form-label-sm" style="font-weight:bold;">Honorarios Planilla</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Honorarios_Planilla" placeholder="" runat="server"/>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
-                                                        <label for="Honorarios_Incentivos" class="col-form-label col-form-label-sm" style="font-weight:bold;">Honorarios incentivos</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Honorarios_Incentivos" placeholder="" runat="server"/>
+                                                        <label for="Honorarios_Incentivos" class="col-form-label col-form-label-sm" style="font-weight:bold;">Honorarios Incentivos</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Honorarios_Incentivos" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Honorarios_Total" class="col-form-label col-form-label-sm" style="font-weight:bold;">Honorarios total</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Honorarios_Total" placeholder="" runat="server"/>
+                                                        <label for="Honorarios_Total" class="col-form-label col-form-label-sm" style="font-weight:bold;">Honorarios Total</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Honorarios_Total" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Pagado" class="col-form-label col-form-label-sm" style="font-weight:bold;">Pagado</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Pagado" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Pagado" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Honorarios_Cesantes" class="col-form-label col-form-label-sm" style="font-weight:bold;">Honorarios Cesantes</label>
@@ -161,7 +163,7 @@
                                                         <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Diferencia" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Fecha_Pago_Gratificacion" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha pago gratificación</label>
+                                                        <label for="Fecha_Pago_Gratificacion" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha de Pago Gratificación</label>
                                                         <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Fecha_Pago_Gratificacion" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
@@ -169,7 +171,7 @@
                                                         <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Gratificaciones" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Numero_Informe" class="col-form-label col-form-label-sm" style="font-weight:bold;">Numero informe</label>
+                                                        <label for="Numero_Informe" class="col-form-label col-form-label-sm" style="font-weight:bold;">Número de Informe</label>
                                                         <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Numero_Informe" placeholder="" runat="server"/>
                                                     </div>
                                                 </div>
@@ -224,7 +226,7 @@
                         <button type="button" class="close" data-dismiss="modal" onclick="cierraContenidoTexto()">&times;</button>
                     </div>
                     <div class="modal-body">
-                        <textarea rows="5" class="form-control" style="overflow-y:scroll;" id="message-text"></textarea>
+                        <textarea rows="5" class="form-control" style="overflow-y:scroll; font-size: 12px" id="message-text"></textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cierraContenidoTexto()">Cerrar</button>
@@ -232,7 +234,6 @@
                 </div>
             </div>
         </div>
-        <script src="../Scripts/PlantillaPlanillas.js" type="text/javascript"></script>
         <script>
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip()

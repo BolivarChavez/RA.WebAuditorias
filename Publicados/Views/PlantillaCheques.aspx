@@ -18,6 +18,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../Scripts/PlantillaCheques.js" type="text/javascript"></script>
 </head>
 <body style="margin: 0; height: 100%; overflow: hidden; background-color: #E5E8E8;">
         <div class="container-fluid">
@@ -104,87 +106,91 @@
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
                                                         <label for="Item" class="col-form-label col-form-label-sm" style="font-weight:bold;">Item</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Item" placeholder="" runat="server" onclick="muestraContenidoTexto('Item', 'Item')"/>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Item" placeholder="" runat="server" />
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Talonario" class="col-form-label col-form-label-sm" style="font-weight:bold;">Talonario</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Talonario" placeholder="" runat="server" onclick="muestraContenidoTexto('Talonario', 'Talonario')"/>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Talonario" placeholder="" runat="server" />
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Req" class="col-form-label col-form-label-sm" style="font-weight:bold;">Req</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Req" placeholder="" runat="server" onclick="muestraContenidoTexto('Req', 'Req')"/>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Req" placeholder="" runat="server" />
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Beneficiario" class="col-form-label col-form-label-sm" style="font-weight:bold;">Beneficiario</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Beneficiario" placeholder="" runat="server" onclick="muestraContenidoTexto('Beneficiario', 'Beneficiario')"/>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Beneficiario" placeholder="" runat="server" onclick="muestraContenidoTexto('Beneficiario', 'Beneficiario')"/>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
                                                         <label for="Concepto" class="col-form-label col-form-label-sm" style="font-weight:bold;">Concepto</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Concepto" placeholder="" runat="server" onclick="muestraContenidoTexto('Concepto', 'Concepto')"/>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Concepto" placeholder="" runat="server" onclick="muestraContenidoTexto('Concepto', 'Concepto')"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Comprobante" class="col-form-label col-form-label-sm" style="font-weight:bold;">Comprobante</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Comprobante" placeholder="" runat="server" onclick="muestraContenidoTexto('Comprobante', 'Comprobante')"/>
+                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Comprobante" placeholder="" runat="server" />
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="Moneda" class="col-form-label col-form-label-sm" style="font-weight:bold;">Moneda</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Moneda" placeholder="" runat="server" />
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Monto" class="col-form-label col-form-label-sm" style="font-weight:bold;">Monto</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Monto" placeholder="" runat="server" onclick="muestraContenidoTexto('Monto', 'Monto')"/>
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label for="FechaPago" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha de pago</label>
-                                                        <input type="date" class="form-control form-control-sm" style="font-size: 12px" id="FechaPago" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Monto" placeholder="" runat="server" />
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
-                                                        <label for="ComprobanteEgreso" class="col-form-label col-form-label-sm" style="font-weight:bold;">Comprobante de egreso</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="ComprobanteEgreso" placeholder="" runat="server" onclick="muestraContenidoTexto('ComprobanteEgreso', 'ComprobanteEgreso')"/>
+                                                        <label for="FechaPago" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha de Pago</label>
+                                                        <input type="date" class="form-control form-control-sm border-primary" style="font-size: 12px" id="FechaPago" placeholder="" runat="server"/>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="ComprobanteEgreso" class="col-form-label col-form-label-sm" style="font-weight:bold;">Comprobante de Egreso</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="ComprobanteEgreso" placeholder="" runat="server" />
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Banco" class="col-form-label col-form-label-sm" style="font-weight:bold;">Banco</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Banco" placeholder="" runat="server" onclick="muestraContenidoTexto('Banco', 'Banco')"/>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Banco" placeholder="" runat="server" />
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="NumeroCheque" class="col-form-label col-form-label-sm" style="font-weight:bold;">Número de cheque</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="NumeroCheque" placeholder="" runat="server" />
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label for="TipoCambio" class="col-form-label col-form-label-sm" style="font-weight:bold;">Tipo de cambio</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="TipoCambio" placeholder="" runat="server" />
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="NumeroCheque" placeholder="" runat="server" />
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
-                                                        <label for="ObservacionPreliminar" class="col-form-label col-form-label-sm" style="font-weight:bold;">Observación preliminar</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="ObservacionPreliminar" placeholder="" runat="server" onclick="muestraContenidoTexto('Observacion Preliminar', 'ObservacionPreliminar')"/>
+                                                        <label for="TipoCambio" class="col-form-label col-form-label-sm" style="font-weight:bold;">Tipo de Cambio</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="TipoCambio" placeholder="" runat="server" />
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Observacion_Final" class="col-form-label col-form-label-sm" style="font-weight:bold;">Observación final</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Observacion_Final" placeholder="" runat="server" onclick="muestraContenidoTexto('Observacion Final', 'Observacion_Final')"/>
+                                                        <label for="ObservacionPreliminar" class="col-form-label col-form-label-sm" style="font-weight:bold;">Observación Preliminar</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="ObservacionPreliminar" placeholder="" runat="server" onclick="muestraContenidoTexto('Observación Preliminar', 'ObservacionPreliminar')"/>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="Observacion_Final" class="col-form-label col-form-label-sm" style="font-weight:bold;">Observación Final</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Observacion_Final" placeholder="" runat="server" onclick="muestraContenidoTexto('Observación Final', 'Observacion_Final')"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Estado" class="col-form-label col-form-label-sm" style="font-weight:bold;">Estado</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Estado" placeholder="" runat="server"/>
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label for="Empresa" class="col-form-label col-form-label-sm" style="font-weight:bold;">Empresa</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Empresa" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Estado" placeholder="" runat="server"/>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
+                                                        <label for="Empresa" class="col-form-label col-form-label-sm" style="font-weight:bold;">Empresa</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Empresa" placeholder="" runat="server"/>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
                                                         <label for="Sede" class="col-form-label col-form-label-sm" style="font-weight:bold;">Sede</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Sede" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Sede" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Cuenta" class="col-form-label col-form-label-sm" style="font-weight:bold;">Cuenta</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Cuenta" placeholder="" runat="server" onclick="muestraContenidoTexto('Cuenta', 'Cuenta')"/>
+                                                        <label for="Cuenta" class="col-form-label col-form-label-sm" style="font-weight:bold;">Cuenta Contable</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Cuenta" placeholder="" runat="server" />
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="SubCuenta" class="col-form-label col-form-label-sm" style="font-weight:bold;">Sub Cuenta</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="SubCuenta" placeholder="" runat="server" onclick="muestraContenidoTexto('Sub Cuenta', 'SubCuenta')"/>
+                                                        <label for="SubCuenta" class="col-form-label col-form-label-sm" style="font-weight:bold;">Sub Cuenta Contable</label>
+                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="SubCuenta" placeholder="" runat="server" />
                                                     </div>
                                                 </div>
                                                 <div class="form-check">
@@ -232,7 +238,7 @@
                         <button type="button" class="close" data-dismiss="modal" onclick="cierraContenidoTexto()">&times;</button>
                     </div>
                     <div class="modal-body">
-                        <textarea rows="5" class="form-control" style="overflow-y:scroll;" id="message-text"></textarea>
+                        <textarea rows="5" class="form-control" style="overflow-y:scroll; font-size: 12px" id="message-text"></textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cierraContenidoTexto()">Cerrar</button>
@@ -240,7 +246,6 @@
                 </div>
             </div>
         </div>
-        <script src="../Scripts/PlantillaCheques.js" type="text/javascript"></script>
         <script>
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip()

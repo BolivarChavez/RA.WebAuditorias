@@ -169,7 +169,7 @@ function EliminarProceso() {
 
     Swal.fire({
         title: "Asignaciones a tareas de auditoría",
-        text: "Confirma la grabación del registro de asignación de tarea de auditoría?",
+        text: "Confirma la eliminación del registro de asignación de tarea de auditoría?",
         icon: "question",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",

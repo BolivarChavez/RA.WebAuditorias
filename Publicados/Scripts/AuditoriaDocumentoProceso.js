@@ -113,8 +113,14 @@ function ValidaDatos() {
     var observacion = document.getElementById('Observaciones').value;
 
     if (observacion.trim() === "") {
-        document.getElementById('messageContent').innerHTML = "ERROR : No se ha ingresado el detalle de la actividad";
-        $('#popupMessage').modal('show');
+        Swal.fire({
+            title: "Actividades relacionadas a documentos de soporte de auditoría",
+            text: "No se ha ingresado el detalle de la actividad",
+            icon: "error",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Continuar"
+        });
+
         return false;
     }
 
@@ -125,76 +131,76 @@ function GrabarProceso() {
     var strData;
     var strParametro;
 
-    const auditoria = document.getElementById('Auditoria').value.split('-');
-    const tarea = document.getElementById('Tarea').value.split('-');
-
     if (!ValidaDatos()) {
         return strData;
     }
 
-    if (confirm("Confirma la grabación del registro de actividad del documento?")) {
-        var date1 = new Date(document.getElementById('Fecha').value + 'T00:00:00.000Z');
-        var day1 = date1.getUTCDate();
-        var month1 = date1.getUTCMonth() + 1;
-        var year1 = date1.getUTCFullYear();
-        var fecha1 = year1 + "-" + month1 + "-" + day1;
+    Swal.fire({
+        title: "Actividades relacionadas a documentos de soporte de auditoría",
+        text: "Confirma la grabación del registro de actividad del documento?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Continuar",
+        cancelButtonText: "Cancelar",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const auditoria = document.getElementById('Auditoria').value.split('-');
+            const tarea = document.getElementById('Tarea').value.split('-');
 
-        strParametro = "1|";
-        strParametro += auditoria[0] + "|";
-        strParametro += tarea[0] + "|";
-        strParametro += document.getElementById('HiddenField1').value + "|";
-        strParametro += document.getElementById('Codigo').value + "|";
-        strParametro += fecha1 + "|";
-        strParametro += document.getElementById('Auditor').value + "|";
-        strParametro += document.getElementById('Responsable').value + "|";
-        strParametro += document.getElementById('Observaciones').value + "|";
-        strParametro += document.getElementById('Documento').value + "|";
+            var date1 = new Date(document.getElementById('Fecha').value + 'T00:00:00.000Z');
+            var day1 = date1.getUTCDate();
+            var month1 = date1.getUTCMonth() + 1;
+            var year1 = date1.getUTCFullYear();
+            var fecha1 = year1 + "-" + month1 + "-" + day1;
 
-        if (document.getElementById('Codigo').value === "0") {
-            strParametro += "A";
+            strParametro = "1|";
+            strParametro += auditoria[0] + "|";
+            strParametro += tarea[0] + "|";
+            strParametro += document.getElementById('HiddenField1').value + "|";
+            strParametro += document.getElementById('Codigo').value + "|";
+            strParametro += fecha1 + "|";
+            strParametro += document.getElementById('Auditor').value + "|";
+            strParametro += document.getElementById('Responsable').value + "|";
+            strParametro += document.getElementById('Observaciones').value + "|";
+            strParametro += document.getElementById('Documento').value + "|";
+
+            if (document.getElementById('Codigo').value === "0") {
+                strParametro += "A";
+            }
+            else {
+                strParametro += document.getElementById('Estado').value;
+            }
+
+            var args = '';
+            args += "'parametros':'" + strParametro + "'";
+            $.ajax({
+                async: false,
+                cache: false,
+                type: "POST",
+                url: "AuditoriaDocumentoProceso.aspx/GrabarDocumentosProcesos",
+                data: "{" + args + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response.d != '') {
+                        strData = response.d;
+                    }
+                },
+                fail: function (response) {
+                    debugger;
+                    alert(response.d);
+                }
+            });
+
+            retornoProceso(strData, 'La grabación del registro ha finalizado');
         }
         else {
-            strParametro += document.getElementById('Estado').value;
+            strData = "";
         }
+    });
 
-        var args = '';
-        args += "'parametros':'" + strParametro + "'";
-        $.ajax({
-            async: false,
-            cache: false,
-            type: "POST",
-            url: "AuditoriaDocumentoProceso.aspx/GrabarDocumentosProcesos",
-            data: "{" + args + "}",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                if (response.d != '') {
-                    strData = response.d;
-                }
-            },
-            fail: function (response) {
-                debugger;
-                alert(response.d);
-            }
-        });
-    }
-    else {
-        strData = "";
-    }
-
-    var retornoProceso = JSON.parse(strData)
-
-    if (retornoProceso[0]['retorno'] === 0) {
-        InicializaVista();
-        document.getElementById('messageContent').innerHTML = "La grabación del registro ha finalizado";
-        $('#popupMessage').modal('show');
-    }
-    else {
-        document.getElementById('messageContent').innerHTML = "ERROR : " + retornoProceso[0]['mensaje'];
-        $('#popupMessage').modal('show');
-    }
-
-    LlenaGrid();
     return strData;
 }
 
@@ -202,66 +208,66 @@ function ActivarProceso() {
     var strData;
     var strParametro;
 
-    const auditoria = document.getElementById('Auditoria').value.split('-');
-    const tarea = document.getElementById('Tarea').value.split('-');
+    Swal.fire({
+        title: "Actividades relacionadas a documentos de soporte de auditoría",
+        text: "Confirma la activación del registro de actividad del documento?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Continuar",
+        cancelButtonText: "Cancelar",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const auditoria = document.getElementById('Auditoria').value.split('-');
+            const tarea = document.getElementById('Tarea').value.split('-');
 
-    if (confirm("Confirma la activación del registro de actividad del documento?")) {
-        var date1 = new Date(document.getElementById('Fecha').value + 'T00:00:00.000Z');
-        var day1 = date1.getUTCDate();
-        var month1 = date1.getUTCMonth() + 1;
-        var year1 = date1.getUTCFullYear();
-        var fecha1 = year1 + "-" + month1 + "-" + day1;
+            var date1 = new Date(document.getElementById('Fecha').value + 'T00:00:00.000Z');
+            var day1 = date1.getUTCDate();
+            var month1 = date1.getUTCMonth() + 1;
+            var year1 = date1.getUTCFullYear();
+            var fecha1 = year1 + "-" + month1 + "-" + day1;
 
-        strParametro = "1|";
-        strParametro += auditoria[0] + "|";
-        strParametro += tarea[0] + "|";
-        strParametro += document.getElementById('HiddenField1').value + "|";
-        strParametro += document.getElementById('Codigo').value + "|";
-        strParametro += fecha1 + "|";
-        strParametro += document.getElementById('Auditor').value + "|";
-        strParametro += document.getElementById('Responsable').value + "|";
-        strParametro += document.getElementById('Observaciones').value + "|";
-        strParametro += document.getElementById('Documento').value + "|";
-        strParametro += "A";
+            strParametro = "1|";
+            strParametro += auditoria[0] + "|";
+            strParametro += tarea[0] + "|";
+            strParametro += document.getElementById('HiddenField1').value + "|";
+            strParametro += document.getElementById('Codigo').value + "|";
+            strParametro += fecha1 + "|";
+            strParametro += document.getElementById('Auditor').value + "|";
+            strParametro += document.getElementById('Responsable').value + "|";
+            strParametro += document.getElementById('Observaciones').value + "|";
+            strParametro += document.getElementById('Documento').value + "|";
+            strParametro += "A";
 
-        var args = '';
-        args += "'parametros':'" + strParametro + "'";
-        $.ajax({
-            async: false,
-            cache: false,
-            type: "POST",
-            url: "AuditoriaDocumentoProceso.aspx/GrabarDocumentosProcesos",
-            data: "{" + args + "}",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                if (response.d != '') {
-                    strData = response.d;
+            var args = '';
+            args += "'parametros':'" + strParametro + "'";
+            $.ajax({
+                async: false,
+                cache: false,
+                type: "POST",
+                url: "AuditoriaDocumentoProceso.aspx/GrabarDocumentosProcesos",
+                data: "{" + args + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response.d != '') {
+                        strData = response.d;
+                    }
+                },
+                fail: function (response) {
+                    debugger;
+                    alert(response.d);
                 }
-            },
-            fail: function (response) {
-                debugger;
-                alert(response.d);
-            }
-        });
-    }
-    else {
-        strData = "";
-    }
+            });
 
-    var retornoProceso = JSON.parse(strData)
+            retornoProceso(strData, 'La activación del registro ha finalizado');
+        }
+        else {
+            strData = "";
+        }       
+    });
 
-    if (retornoProceso[0]['retorno'] === 0) {
-        InicializaVista();
-        document.getElementById('messageContent').innerHTML = "La activación del registro ha finalizado";
-        $('#popupMessage').modal('show');
-    }
-    else {
-        document.getElementById('messageContent').innerHTML = "ERROR : " + retornoProceso[0]['mensaje'];
-        $('#popupMessage').modal('show');
-    }
-
-    LlenaGrid();
     return strData;
 }
 
@@ -269,66 +275,66 @@ function InactivarProceso() {
     var strData;
     var strParametro;
 
-    const auditoria = document.getElementById('Auditoria').value.split('-');
-    const tarea = document.getElementById('Tarea').value.split('-');
+    Swal.fire({
+        title: "Actividades relacionadas a documentos de soporte de auditoría",
+        text: "Confirma la inactivación del registro de actividad del documento?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Continuar",
+        cancelButtonText: "Cancelar",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const auditoria = document.getElementById('Auditoria').value.split('-');
+            const tarea = document.getElementById('Tarea').value.split('-');
 
-    if (confirm("Confirma la inactivación del registro de actividad del documento?")) {
-        var date1 = new Date(document.getElementById('Fecha').value + 'T00:00:00.000Z');
-        var day1 = date1.getUTCDate();
-        var month1 = date1.getUTCMonth() + 1;
-        var year1 = date1.getUTCFullYear();
-        var fecha1 = year1 + "-" + month1 + "-" + day1;
+            var date1 = new Date(document.getElementById('Fecha').value + 'T00:00:00.000Z');
+            var day1 = date1.getUTCDate();
+            var month1 = date1.getUTCMonth() + 1;
+            var year1 = date1.getUTCFullYear();
+            var fecha1 = year1 + "-" + month1 + "-" + day1;
 
-        strParametro = "1|";
-        strParametro += auditoria[0] + "|";
-        strParametro += tarea[0] + "|";
-        strParametro += document.getElementById('HiddenField1').value + "|";
-        strParametro += document.getElementById('Codigo').value + "|";
-        strParametro += fecha1 + "|";
-        strParametro += document.getElementById('Auditor').value + "|";
-        strParametro += document.getElementById('Responsable').value + "|";
-        strParametro += document.getElementById('Observaciones').value + "|";
-        strParametro += document.getElementById('Documento').value + "|";
-        strParametro += "I";
+            strParametro = "1|";
+            strParametro += auditoria[0] + "|";
+            strParametro += tarea[0] + "|";
+            strParametro += document.getElementById('HiddenField1').value + "|";
+            strParametro += document.getElementById('Codigo').value + "|";
+            strParametro += fecha1 + "|";
+            strParametro += document.getElementById('Auditor').value + "|";
+            strParametro += document.getElementById('Responsable').value + "|";
+            strParametro += document.getElementById('Observaciones').value + "|";
+            strParametro += document.getElementById('Documento').value + "|";
+            strParametro += "I";
 
-        var args = '';
-        args += "'parametros':'" + strParametro + "'";
-        $.ajax({
-            async: false,
-            cache: false,
-            type: "POST",
-            url: "AuditoriaDocumentoProceso.aspx/GrabarDocumentosProcesos",
-            data: "{" + args + "}",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                if (response.d != '') {
-                    strData = response.d;
+            var args = '';
+            args += "'parametros':'" + strParametro + "'";
+            $.ajax({
+                async: false,
+                cache: false,
+                type: "POST",
+                url: "AuditoriaDocumentoProceso.aspx/GrabarDocumentosProcesos",
+                data: "{" + args + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response.d != '') {
+                        strData = response.d;
+                    }
+                },
+                fail: function (response) {
+                    debugger;
+                    alert(response.d);
                 }
-            },
-            fail: function (response) {
-                debugger;
-                alert(response.d);
-            }
-        });
-    }
-    else {
-        strData = "";
-    }
+            });
 
-    var retornoProceso = JSON.parse(strData)
+            retornoProceso(strData, 'La inactivación del registro ha finalizado');
+        }
+        else {
+            strData = "";
+        }
+    });
 
-    if (retornoProceso[0]['retorno'] === 0) {
-        InicializaVista();
-        document.getElementById('messageContent').innerHTML = "La inactivación del registro ha finalizado";
-        $('#popupMessage').modal('show');
-    }
-    else {
-        document.getElementById('messageContent').innerHTML = "ERROR : " + retornoProceso[0]['mensaje'];
-        $('#popupMessage').modal('show');
-    }
-
-    LlenaGrid();
     return strData;
 }
 
@@ -336,66 +342,66 @@ function CerrarProceso() {
     var strData;
     var strParametro;
 
-    const auditoria = document.getElementById('Auditoria').value.split('-');
-    const tarea = document.getElementById('Tarea').value.split('-');
+    Swal.fire({
+        title: "Actividades relacionadas a documentos de soporte de auditoría",
+        text: "Confirma el cierre del registro de actividad del documento?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Continuar",
+        cancelButtonText: "Cancelar",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const auditoria = document.getElementById('Auditoria').value.split('-');
+            const tarea = document.getElementById('Tarea').value.split('-');
 
-    if (confirm("Confirma el cierre del registro de actividad del documento?")) {
-        var date1 = new Date(document.getElementById('Fecha').value + 'T00:00:00.000Z');
-        var day1 = date1.getUTCDate();
-        var month1 = date1.getUTCMonth() + 1;
-        var year1 = date1.getUTCFullYear();
-        var fecha1 = year1 + "-" + month1 + "-" + day1;
+            var date1 = new Date(document.getElementById('Fecha').value + 'T00:00:00.000Z');
+            var day1 = date1.getUTCDate();
+            var month1 = date1.getUTCMonth() + 1;
+            var year1 = date1.getUTCFullYear();
+            var fecha1 = year1 + "-" + month1 + "-" + day1;
 
-        strParametro = "1|";
-        strParametro += auditoria[0] + "|";
-        strParametro += tarea[0] + "|";
-        strParametro += document.getElementById('HiddenField1').value + "|";
-        strParametro += document.getElementById('Codigo').value + "|";
-        strParametro += fecha1 + "|";
-        strParametro += document.getElementById('Auditor').value + "|";
-        strParametro += document.getElementById('Responsable').value + "|";
-        strParametro += document.getElementById('Observaciones').value + "|";
-        strParametro += document.getElementById('Documento').value + "|";
-        strParametro += "C";
+            strParametro = "1|";
+            strParametro += auditoria[0] + "|";
+            strParametro += tarea[0] + "|";
+            strParametro += document.getElementById('HiddenField1').value + "|";
+            strParametro += document.getElementById('Codigo').value + "|";
+            strParametro += fecha1 + "|";
+            strParametro += document.getElementById('Auditor').value + "|";
+            strParametro += document.getElementById('Responsable').value + "|";
+            strParametro += document.getElementById('Observaciones').value + "|";
+            strParametro += document.getElementById('Documento').value + "|";
+            strParametro += "C";
 
-        var args = '';
-        args += "'parametros':'" + strParametro + "'";
-        $.ajax({
-            async: false,
-            cache: false,
-            type: "POST",
-            url: "AuditoriaDocumentoProceso.aspx/GrabarDocumentosProcesos",
-            data: "{" + args + "}",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                if (response.d != '') {
-                    strData = response.d;
+            var args = '';
+            args += "'parametros':'" + strParametro + "'";
+            $.ajax({
+                async: false,
+                cache: false,
+                type: "POST",
+                url: "AuditoriaDocumentoProceso.aspx/GrabarDocumentosProcesos",
+                data: "{" + args + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response.d != '') {
+                        strData = response.d;
+                    }
+                },
+                fail: function (response) {
+                    debugger;
+                    alert(response.d);
                 }
-            },
-            fail: function (response) {
-                debugger;
-                alert(response.d);
-            }
-        });
-    }
-    else {
-        strData = "";
-    }
+            });
 
-    var retornoProceso = JSON.parse(strData)
+            retornoProceso(strData, 'El cierre del registro ha finalizado');
+        }
+        else {
+            strData = "";
+        }
+    });
 
-    if (retornoProceso[0]['retorno'] === 0) {
-        InicializaVista();
-        document.getElementById('messageContent').innerHTML = "El cierre del registro ha finalizado";
-        $('#popupMessage').modal('show');
-    }
-    else {
-        document.getElementById('messageContent').innerHTML = "ERROR : " + retornoProceso[0]['mensaje'];
-        $('#popupMessage').modal('show');
-    }
-
-    LlenaGrid();
     return strData;
 }
 
@@ -403,66 +409,66 @@ function EliminarProceso() {
     var strData;
     var strParametro;
 
-    const auditoria = document.getElementById('Auditoria').value.split('-');
-    const tarea = document.getElementById('Tarea').value.split('-');
+    Swal.fire({
+        title: "Actividades relacionadas a documentos de soporte de auditoría",
+        text: "Confirma la eliminación del registro de actividad del documento?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Continuar",
+        cancelButtonText: "Cancelar",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const auditoria = document.getElementById('Auditoria').value.split('-');
+            const tarea = document.getElementById('Tarea').value.split('-');
 
-    if (confirm("Confirma la eliminación del registro de actividad del documento?")) {
-        var date1 = new Date(document.getElementById('Fecha').value + 'T00:00:00.000Z');
-        var day1 = date1.getUTCDate();
-        var month1 = date1.getUTCMonth() + 1;
-        var year1 = date1.getUTCFullYear();
-        var fecha1 = year1 + "-" + month1 + "-" + day1;
+            var date1 = new Date(document.getElementById('Fecha').value + 'T00:00:00.000Z');
+            var day1 = date1.getUTCDate();
+            var month1 = date1.getUTCMonth() + 1;
+            var year1 = date1.getUTCFullYear();
+            var fecha1 = year1 + "-" + month1 + "-" + day1;
 
-        strParametro = "1|";
-        strParametro += auditoria[0] + "|";
-        strParametro += tarea[0] + "|";
-        strParametro += document.getElementById('HiddenField1').value + "|";
-        strParametro += document.getElementById('Codigo').value + "|";
-        strParametro += fecha1 + "|";
-        strParametro += document.getElementById('Auditor').value + "|";
-        strParametro += document.getElementById('Responsable').value + "|";
-        strParametro += document.getElementById('Observaciones').value + "|";
-        strParametro += document.getElementById('Documento').value + "|";
-        strParametro += "X";
+            strParametro = "1|";
+            strParametro += auditoria[0] + "|";
+            strParametro += tarea[0] + "|";
+            strParametro += document.getElementById('HiddenField1').value + "|";
+            strParametro += document.getElementById('Codigo').value + "|";
+            strParametro += fecha1 + "|";
+            strParametro += document.getElementById('Auditor').value + "|";
+            strParametro += document.getElementById('Responsable').value + "|";
+            strParametro += document.getElementById('Observaciones').value + "|";
+            strParametro += document.getElementById('Documento').value + "|";
+            strParametro += "X";
 
-        var args = '';
-        args += "'parametros':'" + strParametro + "'";
-        $.ajax({
-            async: false,
-            cache: false,
-            type: "POST",
-            url: "AuditoriaDocumentoProceso.aspx/GrabarDocumentosProcesos",
-            data: "{" + args + "}",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                if (response.d != '') {
-                    strData = response.d;
+            var args = '';
+            args += "'parametros':'" + strParametro + "'";
+            $.ajax({
+                async: false,
+                cache: false,
+                type: "POST",
+                url: "AuditoriaDocumentoProceso.aspx/GrabarDocumentosProcesos",
+                data: "{" + args + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response.d != '') {
+                        strData = response.d;
+                    }
+                },
+                fail: function (response) {
+                    debugger;
+                    alert(response.d);
                 }
-            },
-            fail: function (response) {
-                debugger;
-                alert(response.d);
-            }
-        });
-    }
-    else {
-        strData = "";
-    }
+            });
 
-    var retornoProceso = JSON.parse(strData)
+            retornoProceso(strData, 'La eliminación del registro ha finalizado');
+        }
+        else {
+            strData = "";
+        }
+    });
 
-    if (retornoProceso[0]['retorno'] === 0) {
-        InicializaVista();
-        document.getElementById('messageContent').innerHTML = "La eliminación del registro ha finalizado";
-        $('#popupMessage').modal('show');
-    }
-    else {
-        document.getElementById('messageContent').innerHTML = "ERROR : " + retornoProceso[0]['mensaje'];
-        $('#popupMessage').modal('show');
-    }
-
-    LlenaGrid();
     return strData;
 }
 
@@ -479,4 +485,31 @@ function InicializaVista() {
     document.getElementById('Codigo').value = "0";
     document.getElementById('Documento').value = "";
     document.getElementById('Observaciones').value = "";
+}
+
+function retornoProceso(dataProceso, mensaje) {
+    var retornoProceso = JSON.parse(dataProceso)
+
+    if (retornoProceso[0]['retorno'] === 0) {
+        InicializaVista();
+
+        Swal.fire({
+            title: "Actividades relacionadas a documentos de soporte de auditoría",
+            text: mensaje,
+            icon: "success",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Continuar"
+        });
+    }
+    else {
+        Swal.fire({
+            title: "Actividades relacionadas a documentos de soporte de auditoría",
+            text: retornoProceso[0]['mensaje'],
+            icon: "error",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Continuar"
+        });
+    }
+
+    LlenaGrid();
 }

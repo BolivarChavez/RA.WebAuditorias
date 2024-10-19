@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Catálogo de responsables de auditorías</title>
+    <title>Responsables de auditorías</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
     <link rel="stylesheet" href="../Styles/Custom-Opciones.css" />
@@ -18,6 +18,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body style="margin: 0; height: 100%; overflow: hidden; background-color: #E5E8E8;">
         <div class="container-fluid">
@@ -26,7 +27,7 @@
                     <img class="image-logo-empresa" src="../Images/LogoRomeroyAsociados.png" />
                 </div>    
                 <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8 center-block text-left my-auto">
-                    <p class="barra-titulo" style="color:#2C3E50;">Catálogo de responsables de auditorías</p>
+                    <p class="barra-titulo" style="color:#2C3E50;">Responsables de auditorías</p>
                 </div>  
                 <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2 center-block text-left my-auto">
                     <div class="container">

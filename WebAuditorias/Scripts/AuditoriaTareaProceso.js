@@ -264,6 +264,11 @@ function EliminarProceso() {
     return strData;
 }
 
+function NombreArchivo() {
+    var fileUpload = document.getElementById('Archivo');
+    document.getElementById('Documento').value = fileUpload.files.item(0).name;
+}
+
 function cierraMessagePopUp() {
     $('#popupMessage').modal('hide');
 }

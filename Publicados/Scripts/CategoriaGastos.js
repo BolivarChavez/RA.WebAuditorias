@@ -63,8 +63,14 @@ function ValidaDatos() {
     descripcion = document.getElementById('Descripcion').value;
 
     if (descripcion.trim() === "") {
-        document.getElementById('messageContent').innerHTML = "ERROR : No se ha ingresado una descripción para la categoría de gasto";
-        $('#popupMessage').modal('show');
+        Swal.fire({
+            title: "Categorías de gastos asociados a auditorías",
+            text: "No se ha ingresado una descripción para la categoría de gasto",
+            icon: "error",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Continuar"
+        });
+
         return false;
     }
 
@@ -79,56 +85,56 @@ function GrabarGategoria() {
         return strData;
     }
 
-    if (confirm("Confirma la grabación del registro de categoría de gasto?")) {
-        strParametro = "1|";
-        strParametro += document.getElementById('Codigo').value + "|";
-        strParametro += document.getElementById('Descripcion').value + "|";
+    Swal.fire({
+        title: "Categorías de gastos asociados a auditorías",
+        text: "Confirma la grabación del registro de categoría de gasto?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Continuar",
+        cancelButtonText: "Cancelar",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            strParametro = "1|";
+            strParametro += document.getElementById('Codigo').value + "|";
+            strParametro += document.getElementById('Descripcion').value + "|";
 
-        if (document.getElementById("chkEstado").checked) {
-            strParametro += "A";
+            if (document.getElementById("chkEstado").checked) {
+                strParametro += "A";
+            }
+            else {
+                strParametro += "I";
+            }
+
+            var args = '';
+            args += "'parametros':'" + strParametro + "'";
+            $.ajax({
+                async: false,
+                cache: false,
+                type: "POST",
+                url: "CategoriaGastos.aspx/GrabarGasto",
+                data: "{" + args + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response.d != '') {
+                        strData = response.d;
+                    }
+                },
+                fail: function (response) {
+                    debugger;
+                    alert(response.d);
+                }
+            });
+
+            retornoProceso(strData, 'La grabación del registro ha finalizado');
         }
         else {
-            strParametro += "I";
+            strData = "";
         }
+    });
 
-        var args = '';
-        args += "'parametros':'" + strParametro + "'";
-        $.ajax({
-            async: false,
-            cache: false,
-            type: "POST",
-            url: "CategoriaGastos.aspx/GrabarGasto",
-            data: "{" + args + "}",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                if (response.d != '') {
-                    strData = response.d;
-                }
-            },
-            fail: function (response) {
-                debugger;
-                alert(response.d);
-            }
-        });
-    }
-    else {
-        strData = "";
-    }
-
-    var retornoProceso = JSON.parse(strData)
-
-    if (retornoProceso[0]['retorno'] === 0) {
-        InicializaVista();
-        document.getElementById('messageContent').innerHTML = "La grabación del registro ha finalizado";
-        $('#popupMessage').modal('show');
-    }
-    else {
-        document.getElementById('messageContent').innerHTML = "ERROR : " + retornoProceso[0]['mensaje'];
-        $('#popupMessage').modal('show');
-    }
-
-    LlenaGrid();
     return strData;
 }
 
@@ -136,50 +142,50 @@ function EliminarCategoria() {
     var strData;
     var strParametro;
 
-    if (confirm("Confirma la eliminación del registro de categoría de gasto?")) {
-        strParametro = "1|";
-        strParametro += document.getElementById('Codigo').value + "|";
-        strParametro += document.getElementById('Descripcion').value + "|";
-        strParametro += "X";
+    Swal.fire({
+        title: "Categorías de gastos asociados a auditorías",
+        text: "Confirma la eliminación del registro de categoría de gasto?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Continuar",
+        cancelButtonText: "Cancelar",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            strParametro = "1|";
+            strParametro += document.getElementById('Codigo').value + "|";
+            strParametro += document.getElementById('Descripcion').value + "|";
+            strParametro += "X";
 
-        var args = '';
-        args += "'parametros':'" + strParametro + "'";
-        $.ajax({
-            async: false,
-            cache: false,
-            type: "POST",
-            url: "CategoriaGastos.aspx/EliminarGasto",
-            data: "{" + args + "}",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                if (response.d != '') {
-                    strData = response.d;
+            var args = '';
+            args += "'parametros':'" + strParametro + "'";
+            $.ajax({
+                async: false,
+                cache: false,
+                type: "POST",
+                url: "CategoriaGastos.aspx/EliminarGasto",
+                data: "{" + args + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response.d != '') {
+                        strData = response.d;
+                    }
+                },
+                fail: function (response) {
+                    debugger;
+                    alert(response.d);
                 }
-            },
-            fail: function (response) {
-                debugger;
-                alert(response.d);
-            }
-        });
-    }
-    else {
-        strData = "";
-    }
+            });
 
-    var retornoProceso = JSON.parse(strData)
+            retornoProceso(strData, 'La eliminación del registro ha finalizado');
+        }
+        else {
+            strData = "";
+        }
+    });
 
-    if (retornoProceso[0]['retorno'] === 0) {
-        InicializaVista();
-        document.getElementById('messageContent').innerHTML = "La eliminación del registro ha finalizado";
-        $('#popupMessage').modal('show');
-    }
-    else {
-        document.getElementById('messageContent').innerHTML = "ERROR : " + retornoProceso[0]['mensaje'];
-        $('#popupMessage').modal('show');
-    }
-
-    LlenaGrid();
     return strData;
 }
 
@@ -191,4 +197,31 @@ function InicializaVista() {
     document.getElementById('Codigo').value = "0";
     document.getElementById('Descripcion').value = "";
     document.getElementById("chkEstado").checked = false;
+}
+
+function retornoProceso(dataProceso, mensaje) {
+    var retornoProceso = JSON.parse(dataProceso)
+
+    if (retornoProceso[0]['retorno'] === 0) {
+        InicializaVista();
+
+        Swal.fire({
+            title: "Categorías de gastos asociados a auditorías",
+            text: mensaje,
+            icon: "success",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Continuar"
+        });
+    }
+    else {
+        Swal.fire({
+            title: "Categorías de gastos asociados a auditorías",
+            text: retornoProceso[0]['mensaje'],
+            icon: "error",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Continuar"
+        });
+    }
+
+    LlenaGrid();
 }

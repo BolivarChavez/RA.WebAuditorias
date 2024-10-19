@@ -128,7 +128,7 @@ function GrabarProceso() {
 
     Swal.fire({
         title: "Tareas relacionadas a auditoría",
-        text: "Confirma la eliminación del registro de catálogo de gastos?",
+        text: "Confirma la grabación del registro de catálogo de gastos?",
         icon: "question",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",

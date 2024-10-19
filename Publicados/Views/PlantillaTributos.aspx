@@ -17,6 +17,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../Scripts/PlantillaTributos.js" type="text/javascript"></script>
 </head>
 <body style="margin: 0; height: 100%; overflow: hidden; background-color: #E5E8E8;">
         <div class="container-fluid">
@@ -103,19 +105,19 @@
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
                                                         <label for="Fecha" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Fecha" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Fecha" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Periodo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Periodo</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Periodo" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Periodo" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Tributo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Tributo</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Tributo" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Tributo" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Tributo_Resultante" class="col-form-label col-form-label-sm" style="font-weight:bold;">Tributo resultante</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Tributo_Resultante" placeholder="" runat="server"/>
+                                                        <label for="Tributo_Resultante" class="col-form-label col-form-label-sm" style="font-weight:bold;">Tributo Resultante</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Tributo_Resultante" placeholder="" runat="server"/>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -124,12 +126,12 @@
                                                         <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Intereses" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Total_Pagar" class="col-form-label col-form-label-sm" style="font-weight:bold;">Total pagar</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Total_Pagar" placeholder="" runat="server"/>
+                                                        <label for="Total_Pagar" class="col-form-label col-form-label-sm" style="font-weight:bold;">Total por Pagar</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Total_Pagar" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Forma_Pago" class="col-form-label col-form-label-sm" style="font-weight:bold;">Forma pago</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Forma_Pago" placeholder="" runat="server"/>
+                                                        <label for="Forma_Pago" class="col-form-label col-form-label-sm" style="font-weight:bold;">Forma de Pago</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Forma_Pago" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Egreso" class="col-form-label col-form-label-sm" style="font-weight:bold;">Egreso</label>
@@ -138,11 +140,11 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
-                                                        <label for="Fecha_Informe" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha informe</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Fecha_Informe" placeholder="" runat="server"/>
+                                                        <label for="Fecha_Informe" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha de Informe</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Fecha_Informe" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Numero_Informe" class="col-form-label col-form-label-sm" style="font-weight:bold;">Némero informe</label>
+                                                        <label for="Numero_Informe" class="col-form-label col-form-label-sm" style="font-weight:bold;">Número de Informe</label>
                                                         <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Numero_Informe" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
@@ -195,7 +197,7 @@
                         <button type="button" class="close" data-dismiss="modal" onclick="cierraContenidoTexto()">&times;</button>
                     </div>
                     <div class="modal-body">
-                        <textarea rows="5" class="form-control" style="overflow-y:scroll;" id="message-text"></textarea>
+                        <textarea rows="5" class="form-control" style="overflow-y:scroll; font-size: 12px" id="message-text"></textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cierraContenidoTexto()">Cerrar</button>
@@ -203,7 +205,6 @@
                 </div>
             </div>
         </div>
-        <script src="../Scripts/PlantillaTributos.js" type="text/javascript"></script>
         <script>
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip()

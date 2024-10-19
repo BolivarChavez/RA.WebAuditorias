@@ -18,6 +18,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../Scripts/PlantillaIngresos.js" type="text/javascript"></script>
 </head>
 <body style="margin: 0; height: 100%; overflow: hidden; background-color: #E5E8E8;">
         <div class="container-fluid">
@@ -104,65 +106,61 @@
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
                                                         <label for="Mes" class="col-form-label col-form-label-sm" style="font-weight:bold;">Mes</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Mes" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Mes" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Factura" class="col-form-label col-form-label-sm" style="font-weight:bold;">Factura</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Factura" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Factura" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Cuenta" class="col-form-label col-form-label-sm" style="font-weight:bold;">Cuenta</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Cuenta" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Cuenta" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Detalle" class="col-form-label col-form-label-sm" style="font-weight:bold;">Detalle</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Detalle" placeholder="" runat="server" onclick="muestraContenidoTexto('Detalle', 'Detalle')"/>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Detalle" placeholder="" runat="server" onclick="muestraContenidoTexto('Detalle', 'Detalle')"/>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
                                                         <label for="Concepto" class="col-form-label col-form-label-sm" style="font-weight:bold;">Concepto</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Concepto" placeholder="" runat="server" onclick="muestraContenidoTexto('Concepto', 'Concepto')"/>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Concepto" placeholder="" runat="server" onclick="muestraContenidoTexto('Concepto', 'Concepto')"/>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="Moneda" class="col-form-label col-form-label-sm" style="font-weight:bold;">Moneda</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Moneda" placeholder="" runat="server" />
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Subtotal" class="col-form-label col-form-label-sm" style="font-weight:bold;">Subtotal</label>
                                                         <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Subtotal" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Porcentaje" class="col-form-label col-form-label-sm" style="font-weight:bold;">Porcentaje</label>
+                                                        <label for="Porcentaje" class="col-form-label col-form-label-sm" style="font-weight:bold;">IGV</label>
                                                         <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Porcentaje" placeholder="" runat="server"/>
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label for="Total" class="col-form-label col-form-label-sm" style="font-weight:bold;">Total</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Total" placeholder="" runat="server"/>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
-                                                        <label for="Fecha_Detraccion" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha detraccion</label>
+                                                        <label for="Total" class="col-form-label col-form-label-sm" style="font-weight:bold;">Total</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Total" placeholder="" runat="server"/>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="Fecha_Detraccion" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha de Detracción</label>
                                                         <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Fecha_Detraccion" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Detraccion_Moneda_Destino" class="col-form-label col-form-label-sm" style="font-weight:bold;">Detraccion moneda destino</label>
+                                                        <label for="Detraccion_Moneda_Destino" class="col-form-label col-form-label-sm" style="font-weight:bold;">Detracción Moneda Destino</label>
                                                         <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Detraccion_Moneda_Destino" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Detraccion_Moneda_Base" class="col-form-label col-form-label-sm" style="font-weight:bold;">Detraccion moneda base</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Detraccion_Moneda_Base" placeholder="" runat="server"/>
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label for="Comprobante_Ingreso" class="col-form-label col-form-label-sm" style="font-weight:bold;">Comprobante ingreso</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Comprobante_Ingreso" placeholder="" runat="server"/>
+                                                        <label for="Neto_Ingreso" class="col-form-label col-form-label-sm" style="font-weight:bold;">Neto Ingreso</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Neto_Ingreso" placeholder="" runat="server"/>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
-                                                        <label for="Neto_Ingreso" class="col-form-label col-form-label-sm" style="font-weight:bold;">Neto ingreso</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Neto_Ingreso" placeholder="" runat="server"/>
-                                                    </div>
-                                                    <div class="form-group col-md-3">
                                                         <label for="Flujo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Flujo</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Flujo" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Flujo" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Estado_Cuenta_1" class="col-form-label col-form-label-sm" style="font-weight:bold;">Estado Cuenta 1</label>
@@ -172,11 +170,37 @@
                                                         <label for="Estado_Cuenta_2" class="col-form-label col-form-label-sm" style="font-weight:bold;">Estado Cuenta 2</label>
                                                         <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Estado_Cuenta_2" placeholder="" runat="server"/>
                                                     </div>
-                                                </div>
-                                                <div class="row">
                                                     <div class="form-group col-md-3">
                                                         <label for="Soporte" class="col-form-label col-form-label-sm" style="font-weight:bold;">Soporte</label>
                                                         <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Soporte" placeholder="" runat="server" onclick="muestraContenidoTexto('Soporte', 'Soporte')"/>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-md-3">
+                                                        <label for="Observacion" class="col-form-label col-form-label-sm" style="font-weight:bold;">Observaciones</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Observacion" placeholder="" runat="server" onclick="muestraContenidoTexto('Observaciones', 'Observacion')"/>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="Banco" class="col-form-label col-form-label-sm" style="font-weight:bold;">Banco</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Banco" placeholder="" runat="server" />
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="Empresa" class="col-form-label col-form-label-sm" style="font-weight:bold;">Empresa</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Empresa" placeholder="" runat="server" />
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="Sede" class="col-form-label col-form-label-sm" style="font-weight:bold;">Sede</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Sede" placeholder="" runat="server" />
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-md-3">
+                                                        <label for="Cuenta_Contable" class="col-form-label col-form-label-sm" style="font-weight:bold;">Cuenta Contable</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Cuenta_Contable" placeholder="" runat="server" />
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="SubCuenta" class="col-form-label col-form-label-sm" style="font-weight:bold;">Sub Cuenta Contable</label>
+                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="SubCuenta" placeholder="" runat="server" />
                                                     </div>
                                                 </div>
                                                 <div class="form-check">
@@ -224,7 +248,7 @@
                         <button type="button" class="close" data-dismiss="modal" onclick="cierraContenidoTexto()">&times;</button>
                     </div>
                     <div class="modal-body">
-                        <textarea rows="5" class="form-control" style="overflow-y:scroll;" id="message-text"></textarea>
+                        <textarea rows="5" class="form-control" style="overflow-y:scroll; font-size: 12px" id="message-text"></textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cierraContenidoTexto()">Cerrar</button>
@@ -232,7 +256,6 @@
                 </div>
             </div>
         </div>
-        <script src="../Scripts/PlantillaIngresos.js" type="text/javascript"></script>
         <script>
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip()

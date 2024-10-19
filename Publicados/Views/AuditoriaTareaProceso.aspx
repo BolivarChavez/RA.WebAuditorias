@@ -18,6 +18,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../Scripts/AuditoriaTareaProceso.js" type="text/javascript"></script>
 </head>
 <body style="margin: 0; height: 100%; overflow: hidden; background-color: #E5E8E8;">
     <div class="container-fluid">
@@ -156,7 +158,6 @@
         </div>
         </div>
     </div>
-    <script src="../Scripts/AuditoriaTareaProceso.js" type="text/javascript"></script>
     <script>
         $(document).ready(function () {
             $('[data-toggle="tooltip"]').tooltip()

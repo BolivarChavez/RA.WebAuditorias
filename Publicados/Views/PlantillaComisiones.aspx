@@ -18,6 +18,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../Scripts/PlantillaComisiones.js" type="text/javascript"></script>
 </head>
 <body style="margin: 0; height: 100%; overflow: hidden; background-color: #E5E8E8;">
         <div class="container-fluid">
@@ -104,61 +106,61 @@
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
                                                         <label for="Mes" class="col-form-label col-form-label-sm" style="font-weight:bold;">Mes</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Mes" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Mes" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Monto_Recuperado" class="col-form-label col-form-label-sm" style="font-weight:bold;">Monto recuperado</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Monto_Recuperado" placeholder="" runat="server"/>
+                                                        <label for="Monto_Recuperado" class="col-form-label col-form-label-sm" style="font-weight:bold;">Monto Recuperado</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Monto_Recuperado" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Monto_Planilla" class="col-form-label col-form-label-sm" style="font-weight:bold;">Monto planilla</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Monto_Planilla" placeholder="" runat="server"/>
+                                                        <label for="Monto_Planilla" class="col-form-label col-form-label-sm" style="font-weight:bold;">Monto Planilla</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Monto_Planilla" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Monto_Honorarios" class="col-form-label col-form-label-sm" style="font-weight:bold;">Monto honorarios</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Monto_Honorarios" placeholder="" runat="server"/>
+                                                        <label for="Monto_Honorarios" class="col-form-label col-form-label-sm" style="font-weight:bold;">Monto Honorarios</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Monto_Honorarios" placeholder="" runat="server"/>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
-                                                        <label for="Total_Incentivos" class="col-form-label col-form-label-sm" style="font-weight:bold;">Total incentivos</label>
+                                                        <label for="Total_Incentivos" class="col-form-label col-form-label-sm" style="font-weight:bold;">Total Incentivos</label>
                                                         <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Total_Incentivos" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Cheque_Girado" class="col-form-label col-form-label-sm" style="font-weight:bold;">Cheque girado</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Cheque_Girado" placeholder="" runat="server"/>
+                                                        <label for="Cheque_Girado" class="col-form-label col-form-label-sm" style="font-weight:bold;">Cheque Girado</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Cheque_Girado" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Pagado" class="col-form-label col-form-label-sm" style="font-weight:bold;">Pagado</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Pagado" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Pagado" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Entregado_Caja_Interna_1" class="col-form-label col-form-label-sm" style="font-weight:bold;">Entregado caja interna 1</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Entregado_Caja_Interna_1" placeholder="" runat="server" onclick="muestraContenidoTexto('Entregado_Caja_Interna_1', 'Entregado_Caja_Interna_1')"/>
+                                                        <label for="Entregado_Caja_Interna_1" class="col-form-label col-form-label-sm" style="font-weight:bold;">Entregado Caja Interna 1</label>
+                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Entregado_Caja_Interna_1" placeholder="" runat="server" onclick="muestraContenidoTexto('Entregado Caja Interna 1', 'Entregado_Caja_Interna_1')"/>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
-                                                        <label for="No_Girado" class="col-form-label col-form-label-sm" style="font-weight:bold;">No. girado</label>
+                                                        <label for="No_Girado" class="col-form-label col-form-label-sm" style="font-weight:bold;">No. Girado</label>
                                                         <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="No_Girado" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Fecha_Informe" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha informe</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Fecha_Informe" placeholder="" runat="server"/>
+                                                        <label for="Fecha_Informe" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha de Informe</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Fecha_Informe" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Fecha_Contabilidad" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha contabilidad</label>
+                                                        <label for="Fecha_Contabilidad" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha de Contabilidad</label>
                                                         <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Fecha_Contabilidad" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Informe_Comisiones" class="col-form-label col-form-label-sm" style="font-weight:bold;">Informe comisiones</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Informe_Comisiones" placeholder="" runat="server" onclick="muestraContenidoTexto('Informe_Comisiones', 'Informe_Comisiones')"/>
+                                                        <label for="Informe_Comisiones" class="col-form-label col-form-label-sm" style="font-weight:bold;">Informe Comisiones</label>
+                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Informe_Comisiones" placeholder="" runat="server" onclick="muestraContenidoTexto('Informe Comisiones', 'Informe_Comisiones')"/>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
-                                                        <label for="Entregado_Caja_Interna_2" class="col-form-label col-form-label-sm" style="font-weight:bold;">Entregado caja interna 2</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Entregado_Caja_Interna_2" placeholder="" runat="server" onclick="muestraContenidoTexto('Entregado_Caja_Interna_2', 'Entregado_Caja_Interna_2')"/>
+                                                        <label for="Entregado_Caja_Interna_2" class="col-form-label col-form-label-sm" style="font-weight:bold;">Entregado Caja Interna 2</label>
+                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Entregado_Caja_Interna_2" placeholder="" runat="server" onclick="muestraContenidoTexto('Entregado Caja Interna 2', 'Entregado_Caja_Interna_2')"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Observaciones" class="col-form-label col-form-label-sm" style="font-weight:bold;">Observaciones</label>
@@ -210,7 +212,7 @@
                         <button type="button" class="close" data-dismiss="modal" onclick="cierraContenidoTexto()">&times;</button>
                     </div>
                     <div class="modal-body">
-                        <textarea rows="5" class="form-control" style="overflow-y:scroll;" id="message-text"></textarea>
+                        <textarea rows="5" class="form-control" style="overflow-y:scroll; font-size: 12px" id="message-text"></textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cierraContenidoTexto()">Cerrar</button>
@@ -218,7 +220,6 @@
                 </div>
             </div>
         </div>
-        <script src="../Scripts/PlantillaComisiones.js" type="text/javascript"></script>
         <script>
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip()

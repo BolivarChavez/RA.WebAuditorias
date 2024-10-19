@@ -103,8 +103,14 @@ function ValidaDatos() {
     var asignacion = document.getElementById('Asignacion').value;
 
     if (asignacion.trim() === "") {
-        document.getElementById('messageContent').innerHTML = "ERROR : No se ha ingresado la asignacion relacionada a la tarea de auditoria";
-        $('#popupMessage').modal('show');
+        Swal.fire({
+            title: "Tareas relacionadas a auditoría",
+            text: "No se ha ingresado la asignacion relacionada a la tarea de auditoria",
+            icon: "error",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Continuar"
+        });
+
         return false;
     }
 
@@ -120,62 +126,62 @@ function GrabarProceso() {
         return strData;
     }
 
-    if (confirm("Confirma la grabacion del registro de tarea relacionada a auditoría?")) {
-        const auditoria = document.getElementById('Auditoria').value.split('-');
+    Swal.fire({
+        title: "Tareas relacionadas a auditoría",
+        text: "Confirma la eliminación del registro de catálogo de gastos?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Continuar",
+        cancelButtonText: "Cancelar",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const auditoria = document.getElementById('Auditoria').value.split('-');
 
-        if (document.getElementById('Codigo').value === "0") {
-            codigoTarea = document.getElementById('Tarea').value;
+            if (document.getElementById('Codigo').value === "0") {
+                codigoTarea = document.getElementById('Tarea').value;
+            }
+            else {
+                codigoTarea = document.getElementById('Codigo').value;
+            }
+
+            strParametro = "1|";
+            strParametro += auditoria[0] + "|";
+            strParametro += codigoTarea + "|";
+            strParametro += document.getElementById('Oficina').value + "|";
+            strParametro += document.getElementById('Asignacion').value + "|";
+            strParametro += document.getElementById('Estado').value + "|";
+            strParametro += document.getElementById('Codigo').value;
+
+            var args = '';
+            args += "'parametros':'" + strParametro + "'";
+            $.ajax({
+                async: false,
+                cache: false,
+                type: "POST",
+                url: "AuditoriaTarea.aspx/GrabarAuditoriaTarea",
+                data: "{" + args + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response.d != '') {
+                        strData = response.d;
+                    }
+                },
+                fail: function (response) {
+                    debugger;
+                    alert(response.d);
+                }
+            });
+
+            retornoProceso(strData, 'La grabación del registro ha finalizado');
         }
         else {
-            codigoTarea = document.getElementById('Codigo').value;
+            strData = "";
         }
+    });
 
-        strParametro = "1|";
-        strParametro += auditoria[0] + "|";
-        strParametro += codigoTarea + "|";
-        strParametro += document.getElementById('Oficina').value + "|";
-        strParametro += document.getElementById('Asignacion').value + "|";
-        strParametro += document.getElementById('Estado').value + "|";
-        strParametro += document.getElementById('Codigo').value;
-
-        var args = '';
-        args += "'parametros':'" + strParametro + "'";
-        $.ajax({
-            async: false,
-            cache: false,
-            type: "POST",
-            url: "AuditoriaTarea.aspx/GrabarAuditoriaTarea",
-            data: "{" + args + "}",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                if (response.d != '') {
-                    strData = response.d;
-                }
-            },
-            fail: function (response) {
-                debugger;
-                alert(response.d);
-            }
-        });
-    }
-    else {
-        strData = "";
-    }
-
-    var retornoProceso = JSON.parse(strData)
-
-    if (retornoProceso[0]['retorno'] === 0) {
-        InicializaVista();
-        document.getElementById('messageContent').innerHTML = "La grabación del registro ha finalizado";
-        $('#popupMessage').modal('show');
-    }
-    else {
-        document.getElementById('messageContent').innerHTML = "ERROR : " + retornoProceso[0]['mensaje'];
-        $('#popupMessage').modal('show');
-    }
-
-    LlenaGrid();
     return strData;
 }
 
@@ -184,62 +190,62 @@ function EliminarProceso() {
     var strParametro;
     var codigoTarea;
 
-    if (confirm("Confirma la eliminación del registro de tarea relacionada a auditoría?")) {
-        const auditoria = document.getElementById('Auditoria').value.split('-');
+    Swal.fire({
+        title: "Tareas relacionadas a auditoría",
+        text: "Confirma la eliminación del registro de tarea relacionada a auditoría?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Continuar",
+        cancelButtonText: "Cancelar",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const auditoria = document.getElementById('Auditoria').value.split('-');
 
-        if (document.getElementById('Codigo').value === "0") {
-            codigoTarea = document.getElementById('Tarea').value;
+            if (document.getElementById('Codigo').value === "0") {
+                codigoTarea = document.getElementById('Tarea').value;
+            }
+            else {
+                codigoTarea = document.getElementById('Codigo').value;
+            }
+
+            strParametro = "1|";
+            strParametro += auditoria[0] + "|";
+            strParametro += codigoTarea + "|";
+            strParametro += document.getElementById('Oficina').value + "|";
+            strParametro += document.getElementById('Asignacion').value + "|";
+            strParametro += 'X' + "|";
+            strParametro += codigoTarea;
+
+            var args = '';
+            args += "'parametros':'" + strParametro + "'";
+            $.ajax({
+                async: false,
+                cache: false,
+                type: "POST",
+                url: "AuditoriaTarea.aspx/GrabarAuditoriaTarea",
+                data: "{" + args + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response.d != '') {
+                        strData = response.d;
+                    }
+                },
+                fail: function (response) {
+                    debugger;
+                    alert(response.d);
+                }
+            });
+
+            retornoProceso(strData, 'La eliminación del registro ha finalizado');
         }
         else {
-            codigoTarea = document.getElementById('Codigo').value;
+            strData = "";
         }
+    });
 
-        strParametro = "1|";
-        strParametro += auditoria[0] + "|";
-        strParametro += codigoTarea + "|";
-        strParametro += document.getElementById('Oficina').value + "|";
-        strParametro += document.getElementById('Asignacion').value + "|";
-        strParametro += 'X' + "|";
-        strParametro += codigoTarea;
-
-        var args = '';
-        args += "'parametros':'" + strParametro + "'";
-        $.ajax({
-            async: false,
-            cache: false,
-            type: "POST",
-            url: "AuditoriaTarea.aspx/GrabarAuditoriaTarea",
-            data: "{" + args + "}",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                if (response.d != '') {
-                    strData = response.d;
-                }
-            },
-            fail: function (response) {
-                debugger;
-                alert(response.d);
-            }
-        });
-    }
-    else {
-        strData = "";
-    }
-
-    var retornoProceso = JSON.parse(strData)
-
-    if (retornoProceso[0]['retorno'] === 0) {
-        InicializaVista();
-        document.getElementById('messageContent').innerHTML = "La eliminación del registro ha finalizado";
-        $('#popupMessage').modal('show');
-    }
-    else {
-        document.getElementById('messageContent').innerHTML = "ERROR : " + retornoProceso[0]['mensaje'];
-        $('#popupMessage').modal('show');
-    }
-
-    LlenaGrid();
     return strData;
 }
 
@@ -248,62 +254,62 @@ function CerrarProceso() {
     var strParametro;
     var codigoTarea;
 
-    if (confirm("Confirma el cierre del registro de tarea relacionada a auditoría?")) {
-        const auditoria = document.getElementById('Auditoria').value.split('-');
+    Swal.fire({
+        title: "Tareas relacionadas a auditoría",
+        text: "Confirma el cierre del registro de tarea relacionada a auditoría?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Continuar",
+        cancelButtonText: "Cancelar",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const auditoria = document.getElementById('Auditoria').value.split('-');
 
-        if (document.getElementById('Codigo').value === "0") {
-            codigoTarea = document.getElementById('Tarea').value;
+            if (document.getElementById('Codigo').value === "0") {
+                codigoTarea = document.getElementById('Tarea').value;
+            }
+            else {
+                codigoTarea = document.getElementById('Codigo').value;
+            }
+
+            strParametro = "1|";
+            strParametro += auditoria[0] + "|";
+            strParametro += codigoTarea + "|";
+            strParametro += document.getElementById('Oficina').value + "|";
+            strParametro += document.getElementById('Asignacion').value + "|";
+            strParametro += 'C' + "|";
+            strParametro += codigoTarea;
+
+            var args = '';
+            args += "'parametros':'" + strParametro + "'";
+            $.ajax({
+                async: false,
+                cache: false,
+                type: "POST",
+                url: "AuditoriaTarea.aspx/GrabarAuditoriaTarea",
+                data: "{" + args + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response.d != '') {
+                        strData = response.d;
+                    }
+                },
+                fail: function (response) {
+                    debugger;
+                    alert(response.d);
+                }
+            });
+
+            retornoProceso(strData, 'El cierre del registro ha finalizado');
         }
         else {
-            codigoTarea = document.getElementById('Codigo').value;
+            strData = "";
         }
+    });
 
-        strParametro = "1|";
-        strParametro += auditoria[0] + "|";
-        strParametro += codigoTarea + "|";
-        strParametro += document.getElementById('Oficina').value + "|";
-        strParametro += document.getElementById('Asignacion').value + "|";
-        strParametro += 'C' + "|";
-        strParametro += codigoTarea;
-
-        var args = '';
-        args += "'parametros':'" + strParametro + "'";
-        $.ajax({
-            async: false,
-            cache: false,
-            type: "POST",
-            url: "AuditoriaTarea.aspx/GrabarAuditoriaTarea",
-            data: "{" + args + "}",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                if (response.d != '') {
-                    strData = response.d;
-                }
-            },
-            fail: function (response) {
-                debugger;
-                alert(response.d);
-            }
-        });
-    }
-    else {
-        strData = "";
-    }
-
-    var retornoProceso = JSON.parse(strData)
-
-    if (retornoProceso[0]['retorno'] === 0) {
-        InicializaVista();
-        document.getElementById('messageContent').innerHTML = "El cierre del registro ha finalizado";
-        $('#popupMessage').modal('show');
-    }
-    else {
-        document.getElementById('messageContent').innerHTML = "ERROR : " + retornoProceso[0]['mensaje'];
-        $('#popupMessage').modal('show');
-    }
-
-    LlenaGrid();
     return strData;
 }
 
@@ -369,15 +375,21 @@ function CargaPlantilla() {
 function CargaActividades() {
     var estado = document.getElementById('Estado').value;
 
-    if (estado === "P") {
+    if (estado === "P" || estado === "A") {
         var auditoria = document.getElementById('Auditoria').value + '|';
         auditoria += document.getElementById('Tarea').value + '-' + document.getElementById("Tarea").options[document.getElementById("Tarea").selectedIndex].text;
 
         window.open('AuditoriaTareaProceso.aspx?auditoria=' + auditoria, '_blank');
     }
     else {
-        document.getElementById('messageContent').innerHTML = "ERROR : Solo se permite agregar actividades a tareas que esten EN PROCESO";
-        $('#popupMessage').modal('show');
+        Swal.fire({
+            title: "Tareas relacionadas a auditoría",
+            text: "Solo se permite agregar actividades a tareas que esten EN PROCESO o ABIERTAS",
+            icon: "error",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Continuar"
+        });
+
         return;
     }
 }
@@ -385,15 +397,21 @@ function CargaActividades() {
 function CargaAsignaciones() {
     var estado = document.getElementById('Estado').value;
 
-    if (estado === "P") {
+    if (estado === "P" || estado === "A") {
         var auditoria = document.getElementById('Auditoria').value + '|';
         auditoria += document.getElementById('Tarea').value + '-' + document.getElementById("Tarea").options[document.getElementById("Tarea").selectedIndex].text;
 
         window.open('AuditoriaTareaAsignacion.aspx?auditoria=' + auditoria, '_blank');
     }
     else {
-        document.getElementById('messageContent').innerHTML = "ERROR : Solo se permite agregar actividades a tareas que esten EN PROCESO";
-        $('#popupMessage').modal('show');
+        Swal.fire({
+            title: "Tareas relacionadas a auditoría",
+            text: "Solo se permite agregar actividades a tareas que esten EN PROCESO o ABIERTAS",
+            icon: "error",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Continuar"
+        });
+
         return;
     }
 }
@@ -410,3 +428,29 @@ function InicializaVista() {
     dropdownlistbox.disabled = false;
 }
 
+function retornoProceso(dataProceso, mensaje) {
+    var retornoProceso = JSON.parse(dataProceso)
+
+    if (retornoProceso[0]['retorno'] === 0) {
+        InicializaVista();
+
+        Swal.fire({
+            title: "Tareas relacionadas a auditoría",
+            text: mensaje,
+            icon: "success",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Continuar"
+        });
+    }
+    else {
+        Swal.fire({
+            title: "Tareas relacionadas a auditoría",
+            text: retornoProceso[0]['mensaje'],
+            icon: "error",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Continuar"
+        });
+    }
+
+    LlenaGrid();
+}

@@ -93,21 +93,39 @@ function ValidaDatos() {
     correo = document.getElementById('Correo').value;
 
     if (nombre.trim() === "") {
-        document.getElementById('messageContent').innerHTML = "ERROR : No se ha ingresado nombre para el responsable";
-        $('#popupMessage').modal('show');
+        Swal.fire({
+            title: "Responsables de auditorías",
+            text: "No se ha ingresado nombre para el responsable",
+            icon: "error",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Continuar"
+        });
+
         return false;
     }
 
     if (cargo.trim() === "") {
-        document.getElementById('messageContent').innerHTML = "ERROR : No se ha ingresado el cargo del responsable";
-        $('#popupMessage').modal('show');
+        Swal.fire({
+            title: "Responsables de auditorías",
+            text: "No se ha ingresado el cargo del responsable",
+            icon: "error",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Continuar"
+        });
+
         return false;
     }
 
     if (correo.trim() !== "") {
         if (!validaEmail(correo)) {
-            document.getElementById('messageContent').innerHTML = "ERROR : El correo electronico no es válido";
-            $('#popupMessage').modal('show');
+            Swal.fire({
+                title: "Responsables de auditorías",
+                text: "El correo electronico no es válido",
+                icon: "error",
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "Continuar"
+            });
+
             return false;
         }
     }
@@ -129,69 +147,69 @@ function GrabarResponsables() {
         return strData;
     }
 
-    if (confirm("Confirma la grabación del registro del responsable?")) {
-        strParametro = "1|";
-        strParametro += document.getElementById('Codigo').value + "|";
-        strParametro += document.getElementById('Nombre').value + "|";
-        strParametro += document.getElementById('Cargo').value + "|";
-        strParametro += document.getElementById('Oficina').value + "|";
-        strParametro += document.getElementById('Tipo').value + "|";
-        strParametro += document.getElementById('Correo').value + "|";
-        strParametro += document.getElementById('Usuario').value + "|";
+    Swal.fire({
+        title: "Responsables de auditorías",
+        text: "Confirma la grabación del registro del responsable?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Continuar",
+        cancelButtonText: "Cancelar",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            strParametro = "1|";
+            strParametro += document.getElementById('Codigo').value + "|";
+            strParametro += document.getElementById('Nombre').value + "|";
+            strParametro += document.getElementById('Cargo').value + "|";
+            strParametro += document.getElementById('Oficina').value + "|";
+            strParametro += document.getElementById('Tipo').value + "|";
+            strParametro += document.getElementById('Correo').value + "|";
+            strParametro += document.getElementById('Usuario').value + "|";
 
-        if (document.getElementById("chkEstado").checked) {
-            strParametro += "A|";
-        }
-        else {
-            strParametro += "I|";
-        }
-
-        if (document.getElementById('Codigo').value === "0") {
-            strParametro += "I";
-        }
-        else {
-            strParametro += "U";
-        }
-
-
-        var args = '';
-        args += "'parametros':'" + strParametro + "'";
-        $.ajax({
-            async: false,
-            cache: false,
-            type: "POST",
-            url: "Responsables.aspx/GrabarResponsables",
-            data: "{" + args + "}",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                if (response.d != '') {
-                    strData = response.d;
-                }
-            },
-            fail: function (response) {
-                debugger;
-                alert(response.d);
+            if (document.getElementById("chkEstado").checked) {
+                strParametro += "A|";
             }
-        });
-    }
-    else {
-        strData = "";
-    }
+            else {
+                strParametro += "I|";
+            }
 
-    var retornoProceso = JSON.parse(strData)
+            if (document.getElementById('Codigo').value === "0") {
+                strParametro += "I";
+            }
+            else {
+                strParametro += "U";
+            }
 
-    if (retornoProceso[0]['retorno'] === 0) {
-        InicializaVista();
-        document.getElementById('messageContent').innerHTML = "La grabación del registro ha finalizado";
-        $('#popupMessage').modal('show');
-    }
-    else {
-        document.getElementById('messageContent').innerHTML = "ERROR : " + retornoProceso[0]['mensaje'];
-        $('#popupMessage').modal('show');
-    }
 
-    LlenaGrid();
+            var args = '';
+            args += "'parametros':'" + strParametro + "'";
+            $.ajax({
+                async: false,
+                cache: false,
+                type: "POST",
+                url: "Responsables.aspx/GrabarResponsables",
+                data: "{" + args + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response.d != '') {
+                        strData = response.d;
+                    }
+                },
+                fail: function (response) {
+                    debugger;
+                    alert(response.d);
+                }
+            });
+
+            retornoProceso(strData, 'La grabación del registro ha finalizado');
+        }
+        else { 
+            strData = "";
+        }
+    });
+
     return strData;
 }
 
@@ -207,4 +225,31 @@ function InicializaVista() {
     document.getElementById('Usuario').value = "";
     document.getElementById('HiddenField1').value = "I";
     document.getElementById("chkEstado").checked = false;
+}
+
+function retornoProceso(dataProceso, mensaje) {
+    var retornoProceso = JSON.parse(dataProceso)
+
+    if (retornoProceso[0]['retorno'] === 0) {
+        InicializaVista();
+
+        Swal.fire({
+            title: "Responsables de auditorías",
+            text: mensaje,
+            icon: "success",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Continuar"
+        });
+    }
+    else {
+        Swal.fire({
+            title: "Responsables de auditorías",
+            text: retornoProceso[0]['mensaje'],
+            icon: "error",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Continuar"
+        });
+    }
+
+    LlenaGrid();
 }

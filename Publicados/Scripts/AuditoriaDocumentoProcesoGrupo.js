@@ -1092,14 +1092,26 @@ function ValidaDatos() {
     var observacion = document.getElementById('Observaciones').value;
 
     if (observacion.trim() === "") {
-        document.getElementById('messageContent').innerHTML = "ERROR : No se ha ingresado el detalle de la actividad";
-        $('#popupMessage').modal('show');
+        Swal.fire({
+            title: "Actividades relacionadas a documentos de soporte de auditoría",
+            text: "No se ha ingresado el detalle de la actividad",
+            icon: "error",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Continuar"
+        });
+
         return false;
     }
 
     if (empRecords.length <= 0) {
-        document.getElementById('messageContent').innerHTML = "ERROR : No se ha seleccionado ningún registro para el ingreso de la actividad";
-        $('#popupMessage').modal('show');
+        Swal.fire({
+            title: "Actividades relacionadas a documentos de soporte de auditoría",
+            text: "No se ha seleccionado ningún registro para el ingreso de la actividad",
+            icon: "error",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Continuar"
+        });
+
         return false;
     }
 
@@ -1111,10 +1123,6 @@ async function GrabarProceso() {
     var strParametro;
     var retornoProceso;
 
-    const auditoria = document.getElementById('Auditoria').value.split('-');
-    const tarea = document.getElementById('Tarea').value.split('-');
-    seleccionaRegistros();
-
     if (!ValidaDatos()) {
         return strData;
     }
@@ -1122,76 +1130,103 @@ async function GrabarProceso() {
     var strParametro;
     var args;
 
-    if (confirm("Confirma la grabación del registro de actividad de los documentos seleccionados?")) {
-        for (let i = 0; i < empRecords.length; i++) {
-            var obj = empRecords[i];
+    Swal.fire({
+        title: "Actividades relacionadas a documentos de soporte de auditoría",
+        text: "Confirma la grabación del registro de actividad de los documentos seleccionados?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Continuar",
+        cancelButtonText: "Cancelar",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const auditoria = document.getElementById('Auditoria').value.split('-');
+            const tarea = document.getElementById('Tarea').value.split('-');
+            seleccionaRegistros();
 
-            if (obj.ReferenciaDocumento === "S") {
-                continue;
-            }
+            for (let i = 0; i < empRecords.length; i++) {
+                var obj = empRecords[i];
 
-            var date1 = new Date(document.getElementById('Fecha').value + 'T00:00:00.000Z');
-            var day1 = date1.getUTCDate();
-            var month1 = date1.getUTCMonth() + 1;
-            var year1 = date1.getUTCFullYear();
-            var fecha1 = year1 + "-" + month1 + "-" + day1;
-
-            strParametro = "1|";
-            strParametro += auditoria[0] + "|";
-            strParametro += tarea[0] + "|";
-            strParametro += obj.IdRegistro + "|";
-            strParametro += "0" + "|";
-            strParametro += fecha1 + "|";
-            strParametro += document.getElementById('Auditor').value + "|";
-            strParametro += document.getElementById('Responsable').value + "|";
-            strParametro += document.getElementById('Observaciones').value + "|";
-            strParametro += document.getElementById('Documento').value + "|";
-            strParametro += document.getElementById('Estado').value;
-
-            args = '';
-            args += "'parametros':'" + strParametro + "'";
-
-            $.ajax({
-                async: false,
-                cache: false,
-                type: "POST",
-                url: "AuditoriaDocumentoProceso.aspx/GrabarDocumentosProcesos",
-                data: "{" + args + "}",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    if (response.d != '') {
-                        strData = response.d;
-                    }
-                },
-                fail: function (response) {
-                    debugger;
-                    alert(response.d);
+                if (obj.ReferenciaDocumento === "S") {
+                    continue;
                 }
-            });
 
-            retornoProceso = JSON.parse(strData);
+                var date1 = new Date(document.getElementById('Fecha').value + 'T00:00:00.000Z');
+                var day1 = date1.getUTCDate();
+                var month1 = date1.getUTCMonth() + 1;
+                var year1 = date1.getUTCFullYear();
+                var fecha1 = year1 + "-" + month1 + "-" + day1;
 
-            if (retornoProceso[0]['retorno'] !== 0) {
-                break;
+                strParametro = "1|";
+                strParametro += auditoria[0] + "|";
+                strParametro += tarea[0] + "|";
+                strParametro += obj.IdRegistro + "|";
+                strParametro += "0" + "|";
+                strParametro += fecha1 + "|";
+                strParametro += document.getElementById('Auditor').value + "|";
+                strParametro += document.getElementById('Responsable').value + "|";
+                strParametro += document.getElementById('Observaciones').value + "|";
+                strParametro += document.getElementById('Documento').value + "|";
+                strParametro += document.getElementById('Estado').value;
+
+                args = '';
+                args += "'parametros':'" + strParametro + "'";
+
+                $.ajax({
+                    async: false,
+                    cache: false,
+                    type: "POST",
+                    url: "AuditoriaDocumentoProceso.aspx/GrabarDocumentosProcesos",
+                    data: "{" + args + "}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.d != '') {
+                            strData = response.d;
+                        }
+                    },
+                    fail: function (response) {
+                        debugger;
+                        alert(response.d);
+                    }
+                });
+
+                retornoProceso = JSON.parse(strData);
+
+                if (retornoProceso[0]['retorno'] !== 0) {
+                    break;
+                }
             }
-        }
 
-        if (retornoProceso[0]['retorno'] === 0) {
-            InicializaVista();
-            document.getElementById('messageContent').innerHTML = "La grabación de los registros ha finalizado";
-            $('#popupMessage').modal('show');
+            if (retornoProceso[0]['retorno'] === 0) {
+                InicializaVista();
+
+                Swal.fire({
+                    title: "Actividades relacionadas a documentos de soporte de auditoría",
+                    text: "La grabación de los registros ha finalizado",
+                    icon: "success",
+                    confirmButtonColor: "#3085d6",
+                    confirmButtonText: "Continuar"
+                });
+            }
+            else {
+                Swal.fire({
+                    title: "Actividades relacionadas a documentos de soporte de auditoría",
+                    text: retornoProceso[0]['mensaje'],
+                    icon: "error",
+                    confirmButtonColor: "#3085d6",
+                    confirmButtonText: "Continuar"
+                });
+            }
+
+            await seleccionTarea();
         }
         else {
-            document.getElementById('messageContent').innerHTML = "ERROR : " + retornoProceso[0]['mensaje'];
-            $('#popupMessage').modal('show');
+            strData = "";
         }
-    }
-    else {
-        strData = "";
-    }
+    });
 
-    await seleccionTarea();
     return strData;
 }
 
