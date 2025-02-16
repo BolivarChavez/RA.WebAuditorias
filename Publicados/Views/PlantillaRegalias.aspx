@@ -17,6 +17,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../Scripts/PlantillaRegalias.js" type="text/javascript"></script>
 </head>
 <body style="margin: 0; height: 100%; overflow: hidden; background-color: #E5E8E8;">
         <div class="container-fluid">
@@ -73,7 +75,7 @@
                                                 <button class="btn btn-outline-dark navbar-btn boton-grabar boton-margen" id="BtnGrabar" runat="server" onserverclick="BtnGrabar_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Graba registro de plantilla"></button>
                                                 <button class="btn btn-outline-dark navbar-btn boton-eliminar boton-margen" id="BtnEliminar" runat="server" onserverclick="BtnEliminar_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Elimina registro de plantilla"></button>
                                                 <button class="btn btn-outline-dark navbar-btn boton-cargaplantilla boton-margen" id="BtnCargar" runat="server" onserverclick="BtnCargar_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Subir archivo de plantilla"></button>
-                                                <button class="btn btn-outline-dark navbar-btn boton-agregaplantilla boton-margen" id="BtnCargaPlantilla" runat="server" onserverclick="BtnCargaPlantilla_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Grablar plantilla desde archivo"></button>
+                                                <button class="btn btn-outline-dark navbar-btn boton-agregaplantilla boton-margen" id="BtnCargaPlantilla" runat="server" onserverclick="BtnCargaPlantilla_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Grabar plantilla desde archivo"></button>
                                                 <button class="btn btn-outline-dark navbar-btn boton-addproceso boton-margen" id="BtnAddTarea" runat="server" onserverclick="BtnAddTarea_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Asociar actividades al registro seleccionado"></button>
                                                 <button class="btn btn-outline-dark navbar-btn boton-gruporegistro boton-margen" id="BtnAddTareaGrupo" runat="server" onserverclick="BtnAddTareaGrupo_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Asociar actividades a un grupo de registros"></button>
                                             </nav>
@@ -102,52 +104,70 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
-                                                        <label for="CodigoRegalia" class="col-form-label col-form-label-sm" style="font-weight:bold;">Código relagía</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="CodigoRegalia" placeholder="" runat="server"/>
+                                                        <label for="CodigoRegalia" class="col-form-label col-form-label-sm" style="font-weight:bold;">Código Relagía</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="CodigoRegalia" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Fecha" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Fecha" placeholder="" runat="server"/>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Fecha" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="Descripcion" class="col-form-label col-form-label-sm" style="font-weight:bold;">Descripción</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Descripcion" placeholder="" runat="server" onclick="muestraContenidoTexto('Descripcion', 'Descripcion')"/>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Descripcion" placeholder="" runat="server" onclick="muestraContenidoTexto('Descripcion', 'Descripcion')"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Valor_Fijo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Valor fijo</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Valor_Fijo" placeholder="" runat="server"/>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group col-md-3">
-                                                        <label for="Valor_Proporcional" class="col-form-label col-form-label-sm" style="font-weight:bold;">Valor proporcional</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Valor_Proporcional" placeholder="" runat="server"/>
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label for="Porcentaje" class="col-form-label col-form-label-sm" style="font-weight:bold;">Porcentaje</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Porcentaje" placeholder="" runat="server"/>
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label for="Subtotal" class="col-form-label col-form-label-sm" style="font-weight:bold;">Subtotal</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Subtotal" placeholder="" runat="server"/>
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label for="Tasa_Cambio" class="col-form-label col-form-label-sm" style="font-weight:bold;">Tasa cambio</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Tasa_Cambio" placeholder="" runat="server"/>
+                                                        <label for="Moneda" class="col-form-label col-form-label-sm" style="font-weight:bold;">Moneda</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Moneda" placeholder="" runat="server" />
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
-                                                        <label for="Total" class="col-form-label col-form-label-sm" style="font-weight:bold;">Fecha Total</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Total" placeholder="" runat="server"/>
+                                                        <label for="Valor_Fijo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Valor Fijo</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Valor_Fijo" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Adjuntos" class="col-form-label col-form-label-sm" style="font-weight:bold;">Adjuntos</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Adjuntos" placeholder="" runat="server" onclick="muestraContenidoTexto('Adjuntos', 'Adjuntos')"/>
+                                                        <label for="Ingresos_Facturados" class="col-form-label col-form-label-sm" style="font-weight:bold;">Ingresos Facturados</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Ingresos_Facturados" placeholder="" runat="server"/>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="Cuenta" class="col-form-label col-form-label-sm" style="font-weight:bold;">Cuenta</label>
-                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Cuenta" placeholder="" runat="server"/>
+                                                        <label for="Ingresos_Cartera" class="col-form-label col-form-label-sm" style="font-weight:bold;">Ingresos Cartera Comprada</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Ingresos_Cartera" placeholder="" runat="server"/>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="Retencion" class="col-form-label col-form-label-sm" style="font-weight:bold;">Retencion Renta 2da Categoría</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Retencion" placeholder="" runat="server"/>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-md-3">
+                                                        <label for="Total_Soles" class="col-form-label col-form-label-sm" style="font-weight:bold;">Total Soles</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Total_Soles" placeholder="" runat="server"/>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="Tasa_Cambio" class="col-form-label col-form-label-sm" style="font-weight:bold;">Tasa de Cambio</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Tasa_Cambio" placeholder="" runat="server"/>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="Total_Dolares" class="col-form-label col-form-label-sm" style="font-weight:bold;">Total Dólares</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Total_Dolares" placeholder="" runat="server"/>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="Adjuntos" class="col-form-label col-form-label-sm" style="font-weight:bold;">Archivos</label>
+                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Adjuntos" placeholder="" runat="server" onclick="muestraContenidoTexto('Archivos', 'Adjuntos')"/>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-md-3">
+                                                        <label for="Cuenta" class="col-form-label col-form-label-sm" style="font-weight:bold;">Cuenta Contable</label>
+                                                        <input type="text" class="form-control form-control-sm border-primary" style="font-size: 12px" id="Cuenta" placeholder="" runat="server"/>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="Soporte" class="col-form-label col-form-label-sm" style="font-weight:bold;">Soporte</label>
+                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Soporte" placeholder="" runat="server" onclick="muestraContenidoTexto('Soporte', 'Soporte')"/>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="Observaciones" class="col-form-label col-form-label-sm" style="font-weight:bold;">Observaciones</label>
+                                                        <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Observaciones" placeholder="" runat="server" onclick="muestraContenidoTexto('Observaciones', 'Observaciones')"/>
                                                     </div>
                                                 </div>
                                                 <div class="form-check">
@@ -203,7 +223,6 @@
                 </div>
             </div>
         </div>
-        <script src="../Scripts/PlantillaRegalias.js" type="text/javascript"></script>
         <script>
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip()

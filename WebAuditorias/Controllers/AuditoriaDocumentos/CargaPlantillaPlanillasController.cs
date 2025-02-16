@@ -189,29 +189,8 @@ namespace WebAuditorias.Controllers.AuditoriaDocumentos
             if (registro.Fecha_Pago_Cash.Year == 1900)
                 respuesta.Add(new CampoPlantilla() { Campo = "Fecha_Pago_Cash", Mensaje = ErroresPlantilla.FechaNoValida });
 
-            if (registro.Remuneracion_Cash == 0)
-                respuesta.Add(new CampoPlantilla() { Campo = "Remuneracion_Cash", Mensaje = ErroresPlantilla.CantidadNoValida });
-
-            if (registro.Remuneracion_Cheque == 0)
-                respuesta.Add(new CampoPlantilla() { Campo = "Remuneracion_Cheque", Mensaje = ErroresPlantilla.CantidadNoValida });
-
-            if (registro.Remuneracion_Total == 0)
-                respuesta.Add(new CampoPlantilla() { Campo = "Remuneracion_Total", Mensaje = ErroresPlantilla.CantidadNoValida });
-
             if (registro.Fecha_Pago.Year == 1900)
                 respuesta.Add(new CampoPlantilla() { Campo = "Fecha_Pago", Mensaje = ErroresPlantilla.FechaNoValida });
-
-            if (registro.Honorarios_Incentivos == 0)
-                respuesta.Add(new CampoPlantilla() { Campo = "Honorarios_Incentivos", Mensaje = ErroresPlantilla.CantidadNoValida });
-
-            if (registro.Honorarios_Planilla == 0)
-                respuesta.Add(new CampoPlantilla() { Campo = "Honorarios_Planilla", Mensaje = ErroresPlantilla.CantidadNoValida });
-
-            if (registro.Honorarios_Total == 0)
-                respuesta.Add(new CampoPlantilla() { Campo = "Honorarios_Total", Mensaje = ErroresPlantilla.CantidadNoValida });
-
-            if (registro.Pagado == 0)
-                respuesta.Add(new CampoPlantilla() { Campo = "Pagado", Mensaje = ErroresPlantilla.CantidadNoValida });
 
             return respuesta;
         }

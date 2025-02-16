@@ -6,6 +6,7 @@ using PrototipoData.Models;
 using Newtonsoft.Json;
 using WebAuditorias.Models;
 using System.Collections.Generic;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace WebAuditorias.Controllers.AuditoriaDocumentos
 {
@@ -207,7 +208,7 @@ namespace WebAuditorias.Controllers.AuditoriaDocumentos
             if (registro.Moneda.Trim() == "")
                 respuesta.Add(new CampoPlantilla() { Campo = "Moneda", Mensaje = ErroresPlantilla.CampoVacio });
 
-            if (registro.Monto == 0)
+            if (registro.Monto < 0)
                 respuesta.Add(new CampoPlantilla() { Campo = "Monto", Mensaje = ErroresPlantilla.CantidadNoValida });
 
             if (registro.Fecha_Pago.Year == 1900)

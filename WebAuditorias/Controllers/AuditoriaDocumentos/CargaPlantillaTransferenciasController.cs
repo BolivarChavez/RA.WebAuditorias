@@ -194,10 +194,10 @@ namespace WebAuditorias.Controllers.AuditoriaDocumentos
             if (registro.Moneda.Trim() == "")
                 respuesta.Add(new CampoPlantilla() { Campo = "Moneda", Mensaje = ErroresPlantilla.CampoVacio });
 
-            if (registro.Importe_Monto == 0)
+            if (registro.Importe_Monto < 0)
                 respuesta.Add(new CampoPlantilla() { Campo = "Importe_Monto", Mensaje = ErroresPlantilla.CantidadNoValida });
 
-            if (registro.Monto == 0)
+            if (registro.Monto < 0)
                 respuesta.Add(new CampoPlantilla() { Campo = "Monto", Mensaje = ErroresPlantilla.CantidadNoValida });
 
             if (registro.Tipo_Cambio == 0)

@@ -67,11 +67,11 @@
                             <div id="DivOpciones" class="px-2" runat="server">
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <label for="Auditoria" class="col-form-label col-form-label-sm" style="font-weight:bold;">Auditoria</label>
+                                        <label for="Auditoria" class="col-form-label col-form-label-sm" style="font-weight:bold;">Auditoría</label>
                                         <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Auditoria" placeholder="0" readonly="true" runat="server"/>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="Tarea" class="col-form-label col-form-label-sm" style="font-weight:bold;">Tarea asignada al proceso de auditoria</label>
+                                        <label for="Tarea" class="col-form-label col-form-label-sm" style="font-weight:bold;">Tarea asignada al proceso de auditoría</label>
                                         <input type="text" class="form-control form-control-sm" style="font-size: 12px" id="Tarea" placeholder="0" readonly="true" runat="server"/>
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <label class="form-check-label form-control-sm" for="TipoAsignacion" style="font-weight:bold";>Tipo de asignacion</label>
+                                        <label class="form-check-label form-control-sm" for="TipoAsignacion" style="font-weight:bold";>Tipo de asignación</label>
                                         <asp:DropDownList ID="TipoAsignacion" CssClass="form-select form-select-sm" style="width: 300px; font-size: 12px" runat="server">
                                             <asp:ListItem Value="R">RESPONSABLE DE AUDITORIA</asp:ListItem>
                                             <asp:ListItem Value="P">CONOCIMIENTO DE PROCESO</asp:ListItem>
@@ -95,7 +95,7 @@
                                         </asp:DropDownList>                                    
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label class="form-check-label form-control-sm" for="RolAsignacion" style="font-weight:bold";>Rol de asignacion</label>
+                                        <label class="form-check-label form-control-sm" for="RolAsignacion" style="font-weight:bold";>Rol de asignación</label>
                                         <asp:DropDownList ID="RolAsignacion" CssClass="form-select form-select-sm" style="width: 300px; font-size: 12px" runat="server">
                                             <asp:ListItem Value="A">AUDITOR</asp:ListItem>
                                             <asp:ListItem Value="J">SUPERVISOR O JEFE</asp:ListItem>
@@ -127,7 +127,7 @@
         <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Tareas relacionadas a auditoria</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Asignaciones a tareas de auditoría</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cierraMessagePopUp()">
                 <span aria-hidden="true">&times;</span>
             </button>

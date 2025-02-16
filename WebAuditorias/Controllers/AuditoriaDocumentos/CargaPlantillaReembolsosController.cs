@@ -176,7 +176,7 @@ namespace WebAuditorias.Controllers.AuditoriaDocumentos
             if (registro.Soporte.Trim() == "")
                 respuesta.Add(new CampoPlantilla() { Campo = "Soporte", Mensaje = ErroresPlantilla.CampoVacio });
 
-            if (registro.Valor_Total == 0)
+            if (registro.Valor_Total < 0)
                 respuesta.Add(new CampoPlantilla() { Campo = "Valor_Total", Mensaje = ErroresPlantilla.CantidadNoValida });
 
             if (registro.Moneda.Trim() == "")

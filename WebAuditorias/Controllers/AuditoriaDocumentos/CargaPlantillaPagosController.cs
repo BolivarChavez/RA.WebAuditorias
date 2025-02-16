@@ -182,11 +182,11 @@ namespace WebAuditorias.Controllers.AuditoriaDocumentos
             if (registro.Fecha_Pago.Year == 1900)
                 respuesta.Add(new CampoPlantilla() { Campo = "Fecha_Pago", Mensaje = ErroresPlantilla.FechaNoValida });
 
-            if (registro.Importe_Bruto == 0)
+            if (registro.Importe_Bruto < 0)
                 respuesta.Add(new CampoPlantilla() { Campo = "Importe_Bruto", Mensaje = ErroresPlantilla.CantidadNoValida });
 
-            if (registro.Descuentos == 0)
-                respuesta.Add(new CampoPlantilla() { Campo = "Importe_Bruto", Mensaje = ErroresPlantilla.CantidadNoValida });
+            if (registro.Descuentos < 0)
+                respuesta.Add(new CampoPlantilla() { Campo = "Descuentos", Mensaje = ErroresPlantilla.CantidadNoValida });
 
             return respuesta;
         }

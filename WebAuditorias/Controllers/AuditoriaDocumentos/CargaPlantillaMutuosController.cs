@@ -192,7 +192,7 @@ namespace WebAuditorias.Controllers.AuditoriaDocumentos
             if (registro.Fecha_Documento.Year == 1900)
                 respuesta.Add(new CampoPlantilla() { Campo = "Fecha_Documento", Mensaje = ErroresPlantilla.FechaNoValida });
 
-            if (registro.Monto_Prestamo == 0)
+            if (registro.Monto_Prestamo < 0)
                 respuesta.Add(new CampoPlantilla() { Campo = "Monto_Prestamo", Mensaje = ErroresPlantilla.CantidadNoValida });
 
             if (registro.Fecha_Pago_Cuota.Year == 1900)
@@ -201,13 +201,13 @@ namespace WebAuditorias.Controllers.AuditoriaDocumentos
             if (registro.Numero_Cuota.Trim() == "")
                 respuesta.Add(new CampoPlantilla() { Campo = "Numero_Cuota", Mensaje = ErroresPlantilla.CampoVacio });
 
-            if (registro.Valor_Cuota == 0)
+            if (registro.Valor_Cuota < 0)
                 respuesta.Add(new CampoPlantilla() { Campo = "Valor_Cuota", Mensaje = ErroresPlantilla.CantidadNoValida });
 
             if (registro.Comprobante_Pago.Trim() == "")
                 respuesta.Add(new CampoPlantilla() { Campo = "Comprobante_Pago", Mensaje = ErroresPlantilla.CampoVacio });
 
-            if (registro.Saldo_Pendiente == 0)
+            if (registro.Saldo_Pendiente < 0)
                 respuesta.Add(new CampoPlantilla() { Campo = "Saldo_Pendiente", Mensaje = ErroresPlantilla.CantidadNoValida });
 
             if (registro.Cuotas_Pendientes.Trim() == "")

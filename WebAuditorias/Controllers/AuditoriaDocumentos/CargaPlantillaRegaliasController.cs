@@ -194,22 +194,22 @@ namespace WebAuditorias.Controllers.AuditoriaDocumentos
             if (registro.Valor_Fijo < 0)
                 respuesta.Add(new CampoPlantilla() { Campo = "Valor_Fijo", Mensaje = ErroresPlantilla.CantidadNoValida });
 
-            if (registro.Ingresos_Facturados == 0)
+            if (registro.Ingresos_Facturados < 0)
                 respuesta.Add(new CampoPlantilla() { Campo = "Ingresos_Facturados", Mensaje = ErroresPlantilla.CantidadNoValida });
 
-            if (registro.Ingresos_Cartera == 0)
+            if (registro.Ingresos_Cartera < 0)
                 respuesta.Add(new CampoPlantilla() { Campo = "Ingresos_Cartera", Mensaje = ErroresPlantilla.CantidadNoValida });
 
-            if (registro.Retencion == 0)
+            if (registro.Retencion < 0)
                 respuesta.Add(new CampoPlantilla() { Campo = "Retencion", Mensaje = ErroresPlantilla.CantidadNoValida });
 
-            if (registro.Total_Soles == 0)
+            if (registro.Total_Soles < 0)
                 respuesta.Add(new CampoPlantilla() { Campo = "Total_Soles", Mensaje = ErroresPlantilla.CantidadNoValida });
 
-            if (registro.Tasa_Cambio == 0)
+            if (registro.Tasa_Cambio < 0)
                 respuesta.Add(new CampoPlantilla() { Campo = "Tasa_Cambio", Mensaje = ErroresPlantilla.CantidadNoValida });
 
-            if (registro.Total_Dolares == 0)
+            if (registro.Total_Dolares < 0)
                 respuesta.Add(new CampoPlantilla() { Campo = "Total_Dolares", Mensaje = ErroresPlantilla.CantidadNoValida });
 
             if (registro.Cuenta.Trim() == "")

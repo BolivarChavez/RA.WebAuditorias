@@ -212,13 +212,13 @@ namespace WebAuditorias.Controllers.AuditoriaDocumentos
             if (registro.Moneda.Trim() == "")
                 respuesta.Add(new CampoPlantilla() { Campo = "Moneda", Mensaje = ErroresPlantilla.CampoVacio });
 
-            if (registro.Subtotal == 0)
+            if (registro.Subtotal < 0)
                 respuesta.Add(new CampoPlantilla() { Campo = "Subtotal", Mensaje = ErroresPlantilla.CantidadNoValida });
 
-            if (registro.Total == 0)
+            if (registro.Total < 0)
                 respuesta.Add(new CampoPlantilla() { Campo = "Total", Mensaje = ErroresPlantilla.CantidadNoValida });
 
-            if (registro.Neto_Ingreso == 0)
+            if (registro.Neto_Ingreso < 0)
                 respuesta.Add(new CampoPlantilla() { Campo = "Neto_Ingreso", Mensaje = ErroresPlantilla.CantidadNoValida });
 
             if (registro.Flujo.Trim() == "")

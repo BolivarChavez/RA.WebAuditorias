@@ -180,10 +180,10 @@ namespace WebAuditorias.Controllers.AuditoriaDocumentos
             if (registro.Tributo.Trim() == "")
                 respuesta.Add(new CampoPlantilla() { Campo = "Tributo", Mensaje = ErroresPlantilla.CampoVacio });
 
-            if (registro.Tributo_Resultante == 0)
+            if (registro.Tributo_Resultante < 0)
                 respuesta.Add(new CampoPlantilla() { Campo = "Tributo_Resultante", Mensaje = ErroresPlantilla.CantidadNoValida });
 
-            if (registro.Total_Pagar == 0)
+            if (registro.Total_Pagar < 0)
                 respuesta.Add(new CampoPlantilla() { Campo = "Total_Pagar", Mensaje = ErroresPlantilla.CantidadNoValida });
 
             if (registro.Forma_Pago.Trim() == "")
