@@ -215,6 +215,7 @@
     <Content Include="Styles\Custom-Menu.css" />
     <Content Include="Styles\Custom-Opciones.css" />
     <Content Include="Styles\Custom-Toolbar.css" />
+    <Content Include="Styles\ErrorAccesoOpcion.css" />
     <Content Include="Styles\font-awesome.min.css" />
     <Content Include="Styles\material.css" />
     <Content Include="Views\AuditoriaConsultaOld.aspx" />
@@ -234,6 +235,7 @@
     <Content Include="Views\ConsultaPlantillasService.asmx" />
     <Content Include="Views\Cotizaciones.aspx" />
     <Content Include="Views\DetalleLineaDocumento.aspx" />
+    <Content Include="Views\ErrorAccesoOpcion.aspx" />
     <Content Include="Views\ErroresDatosPlantilla.aspx" />
     <Content Include="Views\InformeTareas.aspx" />
     <Content Include="Views\Monedas.aspx" />
@@ -552,6 +554,13 @@
     </Compile>
     <Compile Include="Views\DetalleLineaDocumento.aspx.designer.cs">
       <DependentUpon>DetalleLineaDocumento.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ErrorAccesoOpcion.aspx.cs">
+      <DependentUpon>ErrorAccesoOpcion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\ErrorAccesoOpcion.aspx.designer.cs">
+      <DependentUpon>ErrorAccesoOpcion.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\ErroresDatosPlantilla.aspx.cs">
       <DependentUpon>ErroresDatosPlantilla.aspx</DependentUpon>

@@ -2,6 +2,7 @@
 using System;
 using System.Configuration;
 using System.IO;
+using System.Web;
 using System.Web.UI;
 using WebAuditorias.Controllers.Login;
 using WebAuditorias.Models;
@@ -20,6 +21,11 @@ namespace WebAuditorias
         {
             UserId.Value = "";
             UserPassword.Value = "";
+
+            if (HttpContext.Current.Request.Cookies["userInfo"] != null)
+            {
+                HttpContext.Current.Response.Cookies["userInfo"].Expires = DateTime.Now.AddDays(-1);
+            }
         }
 
         protected void BtnLogin_ServerClick(object sender, EventArgs e)

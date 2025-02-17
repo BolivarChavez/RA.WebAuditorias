@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using WebAuditorias.Controllers.Cookies;
 using WebAuditorias.Controllers.Transacciones;
 using WebAuditorias.Models;
@@ -30,6 +31,12 @@ namespace WebAuditorias
 
         protected void Salir_ServerClick(object sender, EventArgs e)
         {
+            if (HttpContext.Current.Request.Cookies["userInfo"] != null)
+            {
+                HttpContext.Current.Response.Cookies["userInfo"].Expires = DateTime.Now.AddDays(-1);
+            }
+
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "LogOutAplicacion", "LogOutAplicacion()", true);
             Response.Redirect("Inicio.aspx");
         }
     }

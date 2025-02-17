@@ -31,6 +31,11 @@ namespace WebAuditorias.Views
             UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
             user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
 
+            if (user_cookie.Usuario == null || user_cookie.Usuario.Trim() == "")
+            {
+                Response.Redirect("ErrorAccesoOpcion.aspx", true);
+            }
+
             lblNombre.Text = user_cookie.Nombre;
             lblFechaConexion.Text = DateTime.Now.ToString();
             HiddenField2.Value = Request.QueryString["plantilla"].Trim();

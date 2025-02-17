@@ -63,3 +63,7 @@ function CloseTabWindow() {
         windows[i].close()
     }
 }
+
+function LogOutAplicacion() {
+    CloseTabWindow();
+}

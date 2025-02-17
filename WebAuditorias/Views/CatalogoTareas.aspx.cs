@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebAuditorias.Controllers.CatalogoProcesos;
@@ -35,6 +36,11 @@ namespace WebAuditorias.Views
             UserInfoCookie user_cookie = new UserInfoCookie();
             UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
             user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
+
+            if (user_cookie.Usuario == null || user_cookie.Usuario.Trim() == "")
+            {
+                Response.Redirect("ErrorAccesoOpcion.aspx", true);
+            }
 
             lblNombre.Text = user_cookie.Nombre;
             lblFechaConexion.Text = DateTime.Now.ToString();
