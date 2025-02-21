@@ -23,6 +23,11 @@ namespace WebAuditorias
             TransaccionesUsuarioController _TransaccionesUsuarioController = new TransaccionesUsuarioController();
             user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
 
+            if (user_cookie.Usuario == null || user_cookie.Usuario.Trim() == "")
+            {
+                Response.Redirect("ErrorAccesoOpcion.aspx", true);
+            }
+
             lblNombre.Text = user_cookie.Nombre;
             lblFechaConexion.Text = DateTime.Now.ToString();
 
@@ -36,7 +41,7 @@ namespace WebAuditorias
                 HttpContext.Current.Response.Cookies["userInfo"].Expires = DateTime.Now.AddDays(-1);
             }
 
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "LogOutAplicacion", "LogOutAplicacion()", true);
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "CloseTabWindow", "CloseTabWindow()", true);
             Response.Redirect("Inicio.aspx");
         }
     }
