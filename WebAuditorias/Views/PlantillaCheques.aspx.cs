@@ -117,6 +117,56 @@ namespace WebAuditorias.Views
             return JsonConvert.SerializeObject(listaCheques);
         }
 
+        private void EliminaPlantillas()
+        {
+            AuditoriaDocumentosController _controller = new AuditoriaDocumentosController();
+            Models.AuditoriaDocumentos parametro = new Models.AuditoriaDocumentos();
+            string response;
+
+            string[] arrayParametros;
+            arrayParametros = Auditoria.Value.Split('-');
+            int auditoriaId = int.Parse(arrayParametros[0]);
+            arrayParametros = Tarea.Value.Split('-');
+            Int16 tareaId = Int16.Parse(arrayParametros[0]);
+            arrayParametros = Plantilla.Value.Split('-');
+            Int16 plantillaId = Int16.Parse(arrayParametros[0]);
+
+            string selectedRecords = HiddenField3.Value;
+            string[] arrayIds = Array.Empty<string>();
+
+            if (!string.IsNullOrEmpty(selectedRecords))
+            {
+                arrayIds = selectedRecords.Split(',');
+            }
+
+            UserInfoCookie user_cookie = new UserInfoCookie();
+            UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
+            user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
+
+            if (arrayIds.Count() > 0)
+            {
+                foreach (var id in arrayIds)
+                {
+                    parametro.ad_empresa = 1;
+                    parametro.ad_auditoria = auditoriaId;
+                    parametro.ad_tarea = tareaId;
+                    parametro.ad_codigo = Int16.Parse(id.Trim());
+                    parametro.ad_plantilla = plantillaId;
+                    parametro.ad_referencia = "";
+                    parametro.ad_registro = "";
+                    parametro.ad_auditoria_origen = 0;
+                    parametro.ad_responsable = 0;
+                    parametro.ad_estado = "X";
+                    parametro.ad_usuario_creacion = user_cookie.Usuario;
+                    parametro.ad_fecha_creacion = DateTime.Now;
+                    parametro.ad_usuario_actualizacion = user_cookie.Usuario;
+                    parametro.ad_fecha_actualizacion = DateTime.Now;
+
+                    response = _controller.Eliminacion(parametro);
+                }
+            }
+        }
+
         public void CargaHojasArchivo(string fileName)
         {
             OleDbConnection objConn = null;
@@ -249,53 +299,62 @@ namespace WebAuditorias.Views
             UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
             user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
 
-            string[] arrayParametros;
-            arrayParametros = Auditoria.Value.Split('-');
-            int auditoriaId = int.Parse(arrayParametros[0]);
-            arrayParametros = Tarea.Value.Split('-');
-            Int16 tareaId = Int16.Parse(arrayParametros[0]);
-            arrayParametros = Plantilla.Value.Split('-');
-            Int16 plantillaId = Int16.Parse(arrayParametros[0]);
+            bool isEliminaChecked = chkEliminaTodos.Checked;
 
-            cheque.Item = Item.Value.ToUpper();
-            cheque.Talonario = Talonario.Value.ToUpper();
-            cheque.Req = Req.Value.ToUpper();
-            cheque.Beneficiario = Beneficiario.Value.ToUpper();
-            cheque.Concepto = Concepto.Value.ToUpper();
-            cheque.Comprobante = Comprobante.Value.ToUpper();
-            cheque.Moneda = Moneda.Value.ToUpper();
-            cheque.Monto = !double.TryParse(Monto.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Monto.Value.Trim(), CultureInfo.InvariantCulture);//double.Parse(Monto.Value, CultureInfo.InvariantCulture);
-            cheque.Fecha_Pago = !DateTime.TryParse(FechaPago.Value.Trim(), out fechaTabla) ? DateTime.Parse("1900-01-01") : DateTime.Parse(FechaPago.Value.Trim()); //DateTime.Parse(FechaPago.Value);
-            cheque.Comprobante_Egreso = ComprobanteEgreso.Value.ToUpper();
-            cheque.Banco = Banco.Value.ToUpper();
-            cheque.Numero_Cheque = NumeroCheque.Value.ToUpper();
-            cheque.Tipo_Cambio = !double.TryParse(TipoCambio.Value.Trim(), out valorDecimal) ? 0 : double.Parse(TipoCambio.Value.Trim(), CultureInfo.InvariantCulture); //double.Parse(TipoCambio.Value, CultureInfo.InvariantCulture);
-            cheque.Observacion_Preliminar = ObservacionPreliminar.Value.ToUpper();
-            cheque.Observacion_Final = Observacion_Final.Value.ToUpper();
-            cheque.Estado = Estado.Value.ToUpper();
-            cheque.Empresa = Empresa.Value.ToUpper();
-            cheque.Sede = Sede.Value.ToUpper();
-            cheque.Cuenta = Cuenta.Value.ToUpper();
-            cheque.Sub_Cuenta = SubCuenta.Value.ToUpper();
+            if (isEliminaChecked)
+            {
+                EliminaPlantillas();
+            }
+            else
+            {
+                string[] arrayParametros;
+                arrayParametros = Auditoria.Value.Split('-');
+                int auditoriaId = int.Parse(arrayParametros[0]);
+                arrayParametros = Tarea.Value.Split('-');
+                Int16 tareaId = Int16.Parse(arrayParametros[0]);
+                arrayParametros = Plantilla.Value.Split('-');
+                Int16 plantillaId = Int16.Parse(arrayParametros[0]);
 
-            jsonString = JsonConvert.SerializeObject(cheque);
+                cheque.Item = Item.Value.ToUpper();
+                cheque.Talonario = Talonario.Value.ToUpper();
+                cheque.Req = Req.Value.ToUpper();
+                cheque.Beneficiario = Beneficiario.Value.ToUpper();
+                cheque.Concepto = Concepto.Value.ToUpper();
+                cheque.Comprobante = Comprobante.Value.ToUpper();
+                cheque.Moneda = Moneda.Value.ToUpper();
+                cheque.Monto = !double.TryParse(Monto.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Monto.Value.Trim(), CultureInfo.InvariantCulture);//double.Parse(Monto.Value, CultureInfo.InvariantCulture);
+                cheque.Fecha_Pago = !DateTime.TryParse(FechaPago.Value.Trim(), out fechaTabla) ? DateTime.Parse("1900-01-01") : DateTime.Parse(FechaPago.Value.Trim()); //DateTime.Parse(FechaPago.Value);
+                cheque.Comprobante_Egreso = ComprobanteEgreso.Value.ToUpper();
+                cheque.Banco = Banco.Value.ToUpper();
+                cheque.Numero_Cheque = NumeroCheque.Value.ToUpper();
+                cheque.Tipo_Cambio = !double.TryParse(TipoCambio.Value.Trim(), out valorDecimal) ? 0 : double.Parse(TipoCambio.Value.Trim(), CultureInfo.InvariantCulture); //double.Parse(TipoCambio.Value, CultureInfo.InvariantCulture);
+                cheque.Observacion_Preliminar = ObservacionPreliminar.Value.ToUpper();
+                cheque.Observacion_Final = Observacion_Final.Value.ToUpper();
+                cheque.Estado = Estado.Value.ToUpper();
+                cheque.Empresa = Empresa.Value.ToUpper();
+                cheque.Sede = Sede.Value.ToUpper();
+                cheque.Cuenta = Cuenta.Value.ToUpper();
+                cheque.Sub_Cuenta = SubCuenta.Value.ToUpper();
 
-            parametro.ad_empresa = 1;
-            parametro.ad_auditoria = auditoriaId;
-            parametro.ad_tarea = tareaId;
-            parametro.ad_codigo = Int16.Parse(Codigo.Value);
-            parametro.ad_plantilla = plantillaId;
-            parametro.ad_referencia = "";
-            parametro.ad_registro = jsonString;
-            parametro.ad_auditoria_origen = 0;
-            parametro.ad_responsable = 0;
-            parametro.ad_estado = "X";
-            parametro.ad_usuario_creacion = user_cookie.Usuario;
-            parametro.ad_fecha_creacion = DateTime.Now;
-            parametro.ad_usuario_actualizacion = user_cookie.Usuario;
-            parametro.ad_fecha_actualizacion = DateTime.Now;
+                jsonString = JsonConvert.SerializeObject(cheque);
 
-            _controller.Actualizacion(parametro);
+                parametro.ad_empresa = 1;
+                parametro.ad_auditoria = auditoriaId;
+                parametro.ad_tarea = tareaId;
+                parametro.ad_codigo = Int16.Parse(Codigo.Value);
+                parametro.ad_plantilla = plantillaId;
+                parametro.ad_referencia = "";
+                parametro.ad_registro = jsonString;
+                parametro.ad_auditoria_origen = 0;
+                parametro.ad_responsable = 0;
+                parametro.ad_estado = "X";
+                parametro.ad_usuario_creacion = user_cookie.Usuario;
+                parametro.ad_fecha_creacion = DateTime.Now;
+                parametro.ad_usuario_actualizacion = user_cookie.Usuario;
+                parametro.ad_fecha_actualizacion = DateTime.Now;
+
+                _controller.Actualizacion(parametro);
+            }
 
             ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('1', 'El registro de plantilla se eliminó exitosamente')", true);
         }

@@ -62,7 +62,9 @@ async function LlenaGrid() {
         allowTextWrap: true,
         textWrapSettings: { wrapMode: 'Content' },
         gridLines: 'Both',
+        selectionSettings: { mode: 'Row', type: 'Multiple' },
         columns: [
+            { type: 'checkbox', width: 50 },
             { field: 'IdRegistro', headerText: 'Id', visible: false, width: 75, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'ReferenciaLinea', headerText: 'Referencia', visible: false, width: 125, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Fecha', headerText: 'Fecha', type: 'date', width: 175, format: { type: 'date', format: 'dd/MM/yyyy' }, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
@@ -84,34 +86,42 @@ async function LlenaGrid() {
 }
 
 function rowSelected(args) {
-    document.getElementById('home-tab').click();
+    if (document.getElementById("chkEliminaTodos").checked === true) {
+        var selectedRecords = this.getSelectedRecords();
+        var ids = selectedRecords.map(r => r.IdRegistro).join(',');
 
-    document.getElementById('Codigo').value = args.data.IdRegistro;
-    document.getElementById('Referencia').value = args.data.ReferenciaLinea;
+        document.getElementById('HiddenField3').value = ids;
+    }
+    else {
+        document.getElementById('home-tab').click();
 
-    var date1 = new Date(args.data.Fecha);
-    var day1 = ('0' + date1.getUTCDate()).slice(-2);
-    var month1 = ('0' + (date1.getMonth() + 1)).slice(-2);
-    var year1 = date1.getUTCFullYear();
-    var fecha1 = `${year1}-${month1}-${day1}`;
+        document.getElementById('Codigo').value = args.data.IdRegistro;
+        document.getElementById('Referencia').value = args.data.ReferenciaLinea;
 
-    var date2 = new Date(args.data.Fecha_Informe);
-    var day2 = ('0' + date2.getUTCDate()).slice(-2);
-    var month2 = ('0' + (date2.getMonth() + 1)).slice(-2);
-    var year2 = date2.getUTCFullYear();
-    var fecha2 = `${year2}-${month2}-${day2}`;
+        var date1 = new Date(args.data.Fecha);
+        var day1 = ('0' + date1.getUTCDate()).slice(-2);
+        var month1 = ('0' + (date1.getMonth() + 1)).slice(-2);
+        var year1 = date1.getUTCFullYear();
+        var fecha1 = `${year1}-${month1}-${day1}`;
 
-    document.getElementById('Fecha').value = fecha1;
-    document.getElementById('Periodo').value = args.data.Periodo;
-    document.getElementById('Tributo').value = args.data.Tributo;
-    document.getElementById('Tributo_Resultante').value = args.data.Tributo_Resultante;
-    document.getElementById('Intereses').value = args.data.Intereses;
-    document.getElementById('Total_Pagar').value = args.data.Total_Pagar;
-    document.getElementById('Forma_Pago').value = args.data.Forma_Pago;
-    document.getElementById('Egreso').value = args.data.Egreso;
-    document.getElementById('Fecha_Informe').value = fecha2;
-    document.getElementById('Numero_Informe').value = args.data.Numero_Informe;
-    document.getElementById('Observaciones').value = args.data.Observaciones;
+        var date2 = new Date(args.data.Fecha_Informe);
+        var day2 = ('0' + date2.getUTCDate()).slice(-2);
+        var month2 = ('0' + (date2.getMonth() + 1)).slice(-2);
+        var year2 = date2.getUTCFullYear();
+        var fecha2 = `${year2}-${month2}-${day2}`;
+
+        document.getElementById('Fecha').value = fecha1;
+        document.getElementById('Periodo').value = args.data.Periodo;
+        document.getElementById('Tributo').value = args.data.Tributo;
+        document.getElementById('Tributo_Resultante').value = args.data.Tributo_Resultante;
+        document.getElementById('Intereses').value = args.data.Intereses;
+        document.getElementById('Total_Pagar').value = args.data.Total_Pagar;
+        document.getElementById('Forma_Pago').value = args.data.Forma_Pago;
+        document.getElementById('Egreso').value = args.data.Egreso;
+        document.getElementById('Fecha_Informe').value = fecha2;
+        document.getElementById('Numero_Informe').value = args.data.Numero_Informe;
+        document.getElementById('Observaciones').value = args.data.Observaciones;
+    }
 }
 
 function muestraContenidoTexto(titulo, campo) {

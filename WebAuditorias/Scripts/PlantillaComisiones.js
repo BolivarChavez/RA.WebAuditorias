@@ -62,7 +62,9 @@ async function LlenaGrid() {
         allowTextWrap: true,
         textWrapSettings: { wrapMode: 'Content' },
         gridLines: 'Both',
+        selectionSettings: { mode: 'Row', type: 'Multiple' },
         columns: [
+            { type: 'checkbox', width: 50 },
             { field: 'IdRegistro', headerText: 'Id', visible: false, width: 75, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'ReferenciaLinea', headerText: 'Referencia', visible: false, width: 125, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Mes', headerText: 'Mes', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
@@ -87,38 +89,46 @@ async function LlenaGrid() {
 }
 
 function rowSelected(args) {
-    document.getElementById('home-tab').click();
+    if (document.getElementById("chkEliminaTodos").checked === true) {
+        var selectedRecords = this.getSelectedRecords();
+        var ids = selectedRecords.map(r => r.IdRegistro).join(',');
 
-    document.getElementById('Codigo').value = args.data.IdRegistro;
-    document.getElementById('Referencia').value = args.data.ReferenciaLinea;
+        document.getElementById('HiddenField3').value = ids;
+    }
+    else {
+        document.getElementById('home-tab').click();
 
-    document.getElementById('Mes').value = args.data.Mes;
-    document.getElementById('Monto_Recuperado').value = args.data.Monto_Recuperado;
-    document.getElementById('Monto_Planilla').value = args.data.Monto_Planilla;
-    document.getElementById('Monto_Honorarios').value = args.data.Monto_Honorarios;
-    document.getElementById('Total_Incentivos').value = args.data.Total_Incentivos;
-    document.getElementById('Cheque_Girado').value = args.data.Cheque_Girado;
-    document.getElementById('Pagado').value = args.data.Pagado;
-    document.getElementById('Entregado_Caja_Interna_1').value = args.data.Entregado_Caja_Interna_1;
-    document.getElementById('No_Girado').value = args.data.No_Girado;
+        document.getElementById('Codigo').value = args.data.IdRegistro;
+        document.getElementById('Referencia').value = args.data.ReferenciaLinea;
 
-    var date1 = new Date(args.data.Fecha_Informe);
-    var day1 = ('0' + date1.getUTCDate()).slice(-2);
-    var month1 = ('0' + (date1.getMonth() + 1)).slice(-2);
-    var year1 = date1.getUTCFullYear();
-    var fecha1 = `${year1}-${month1}-${day1}`;
+        document.getElementById('Mes').value = args.data.Mes;
+        document.getElementById('Monto_Recuperado').value = args.data.Monto_Recuperado;
+        document.getElementById('Monto_Planilla').value = args.data.Monto_Planilla;
+        document.getElementById('Monto_Honorarios').value = args.data.Monto_Honorarios;
+        document.getElementById('Total_Incentivos').value = args.data.Total_Incentivos;
+        document.getElementById('Cheque_Girado').value = args.data.Cheque_Girado;
+        document.getElementById('Pagado').value = args.data.Pagado;
+        document.getElementById('Entregado_Caja_Interna_1').value = args.data.Entregado_Caja_Interna_1;
+        document.getElementById('No_Girado').value = args.data.No_Girado;
 
-    var date2 = new Date(args.data.Fecha_Contabilidad);
-    var day2 = ('0' + date2.getUTCDate()).slice(-2);
-    var month2 = ('0' + (date2.getMonth() + 1)).slice(-2);
-    var year2 = date2.getUTCFullYear();
-    var fecha2 = `${year2}-${month2}-${day2}`;
+        var date1 = new Date(args.data.Fecha_Informe);
+        var day1 = ('0' + date1.getUTCDate()).slice(-2);
+        var month1 = ('0' + (date1.getMonth() + 1)).slice(-2);
+        var year1 = date1.getUTCFullYear();
+        var fecha1 = `${year1}-${month1}-${day1}`;
 
-    document.getElementById('Fecha_Informe').value = fecha1;
-    document.getElementById('Fecha_Contabilidad').value = fecha2;
-    document.getElementById('Informe_Comisiones').value = args.data.Informe_Comisiones;
-    document.getElementById('Entregado_Caja_Interna_2').value = args.data.Entregado_Caja_Interna_2;
-    document.getElementById('Observaciones').value = args.data.Observaciones;
+        var date2 = new Date(args.data.Fecha_Contabilidad);
+        var day2 = ('0' + date2.getUTCDate()).slice(-2);
+        var month2 = ('0' + (date2.getMonth() + 1)).slice(-2);
+        var year2 = date2.getUTCFullYear();
+        var fecha2 = `${year2}-${month2}-${day2}`;
+
+        document.getElementById('Fecha_Informe').value = fecha1;
+        document.getElementById('Fecha_Contabilidad').value = fecha2;
+        document.getElementById('Informe_Comisiones').value = args.data.Informe_Comisiones;
+        document.getElementById('Entregado_Caja_Interna_2').value = args.data.Entregado_Caja_Interna_2;
+        document.getElementById('Observaciones').value = args.data.Observaciones;
+    }
 }
 
 function muestraContenidoTexto(titulo, campo) {

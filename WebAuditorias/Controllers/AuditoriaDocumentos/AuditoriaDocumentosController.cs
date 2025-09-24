@@ -20,6 +20,13 @@ namespace WebAuditorias.Controllers.AuditoriaDocumentos
             return _auditoriaDocumentosService.Consulta(empresa, auditoria, tarea, plantilla, anio);
         }
 
+        public string Eliminacion(Models.AuditoriaDocumentos auditoriaDocumento)
+        {
+            AuditoriaDocumentosService _auditoriaDocumentosService = new AuditoriaDocumentosService();
+
+            return _auditoriaDocumentosService.Eliminacion(auditoriaDocumento);
+        }
+
         public string Ingreso(Models.AuditoriaDocumentos auditoriaDocumento)
         {
             AuditoriaDocumentosService _auditoriaDocumentosService = new AuditoriaDocumentosService();

@@ -8,6 +8,8 @@ namespace WebAuditorias.Interfaces.AuditoriaDocumentos
 
         string Actualizacion(Models.AuditoriaDocumentos auditoriaDocumento);
 
+        string Eliminacion(Models.AuditoriaDocumentos auditoriaDocumento);
+
         IEnumerable<Models.AuditoriaDocumentos> Consulta(int empresa, int auditoria, int tarea, int plantilla, int anio);
     }
 }

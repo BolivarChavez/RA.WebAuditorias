@@ -62,7 +62,9 @@ async function LlenaGrid() {
         allowTextWrap: true,
         textWrapSettings: { wrapMode: 'Content' },
         gridLines: 'Both',
+        selectionSettings: { mode: 'Row', type: 'Multiple' },
         columns: [
+            { type: 'checkbox', width: 50 },
             { field: 'IdRegistro', headerText: 'Id', visible: false, width: 75, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'ReferenciaLinea', headerText: 'Referencia', visible: false, width: 125, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Item', headerText: 'Item', width: 75, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
@@ -94,39 +96,47 @@ async function LlenaGrid() {
 }
 
 function rowSelected(args) {
-    document.getElementById('home-tab').click();
+    if (document.getElementById("chkEliminaTodos").checked === true) {
+        var selectedRecords = this.getSelectedRecords();
+        var ids = selectedRecords.map(r => r.IdRegistro).join(',');
 
-    document.getElementById('Codigo').value = args.data.IdRegistro;
-    document.getElementById('Referencia').value = args.data.ReferenciaLinea;
+        document.getElementById('HiddenField3').value = ids;
+    }
+    else {
+        document.getElementById('home-tab').click();
 
-    document.getElementById('Item').value = args.data.Item;
-    document.getElementById('Req').value = args.data.Req;
-    document.getElementById('Proveedor').value = args.data.Proveedor;
-    document.getElementById('Concepto').value = args.data.Concepto;
-    document.getElementById('Documento').value = args.data.Documento;
-    document.getElementById('Mes').value = args.data.Mes;
-    document.getElementById('Moneda').value = args.data.Moneda;
-    document.getElementById('Importe_Monto').value = args.data.Importe_Monto;
-    document.getElementById('Monto').value = args.data.Monto;
-    document.getElementById('Tipo_Cambio').value = args.data.Tipo_Cambio;
-    document.getElementById('Comprobante_Pago').value = args.data.Comprobante_Pago;
-    document.getElementById('Observacion_Preliminar').value = args.data.Observacion_Preliminar;
-    document.getElementById('Observacion_Final').value = args.data.Observacion_Final;
-    document.getElementById('Estado').value = args.data.Estado;
-    document.getElementById('Banco').value = args.data.Banco;
-    document.getElementById('Empresa').value = args.data.Empresa;
-    document.getElementById('Sede').value = args.data.Sede;
-    document.getElementById('Cuenta').value = args.data.Cuenta;
-    document.getElementById('Sub_Cuenta').value = args.data.Sub_Cuenta;
-    document.getElementById('Soporte').value = args.data.Soporte;
+        document.getElementById('Codigo').value = args.data.IdRegistro;
+        document.getElementById('Referencia').value = args.data.ReferenciaLinea;
 
-    var date = new Date(args.data.Fecha_Pago);
-    var day = ('0' + date.getUTCDate()).slice(-2);
-    var month = ('0' + (date.getMonth() + 1)).slice(-2);
-    var year = date.getUTCFullYear();
-    var fecha = `${year}-${month}-${day}`;
+        document.getElementById('Item').value = args.data.Item;
+        document.getElementById('Req').value = args.data.Req;
+        document.getElementById('Proveedor').value = args.data.Proveedor;
+        document.getElementById('Concepto').value = args.data.Concepto;
+        document.getElementById('Documento').value = args.data.Documento;
+        document.getElementById('Mes').value = args.data.Mes;
+        document.getElementById('Moneda').value = args.data.Moneda;
+        document.getElementById('Importe_Monto').value = args.data.Importe_Monto;
+        document.getElementById('Monto').value = args.data.Monto;
+        document.getElementById('Tipo_Cambio').value = args.data.Tipo_Cambio;
+        document.getElementById('Comprobante_Pago').value = args.data.Comprobante_Pago;
+        document.getElementById('Observacion_Preliminar').value = args.data.Observacion_Preliminar;
+        document.getElementById('Observacion_Final').value = args.data.Observacion_Final;
+        document.getElementById('Estado').value = args.data.Estado;
+        document.getElementById('Banco').value = args.data.Banco;
+        document.getElementById('Empresa').value = args.data.Empresa;
+        document.getElementById('Sede').value = args.data.Sede;
+        document.getElementById('Cuenta').value = args.data.Cuenta;
+        document.getElementById('Sub_Cuenta').value = args.data.Sub_Cuenta;
+        document.getElementById('Soporte').value = args.data.Soporte;
 
-    document.getElementById('Fecha_Pago').value = fecha;
+        var date = new Date(args.data.Fecha_Pago);
+        var day = ('0' + date.getUTCDate()).slice(-2);
+        var month = ('0' + (date.getMonth() + 1)).slice(-2);
+        var year = date.getUTCFullYear();
+        var fecha = `${year}-${month}-${day}`;
+
+        document.getElementById('Fecha_Pago').value = fecha;
+    }
 }
 
 function muestraContenidoTexto(titulo, campo) {

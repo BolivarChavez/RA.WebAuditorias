@@ -62,7 +62,9 @@ async function LlenaGrid() {
         allowTextWrap: true,
         textWrapSettings: { wrapMode: 'Content' },
         gridLines: 'Both',
+        selectionSettings: { mode: 'Row', type: 'Multiple' },
         columns: [
+            { type: 'checkbox', width: 50 },
             { field: 'IdRegistro', headerText: 'Id', visible: false, width: 75, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'ReferenciaLinea', headerText: 'Referencia', visible: false, width: 125, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Periodo', headerText: 'Período', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
@@ -85,31 +87,39 @@ async function LlenaGrid() {
 }
 
 function rowSelected(args) {
-    document.getElementById('home-tab').click();
+    if (document.getElementById("chkEliminaTodos").checked === true) {
+        var selectedRecords = this.getSelectedRecords();
+        var ids = selectedRecords.map(r => r.IdRegistro).join(',');
 
-    document.getElementById('Codigo').value = args.data.IdRegistro;
-    document.getElementById('Referencia').value = args.data.ReferenciaLinea;
+        document.getElementById('HiddenField3').value = ids;
+    }
+    else {
+        document.getElementById('home-tab').click();
 
-    document.getElementById('Periodo').value = args.data.Periodo;
-    document.getElementById('Detalle').value = args.data.Detalle;
+        document.getElementById('Codigo').value = args.data.IdRegistro;
+        document.getElementById('Referencia').value = args.data.ReferenciaLinea;
 
-    var date = new Date(args.data.Fecha_Pago);
-    var day = ('0' + date.getUTCDate()).slice(-2);
-    var month = ('0' + (date.getMonth() + 1)).slice(-2);
-    var year = date.getUTCFullYear();
-    var fecha = `${year}-${month}-${day}`;
+        document.getElementById('Periodo').value = args.data.Periodo;
+        document.getElementById('Detalle').value = args.data.Detalle;
 
-    document.getElementById('Fecha_Pago').value = fecha;
+        var date = new Date(args.data.Fecha_Pago);
+        var day = ('0' + date.getUTCDate()).slice(-2);
+        var month = ('0' + (date.getMonth() + 1)).slice(-2);
+        var year = date.getUTCFullYear();
+        var fecha = `${year}-${month}-${day}`;
 
-    document.getElementById('Importe_Bruto').value = args.data.Importe_Bruto;
-    document.getElementById('Descuentos').value = args.data.Descuentos;
-    document.getElementById('Neto_Pagar').value = args.data.Neto_Pagar;
-    document.getElementById('Transferencia').value = args.data.Transferencia;
-    document.getElementById('Cheque').value = args.data.Cheque;
-    document.getElementById('Diferencia').value = args.data.Diferencia;
-    document.getElementById('Numero_Cheque').value = args.data.Numero_Cheque;
-    document.getElementById('Numero_Informe').value = args.data.Numero_Informe;
-    document.getElementById('Observaciones').value = args.data.Observaciones;
+        document.getElementById('Fecha_Pago').value = fecha;
+
+        document.getElementById('Importe_Bruto').value = args.data.Importe_Bruto;
+        document.getElementById('Descuentos').value = args.data.Descuentos;
+        document.getElementById('Neto_Pagar').value = args.data.Neto_Pagar;
+        document.getElementById('Transferencia').value = args.data.Transferencia;
+        document.getElementById('Cheque').value = args.data.Cheque;
+        document.getElementById('Diferencia').value = args.data.Diferencia;
+        document.getElementById('Numero_Cheque').value = args.data.Numero_Cheque;
+        document.getElementById('Numero_Informe').value = args.data.Numero_Informe;
+        document.getElementById('Observaciones').value = args.data.Observaciones;
+    }
 }
 
 function muestraContenidoTexto(titulo, campo) {

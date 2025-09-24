@@ -162,6 +162,63 @@ namespace WebAuditorias.Views
             UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
             user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
 
+            bool isEliminaChecked = chkEliminaTodos.Checked;
+
+            if (isEliminaChecked)
+            {
+                EliminaPlantillas();
+            }
+            else
+            {
+                string[] arrayParametros;
+                arrayParametros = Auditoria.Value.Split('-');
+                int auditoriaId = int.Parse(arrayParametros[0]);
+                arrayParametros = Tarea.Value.Split('-');
+                Int16 tareaId = Int16.Parse(arrayParametros[0]);
+                arrayParametros = Plantilla.Value.Split('-');
+                Int16 plantillaId = Int16.Parse(arrayParametros[0]);
+
+                tributo.Fecha = !DateTime.TryParse(Fecha.Value.Trim(), out fechaTabla) ? DateTime.Parse("1900-01-01") : DateTime.Parse(Fecha.Value.Trim());
+                tributo.Periodo = Periodo.Value.ToUpper();
+                tributo.Tributo = Tributo.Value.ToUpper();
+                tributo.Tributo_Resultante = !double.TryParse(Tributo_Resultante.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Tributo_Resultante.Value.Trim(), CultureInfo.InvariantCulture);
+                tributo.Intereses = !double.TryParse(Intereses.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Intereses.Value.Trim(), CultureInfo.InvariantCulture);
+                tributo.Total_Pagar = !double.TryParse(Total_Pagar.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Total_Pagar.Value.Trim(), CultureInfo.InvariantCulture);
+                tributo.Forma_Pago = Forma_Pago.Value.ToUpper();
+                tributo.Egreso = Egreso.Value.ToUpper();
+                tributo.Fecha_Informe = !DateTime.TryParse(Fecha_Informe.Value.Trim(), out fechaTabla) ? DateTime.Parse("1900-01-01") : DateTime.Parse(Fecha_Informe.Value.Trim());
+                tributo.Numero_Informe = Numero_Informe.Value.ToUpper();
+                tributo.Observaciones = Observaciones.Value.ToUpper();
+
+                jsonString = JsonConvert.SerializeObject(tributo);
+
+                parametro.ad_empresa = 1;
+                parametro.ad_auditoria = auditoriaId;
+                parametro.ad_tarea = tareaId;
+                parametro.ad_codigo = Int16.Parse(Codigo.Value);
+                parametro.ad_plantilla = plantillaId;
+                parametro.ad_referencia = "";
+                parametro.ad_registro = jsonString;
+                parametro.ad_auditoria_origen = 0;
+                parametro.ad_responsable = 0;
+                parametro.ad_estado = "X";
+                parametro.ad_usuario_creacion = user_cookie.Usuario;
+                parametro.ad_fecha_creacion = DateTime.Now;
+                parametro.ad_usuario_actualizacion = user_cookie.Usuario;
+                parametro.ad_fecha_actualizacion = DateTime.Now;
+
+                response = _controller.Actualizacion(parametro);
+            }
+
+            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('1', 'El registro de plantilla se eliminó exitosamente')", true);
+        }
+
+        private void EliminaPlantillas()
+        {
+            AuditoriaDocumentosController _controller = new AuditoriaDocumentosController();
+            Models.AuditoriaDocumentos parametro = new Models.AuditoriaDocumentos();
+            string response;
+
             string[] arrayParametros;
             arrayParametros = Auditoria.Value.Split('-');
             int auditoriaId = int.Parse(arrayParametros[0]);
@@ -170,38 +227,40 @@ namespace WebAuditorias.Views
             arrayParametros = Plantilla.Value.Split('-');
             Int16 plantillaId = Int16.Parse(arrayParametros[0]);
 
-            tributo.Fecha = !DateTime.TryParse(Fecha.Value.Trim(), out fechaTabla) ? DateTime.Parse("1900-01-01") : DateTime.Parse(Fecha.Value.Trim());
-            tributo.Periodo = Periodo.Value.ToUpper();
-            tributo.Tributo = Tributo.Value.ToUpper();
-            tributo.Tributo_Resultante = !double.TryParse(Tributo_Resultante.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Tributo_Resultante.Value.Trim(), CultureInfo.InvariantCulture);
-            tributo.Intereses = !double.TryParse(Intereses.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Intereses.Value.Trim(), CultureInfo.InvariantCulture);
-            tributo.Total_Pagar = !double.TryParse(Total_Pagar.Value.Trim(), out valorDecimal) ? 0 : double.Parse(Total_Pagar.Value.Trim(), CultureInfo.InvariantCulture);
-            tributo.Forma_Pago = Forma_Pago.Value.ToUpper();
-            tributo.Egreso = Egreso.Value.ToUpper();
-            tributo.Fecha_Informe = !DateTime.TryParse(Fecha_Informe.Value.Trim(), out fechaTabla) ? DateTime.Parse("1900-01-01") : DateTime.Parse(Fecha_Informe.Value.Trim());
-            tributo.Numero_Informe = Numero_Informe.Value.ToUpper();
-            tributo.Observaciones = Observaciones.Value.ToUpper();
+            string selectedRecords = HiddenField3.Value;
+            string[] arrayIds = Array.Empty<string>();
 
-            jsonString = JsonConvert.SerializeObject(tributo);
+            if (!string.IsNullOrEmpty(selectedRecords))
+            {
+                arrayIds = selectedRecords.Split(',');
+            }
 
-            parametro.ad_empresa = 1;
-            parametro.ad_auditoria = auditoriaId;
-            parametro.ad_tarea = tareaId;
-            parametro.ad_codigo = Int16.Parse(Codigo.Value);
-            parametro.ad_plantilla = plantillaId;
-            parametro.ad_referencia = "";
-            parametro.ad_registro = jsonString;
-            parametro.ad_auditoria_origen = 0;
-            parametro.ad_responsable = 0;
-            parametro.ad_estado = "X";
-            parametro.ad_usuario_creacion = user_cookie.Usuario;
-            parametro.ad_fecha_creacion = DateTime.Now;
-            parametro.ad_usuario_actualizacion = user_cookie.Usuario;
-            parametro.ad_fecha_actualizacion = DateTime.Now;
+            UserInfoCookie user_cookie = new UserInfoCookie();
+            UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
+            user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
 
-            response = _controller.Actualizacion(parametro);
+            if (arrayIds.Count() > 0)
+            {
+                foreach (var id in arrayIds)
+                {
+                    parametro.ad_empresa = 1;
+                    parametro.ad_auditoria = auditoriaId;
+                    parametro.ad_tarea = tareaId;
+                    parametro.ad_codigo = Int16.Parse(id.Trim());
+                    parametro.ad_plantilla = plantillaId;
+                    parametro.ad_referencia = "";
+                    parametro.ad_registro = "";
+                    parametro.ad_auditoria_origen = 0;
+                    parametro.ad_responsable = 0;
+                    parametro.ad_estado = "X";
+                    parametro.ad_usuario_creacion = user_cookie.Usuario;
+                    parametro.ad_fecha_creacion = DateTime.Now;
+                    parametro.ad_usuario_actualizacion = user_cookie.Usuario;
+                    parametro.ad_fecha_actualizacion = DateTime.Now;
 
-            ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "mensajeGrabacion('1', 'El registro de plantilla se eliminó exitosamente')", true);
+                    response = _controller.Eliminacion(parametro);
+                }
+            }
         }
 
         protected void BtnCargar_ServerClick(object sender, EventArgs e)

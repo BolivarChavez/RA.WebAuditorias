@@ -62,7 +62,9 @@ async function LlenaGrid() {
         allowTextWrap: true,
         textWrapSettings: { wrapMode: 'Content' },
         gridLines: 'Both',
+        selectionSettings: { mode: 'Row', type: 'Multiple' },
         columns: [
+            { type: 'checkbox', width: 50 },
             { field: 'IdRegistro', headerText: 'Id', visible: false, width: 75, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'ReferenciaLinea', headerText: 'Referencia', visible: false, width: 125, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Documento', headerText: 'Número de Documento', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
@@ -82,27 +84,35 @@ async function LlenaGrid() {
 }
 
 function rowSelected(args) {
-    document.getElementById('home-tab').click();
+    if (document.getElementById("chkEliminaTodos").checked === true) {
+        var selectedRecords = this.getSelectedRecords();
+        var ids = selectedRecords.map(r => r.IdRegistro).join(',');
 
-    document.getElementById('Codigo').value = args.data.IdRegistro;
-    document.getElementById('Referencia').value = args.data.ReferenciaLinea;
+        document.getElementById('HiddenField3').value = ids;
+    }
+    else {
+        document.getElementById('home-tab').click();
 
-    document.getElementById('Documento').value = args.data.Documento;
+        document.getElementById('Codigo').value = args.data.IdRegistro;
+        document.getElementById('Referencia').value = args.data.ReferenciaLinea;
 
-    var date = new Date(args.data.Fecha_Documento);
-    var day = ('0' + date.getUTCDate()).slice(-2);
-    var month = ('0' + (date.getMonth() + 1)).slice(-2);
-    var year = date.getUTCFullYear();
-    var fecha = `${year}-${month}-${day}`;
+        document.getElementById('Documento').value = args.data.Documento;
 
-    document.getElementById('Fecha_Documento').value = fecha;
-    document.getElementById('Soporte').value = args.data.Soporte;
-    document.getElementById('Valor_Total').value = args.data.Valor_Total;
-    document.getElementById('Moneda').value = args.data.Moneda;
-    document.getElementById('Estado').value = args.data.Estado;
-    document.getElementById('Numero_Cheque').value = args.data.Numero_Cheque;
-    document.getElementById('Adjuntos').value = args.data.Adjuntos;
-    document.getElementById('Observaciones').value = args.data.Observaciones;
+        var date = new Date(args.data.Fecha_Documento);
+        var day = ('0' + date.getUTCDate()).slice(-2);
+        var month = ('0' + (date.getMonth() + 1)).slice(-2);
+        var year = date.getUTCFullYear();
+        var fecha = `${year}-${month}-${day}`;
+
+        document.getElementById('Fecha_Documento').value = fecha;
+        document.getElementById('Soporte').value = args.data.Soporte;
+        document.getElementById('Valor_Total').value = args.data.Valor_Total;
+        document.getElementById('Moneda').value = args.data.Moneda;
+        document.getElementById('Estado').value = args.data.Estado;
+        document.getElementById('Numero_Cheque').value = args.data.Numero_Cheque;
+        document.getElementById('Adjuntos').value = args.data.Adjuntos;
+        document.getElementById('Observaciones').value = args.data.Observaciones;
+    }
 }
 
 function muestraContenidoTexto(titulo, campo) {

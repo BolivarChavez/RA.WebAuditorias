@@ -62,7 +62,9 @@ async function LlenaGrid() {
         allowTextWrap: true,
         textWrapSettings: { wrapMode: 'Content' },
         gridLines: 'Both',
+        selectionSettings: { mode: 'Row', type: 'Multiple' },
         columns: [
+            { type: 'checkbox', width: 50 },
             { field: 'IdRegistro', headerText: 'Id', visible: false, width: 75, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'ReferenciaLinea', headerText: 'Referencia', visible: false, width: 125, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Mes', headerText: 'Mes', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
@@ -83,29 +85,37 @@ async function LlenaGrid() {
 }
 
 function rowSelected(args) {
-    document.getElementById('home-tab').click();
+    if (document.getElementById("chkEliminaTodos").checked === true) {
+        var selectedRecords = this.getSelectedRecords();
+        var ids = selectedRecords.map(r => r.IdRegistro).join(',');
 
-    document.getElementById('Codigo').value = args.data.IdRegistro;
-    document.getElementById('Referencia').value = args.data.ReferenciaLinea;
+        document.getElementById('HiddenField3').value = ids;
+    }
+    else {
+        document.getElementById('home-tab').click();
 
-    document.getElementById('Mes').value = args.data.Mes;
+        document.getElementById('Codigo').value = args.data.IdRegistro;
+        document.getElementById('Referencia').value = args.data.ReferenciaLinea;
 
-    var date = new Date(args.data.Fecha);
-    var day = ('0' + date.getUTCDate()).slice(-2);
-    var month = ('0' + (date.getMonth() + 1)).slice(-2);
-    var year = date.getUTCFullYear();
-    var fecha = `${year}-${month}-${day}`;
+        document.getElementById('Mes').value = args.data.Mes;
 
-    document.getElementById('Fecha').value = fecha;
+        var date = new Date(args.data.Fecha);
+        var day = ('0' + date.getUTCDate()).slice(-2);
+        var month = ('0' + (date.getMonth() + 1)).slice(-2);
+        var year = date.getUTCFullYear();
+        var fecha = `${year}-${month}-${day}`;
 
-    document.getElementById('Detalle').value = args.data.Detalle;
-    document.getElementById('Monto').value = args.data.Monto;
-    document.getElementById('Motivo').value = args.data.Motivo;
-    document.getElementById('Banco_Ingreso').value = args.data.Banco_Ingreso;
-    document.getElementById('Banco_Regularizar').value = args.data.Banco_Regularizar;
-    document.getElementById('Cuenta').value = args.data.Cuenta;
-    document.getElementById('Estado').value = args.data.Estado;
-    document.getElementById('Soporte').value = args.data.Soporte;
+        document.getElementById('Fecha').value = fecha;
+
+        document.getElementById('Detalle').value = args.data.Detalle;
+        document.getElementById('Monto').value = args.data.Monto;
+        document.getElementById('Motivo').value = args.data.Motivo;
+        document.getElementById('Banco_Ingreso').value = args.data.Banco_Ingreso;
+        document.getElementById('Banco_Regularizar').value = args.data.Banco_Regularizar;
+        document.getElementById('Cuenta').value = args.data.Cuenta;
+        document.getElementById('Estado').value = args.data.Estado;
+        document.getElementById('Soporte').value = args.data.Soporte;
+    }
 }
 
 function muestraContenidoTexto(titulo, campo) {

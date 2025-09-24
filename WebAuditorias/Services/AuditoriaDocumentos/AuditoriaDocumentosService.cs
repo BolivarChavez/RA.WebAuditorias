@@ -83,6 +83,24 @@ namespace WebAuditorias.Services.AuditoriaDocumentos
             }
         }
 
+        public string Eliminacion(Models.AuditoriaDocumentos auditoriaDocumento)
+        {
+            string url = string.Empty;
+            string _key = string.Empty;
+
+            url = ConfigurationManager.AppSettings["UrlOpciones"].ToString() + "AuditoriaDocumentos/Eliminacion";
+            _key = ConfigurationManager.AppSettings["Llave_cifrado"].ToString();
+
+            var json = JsonConvert.SerializeObject(auditoriaDocumento);
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var client = new HttpClient();
+            var response = client.PostAsync(url, data);
+            string result = response.Result.Content.ReadAsStringAsync().Result;
+
+            return result;
+        }
+
         public string Ingreso(Models.AuditoriaDocumentos auditoriaDocumento)
         {
             string url = string.Empty;
