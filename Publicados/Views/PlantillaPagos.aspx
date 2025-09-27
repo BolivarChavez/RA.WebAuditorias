@@ -161,6 +161,10 @@
                                                     <input class="form-check-input" type="checkbox" value="" id="chkEstado" runat="server"/>
                                                     <label class="form-check-label form-control-sm" style="font-size: 12px" for="chkEstado">El registro de la plantilla se encuentra activo</label>
                                                 </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="chkEliminaTodos" runat="server"/>
+                                                    <label class="form-check-label form-control-sm" style="font-size: 12px" for="chkEliminaTodos">Marcar esta casilla si se desea solo eliminar los registros selccionados</label>
+                                                </div>
                                                <div class="form-group">
                                                     <label for="CargaArchivo" class="col-form-label col-form-label-sm" style="font-weight:bold;">Carga plantilla desde archivo</label>
                                                     <br />
@@ -173,6 +177,7 @@
                                                 </div>
                                                 <asp:HiddenField ID="HiddenField1" runat="server" />
                                                 <asp:HiddenField ID="HiddenField2" runat="server" />
+                                                <asp:HiddenField ID="HiddenField3" runat="server" />
                                         </ContentTemplate>
                                         <Triggers>
                                             <asp:PostBackTrigger ControlID = "BtnCargar" />

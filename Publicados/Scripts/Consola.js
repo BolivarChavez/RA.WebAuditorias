@@ -44,7 +44,7 @@ function EjecutaOpcion(codigo) {
     }
 
     document.cookie = 'opcionsiep=' + descripcion + ';path =/';
-    windows.push(window.open('../Views/' + pagina, '_blank'));
+    windows.push(window.open('../Views/' + pagina, pagina));
 }
 
 function setBackground(me, color) {

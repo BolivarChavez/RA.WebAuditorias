@@ -61,6 +61,7 @@
                                     <button class="btn btn-outline-dark navbar-btn boton-buscar boton-margen" id="BtnBuscar" runat="server" onserverclick="BtnBuscar_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Buscar detalles de registro de auditoría"></button>
                                     <button class="btn btn-outline-dark navbar-btn boton-cerrar boton-margen" id="BtnCerrar" runat="server" onserverclick="BtnCerrar_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Cerrar proceso de auditoría"></button>
                                     <button class="btn btn-outline-dark navbar-btn boton-informe boton-margen" id="BtnInforme" runat="server" onserverclick="BtnInforme_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Generar informe de actividades de auditoría"></button>
+                                    <button class="btn btn-outline-dark navbar-btn boton-addplantilla boton-margen" id="BtnBorradorInforme" runat="server" onserverclick="BtnBorradorInforme_ServerClick" data-toggle="tooltip" data-placement="bottom" title="Generar documento borrador de informe"></button>
                                 </nav>
                                 <div id="DivOpciones" class="px-2" runat="server">
                                     <div class="row">

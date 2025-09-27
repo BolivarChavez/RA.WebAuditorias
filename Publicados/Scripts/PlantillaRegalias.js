@@ -62,7 +62,9 @@ async function LlenaGrid() {
         allowTextWrap: true,
         textWrapSettings: { wrapMode: 'Content' },
         gridLines: 'Both',
+        selectionSettings: { mode: 'Row', type: 'Multiple' },
         columns: [
+            { type: 'checkbox', width: 50 },
             { field: 'IdRegistro', headerText: 'Id', visible: false, width: 75, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'ReferenciaLinea', headerText: 'Referencia', visible: false, width: 125, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Codigo', headerText: 'Código Relagía', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
@@ -88,33 +90,41 @@ async function LlenaGrid() {
 }
 
 function rowSelected(args) {
-    document.getElementById('home-tab').click();
+    if (document.getElementById("chkEliminaTodos").checked === true) {
+        var selectedRecords = this.getSelectedRecords();
+        var ids = selectedRecords.map(r => r.IdRegistro).join(',');
 
-    document.getElementById('Codigo').value = args.data.IdRegistro;
-    document.getElementById('Referencia').value = args.data.ReferenciaLinea;
+        document.getElementById('HiddenField3').value = ids;
+    }
+    else {
+        document.getElementById('home-tab').click();
 
-    document.getElementById('CodigoRegalia').value = args.data.Codigo;
+        document.getElementById('Codigo').value = args.data.IdRegistro;
+        document.getElementById('Referencia').value = args.data.ReferenciaLinea;
 
-    var date = new Date(args.data.Fecha);
-    var day = ('0' + date.getUTCDate()).slice(-2);
-    var month = ('0' + (date.getMonth() + 1)).slice(-2);
-    var year = date.getUTCFullYear();
-    var fecha = `${year}-${month}-${day}`;
+        document.getElementById('CodigoRegalia').value = args.data.Codigo;
 
-    document.getElementById('Fecha').value = fecha;
-    document.getElementById('Descripcion').value = args.data.Descripcion;
-    document.getElementById('Moneda').value = args.data.Moneda;
-    document.getElementById('Valor_Fijo').value = args.data.Valor_Fijo;
-    document.getElementById('Ingresos_Facturados').value = args.data.Ingresos_Facturados;
-    document.getElementById('Ingresos_Cartera').value = args.data.Ingresos_Cartera;
-    document.getElementById('Retencion').value = args.data.Retencion;
-    document.getElementById('Total_Soles').value = args.data.Total_Soles;
-    document.getElementById('Tasa_Cambio').value = args.data.Tasa_Cambio;
-    document.getElementById('Total_Dolares').value = args.data.Total_Dolares;
-    document.getElementById('Adjuntos').value = args.data.Adjuntos;
-    document.getElementById('Cuenta').value = args.data.Cuenta;
-    document.getElementById('Soporte').value = args.data.Soporte;
-    document.getElementById('Observaciones').value = args.data.Observaciones;
+        var date = new Date(args.data.Fecha);
+        var day = ('0' + date.getUTCDate()).slice(-2);
+        var month = ('0' + (date.getMonth() + 1)).slice(-2);
+        var year = date.getUTCFullYear();
+        var fecha = `${year}-${month}-${day}`;
+
+        document.getElementById('Fecha').value = fecha;
+        document.getElementById('Descripcion').value = args.data.Descripcion;
+        document.getElementById('Moneda').value = args.data.Moneda;
+        document.getElementById('Valor_Fijo').value = args.data.Valor_Fijo;
+        document.getElementById('Ingresos_Facturados').value = args.data.Ingresos_Facturados;
+        document.getElementById('Ingresos_Cartera').value = args.data.Ingresos_Cartera;
+        document.getElementById('Retencion').value = args.data.Retencion;
+        document.getElementById('Total_Soles').value = args.data.Total_Soles;
+        document.getElementById('Tasa_Cambio').value = args.data.Tasa_Cambio;
+        document.getElementById('Total_Dolares').value = args.data.Total_Dolares;
+        document.getElementById('Adjuntos').value = args.data.Adjuntos;
+        document.getElementById('Cuenta').value = args.data.Cuenta;
+        document.getElementById('Soporte').value = args.data.Soporte;
+        document.getElementById('Observaciones').value = args.data.Observaciones;
+    }
 }
 
 function muestraContenidoTexto(titulo, campo) {

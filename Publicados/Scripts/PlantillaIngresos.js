@@ -62,7 +62,9 @@ async function LlenaGrid() {
         allowTextWrap: true,
         textWrapSettings: { wrapMode: 'Content' },
         gridLines: 'Both',
+        selectionSettings: { mode: 'Row', type: 'Multiple' },
         columns: [
+            { type: 'checkbox', width: 50 },
             { field: 'IdRegistro', headerText: 'Id', visible: false, width: 75, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'ReferenciaLinea', headerText: 'Referencia', visible: false, width: 125, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
             { field: 'Mes', headerText: 'Mes', width: 175, textAlign: 'Left', customAttributes: { class: 'boldheadergrid' } },
@@ -95,40 +97,48 @@ async function LlenaGrid() {
 }
 
 function rowSelected(args) {
-    document.getElementById('home-tab').click();
+    if (document.getElementById("chkEliminaTodos").checked === true) {
+        var selectedRecords = this.getSelectedRecords();
+        var ids = selectedRecords.map(r => r.IdRegistro).join(',');
 
-    document.getElementById('Codigo').value = args.data.IdRegistro;
-    document.getElementById('Referencia').value = args.data.ReferenciaLinea;
+        document.getElementById('HiddenField3').value = ids;
+    }
+    else {
+        document.getElementById('home-tab').click();
 
-    document.getElementById('Mes').value = args.data.Mes;
-    document.getElementById('Factura').value = args.data.Factura;
-    document.getElementById('Cuenta').value = args.data.Cuenta;
-    document.getElementById('Detalle').value = args.data.Detalle;
-    document.getElementById('Concepto').value = args.data.Concepto;
-    document.getElementById('Moneda').value = args.data.Moneda;
-    document.getElementById('Subtotal').value = args.data.Subtotal;
-    document.getElementById('Porcentaje').value = args.data.Porcentaje;
-    document.getElementById('Total').value = args.data.Total;
+        document.getElementById('Codigo').value = args.data.IdRegistro;
+        document.getElementById('Referencia').value = args.data.ReferenciaLinea;
 
-    var date = new Date(args.data.Fecha_Detraccion);
-    var day = ('0' + date.getUTCDate()).slice(-2);
-    var month = ('0' + (date.getMonth() + 1)).slice(-2);
-    var year = date.getUTCFullYear();
-    var fecha = `${year}-${month}-${day}`;
+        document.getElementById('Mes').value = args.data.Mes;
+        document.getElementById('Factura').value = args.data.Factura;
+        document.getElementById('Cuenta').value = args.data.Cuenta;
+        document.getElementById('Detalle').value = args.data.Detalle;
+        document.getElementById('Concepto').value = args.data.Concepto;
+        document.getElementById('Moneda').value = args.data.Moneda;
+        document.getElementById('Subtotal').value = args.data.Subtotal;
+        document.getElementById('Porcentaje').value = args.data.Porcentaje;
+        document.getElementById('Total').value = args.data.Total;
 
-    document.getElementById('Fecha_Detraccion').value = fecha;
-    document.getElementById('Detraccion_Moneda_Destino').value = args.data.Detraccion_Moneda_Destino;
-    document.getElementById('Neto_Ingreso').value = args.data.Neto_Ingreso;
-    document.getElementById('Flujo').value = args.data.Flujo;
-    document.getElementById('Estado_Cuenta_1').value = args.data.Estado_Cuenta_1;
-    document.getElementById('Estado_Cuenta_2').value = args.data.Estado_Cuenta_2;
-    document.getElementById('Soporte').value = args.data.Soporte;
-    document.getElementById('Observacion').value = args.data.Observacion;
-    document.getElementById('Banco').value = args.data.Banco;
-    document.getElementById('Empresa').value = args.data.Empresa;
-    document.getElementById('Sede').value = args.data.Sede;
-    document.getElementById('Cuenta_Contable').value = args.data.Cuenta_Contable;
-    document.getElementById('SubCuenta').value = args.data.SubCuenta;
+        var date = new Date(args.data.Fecha_Detraccion);
+        var day = ('0' + date.getUTCDate()).slice(-2);
+        var month = ('0' + (date.getMonth() + 1)).slice(-2);
+        var year = date.getUTCFullYear();
+        var fecha = `${year}-${month}-${day}`;
+
+        document.getElementById('Fecha_Detraccion').value = fecha;
+        document.getElementById('Detraccion_Moneda_Destino').value = args.data.Detraccion_Moneda_Destino;
+        document.getElementById('Neto_Ingreso').value = args.data.Neto_Ingreso;
+        document.getElementById('Flujo').value = args.data.Flujo;
+        document.getElementById('Estado_Cuenta_1').value = args.data.Estado_Cuenta_1;
+        document.getElementById('Estado_Cuenta_2').value = args.data.Estado_Cuenta_2;
+        document.getElementById('Soporte').value = args.data.Soporte;
+        document.getElementById('Observacion').value = args.data.Observacion;
+        document.getElementById('Banco').value = args.data.Banco;
+        document.getElementById('Empresa').value = args.data.Empresa;
+        document.getElementById('Sede').value = args.data.Sede;
+        document.getElementById('Cuenta_Contable').value = args.data.Cuenta_Contable;
+        document.getElementById('SubCuenta').value = args.data.SubCuenta;
+    }
 }
 
 function muestraContenidoTexto(titulo, campo) {

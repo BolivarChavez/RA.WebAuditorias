@@ -6,10 +6,14 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebAuditorias.Controllers.AuditoriaGastos;
 using WebAuditorias.Controllers.Auditorias;
+using WebAuditorias.Controllers.AuditoriaTareaProcesos;
+using WebAuditorias.Controllers.AuditoriaTareas;
 using WebAuditorias.Controllers.CatalogoGastos;
 using WebAuditorias.Controllers.CatalogoProcesos;
+using WebAuditorias.Controllers.CatalogoTareas;
 using WebAuditorias.Controllers.Cookies;
 using WebAuditorias.Controllers.Oficinas;
+using WebAuditorias.Controllers.Responsables;
 using WebAuditorias.Models;
 
 namespace WebAuditorias.Views
@@ -199,6 +203,20 @@ namespace WebAuditorias.Views
         protected void BtnInforme_ServerClick(object sender, EventArgs e)
         {
             ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "window.open('InformeTareas.aspx?auditoria=" + ProcesoAuditoria.SelectedValue + "', '_blank');", true);
+        }
+
+        protected void BtnBorradorInforme_ServerClick(object sender, EventArgs e)
+        {
+            AuditoriaInformeController auditoriaInformeController = new AuditoriaInformeController();
+            byte[] bytes = null;
+
+            bytes = auditoriaInformeController.GeneraBorradorInforme(int.Parse(ProcesoAuditoria.SelectedValue));
+            Response.Clear();
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+            Response.AddHeader("Content-Disposition", "attachment; filename=GeneratedDocument.docx");
+            Response.BinaryWrite(bytes);
+            Response.Flush();
+            Response.End();
         }
     }
 }
