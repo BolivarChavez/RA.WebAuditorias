@@ -135,6 +135,9 @@
                                 <asp:HiddenField ID="HiddenField2" runat="server" />
                                 <input type="hidden" id="Documento" name="Documento" value="" runat="server" />
                             </ContentTemplate>
+                            <Triggers>
+                                <asp:PostBackTrigger ControlID="BtnBorradorInforme" />
+                            </Triggers>
                             </asp:UpdatePanel>
                         </form> 
                     </div>

@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebAuditorias.Controllers.AuditoriaGastos;
@@ -207,16 +209,41 @@ namespace WebAuditorias.Views
 
         protected void BtnBorradorInforme_ServerClick(object sender, EventArgs e)
         {
-            AuditoriaInformeController auditoriaInformeController = new AuditoriaInformeController();
-            byte[] bytes = null;
+            try
+            {
+                UserInfoCookie user_cookie = new UserInfoCookie();
+                UserInfoCookieController _UserInfoCookieController = new UserInfoCookieController();
+                user_cookie = _UserInfoCookieController.ObtieneInfoCookie();
+                AuditoriaInformeController auditoriaInformeController = new AuditoriaInformeController();
 
-            bytes = auditoriaInformeController.GeneraBorradorInforme(int.Parse(ProcesoAuditoria.SelectedValue));
-            Response.Clear();
-            Response.ContentType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-            Response.AddHeader("Content-Disposition", "attachment; filename=GeneratedDocument.docx");
-            Response.BinaryWrite(bytes);
-            Response.Flush();
-            Response.End();
+                string folderPath = Server.MapPath("~/FilesDocs/");
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+
+                string fileName = user_cookie.Usuario.Trim() + "_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".docx";
+                string fullPath = Path.Combine(folderPath, fileName);
+
+                auditoriaInformeController.GeneraBorradorInforme(int.Parse(ProcesoAuditoria.SelectedValue), fullPath);
+
+                if (File.Exists(fullPath))
+                {
+                    Response.Clear();
+                    Response.ContentType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+                    Response.AppendHeader("Content-Disposition", "attachment; filename=" + Path.GetFileName(fullPath));
+                    Response.TransmitFile(fullPath);
+
+                    HttpContext.Current.Response.Flush(); 
+                    HttpContext.Current.Response.SuppressContent = true;  
+                    HttpContext.Current.ApplicationInstance.CompleteRequest(); 
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }
